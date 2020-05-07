@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: ILStest</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+
+<H2>The radio-navigation subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">ILStest</FONT></I></H2>
+
+The masked subsystem block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">ILStest</FONT></I>, from the ILS sublibrary of the block-library <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="navlib.htm">NAVLIB</A></FONT></I>, is called from within the masked S<SMALL>IMULINK</SMALL> block ILS, in order to check whether or not the localizer and glideslope signals are valid at the current aircraft position. The block ILStest is called from within the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="ils.htm">ILS (Nominal ILS values)</A></FONT></I>. See the <A HREF="#References">references</A> for more information about <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">ILStest</FONT></I>.
+
+<H3>Inputvector: <I>utst</I></H3>
+<PRE>  utst = [Gamma_loc Gamma_gs Rloc Rgs]'
+
+  Gamma_loc: 2D-angle between line from c.g. of aircraft to lo-
+             calizer antenna and runway center-line (as seen from
+             above), [rad]
+  Gamma_gs : 2D-angle between line from c.g. of aircraft to
+             glideslope antenna and runway center-line (as seen
+             from above), [rad]
+  Rloc     : 2D-distance from aircraft's c.g. to localizer antenna
+             (as seen from above), [m]
+  Rgs      : 2D-distance from aircraft's c.g. to glideslope anten-
+             na (as seen from above), [m]
+</PRE>
+
+<H3>Outputvector: <I>yils4</I></H3>
+<PRE>  yils4 = [LOCflag GSflag]'.
+</PRE>
+<B>Note:</B> <I>GSflag = 0</I> if aircraft is in area where glideslope signals can be received with appropriate accuracy; <I>LOCflag = 0</I> if the aircraft flies in area where the localizer signals are receivable. If the aircraft is too far away, <I>GSflag</I> and/or <I>LOCflag</I> are set to 1!
+
+<H3><A NAME= "References">References</A></H3>
+
+For more information about the signals from the block ILStest, consult the following references:
+<OL>
+<LI>M.O. Rauw: <I>FDC 1.2 - A S<SMALL>IMULINK</SMALL> Environment for Flight Dynamics and Control Analysis</I>. Zeist, The Netherlands, March 1997.
+<LI>M.O. Rauw: <I>A S<SMALL>IMULINK</SMALL> environment for Flight Dynamics and Control analysis - Application to the DHC-2 'Beaver'</I>. MSc-thesis, Delft University of Technology, Faculty of Aerospace Engineering, Delft, The Netherlands, 1993.
+</OL>
+
+
+</BODY>
+
+</HTML>

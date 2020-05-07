@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Airdata3</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Airdata3</FONT></I></H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata3</FONT></I> is a masked S<SMALL>IMULINK</SMALL> subsystem, used to compute the total temperature <I>T<SUB>t</SUB></I> and Reynolds numbers <I>R<SUB>e</SUB></I> and <I>R<SUB>c</SUB></I>. Actually, the Reynolds numbers are no 'airdata variables', but they are closely related. Also, they are very important in aerospace engineering, in particular for the evaluation of windtunnel experiments. The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata3</FONT></I> is contained in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="adgrp.htm">Airdata Group</A></FONT></I> of the system <I><FONT SIZE=2 FACE="Arial" SIZE=3><A HREF="beaver.htm">Beaver</A></FONT></I>. Other airdata (-related) variables are computed in the blocks <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="atmosph.htm">Atmosph</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="airdata1.htm">Airdata1</A></FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="airdata2.htm">Airdata2</A></FONT></I>, which also contained in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata Group</FONT></I></FONT></I>.
+
+<H3>Inputvectors: <I>x</I>, <I>yatm</I>, and <I>yad1</I>
+</H3>
+<PRE>  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+  yatm = [rho ps T mu g]'   (atmospheric properties, computed in
+                                               the block <A HREF="atmosph.htm">Atmosph</A>)
+  yad1 = [a M qdyn]'    (airdata variables, computed in <A HREF="airdata1.htm">Airdata1</A>)
+
+
+  V    : airspeed [m/s]
+ {alpha: angle of attack [rad]                                  }
+ {beta : sideslip angle [rad]                                   }
+ {p    : roll rate [rad/s]                                      }
+ {q    : pitch rate [rad/s]                                     }
+ {r    : yaw rate [rad/s]                                       }
+ {psi  : yaw angle [rad]                                        }
+ {theta: pitch angle [rad]                                      }
+ {phi  : roll angle [rad]                                       }
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+
+  rho  : airdensity [kg/m^3]
+ {ps   : static pressure [N/m^2]                                }
+  T    : temperature [K]
+  mu   : dynamic viscosity [kg/(m*s)]
+ {g    : acceleration of gravity [m/s^2]                        }
+
+ {a    : speed of sound [m/s]                                   }
+  M    : Mach number [-]
+ {qdyn : dynamic pressure [N/m^2]                               }
+</PRE>
+
+The inputvariables which are not actually used by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata3</FONT></I> have been displayed between accolades.
+
+<H3>Outputvector: <I>yad3</I>
+</H3>
+<PRE>  yad3 = [Tt Re Rc]',
+
+  Tt   : total temperature [K]
+  Re   : Reynolds number per m [1/m]
+  Rc   : Reynolds number (using the mean aerodynamic chord as
+         characteristic length) [-]
+</PRE>
+
+<H3>Parameters which must be defined in the M<SMALL>ATLAB</SMALL> Workspace
+</H3>
+<UL>
+<LI><I>GM1</I>: vector with some important geometrical properties of the 'Beaver' aircraft, and the mass of the aircraft (which is assumed to be constant during the motions of interest). Here, the mean aerodynamic chord is needed, in order to find the Reynolds number <I>R<SUB>c</SUB></I>. <I>GM1</I> can be loaded into the workspace from file by running the utility <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I>. Run <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="modbuild.htm">MODBUILD</A></FONT></I> first if the datafile does not yet exist.
+</UL>
+
+</BODY>
+
+</HTML>

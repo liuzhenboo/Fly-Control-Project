@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Reference Signals</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Autopilot subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Reference Signals</FONT></I></H2>
+
+The autopilot subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Reference Signals</FONT></I> supplies the reference values of the pitch angle, roll angle, altitude, rate of climb/descent, and heading for the different autopilot modes. <BR><BR>
+
+Before starting a new simulation, double-click the block 'Select Mode and Reference Signals', or type <CODE>apstart</CODE> at the M<SMALL>ATLAB</SMALL> command line in order to define the autopilot modes (and hence, the initial switch-settings). The reference signals will be stored by the initialization routine <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apmode.htm">APMODE</A></FONT></I> in the vectors <I>yrefS</I> and <I>yrefA</I> in the M<SMALL>ATLAB</SMALL> workspace. These vectors are defined as follows:
+<UL>
+<LI>   <I>yrefS:</I> symmetrical reference signals (pitch angle, altitude, rate of climb/descent)
+<LI>   <I>yrefA:</I> asymmetrical reference signals (roll angle, heading)
+</UL>
+ <U>Symmetrical reference signals:</U>
+<PRE> yrefS = [Dtheta_ref, DH_ref, DHdot_ref]
+</PRE>
+ where:
+<PRE>          Dtheta_ref = reference pitch-angle [rad]
+          DH_ref     = reference altitude [m]
+          DHdot_ref  = reference rate of climb/descent [m/s]
+</PRE>
+ <U>Asymmetrical reference signals:</U>
+<PRE> yrefA = [Dphi_ref, Dpsi_ref]
+</PRE>
+ where:
+<PRE>          Dphi_ref   = reference roll-angle [rad]
+          Dpsi_ref   = reference heading [rad]
+</PRE>
+
+<H3>More information</H3>
+See <SMALL>APMODE.M</SMALL> for more details on the mode-initialization of the autopilot simulation models.
+
+<H3><A NAME= "References">References</A></H3>
+
+For a detailed description of the 'Beaver' autopilot, the following references should be consulted:
+
+<OL>
+<LI>M.O. Rauw: <I>FDC 1.2 - A S<SMALL>IMULINK</SMALL> Environment for Flight Dynamics and Control Analysis</I>. Zeist, The Netherlands, March 1997.
+<LI>M.O. Rauw: <I>A S<SMALL>IMULINK</SMALL> environment for Flight Dynamics and Control analysis - Application to the DHC-2 'Beaver'</I> (PART II). MSc-thesis, Delft University of Technology, Faculty of Aerospace Engineering, Delft, The Netherlands, 1993.
+<LI>P.N.H. Wever: <I>Ontwerp en implementatie van de regelwetten van de De Havilland DHC-2 'Beaver'</I> (in Dutch). MSc-thesis, Delft University of Technology, Faculty of Aerospace Engineering, Delft, The Netherlands, 1993.
+</OL>
+
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,33 @@
+-----------------------------------------------------------------
+The masked subsystem block VORERR from the sublibrary VOR of the
+library NAVLIB can be used to implement steady-state VOR errors.
+The error percentage must be specified by the user.
+
+Inputsignal:
+============
+  Gamma_VOR (nominal value, coming from block VOR), [rad]
+
+  Gamma_VOR is the angle between the line through the projection
+  point of the aircraft's c.g. on the ground and the VOR antenna,
+  and the nominal VOR bearing (see ref.[1] or FDC 1.2 manual
+  for more info).
+
+Outputsignal:
+=============
+  Gamma_VOR (nominal value + steady-state error), [rad]
+
+More info:
+==========
+See VOR.HLP for more info about the determination of nominal VOR
+signals.
+
+References.
+===========
+[1]. A Simulink environment for Flight Dynamics and Control ana-
+     lysis - Application to the DHC-2 'Beaver', part I: Implemen-
+     tation of a model library in Simulink. Delft University of
+     Technology, September 1993.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.
+

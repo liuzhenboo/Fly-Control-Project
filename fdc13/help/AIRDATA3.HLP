@@ -1,0 +1,71 @@
+-----------------------------------------------------------------
+AIRDATA3 is a masked Simulink subsystem, used to compute the to-
+tal temperature Tt and Reynolds numbers Re and Rc. Actually, the
+Reynolds numbers are no 'airdata variables', but they are close-
+ly related. Also, they are very important in aerospace engi-
+neering, in particular for the evaluation of windtunnel experi-
+ments. The block AIRDATA3 is contained in the subsystem 'Airdata
+Group' of the system BEAVER.
+
+Inputvectors: x, yatm, and yad1 (the inputvariables which are not
+used by AIRDATA3 are displayed between accolades).
+================================================================
+  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+  yatm = [rho ps T mu g]'   (atmospheric properties, computed in
+                                               the block ATMOSPH)
+  yad1 = [a M qdyn]'    (airdata variables, computed in AIRDATA1)
+
+where:
+
+  V    : airspeed [m/s]
+ {alpha: angle of attack [rad]                                  }
+ {beta : sideslip angle [rad]                                   }
+ {p    : roll rate [rad/s]                                      }
+ {q    : pitch rate [rad/s]                                     }
+ {r    : yaw rate [rad/s]                                       }
+ {psi  : yaw angle [rad]                                        }
+ {theta: pitch angle [rad]                                      }
+ {phi  : roll angle [rad]                                       }
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+
+  rho  : airdensity [kg/m^3]
+ {ps   : static pressure [N/m^2]                                }
+  T    : temperature [K]
+  mu   : dynamic viscosity [kg/(m*s)]
+ {g    : acceleration of gravity [m/s^2]                        }
+
+ {a    : speed of sound [m/s]                                   }
+  M    : Mach number [-]
+ {qdyn : dynamic pressure [N/m^2]                               }
+
+Outputvector: yad3.
+===================
+  yad3 = [Tt Re Rc]',
+
+where:
+
+  Tt   : total temperature [K]
+  Re   : Reynolds number per m [1/m]
+  Rc   : Reynolds number (using the mean aerodynamic chord as
+         characteristic length) [-]
+
+Parameters which must be set in the Matlab Workspace.
+=====================================================
+  GM1 = vector with some important geometrical properties of the
+        'Beaver' aircraft, and the mass of the aircraft (which is
+        assumed to be constant during the motions of interest).
+        Here, the mean aerodynamic chord is needed, in order to
+        find the Reynolds number Rc. GM1 can be loaded into the
+        workspace from file if LOADER.M is called. Run MODBUILD.M
+        first if the datafile does not yet exist. Type HELP
+        LOADER or HELP MODBUILD for more details.
+
+More info.
+==========
+See also ATMOSPH.HLP, AIRDATA1.HLP, AIRDATA2.HLP, and ADGRP.HLP
+(ADGRP = 'Airdata Group').
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

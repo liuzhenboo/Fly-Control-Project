@@ -1,0 +1,41 @@
+-----------------------------------------------------------------
+ Sensor dynamics / subtract initial conditions
+ =============================================
+ Subsystem of APILOT1, APILOT2, and APILOT3 (APILOT1 only con-
+ tains the subtraction part of this subsystem).
+
+ This subsystem contains the dynamics of the sensor models for
+ the output signals from the non-linear aircraft model BEAVER.
+  Since the control laws often require deviations from the nominal
+ values of the outputs in stead of the output signals themselves,
+ this block also determines the differences between the measured
+ signals and their initial values.
+
+ The current implementation is actually only intended to provide
+ a framework for future enhancements of the autopilot models: only
+ a few airdata-sensor models have actually been implemented! The
+ most important is a quantization effect in the altitude measure-
+ ment due to a relatively large least-significant bit used in the
+ airdata computer. Sensormodels for the other signals (including
+ similar sampling or quantization effects) can easily be implemen-
+ ted in the framework from this subsystem.
+
+ More info
+ =========
+ See APILOT.HLP for more general information about the 'Beaver'
+ autopilot simulation system.
+
+ References
+ ==========
+ [1]  M.O. Rauw, A SIMULINK environment for Flight Dynamics and
+      Control analysis - Application to the DHC-2 'Beaver',
+      PART II! Graduate's thesis, Delft University of Technology,
+      Faculty of Aerospace Engineering, Delft, 1993.
+
+ [2]  P.N.H. Wever, Ontwerp en implementatie van de regelwetten
+      van de De Havilland DHC-2 'Beaver' (in Dutch). Graduate's
+      thesis, Delft University of Technology, Faculty of Aero-
+      space Engineering, Delft, 1993.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

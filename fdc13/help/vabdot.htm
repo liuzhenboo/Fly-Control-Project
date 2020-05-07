@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Vabdot</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Vabdot</FONT></I></H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Vabdot</FONT></I> is a masked S<SMALL>IMULINK</SMALL> subsystem which is used to compute time-derivatives of the true airspeed, angle of attack, and side-slip angle. It is contained in the sub-subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="12odes.htm">12 ODEs</A></FONT></I> of the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="eqmotion.htm">Aircraft Equations of Motion</A></FONT></I> of the S-function <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>. The remaining nine differential equations are stored in the subsystems <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="pqrdot.htm">pqrdot</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="eulerdot.htm">Eulerdot</A></FONT></I>, and <FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><I><A HREF="xyhdot.htm">xyHdot</A></I></FONT>, which are all contained in <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">12 ODEs</FONT></I>.
+<BR><BR>
+
+<B>Note:</B> the time-derivative of the sideslip angle <I>beta</I> that leaves <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Vabdot</FONT></I> does not take into account the influence of beta-dot itself upon the aerodynamic force along the <I>Y<SUB>B</SUB></I>-axis. This contribution was neglected in the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="aeromod.htm">Aeromod</A></FONT></I> and has therefore not been included in the force <I>F<SUB>y</SUB></I> (which is extracted from the inputvector <I>Ftot</I> by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Vabdot</FONT></I>). The resulting error to the time-derivative of the state vector, <I>xdot</I>, is corrected later in the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="xdotcorr.htm">xdotcorr</A></FONT></I>.
+
+<H3>Inputvector: <I>uvab</I>
+</H3>
+<PRE>  uvab = [x' Ftot' Mtot' yhlp'],
+
+  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+
+  Ftot = [Fx Fy Fz]'           (total forces along the body-axes,
+                                    computed in the block <A HREF="fmdims.htm">FMdims</A>)
+
+  Mtot = [L M N]'             (total moments along the body-axes,
+                                    computed in the block <A HREF="fmdims.htm">FMdims</A>)
+
+  yhlp = [cos(alpha) sin(alpha) cos(beta) sin(beta) ...
+          ... tan(beta) sin(psi) cos(psi) sin(theta) ...
+          ... cos(theta) sin(phi) cos(phi)]'
+            (frequently used sines & cosines, coming from <A HREF="hlpfcn.htm">Hlpfcn</A>)
+
+
+  V    : airspeed [m/s]
+ {alpha: angle of attack [rad]                                  }
+ {beta : sideslip angle [rad]                                   }
+  p    : roll rate [rad/s]
+  q    : pitch rate [rad/s]
+  r    : yaw rate [rad/s]
+ {psi  : yaw angle [rad]                                        }
+ {theta: pitch angle [rad]                                      }
+ {phi  : roll angle [rad]                                       }
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+
+  Fx, Fy, Fz: total forces along the aircraft's body-axes [N]
+ {L, M, N   : total moments along the aircraft's body-axes [Nm] }
+</PRE>
+
+The inputvariables which are not actually used by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Vabdot</FONT></I> have been displayed between brackets. Of the inputvector <I>yhlp</I>, <I>cos(alpha)</I>, <I>cos(beta)</I>, <I>sin(alpha)</I>, <I>sin(beta)</I>, and <I>tan(beta)</I> are used.
+
+<H3>Outputvector: <I>yvab</I>
+</H3>
+<PRE>  yvab = [Vdot alphadot betadot]'
+
+  Vdot    : dV/dt [m/s^2]
+  alphadot: d(alpha)/dt [rad/s^2]
+  betadot : d(beta)/dt [rad/s^2]
+</PRE>
+
+Note: the beta-dot equation in <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Vabdot</FONT></I> does <I>not</I> take into account the contribution of beta-dot itself to the sideforce <I>F<SUB>y</SUB></I>. Corrections are made in <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="xdotcorr.htm">xdotcorr</A></FONT></I>.
+
+<H3>Parameters which must be defined in the M<SMALL>ATLAB</SMALL> Workspace
+</H3>
+
+<UL>
+<LI><I>GM1</I>: vector with some important geometrical properties of the 'Beaver' aircraft, and the mass of the aircraft (which is assumed to be constant during the motions of interest). Here, the mass of the aircraft is extracted from <I>GM1</I>. <I>GM1</I> can be loaded into the M<SMALL>ATLAB</SMALL> workspace by calling the routine <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I>. If the necessary datafile with aircraft model parameters does not yet exist, run <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="modbuild.htm">MODBUILD</A></FONT></I> first.
+</UL>
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,38 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: GSnoise</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>The radio-navigation subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">GSnoise</FONT></I></H2>
+
+The sublibrary <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">ILS</FONT></I> of the library <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="navlib.htm">NAVLIB</A></FONT></I> contains two different masked subsystem blocks which implement glideslope noise signals: <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">GSnoise1</FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">GSnoise2</FONT></I>. See the <A HREF="#References">references</A> below for more details about the theoretical backgrounds.
+<BR><BR>
+
+Other blocks in the <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">ILS</FONT></I> sublibrary of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">NAVLIB</FONT></I> are: <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="ils.htm">Nominal ILS signals</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="gserr.htm">GSerr</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="locerr.htm">LOCerr</A></FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="locnoise.htm">LOCnoise</A></FONT></I>, and the example system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="ilsxmpl.htm">ILS example</A></FONT></I>.
+
+<H3><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">GSnoise1</FONT></I></H3>
+This block generates glideslope noise according to AGARD R-632 (<A HREF="#References">ref.[3]</A>), assuming a constant approach speed. The user must specify the scale length <I>L<SUB>gs</SUB></I> (typically 85 <I>m</I>), the standard deviation <I>sigma_gs</I> (usually &#60;= 15 micro-Ampere), and the approach speed <I>V</I>.
+<BR><BR>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">GSnoise1</FONT></I> doesn't have any inputs.<BR>
+Outputsignal: Glideslope-noise [micro-Ampere]
+
+<H3><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">GSnoise2</FONT></I></H3>
+This block uses a glideslope noise filter according to NASA CR-2022 (<A HREF="#References">ref.[4]</A>). The user doesn't have to specify any parameters.
+<BR><BR>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">GSnoise2</FONT></I> doesn't have any inputs.<BR>
+Outputsignal: Glideslope-noise [micro-Ampere]
+
+<H3><A NAME= "References">References</A></H3>
+
+<OL>
+<LI>M.O. Rauw: <I>FDC 1.2 - A S<SMALL>IMULINK</SMALL> Environment for Flight Dynamics and Control Analysis</I>. Zeist, March 1997
+<LI>M.O. Rauw: <I>A S<SMALL>IMULINK</SMALL> environment for Flight Dynamics and Control analysis - Application to the DHC-2 'Beaver'</I>, part I: <I>Implementation of a model library in S<SMALL>IMULINK</SMALL></I>. Delft University of Technology, September 1993 (also contained in the STAR database of NASA, report number NONP-NASA-SUPPL-DK-94-28027)
+<LI>Anon.: <I>Approach and Landing Simulation</I>. AGARD report 632, Ames, 1975
+<LI>Johnson, W.A., McRuer, D.T.: <I>Development of a Category II Approach System Model</I>. NASA Contractor Report 2022, Washington D.C., USA, 1972
+</OL>
+
+</BODY>
+
+</HTML>

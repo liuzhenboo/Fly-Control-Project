@@ -1,0 +1,31 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Cwind</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Cwind</FONT></I>: constant horizontal wind</H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Cwind</FONT></I> is a masked S<SMALL>IMULINK</SMALL> system, which is used to calculate velocity components of a constant horizontal wind along the body-axes of the aircraft. <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Cwind</FONT></I> can easily be enhanced for vertical wind-
+components as well if it is unmasked first. If you want the wind velocity to vary with altitude, use <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="blwind.htm">BLwind</A></FONT></I> instead. Both <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Cwind</FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">BLwind</FONT></I> are contained in the blocklibrary <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="windlib.htm">WINDLIB</A></FONT></I>.
+<BR><BR>
+
+The user must specify the wind velocity <I>V<SUB>w</SUB></I> in [m/s] and the wind direction <I>psi_w</I> in [rad].<BR>
+<B>Note:</B> if the wind is blowing to the north, <I>psi_w</I> should be equal to <I>pi</I> rad!
+
+<H3>Inputsignal (scalar)</H3>
+<PRE>  psi: heading of the aircraft [rad].
+</PRE>
+
+<H3>Outputvector</H3>
+<PRE>  ywind = [uw vw ww]'
+
+  uw : wind velocity component along XB-axis [m/s]
+  vw : wind velocity component along YB-axis [m/s]
+  ww : wind velocity component along ZB-axis [m/s] (by default:
+                                                          ww = 0)
+</PRE>
+
+
+</BODY>
+
+</HTML>

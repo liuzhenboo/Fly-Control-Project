@@ -1,0 +1,3051 @@
+Model {
+  Name			  "oloop3t"
+  Version		  2.09
+  SimParamPage		  Solver
+  SampleTimeColors	  off
+  InvariantConstants	  off
+  WideVectorLines	  off
+  ShowLineWidths	  off
+  PaperOrientation	  landscape
+  PaperType		  usletter
+  PaperUnits		  inches
+  StartTime		  "0.0"
+  StopTime		  "120"
+  Solver		  ode45
+  RelTol		  "1e-7"
+  AbsTol		  "1e-7"
+  Refine		  "1"
+  MaxStep		  "1"
+  InitialStep		  "auto"
+  FixedStep		  "auto"
+  MaxOrder		  5
+  OutputOption		  RefineOutputTimes
+  OutputTimes		  "[]"
+  LoadExternalInput	  off
+  ExternalInput		  "[t, u]"
+  SaveTime		  off
+  TimeSaveName		  "tout"
+  SaveState		  off
+  StateSaveName		  "xout"
+  SaveOutput		  off
+  OutputSaveName	  "yout"
+  LoadInitialState	  off
+  InitialState		  "xInitial"
+  SaveFinalState	  off
+  FinalStateName	  "xFinal"
+  LimitMaxRows		  off
+  MaxRows		  "1000"
+  Decimation		  "1"
+  AlgebraicLoopMsg	  warning
+  MinStepSizeMsg	  warning
+  UnconnectedInputMsg	  warning
+  UnconnectedOutputMsg	  warning
+  UnconnectedLineMsg	  warning
+  ConsistencyChecking	  off
+  ZeroCross		  on
+  SimulationMode	  normal
+  RTWSystemTargetFile	  "grt.tlc"
+  RTWInlineParameters	  off
+  RTWRetainRTWFile	  off
+  RTWTemplateMakefile	  "grt_vc.tmf"
+  RTWMakeCommand	  "make_rtw"
+  RTWGenerateCodeOnly	  off
+  ExtModeMexFile	  "ext_comm"
+  ExtModeBatchMode	  off
+  BlockDefaults {
+    Orientation		    right
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    NamePlacement	    normal
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+    ShowName		    on
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    center
+    VerticalAlignment	    middle
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  System {
+    Name		    "oloop3t"
+    Location		    [4, 42, 579, 513]
+    Open		    on
+    ScreenColor		    white
+    Block {
+      BlockType		      SubSystem
+      Name		      "OLOOP3\n(The final system)"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [25, 340, 80, 390]
+      ForegroundColor	      red
+      FontName		      "Arial"
+      OpenFcn		      "oloop3"
+      ShowPortLabels	      off
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"OLOOP3\n(The final system)"
+	Location		[19, 357, 179, 467]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "OLOOP3a"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [25, 105, 80, 135]
+      FontName		      "Arial"
+      ShowPortLabels	      off
+      System {
+	Name			"OLOOP3a"
+	Location		[4, 42, 485, 332]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  StateSpace
+	  Name			  "Linear aircraft\nmodel"
+	  Position		  [205, 165, 280, 205]
+	  BackgroundColor	  lightBlue
+	  FontName		  "Arial"
+	  A			  "Aac"
+	  B			  "Bac"
+	  C			  "Cac"
+	  D			  "Dac"
+	  X0			  "0"
+	}
+	Line {
+	  Points		  [165, 185]
+	  DstBlock		  "Linear aircraft\nmodel"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Linear aircraft\nmodel"
+	  SrcPort		  1
+	  Points		  [40, 0]
+	}
+	Annotation {
+	  Position		  [187, 57]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "Step 2: take block State-space block "
+				  "from Simulink library 'linear'"
+	}
+	Annotation {
+	  Position		  [227, 77]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "Step 3: specify Aac, Bac, Cac, and Dac "
+				  "to be state matrices of the linear model "
+				  "\n(double-click the State-space block "
+				  "to do so)                               "
+	}
+	Annotation {
+	  Position		  [104, 37]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "  Step 1: open new system        "
+	}
+	Annotation {
+	  Position		  [101, 7]
+	  VerticalAlignment	  top
+	  ForegroundColor	  blue
+	  FontName		  "Times New Roman"
+	  FontSize		  14
+	  FontWeight		  bold
+	  Text			  "Construction of OLOOP3."
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "OLOOP3b"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [25, 150, 80, 180]
+      FontName		      "Arial"
+      ShowPortLabels	      off
+      System {
+	Name			"OLOOP3b"
+	Location		[4, 42, 508, 460]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  RateLimiter
+	  Name			  " Rate Limiter"
+	  Position		  [110, 365, 135, 385]
+	  FontName		  "Arial"
+	  RisingSlewLimit	  "1.0"
+	  FallingSlewLimit	  "-1.0"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Block delta a"
+	  Ports			  [0, 1, 0, 0, 0]
+	  Position		  [35, 161, 65, 189]
+	  FontName		  "Arial"
+	  ShowPortLabels	  off
+	  MaskType		  "Block Fcn"
+	  MaskDescription	  "Block Function"
+	  MaskHelp		  "This block implements a block signal.\\nDefi"
+				  "ne the initial (=final) value, the\\namplitu"
+				  "de of the block (positive\\n= upwards, "
+				  "negative=downwards),\\nthe start time, "
+				  "and the stop time (must\\nbe smaller "
+				  "than the start time)."
+	  MaskPromptString	  "Initial value (=final value):|Amplitude "
+				  "of block (+ = step up, - = step down):|Start"
+				  " time of block:|Stop time of block:"
+	  MaskStyleString	  "edit,edit,edit,edit"
+	  MaskInitialization	  "yinit=@1; yblock=@2; tstart=@3; tstop=@4;"
+	  MaskDisplay		  "plot(0,0,100,100,[100,60,60,20,20,0],[50,50,"
+				  "89,89,50,50])"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  MaskValueString	  "0|3*pi/180|0|2"
+	  System {
+	    Name		    "Block delta a"
+	    Location		    [4, 60, 241, 187]
+	    Open		    off
+	    ScreenColor		    white
+	    Block {
+	      BlockType		      Step
+	      Name		      "End block"
+	      Position		      [40, 45, 60, 65]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstop"
+	      Before		      "0"
+	      After		      "-yblock"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Initial value"
+	      Position		      [40, 85, 80, 105]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Value		      "yinit"
+	    }
+	    Block {
+	      BlockType		      Step
+	      Name		      "Start block"
+	      Position		      [40, 5, 60, 25]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstart"
+	      Before		      "0"
+	      After		      "yblock"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum"
+	      Ports		      [3, 1, 0, 0, 0]
+	      Position		      [115, 36, 130, 74]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      ShowName		      off
+	      Inputs		      "+++"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "block"
+	      Position		      [165, 45, 185, 65]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Port		      "1"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "End block"
+	      SrcPort		      1
+	      DstBlock		      "Sum"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Start block"
+	      SrcPort		      1
+	      Points		      [30, 0; 0, 30]
+	      DstBlock		      "Sum"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Initial value"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -30]
+	      DstBlock		      "Sum"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Sum"
+	      SrcPort		      1
+	      DstBlock		      "block"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Block delta e"
+	  Ports			  [0, 1, 0, 0, 0]
+	  Position		  [35, 116, 65, 144]
+	  FontName		  "Arial"
+	  ShowPortLabels	  off
+	  MaskType		  "Block Fcn"
+	  MaskDescription	  "Block Function"
+	  MaskHelp		  "This block implements a block signal.\\nDefi"
+				  "ne the initial (=final) value, the\\namplitu"
+				  "de of the block (positive\\n= upwards, "
+				  "negative=downwards),\\nthe start time, "
+				  "and the stop time (must\\nbe smaller "
+				  "than the start time)."
+	  MaskPromptString	  "Initial value (=final value):|Amplitude "
+				  "of block (+ = step up, - = step down):|Start"
+				  " time of block:|Stop time of block:"
+	  MaskStyleString	  "edit,edit,edit,edit"
+	  MaskInitialization	  "yinit=@1; yblock=@2; tstart=@3; tstop=@4;"
+	  MaskDisplay		  "plot(0,0,100,100,[100,60,60,20,20,0],[50,50,"
+				  "89,89,50,50])"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  MaskValueString	  "0|3*pi/180|0|2"
+	  System {
+	    Name		    "Block delta e"
+	    Location		    [4, 60, 241, 187]
+	    Open		    off
+	    ScreenColor		    white
+	    Block {
+	      BlockType		      Step
+	      Name		      "End block"
+	      Position		      [40, 45, 60, 65]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstop"
+	      Before		      "0"
+	      After		      "-yblock"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Initial value"
+	      Position		      [40, 85, 80, 105]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Value		      "yinit"
+	    }
+	    Block {
+	      BlockType		      Step
+	      Name		      "Start block"
+	      Position		      [40, 5, 60, 25]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstart"
+	      Before		      "0"
+	      After		      "yblock"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum"
+	      Ports		      [3, 1, 0, 0, 0]
+	      Position		      [115, 36, 130, 74]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      ShowName		      off
+	      Inputs		      "+++"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "block"
+	      Position		      [165, 45, 185, 65]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Port		      "1"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "Sum"
+	      SrcPort		      1
+	      DstBlock		      "block"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Initial value"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -30]
+	      DstBlock		      "Sum"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Start block"
+	      SrcPort		      1
+	      Points		      [30, 0; 0, 30]
+	      DstBlock		      "Sum"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "End block"
+	      SrcPort		      1
+	      DstBlock		      "Sum"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Block delta r"
+	  Ports			  [0, 1, 0, 0, 0]
+	  Position		  [35, 206, 65, 234]
+	  FontName		  "Arial"
+	  ShowPortLabels	  off
+	  MaskType		  "Block Fcn"
+	  MaskDescription	  "Block Function"
+	  MaskHelp		  "This block implements a block signal.\\nDefi"
+				  "ne the initial (=final) value, the\\namplitu"
+				  "de of the block (positive\\n= upwards, "
+				  "negative=downwards),\\nthe start time, "
+				  "and the stop time (must\\nbe smaller "
+				  "than the start time)."
+	  MaskPromptString	  "Initial value (=final value):|Amplitude "
+				  "of block (+ = step up, - = step down):|Start"
+				  " time of block:|Stop time of block:"
+	  MaskStyleString	  "edit,edit,edit,edit"
+	  MaskInitialization	  "yinit=@1; yblock=@2; tstart=@3; tstop=@4;"
+	  MaskDisplay		  "plot(0,0,100,100,[100,60,60,20,20,0],[50,50,"
+				  "89,89,50,50])"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  MaskValueString	  "0|3*pi/180|0|2"
+	  System {
+	    Name		    "Block delta r"
+	    Location		    [4, 60, 241, 187]
+	    Open		    off
+	    ScreenColor		    white
+	    Block {
+	      BlockType		      Step
+	      Name		      "End block"
+	      Position		      [40, 45, 60, 65]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstop"
+	      Before		      "0"
+	      After		      "-yblock"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Initial value"
+	      Position		      [40, 85, 80, 105]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Value		      "yinit"
+	    }
+	    Block {
+	      BlockType		      Step
+	      Name		      "Start block"
+	      Position		      [40, 5, 60, 25]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstart"
+	      Before		      "0"
+	      After		      "yblock"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum"
+	      Ports		      [3, 1, 0, 0, 0]
+	      Position		      [115, 36, 130, 74]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      ShowName		      off
+	      Inputs		      "+++"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "block"
+	      Position		      [165, 45, 185, 65]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Port		      "1"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "Sum"
+	      SrcPort		      1
+	      DstBlock		      "block"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Initial value"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -30]
+	      DstBlock		      "Sum"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Start block"
+	      SrcPort		      1
+	      Points		      [30, 0; 0, 30]
+	      DstBlock		      "Sum"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "End block"
+	      SrcPort		      1
+	      DstBlock		      "Sum"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  StateSpace
+	  Name			  "Linear aircraft\nmodel"
+	  Position		  [370, 266, 445, 304]
+	  BackgroundColor	  lightBlue
+	  FontName		  "Arial"
+	  A			  "Aac"
+	  B			  "Bac"
+	  C			  "Cac"
+	  D			  "Dac"
+	  X0			  "0"
+	}
+	Block {
+	  BlockType		  RateLimiter
+	  Name			  "Rate Limiter"
+	  Position		  [110, 255, 135, 275]
+	  FontName		  "Arial"
+	  RisingSlewLimit	  "3*pi/180"
+	  FallingSlewLimit	  "-3*pi/180"
+	}
+	Block {
+	  BlockType		  RateLimiter
+	  Name			  "Rate Limiter "
+	  Position		  [110, 320, 135, 340]
+	  FontName		  "Arial"
+	  RisingSlewLimit	  "50"
+	  FallingSlewLimit	  "-50"
+	}
+	Block {
+	  BlockType		  Step
+	  Name			  "Step delta f"
+	  Position		  [40, 255, 60, 275]
+	  FontName		  "Arial"
+	  Time			  "0.001"
+	  Before		  "0"
+	  After			  "3*pi/180"
+	}
+	Block {
+	  BlockType		  Step
+	  Name			  "Step n"
+	  Position		  [40, 320, 60, 340]
+	  FontName		  "Arial"
+	  Time			  "1"
+	  Before		  "0"
+	  After			  "200"
+	}
+	Block {
+	  BlockType		  Step
+	  Name			  "Step pz"
+	  Position		  [40, 365, 60, 385]
+	  FontName		  "Arial"
+	  Time			  "0.001"
+	  Before		  "0"
+	  After			  "2"
+	}
+	Line {
+	  SrcBlock		  " Rate Limiter"
+	  SrcPort		  1
+	  Points		  [17, 0; 0, -29; 20, 0]
+	}
+	Line {
+	  SrcBlock		  "Rate Limiter"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, -30; 20, 0]
+	}
+	Line {
+	  SrcBlock		  "Block delta a"
+	  SrcPort		  1
+	  Points		  [85, 0; 0, 30; 20, 0]
+	}
+	Line {
+	  SrcBlock		  "Block delta e"
+	  SrcPort		  1
+	  Points		  [115, 0; 0, 61; 7, 0]
+	}
+	Line {
+	  SrcBlock		  "Step pz"
+	  SrcPort		  1
+	  DstBlock		  " Rate Limiter"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Step n"
+	  SrcPort		  1
+	  DstBlock		  "Rate Limiter "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Step delta f"
+	  SrcPort		  1
+	  DstBlock		  "Rate Limiter"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Block delta r"
+	  SrcPort		  1
+	  Points		  [105, 0]
+	}
+	Line {
+	  SrcBlock		  "Rate Limiter "
+	  SrcPort		  1
+	  Points		  [35, 0]
+	}
+	Line {
+	  SrcBlock		  "Linear aircraft\nmodel"
+	  SrcPort		  1
+	  Points		  [30, 0]
+	}
+	Line {
+	  Points		  [330, 285]
+	  DstBlock		  "Linear aircraft\nmodel"
+	  DstPort		  1
+	}
+	Annotation {
+	  Position		  [292, 337]
+	  VerticalAlignment	  top
+	  ForegroundColor	  red
+	  FontName		  "Arial"
+	  Text			  "<--- Engine control inputs\n(deviations "
+				  "from initial values)"
+	}
+	Annotation {
+	  Position		  [296, 202]
+	  VerticalAlignment	  top
+	  ForegroundColor	  red
+	  FontName		  "Arial"
+	  Text			  "<--- Aerodynamic control inputs\n(deviations"
+				  " from initial values)"
+	}
+	Annotation {
+	  Position		  [240, 32]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "Step 4: Add input-generators. Step-blocks "
+				  "from Simulink-library 'Sources', Block-signa"
+				  "l \ngenerators from the FDC-library 'FDCTOOL"
+				  "S', and Rate Limiter blocks from Simulink-\n"
+				  "library 'Nonlinear' (double-click the "
+				  "block-signal generators to see how they "
+				  "work). "
+	}
+	Annotation {
+	  Position		  [188, 82]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "Step 5: Enter the block-parameters after "
+				  "double-clicking the blocks."
+	}
+	Annotation {
+	  Position		  [97, 7]
+	  VerticalAlignment	  top
+	  ForegroundColor	  blue
+	  FontName		  "Times New Roman"
+	  FontSize		  14
+	  FontWeight		  bold
+	  Text			  "Construction of OLOOP3."
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "OLOOP3c"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [25, 195, 80, 225]
+      FontName		      "Arial"
+      ShowPortLabels	      off
+      System {
+	Name			"OLOOP3c"
+	Location		[4, 42, 627, 520]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  RateLimiter
+	  Name			  " Rate Limiter"
+	  Position		  [175, 425, 200, 445]
+	  FontName		  "Arial"
+	  RisingSlewLimit	  "1.0"
+	  FallingSlewLimit	  "-1.0"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Block delta a"
+	  Ports			  [0, 1, 0, 0, 0]
+	  Position		  [110, 221, 140, 249]
+	  FontName		  "Arial"
+	  ShowPortLabels	  off
+	  MaskType		  "Block Fcn"
+	  MaskDescription	  "Block Function"
+	  MaskHelp		  "This block implements a block signal.\\nDefi"
+				  "ne the initial (=final) value, the\\namplitu"
+				  "de of the block (positive\\n= upwards, "
+				  "negative=downwards),\\nthe start time, "
+				  "and the stop time (must\\nbe smaller "
+				  "than the start time)."
+	  MaskPromptString	  "Initial value (=final value):|Amplitude "
+				  "of block (+ = step up, - = step down):|Start"
+				  " time of block:|Stop time of block:"
+	  MaskStyleString	  "edit,edit,edit,edit"
+	  MaskInitialization	  "yinit=@1; yblock=@2; tstart=@3; tstop=@4;"
+	  MaskDisplay		  "plot(0,0,100,100,[100,60,60,20,20,0],[50,50,"
+				  "89,89,50,50])"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  MaskValueString	  "0|3*pi/180|0|2"
+	  System {
+	    Name		    "Block delta a"
+	    Location		    [4, 60, 241, 187]
+	    Open		    off
+	    ScreenColor		    white
+	    Block {
+	      BlockType		      Step
+	      Name		      "End block"
+	      Position		      [40, 45, 60, 65]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstop"
+	      Before		      "0"
+	      After		      "-yblock"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Initial value"
+	      Position		      [40, 85, 80, 105]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Value		      "yinit"
+	    }
+	    Block {
+	      BlockType		      Step
+	      Name		      "Start block"
+	      Position		      [40, 5, 60, 25]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstart"
+	      Before		      "0"
+	      After		      "yblock"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum"
+	      Ports		      [3, 1, 0, 0, 0]
+	      Position		      [115, 36, 130, 74]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      ShowName		      off
+	      Inputs		      "+++"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "block"
+	      Position		      [165, 45, 185, 65]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Port		      "1"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "Sum"
+	      SrcPort		      1
+	      DstBlock		      "block"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Initial value"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -30]
+	      DstBlock		      "Sum"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Start block"
+	      SrcPort		      1
+	      Points		      [30, 0; 0, 30]
+	      DstBlock		      "Sum"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "End block"
+	      SrcPort		      1
+	      DstBlock		      "Sum"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Block delta e"
+	  Ports			  [0, 1, 0, 0, 0]
+	  Position		  [110, 176, 140, 204]
+	  FontName		  "Arial"
+	  ShowPortLabels	  off
+	  MaskType		  "Block Fcn"
+	  MaskDescription	  "Block Function"
+	  MaskHelp		  "This block implements a block signal.\\nDefi"
+				  "ne the initial (=final) value, the\\namplitu"
+				  "de of the block (positive\\n= upwards, "
+				  "negative=downwards),\\nthe start time, "
+				  "and the stop time (must\\nbe smaller "
+				  "than the start time)."
+	  MaskPromptString	  "Initial value (=final value):|Amplitude "
+				  "of block (+ = step up, - = step down):|Start"
+				  " time of block:|Stop time of block:"
+	  MaskStyleString	  "edit,edit,edit,edit"
+	  MaskInitialization	  "yinit=@1; yblock=@2; tstart=@3; tstop=@4;"
+	  MaskDisplay		  "plot(0,0,100,100,[100,60,60,20,20,0],[50,50,"
+				  "89,89,50,50])"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  MaskValueString	  "0|3*pi/180|0|2"
+	  System {
+	    Name		    "Block delta e"
+	    Location		    [4, 60, 241, 187]
+	    Open		    off
+	    ScreenColor		    white
+	    Block {
+	      BlockType		      Step
+	      Name		      "End block"
+	      Position		      [40, 45, 60, 65]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstop"
+	      Before		      "0"
+	      After		      "-yblock"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Initial value"
+	      Position		      [40, 85, 80, 105]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Value		      "yinit"
+	    }
+	    Block {
+	      BlockType		      Step
+	      Name		      "Start block"
+	      Position		      [40, 5, 60, 25]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstart"
+	      Before		      "0"
+	      After		      "yblock"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum"
+	      Ports		      [3, 1, 0, 0, 0]
+	      Position		      [115, 36, 130, 74]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      ShowName		      off
+	      Inputs		      "+++"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "block"
+	      Position		      [165, 45, 185, 65]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Port		      "1"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "End block"
+	      SrcPort		      1
+	      DstBlock		      "Sum"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Start block"
+	      SrcPort		      1
+	      Points		      [30, 0; 0, 30]
+	      DstBlock		      "Sum"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Initial value"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -30]
+	      DstBlock		      "Sum"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Sum"
+	      SrcPort		      1
+	      DstBlock		      "block"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Block delta r"
+	  Ports			  [0, 1, 0, 0, 0]
+	  Position		  [110, 266, 140, 294]
+	  FontName		  "Arial"
+	  ShowPortLabels	  off
+	  MaskType		  "Block Fcn"
+	  MaskDescription	  "Block Function"
+	  MaskHelp		  "This block implements a block signal.\\nDefi"
+				  "ne the initial (=final) value, the\\namplitu"
+				  "de of the block (positive\\n= upwards, "
+				  "negative=downwards),\\nthe start time, "
+				  "and the stop time (must\\nbe smaller "
+				  "than the start time)."
+	  MaskPromptString	  "Initial value (=final value):|Amplitude "
+				  "of block (+ = step up, - = step down):|Start"
+				  " time of block:|Stop time of block:"
+	  MaskStyleString	  "edit,edit,edit,edit"
+	  MaskInitialization	  "yinit=@1; yblock=@2; tstart=@3; tstop=@4;"
+	  MaskDisplay		  "plot(0,0,100,100,[100,60,60,20,20,0],[50,50,"
+				  "89,89,50,50])"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  MaskValueString	  "0|3*pi/180|0|2"
+	  System {
+	    Name		    "Block delta r"
+	    Location		    [4, 60, 241, 187]
+	    Open		    off
+	    ScreenColor		    white
+	    Block {
+	      BlockType		      Step
+	      Name		      "End block"
+	      Position		      [40, 45, 60, 65]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstop"
+	      Before		      "0"
+	      After		      "-yblock"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Initial value"
+	      Position		      [40, 85, 80, 105]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Value		      "yinit"
+	    }
+	    Block {
+	      BlockType		      Step
+	      Name		      "Start block"
+	      Position		      [40, 5, 60, 25]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstart"
+	      Before		      "0"
+	      After		      "yblock"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum"
+	      Ports		      [3, 1, 0, 0, 0]
+	      Position		      [115, 36, 130, 74]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      ShowName		      off
+	      Inputs		      "+++"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "block"
+	      Position		      [165, 45, 185, 65]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Port		      "1"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "End block"
+	      SrcPort		      1
+	      DstBlock		      "Sum"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Start block"
+	      SrcPort		      1
+	      Points		      [30, 0; 0, 30]
+	      DstBlock		      "Sum"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Initial value"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -30]
+	      DstBlock		      "Sum"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Sum"
+	      SrcPort		      1
+	      DstBlock		      "block"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Ground
+	  Name			  "Ground_1"
+	  Position		  [360, 325, 370, 335]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Ground
+	  Name			  "Ground_2"
+	  Position		  [285, 260, 295, 270]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Ground
+	  Name			  "Ground_3"
+	  Position		  [285, 275, 295, 285]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Ground
+	  Name			  "Ground_4"
+	  Position		  [285, 290, 295, 300]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Ground
+	  Name			  "Ground_5"
+	  Position		  [285, 385, 295, 395]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Ground
+	  Name			  "Ground_6"
+	  Position		  [285, 400, 295, 410]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  StateSpace
+	  Name			  "Linear aircraft\nmodel"
+	  Position		  [435, 301, 510, 339]
+	  BackgroundColor	  lightBlue
+	  FontName		  "Arial"
+	  A			  "Aac"
+	  B			  "Bac"
+	  C			  "Cac"
+	  D			  "Dac"
+	  X0			  "0"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  Ports			  [3, 1, 0, 0, 0]
+	  Position		  [385, 304, 390, 336]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "[4 2 6]"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  Ports			  [4, 1, 0, 0, 0]
+	  Position		  [310, 245, 315, 300]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "4"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux2"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [310, 380, 315, 415]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  RateLimiter
+	  Name			  "Rate Limiter"
+	  Position		  [175, 315, 200, 335]
+	  FontName		  "Arial"
+	  RisingSlewLimit	  "3*pi/180"
+	  FallingSlewLimit	  "-3*pi/180"
+	}
+	Block {
+	  BlockType		  RateLimiter
+	  Name			  "Rate Limiter "
+	  Position		  [175, 380, 200, 400]
+	  FontName		  "Arial"
+	  RisingSlewLimit	  "50"
+	  FallingSlewLimit	  "-50"
+	}
+	Block {
+	  BlockType		  Step
+	  Name			  "Step delta f"
+	  Position		  [115, 315, 135, 335]
+	  FontName		  "Arial"
+	  Time			  "0.001"
+	  Before		  "0"
+	  After			  "3*pi/180"
+	}
+	Block {
+	  BlockType		  Step
+	  Name			  "Step n"
+	  Position		  [115, 380, 135, 400]
+	  FontName		  "Arial"
+	  Time			  "1"
+	  Before		  "0"
+	  After			  "200"
+	}
+	Block {
+	  BlockType		  Step
+	  Name			  "Step pz"
+	  Position		  [115, 425, 135, 445]
+	  FontName		  "Arial"
+	  Time			  "0.001"
+	  Before		  "0"
+	  After			  "2"
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator_16"
+	  Position		  [265, 400, 275, 410]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator_17"
+	  Position		  [265, 260, 275, 270]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator_18"
+	  Position		  [265, 275, 275, 285]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator_19"
+	  Position		  [265, 290, 275, 300]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator_20"
+	  Position		  [265, 385, 275, 395]
+	  ShowName		  off
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  DstBlock		  "Linear aircraft\nmodel"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "uaero"
+	  Labels		  [1, 0]
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  Points		  [30, 0; 0, 35]
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "uprop"
+	  Labels		  [1, 0]
+	  SrcBlock		  "Mux2"
+	  SrcPort		  1
+	  Points		  [30, 0; 0, -80]
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Ground_1"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  " Rate Limiter"
+	  SrcPort		  1
+	  Points		  [25, 0; 0, -30]
+	  DstBlock		  "Terminator_16"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Rate Limiter "
+	  SrcPort		  1
+	  DstBlock		  "Terminator_20"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Rate Limiter"
+	  SrcPort		  1
+	  Points		  [25, 0; 0, -30]
+	  DstBlock		  "Terminator_19"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Block delta r"
+	  SrcPort		  1
+	  DstBlock		  "Terminator_18"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Block delta a"
+	  SrcPort		  1
+	  Points		  [85, 0; 0, 30]
+	  DstBlock		  "Terminator_17"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Step delta f"
+	  SrcPort		  1
+	  DstBlock		  "Rate Limiter"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Step n"
+	  SrcPort		  1
+	  DstBlock		  "Rate Limiter "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Step pz"
+	  SrcPort		  1
+	  DstBlock		  " Rate Limiter"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Block delta e"
+	  SrcPort		  1
+	  Points		  [128, 0; 0, 60]
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Ground_2"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Ground_3"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Ground_4"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Ground_5"
+	  SrcPort		  1
+	  DstBlock		  "Mux2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Ground_6"
+	  SrcPort		  1
+	  DstBlock		  "Mux2"
+	  DstPort		  2
+	}
+	Annotation {
+	  Position		  [305, 32]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "Step 6. Add two Mux blocks from the Simulink"
+				  "-library 'Connections'. First Mux-block "
+				  "combines the aerodynamic control  \ninputs "
+				  "into one vector uaero. Note: this vector "
+				  "contains DEVIATIONS from the nominal "
+				  "values of delta e, delta a, delta r, "
+				  "\nand delta f. The second Mux-block combines"
+				  " (deviations of!) the engine inputs, "
+				  "n and pz, into one vector uprop.            "
+	}
+	Annotation {
+	  Position		  [317, 77]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "Step 7. Add a third Mux block, which "
+				  "combines the vectors uaero and uprop, "
+				  "with a vector uwind = [0 0 0 0 0 0]' "
+				  "into one   \nlarge input-vector. The "
+				  "resulting inputvector consists of deviations"
+				  " of control inputs to the aircraft model; "
+				  "the last six zeros \nare wind and turbulence"
+				  " velocities and their time-derivatives, "
+				  "which are not considered here. Notice "
+				  "that in this diagram,     \nthe block-signal"
+				  " delta e is the only one which is actually "
+				  "connected to the Mux-blocks. Try other "
+				  "combinations yourself!      \nUse Ground "
+				  "and Termination blocks from the Simulink "
+				  "library Connections to end open lines "
+				  "(otherwise, Simulink will issue   \nwarning "
+				  "messages during simulations).               "
+				  "                                            "
+				  "                                            "
+				  "                               "
+	}
+	Annotation {
+	  Position		  [526, 432]
+	  VerticalAlignment	  top
+	  ForegroundColor	  red
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "Try experimenting with other\ninputsignals "
+				  "yourself!"
+	}
+	Annotation {
+	  Position		  [97, 7]
+	  VerticalAlignment	  top
+	  ForegroundColor	  blue
+	  FontName		  "Times New Roman"
+	  FontSize		  14
+	  FontWeight		  bold
+	  Text			  "Construction of OLOOP3."
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "OLOOP3d"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [25, 240, 80, 270]
+      FontName		      "Arial"
+      ShowPortLabels	      off
+      System {
+	Name			"OLOOP3d"
+	Location		[4, 42, 613, 513]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  RateLimiter
+	  Name			  " Rate Limiter"
+	  Position		  [115, 425, 140, 445]
+	  FontName		  "Arial"
+	  RisingSlewLimit	  "1.0"
+	  FallingSlewLimit	  "-1.0"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  " To Workspace  "
+	  Position		  [515, 276, 565, 294]
+	  BackgroundColor	  yellow
+	  FontName		  "Arial"
+	  VariableName		  "yin"
+	  Buffer		  "1000"
+	  Decimation		  "1"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Block delta a"
+	  Ports			  [0, 1, 0, 0, 0]
+	  Position		  [50, 221, 80, 249]
+	  FontName		  "Arial"
+	  ShowPortLabels	  off
+	  MaskType		  "Block Fcn"
+	  MaskDescription	  "Block Function"
+	  MaskHelp		  "This block implements a block signal.\\nDefi"
+				  "ne the initial (=final) value, the\\namplitu"
+				  "de of the block (positive\\n= upwards, "
+				  "negative=downwards),\\nthe start time, "
+				  "and the stop time (must\\nbe smaller "
+				  "than the start time)."
+	  MaskPromptString	  "Initial value (=final value):|Amplitude "
+				  "of block (+ = step up, - = step down):|Start"
+				  " time of block:|Stop time of block:"
+	  MaskStyleString	  "edit,edit,edit,edit"
+	  MaskInitialization	  "yinit=@1; yblock=@2; tstart=@3; tstop=@4;"
+	  MaskDisplay		  "plot(0,0,100,100,[100,60,60,20,20,0],[50,50,"
+				  "89,89,50,50])"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  MaskValueString	  "0|3*pi/180|0|2"
+	  System {
+	    Name		    "Block delta a"
+	    Location		    [4, 60, 241, 187]
+	    Open		    off
+	    ScreenColor		    white
+	    Block {
+	      BlockType		      Step
+	      Name		      "End block"
+	      Position		      [40, 45, 60, 65]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstop"
+	      Before		      "0"
+	      After		      "-yblock"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Initial value"
+	      Position		      [40, 85, 80, 105]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Value		      "yinit"
+	    }
+	    Block {
+	      BlockType		      Step
+	      Name		      "Start block"
+	      Position		      [40, 5, 60, 25]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstart"
+	      Before		      "0"
+	      After		      "yblock"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum"
+	      Ports		      [3, 1, 0, 0, 0]
+	      Position		      [115, 36, 130, 74]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      ShowName		      off
+	      Inputs		      "+++"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "block"
+	      Position		      [165, 45, 185, 65]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Port		      "1"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "End block"
+	      SrcPort		      1
+	      DstBlock		      "Sum"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Start block"
+	      SrcPort		      1
+	      Points		      [30, 0; 0, 30]
+	      DstBlock		      "Sum"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Initial value"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -30]
+	      DstBlock		      "Sum"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Sum"
+	      SrcPort		      1
+	      DstBlock		      "block"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Block delta e"
+	  Ports			  [0, 1, 0, 0, 0]
+	  Position		  [50, 176, 80, 204]
+	  FontName		  "Arial"
+	  ShowPortLabels	  off
+	  MaskType		  "Block Fcn"
+	  MaskDescription	  "Block Function"
+	  MaskHelp		  "This block implements a block signal.\\nDefi"
+				  "ne the initial (=final) value, the\\namplitu"
+				  "de of the block (positive\\n= upwards, "
+				  "negative=downwards),\\nthe start time, "
+				  "and the stop time (must\\nbe smaller "
+				  "than the start time)."
+	  MaskPromptString	  "Initial value (=final value):|Amplitude "
+				  "of block (+ = step up, - = step down):|Start"
+				  " time of block:|Stop time of block:"
+	  MaskStyleString	  "edit,edit,edit,edit"
+	  MaskInitialization	  "yinit=@1; yblock=@2; tstart=@3; tstop=@4;"
+	  MaskDisplay		  "plot(0,0,100,100,[100,60,60,20,20,0],[50,50,"
+				  "89,89,50,50])"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  MaskValueString	  "0|3*pi/180|0|2"
+	  System {
+	    Name		    "Block delta e"
+	    Location		    [4, 60, 241, 187]
+	    Open		    off
+	    ScreenColor		    white
+	    Block {
+	      BlockType		      Step
+	      Name		      "End block"
+	      Position		      [40, 45, 60, 65]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstop"
+	      Before		      "0"
+	      After		      "-yblock"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Initial value"
+	      Position		      [40, 85, 80, 105]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Value		      "yinit"
+	    }
+	    Block {
+	      BlockType		      Step
+	      Name		      "Start block"
+	      Position		      [40, 5, 60, 25]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstart"
+	      Before		      "0"
+	      After		      "yblock"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum"
+	      Ports		      [3, 1, 0, 0, 0]
+	      Position		      [115, 36, 130, 74]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      ShowName		      off
+	      Inputs		      "+++"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "block"
+	      Position		      [165, 45, 185, 65]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Port		      "1"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "Sum"
+	      SrcPort		      1
+	      DstBlock		      "block"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Initial value"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -30]
+	      DstBlock		      "Sum"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Start block"
+	      SrcPort		      1
+	      Points		      [30, 0; 0, 30]
+	      DstBlock		      "Sum"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "End block"
+	      SrcPort		      1
+	      DstBlock		      "Sum"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Block delta r"
+	  Ports			  [0, 1, 0, 0, 0]
+	  Position		  [50, 266, 80, 294]
+	  FontName		  "Arial"
+	  ShowPortLabels	  off
+	  MaskType		  "Block Fcn"
+	  MaskDescription	  "Block Function"
+	  MaskHelp		  "This block implements a block signal.\\nDefi"
+				  "ne the initial (=final) value, the\\namplitu"
+				  "de of the block (positive\\n= upwards, "
+				  "negative=downwards),\\nthe start time, "
+				  "and the stop time (must\\nbe smaller "
+				  "than the start time)."
+	  MaskPromptString	  "Initial value (=final value):|Amplitude "
+				  "of block (+ = step up, - = step down):|Start"
+				  " time of block:|Stop time of block:"
+	  MaskStyleString	  "edit,edit,edit,edit"
+	  MaskInitialization	  "yinit=@1; yblock=@2; tstart=@3; tstop=@4;"
+	  MaskDisplay		  "plot(0,0,100,100,[100,60,60,20,20,0],[50,50,"
+				  "89,89,50,50])"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  MaskValueString	  "0|3*pi/180|0|2"
+	  System {
+	    Name		    "Block delta r"
+	    Location		    [4, 60, 241, 187]
+	    Open		    off
+	    ScreenColor		    white
+	    Block {
+	      BlockType		      Step
+	      Name		      "End block"
+	      Position		      [40, 45, 60, 65]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstop"
+	      Before		      "0"
+	      After		      "-yblock"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Initial value"
+	      Position		      [40, 85, 80, 105]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Value		      "yinit"
+	    }
+	    Block {
+	      BlockType		      Step
+	      Name		      "Start block"
+	      Position		      [40, 5, 60, 25]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstart"
+	      Before		      "0"
+	      After		      "yblock"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum"
+	      Ports		      [3, 1, 0, 0, 0]
+	      Position		      [115, 36, 130, 74]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      ShowName		      off
+	      Inputs		      "+++"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "block"
+	      Position		      [165, 45, 185, 65]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Port		      "1"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "Sum"
+	      SrcPort		      1
+	      DstBlock		      "block"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Initial value"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -30]
+	      DstBlock		      "Sum"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Start block"
+	      SrcPort		      1
+	      Points		      [30, 0; 0, 30]
+	      DstBlock		      "Sum"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "End block"
+	      SrcPort		      1
+	      DstBlock		      "Sum"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Clock
+	  Name			  "Clock"
+	  Position		  [450, 230, 470, 250]
+	  FontName		  "Arial"
+	  Location		  [30, 40, 140, 75]
+	}
+	Block {
+	  BlockType		  Ground
+	  Name			  "Ground_1"
+	  Position		  [300, 325, 310, 335]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Ground
+	  Name			  "Ground_2"
+	  Position		  [225, 260, 235, 270]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Ground
+	  Name			  "Ground_3"
+	  Position		  [225, 275, 235, 285]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Ground
+	  Name			  "Ground_4"
+	  Position		  [225, 290, 235, 300]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Ground
+	  Name			  "Ground_5"
+	  Position		  [225, 385, 235, 395]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Ground
+	  Name			  "Ground_6"
+	  Position		  [225, 400, 235, 410]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  StateSpace
+	  Name			  "Linear aircraft\nmodel"
+	  Position		  [375, 301, 450, 339]
+	  BackgroundColor	  lightBlue
+	  FontName		  "Arial"
+	  A			  "Aac"
+	  B			  "Bac"
+	  C			  "Cac"
+	  D			  "Dac"
+	  X0			  "0"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  Ports			  [3, 1, 0, 0, 0]
+	  Position		  [325, 304, 330, 336]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "[4 2 6]"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  Ports			  [4, 1, 0, 0, 0]
+	  Position		  [250, 245, 255, 300]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "4"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux2"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [250, 380, 255, 415]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  RateLimiter
+	  Name			  "Rate Limiter"
+	  Position		  [115, 315, 140, 335]
+	  FontName		  "Arial"
+	  RisingSlewLimit	  "3*pi/180"
+	  FallingSlewLimit	  "-3*pi/180"
+	}
+	Block {
+	  BlockType		  RateLimiter
+	  Name			  "Rate Limiter "
+	  Position		  [115, 380, 140, 400]
+	  FontName		  "Arial"
+	  RisingSlewLimit	  "50"
+	  FallingSlewLimit	  "-50"
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "Scope"
+	  Ports			  [1, 0, 0, 0, 0]
+	  Position		  [515, 362, 535, 388]
+	  BackgroundColor	  gray
+	  FontName		  "Arial"
+	  Floating		  off
+	  Location		  [37, 30, 365, 426]
+	  Open			  off
+	  Grid			  on
+	  TickLabels		  on
+	  ZoomMode		  on
+	  TimeRange		  "120.000000"
+	  YMin			  "-50.000000"
+	  YMax			  "50.000000"
+	  SaveToWorkspace	  off
+	  SaveName		  "ScopeData"
+	  LimitMaxRows		  on
+	  MaxRows		  "5000"
+	  Decimation		  "1"
+	  SampleInput		  off
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Step
+	  Name			  "Step delta f"
+	  Position		  [55, 315, 75, 335]
+	  FontName		  "Arial"
+	  Time			  "0.001"
+	  Before		  "0"
+	  After			  "3*pi/180"
+	}
+	Block {
+	  BlockType		  Step
+	  Name			  "Step n"
+	  Position		  [55, 380, 75, 400]
+	  FontName		  "Arial"
+	  Time			  "1"
+	  Before		  "0"
+	  After			  "200"
+	}
+	Block {
+	  BlockType		  Step
+	  Name			  "Step pz"
+	  Position		  [55, 425, 75, 445]
+	  FontName		  "Arial"
+	  Time			  "0.001"
+	  Before		  "0"
+	  After			  "2"
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator_16"
+	  Position		  [205, 400, 215, 410]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator_17"
+	  Position		  [205, 260, 215, 270]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator_18"
+	  Position		  [205, 275, 215, 285]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator_19"
+	  Position		  [205, 290, 215, 300]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator_20"
+	  Position		  [205, 385, 215, 395]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "To Workspace"
+	  Position		  [515, 231, 565, 249]
+	  BackgroundColor	  yellow
+	  FontName		  "Arial"
+	  VariableName		  "t"
+	  Buffer		  "1000"
+	  Decimation		  "1"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "To Workspace "
+	  Position		  [515, 311, 565, 329]
+	  BackgroundColor	  yellow
+	  FontName		  "Arial"
+	  VariableName		  "yout"
+	  Buffer		  "1000"
+	  Decimation		  "1"
+	  SampleTime		  "0"
+	}
+	Line {
+	  SrcBlock		  "Ground_6"
+	  SrcPort		  1
+	  Points		  [-5, -5]
+	  DstBlock		  "Mux2"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Ground_5"
+	  SrcPort		  1
+	  Points		  [-5, -5]
+	  DstBlock		  "Mux2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Ground_4"
+	  SrcPort		  1
+	  Points		  [-5, -5]
+	  DstBlock		  "Mux1"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Ground_3"
+	  SrcPort		  1
+	  Points		  [-5, -5]
+	  DstBlock		  "Mux1"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Ground_2"
+	  SrcPort		  1
+	  Points		  [-5, -5]
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Block delta e"
+	  SrcPort		  1
+	  Points		  [128, 0; 0, 60]
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Step pz"
+	  SrcPort		  1
+	  DstBlock		  " Rate Limiter"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Step n"
+	  SrcPort		  1
+	  DstBlock		  "Rate Limiter "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Step delta f"
+	  SrcPort		  1
+	  DstBlock		  "Rate Limiter"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Clock"
+	  SrcPort		  1
+	  DstBlock		  "To Workspace"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Linear aircraft\nmodel"
+	  SrcPort		  1
+	  Points		  [15, 0]
+	  Branch {
+	    DstBlock		    "To Workspace "
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 55]
+	    DstBlock		    "Scope"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  Points		  [15, 0]
+	  Branch {
+	    DstBlock		    "Linear aircraft\nmodel"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -35]
+	    DstBlock		    " To Workspace  "
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Block delta a"
+	  SrcPort		  1
+	  Points		  [85, 0; 0, 30]
+	  DstBlock		  "Terminator_17"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Block delta r"
+	  SrcPort		  1
+	  DstBlock		  "Terminator_18"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Rate Limiter"
+	  SrcPort		  1
+	  Points		  [25, 0; 0, -30]
+	  DstBlock		  "Terminator_19"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Rate Limiter "
+	  SrcPort		  1
+	  DstBlock		  "Terminator_20"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  " Rate Limiter"
+	  SrcPort		  1
+	  Points		  [25, 0; 0, -30]
+	  DstBlock		  "Terminator_16"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Ground_1"
+	  SrcPort		  1
+	  Points		  [-5, -5]
+	  DstBlock		  "Mux"
+	  DstPort		  3
+	}
+	Line {
+	  Name			  "uprop"
+	  Labels		  [1, 0]
+	  SrcBlock		  "Mux2"
+	  SrcPort		  1
+	  Points		  [30, 0; 0, -80]
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Line {
+	  Name			  "uaero"
+	  Labels		  [1, 0]
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  Points		  [30, 0; 0, 35]
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Annotation {
+	  Position		  [313, 27]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "Step 8. Add three To Workspace blocks "
+				  "from the Simulink library 'Sinks'. The "
+				  "first one is used to create a time-axis "
+				  "in     \nthe vector t in the Matlab Workspac"
+				  "e. Connect this block to a Clock block "
+				  "from the Simulink library 'Sources'. "
+				  "The           \nsecond To Workspace block "
+				  "is connected to the inputside of the "
+				  "aircraft model; it creates time-trajectories"
+				  " of the devia-\ntions of control inputs "
+				  "in the matrix yin. The last To Workspace "
+				  "block creates a matrix yout with the "
+				  "time-trajectories of \nthe outputs from "
+				  "the linear aircraft model (also deviations "
+				  "from nominal values!). If the original "
+				  "system BEAVER is used \nto obtain a linear "
+				  "state-space model, the outputvector will "
+				  "be: [ V alpha beta p q r psi theta phi "
+				  "xe ye H Hdot pb/2V ...    \n... qc/V "
+				  "rb/2V]'  (see LEVEL1.HLP and the block-diagr"
+				  "am of level1 of the system BEAVER).         "
+				  "                                     "
+	}
+	Annotation {
+	  Position		  [310, 132]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "Step 9. Add a Scope-block from the library "
+				  "'Sinks' to visualize outputs during simulati"
+				  "on (here, all outputs are shown in\none "
+				  "Scope, even though this gives some problems "
+				  "regarding scaling of the axes).             "
+				  "                                            "
+				  " "
+	}
+	Annotation {
+	  Position		  [97, 2]
+	  VerticalAlignment	  top
+	  ForegroundColor	  blue
+	  FontName		  "Times New Roman"
+	  FontSize		  14
+	  FontWeight		  bold
+	  Text			  "Construction of OLOOP3."
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "OLOOP3e"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [25, 285, 80, 315]
+      FontName		      "Arial"
+      ShowPortLabels	      off
+      System {
+	Name			"OLOOP3e"
+	Location		[4, 43, 585, 499]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  RateLimiter
+	  Name			  " Rate Limiter"
+	  Position		  [95, 410, 120, 430]
+	  FontName		  "Arial"
+	  RisingSlewLimit	  "1.0"
+	  FallingSlewLimit	  "-1.0"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  " To Workspace  "
+	  Position		  [495, 261, 545, 279]
+	  BackgroundColor	  yellow
+	  FontName		  "Arial"
+	  VariableName		  "yin"
+	  Buffer		  "1000"
+	  Decimation		  "1"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Block delta a"
+	  Ports			  [0, 1, 0, 0, 0]
+	  Position		  [30, 206, 60, 234]
+	  FontName		  "Arial"
+	  ShowPortLabels	  off
+	  MaskType		  "Block Fcn"
+	  MaskDescription	  "Block Function"
+	  MaskHelp		  "This block implements a block signal.\\nDefi"
+				  "ne the initial (=final) value, the\\namplitu"
+				  "de of the block (positive\\n= upwards, "
+				  "negative=downwards),\\nthe start time, "
+				  "and the stop time (must\\nbe smaller "
+				  "than the start time)."
+	  MaskPromptString	  "Initial value (=final value):|Amplitude "
+				  "of block (+ = step up, - = step down):|Start"
+				  " time of block:|Stop time of block:"
+	  MaskStyleString	  "edit,edit,edit,edit"
+	  MaskInitialization	  "yinit=@1; yblock=@2; tstart=@3; tstop=@4;"
+	  MaskDisplay		  "plot(0,0,100,100,[100,60,60,20,20,0],[50,50,"
+				  "89,89,50,50])"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  MaskValueString	  "0|3*pi/180|0|2"
+	  System {
+	    Name		    "Block delta a"
+	    Location		    [4, 60, 241, 187]
+	    Open		    off
+	    ScreenColor		    white
+	    Block {
+	      BlockType		      Step
+	      Name		      "End block"
+	      Position		      [40, 45, 60, 65]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstop"
+	      Before		      "0"
+	      After		      "-yblock"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Initial value"
+	      Position		      [40, 85, 80, 105]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Value		      "yinit"
+	    }
+	    Block {
+	      BlockType		      Step
+	      Name		      "Start block"
+	      Position		      [40, 5, 60, 25]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstart"
+	      Before		      "0"
+	      After		      "yblock"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum"
+	      Ports		      [3, 1, 0, 0, 0]
+	      Position		      [115, 36, 130, 74]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      ShowName		      off
+	      Inputs		      "+++"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "block"
+	      Position		      [165, 45, 185, 65]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Port		      "1"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "End block"
+	      SrcPort		      1
+	      DstBlock		      "Sum"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Start block"
+	      SrcPort		      1
+	      Points		      [30, 0; 0, 30]
+	      DstBlock		      "Sum"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Initial value"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -30]
+	      DstBlock		      "Sum"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Sum"
+	      SrcPort		      1
+	      DstBlock		      "block"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Block delta e"
+	  Ports			  [0, 1, 0, 0, 0]
+	  Position		  [30, 161, 60, 189]
+	  FontName		  "Arial"
+	  ShowPortLabels	  off
+	  MaskType		  "Block Fcn"
+	  MaskDescription	  "Block Function"
+	  MaskHelp		  "This block implements a block signal.\\nDefi"
+				  "ne the initial (=final) value, the\\namplitu"
+				  "de of the block (positive\\n= upwards, "
+				  "negative=downwards),\\nthe start time, "
+				  "and the stop time (must\\nbe smaller "
+				  "than the start time)."
+	  MaskPromptString	  "Initial value (=final value):|Amplitude "
+				  "of block (+ = step up, - = step down):|Start"
+				  " time of block:|Stop time of block:"
+	  MaskStyleString	  "edit,edit,edit,edit"
+	  MaskInitialization	  "yinit=@1; yblock=@2; tstart=@3; tstop=@4;"
+	  MaskDisplay		  "plot(0,0,100,100,[100,60,60,20,20,0],[50,50,"
+				  "89,89,50,50])"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  MaskValueString	  "0|3*pi/180|0|2"
+	  System {
+	    Name		    "Block delta e"
+	    Location		    [4, 60, 241, 187]
+	    Open		    off
+	    ScreenColor		    white
+	    Block {
+	      BlockType		      Step
+	      Name		      "End block"
+	      Position		      [40, 45, 60, 65]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstop"
+	      Before		      "0"
+	      After		      "-yblock"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Initial value"
+	      Position		      [40, 85, 80, 105]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Value		      "yinit"
+	    }
+	    Block {
+	      BlockType		      Step
+	      Name		      "Start block"
+	      Position		      [40, 5, 60, 25]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstart"
+	      Before		      "0"
+	      After		      "yblock"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum"
+	      Ports		      [3, 1, 0, 0, 0]
+	      Position		      [115, 36, 130, 74]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      ShowName		      off
+	      Inputs		      "+++"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "block"
+	      Position		      [165, 45, 185, 65]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Port		      "1"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "Sum"
+	      SrcPort		      1
+	      DstBlock		      "block"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Initial value"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -30]
+	      DstBlock		      "Sum"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Start block"
+	      SrcPort		      1
+	      Points		      [30, 0; 0, 30]
+	      DstBlock		      "Sum"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "End block"
+	      SrcPort		      1
+	      DstBlock		      "Sum"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Block delta r"
+	  Ports			  [0, 1, 0, 0, 0]
+	  Position		  [30, 251, 60, 279]
+	  FontName		  "Arial"
+	  ShowPortLabels	  off
+	  MaskType		  "Block Fcn"
+	  MaskDescription	  "Block Function"
+	  MaskHelp		  "This block implements a block signal.\\nDefi"
+				  "ne the initial (=final) value, the\\namplitu"
+				  "de of the block (positive\\n= upwards, "
+				  "negative=downwards),\\nthe start time, "
+				  "and the stop time (must\\nbe smaller "
+				  "than the start time)."
+	  MaskPromptString	  "Initial value (=final value):|Amplitude "
+				  "of block (+ = step up, - = step down):|Start"
+				  " time of block:|Stop time of block:"
+	  MaskStyleString	  "edit,edit,edit,edit"
+	  MaskInitialization	  "yinit=@1; yblock=@2; tstart=@3; tstop=@4;"
+	  MaskDisplay		  "plot(0,0,100,100,[100,60,60,20,20,0],[50,50,"
+				  "89,89,50,50])"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  MaskValueString	  "0|3*pi/180|0|2"
+	  System {
+	    Name		    "Block delta r"
+	    Location		    [4, 60, 241, 187]
+	    Open		    off
+	    ScreenColor		    white
+	    Block {
+	      BlockType		      Step
+	      Name		      "End block"
+	      Position		      [40, 45, 60, 65]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstop"
+	      Before		      "0"
+	      After		      "-yblock"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Initial value"
+	      Position		      [40, 85, 80, 105]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Value		      "yinit"
+	    }
+	    Block {
+	      BlockType		      Step
+	      Name		      "Start block"
+	      Position		      [40, 5, 60, 25]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Time		      "tstart"
+	      Before		      "0"
+	      After		      "yblock"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum"
+	      Ports		      [3, 1, 0, 0, 0]
+	      Position		      [115, 36, 130, 74]
+	      FontName		      "Arial"
+	      FontSize		      9
+	      ShowName		      off
+	      Inputs		      "+++"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "block"
+	      Position		      [165, 45, 185, 65]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      FontSize		      9
+	      Port		      "1"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "Sum"
+	      SrcPort		      1
+	      DstBlock		      "block"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Initial value"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -30]
+	      DstBlock		      "Sum"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Start block"
+	      SrcPort		      1
+	      Points		      [30, 0; 0, 30]
+	      DstBlock		      "Sum"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "End block"
+	      SrcPort		      1
+	      DstBlock		      "Sum"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Clock
+	  Name			  "Clock"
+	  Position		  [430, 215, 450, 235]
+	  FontName		  "Arial"
+	  Location		  [30, 40, 140, 75]
+	}
+	Block {
+	  BlockType		  Ground
+	  Name			  "Ground_1"
+	  Position		  [280, 310, 290, 320]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Ground
+	  Name			  "Ground_2"
+	  Position		  [205, 245, 215, 255]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Ground
+	  Name			  "Ground_3"
+	  Position		  [205, 260, 215, 270]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Ground
+	  Name			  "Ground_4"
+	  Position		  [205, 275, 215, 285]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Ground
+	  Name			  "Ground_5"
+	  Position		  [205, 370, 215, 380]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Ground
+	  Name			  "Ground_6"
+	  Position		  [205, 385, 215, 395]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  StateSpace
+	  Name			  "Linear aircraft\nmodel"
+	  Position		  [355, 286, 430, 324]
+	  BackgroundColor	  lightBlue
+	  FontName		  "Arial"
+	  A			  "Aac"
+	  B			  "Bac"
+	  C			  "Cac"
+	  D			  "Dac"
+	  X0			  "0"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  Ports			  [3, 1, 0, 0, 0]
+	  Position		  [305, 289, 310, 321]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "[4 2 6]"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  Ports			  [4, 1, 0, 0, 0]
+	  Position		  [230, 230, 235, 285]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "4"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux2"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [230, 365, 235, 400]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  RateLimiter
+	  Name			  "Rate Limiter"
+	  Position		  [95, 300, 120, 320]
+	  FontName		  "Arial"
+	  RisingSlewLimit	  "3*pi/180"
+	  FallingSlewLimit	  "-3*pi/180"
+	}
+	Block {
+	  BlockType		  RateLimiter
+	  Name			  "Rate Limiter "
+	  Position		  [95, 365, 120, 385]
+	  FontName		  "Arial"
+	  RisingSlewLimit	  "50"
+	  FallingSlewLimit	  "-50"
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "Scope"
+	  Ports			  [1, 0, 0, 0, 0]
+	  Position		  [495, 347, 515, 373]
+	  BackgroundColor	  gray
+	  FontName		  "Arial"
+	  Floating		  off
+	  Location		  [37, 30, 365, 426]
+	  Open			  off
+	  Grid			  on
+	  TickLabels		  on
+	  ZoomMode		  on
+	  TimeRange		  "120.000000"
+	  YMin			  "-50.000000"
+	  YMax			  "50.000000"
+	  SaveToWorkspace	  off
+	  SaveName		  "ScopeData"
+	  LimitMaxRows		  on
+	  MaxRows		  "5000"
+	  Decimation		  "1"
+	  SampleInput		  off
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Step
+	  Name			  "Step delta f"
+	  Position		  [35, 300, 55, 320]
+	  FontName		  "Arial"
+	  Time			  "0.001"
+	  Before		  "0"
+	  After			  "3*pi/180"
+	}
+	Block {
+	  BlockType		  Step
+	  Name			  "Step n"
+	  Position		  [35, 365, 55, 385]
+	  FontName		  "Arial"
+	  Time			  "1"
+	  Before		  "0"
+	  After			  "200"
+	}
+	Block {
+	  BlockType		  Step
+	  Name			  "Step pz"
+	  Position		  [35, 410, 55, 430]
+	  FontName		  "Arial"
+	  Time			  "0.001"
+	  Before		  "0"
+	  After			  "2"
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator_16"
+	  Position		  [185, 385, 195, 395]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator_17"
+	  Position		  [185, 245, 195, 255]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator_18"
+	  Position		  [185, 260, 195, 270]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator_19"
+	  Position		  [185, 275, 195, 285]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator_20"
+	  Position		  [185, 370, 195, 380]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "To Workspace"
+	  Position		  [495, 216, 545, 234]
+	  BackgroundColor	  yellow
+	  FontName		  "Arial"
+	  VariableName		  "t"
+	  Buffer		  "1000"
+	  Decimation		  "1"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "To Workspace "
+	  Position		  [495, 296, 545, 314]
+	  BackgroundColor	  yellow
+	  FontName		  "Arial"
+	  VariableName		  "yout"
+	  Buffer		  "1000"
+	  Decimation		  "1"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "ini3"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [400, 50, 490, 90]
+	  ForegroundColor	  blue
+	  BackgroundColor	  cyan
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  ShowName		  off
+	  OpenFcn		  "incoload"
+	  ShowPortLabels	  off
+	  MaskType		  "incoload"
+	  MaskDisplay		  "disp('1b. Load linear\\nmodel from file\\nIN"
+				  "COLOAD')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "ini3"
+	    Location		    [0, 0, 364, 143]
+	    Open		    off
+	    ScreenColor		    cyan
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "lin"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [400, 5, 490, 45]
+	  ForegroundColor	  blue
+	  BackgroundColor	  cyan
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  ShowName		  off
+	  OpenFcn		  "aclin"
+	  ShowPortLabels	  off
+	  MaskType		  "linearize aircraft model"
+	  MaskDisplay		  "disp('1a. Call lineari-\\nzation routine\\nA"
+				  "CLIN')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "lin"
+	    Location		    [0, 0, 364, 143]
+	    Open		    off
+	    ScreenColor		    cyan
+	  }
+	}
+	Line {
+	  SrcBlock		  "Ground_6"
+	  SrcPort		  1
+	  DstBlock		  "Mux2"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Ground_5"
+	  SrcPort		  1
+	  DstBlock		  "Mux2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Ground_4"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Ground_3"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Ground_2"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Block delta e"
+	  SrcPort		  1
+	  Points		  [128, 0; 0, 60]
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Step pz"
+	  SrcPort		  1
+	  DstBlock		  " Rate Limiter"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Step n"
+	  SrcPort		  1
+	  DstBlock		  "Rate Limiter "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Step delta f"
+	  SrcPort		  1
+	  DstBlock		  "Rate Limiter"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Clock"
+	  SrcPort		  1
+	  DstBlock		  "To Workspace"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Linear aircraft\nmodel"
+	  SrcPort		  1
+	  Points		  [15, 0]
+	  Branch {
+	    DstBlock		    "To Workspace "
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 55]
+	    DstBlock		    "Scope"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  Points		  [15, 0]
+	  Branch {
+	    DstBlock		    "Linear aircraft\nmodel"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -35]
+	    DstBlock		    " To Workspace  "
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Block delta a"
+	  SrcPort		  1
+	  Points		  [85, 0; 0, 30]
+	  DstBlock		  "Terminator_17"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Block delta r"
+	  SrcPort		  1
+	  DstBlock		  "Terminator_18"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Rate Limiter"
+	  SrcPort		  1
+	  Points		  [25, 0; 0, -30]
+	  DstBlock		  "Terminator_19"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Rate Limiter "
+	  SrcPort		  1
+	  DstBlock		  "Terminator_20"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  " Rate Limiter"
+	  SrcPort		  1
+	  Points		  [25, 0; 0, -30]
+	  DstBlock		  "Terminator_16"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Ground_1"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Mux2"
+	  SrcPort		  1
+	  Points		  [30, 0; 0, -80]
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  Points		  [30, 0; 0, 35]
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Annotation {
+	  Position		  [173, 37]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "Step 10: Add 'buttonbar' for starting "
+				  "up help routines which de-\nfine and/or "
+				  "load state-space matrices of linearized "
+				  "aircraft model."
+	}
+	Annotation {
+	  Position		  [178, 72]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "Step 11: Set the simulation options in "
+				  "the 'Simulation' menu above"
+	}
+	Annotation {
+	  Position		  [176, 92]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "Step 12: Start simulation! Use scope "
+				  "blocks to visualize results.  "
+	}
+	Annotation {
+	  Position		  [466, 107]
+	  VerticalAlignment	  top
+	  ForegroundColor	  red
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "These button  blocks can be obtained "
+				  "from\nthe FDC library FDCLIB (they have "
+				  "been  \nmodified a little). Type HELP "
+				  "ACTRIM or\nHELP INCOLOAD for more informatio"
+				  "n.  "
+	}
+	Annotation {
+	  Position		  [92, 7]
+	  VerticalAlignment	  top
+	  ForegroundColor	  blue
+	  FontName		  "Times New Roman"
+	  FontSize		  14
+	  FontWeight		  bold
+	  Text			  "Construction of OLOOP3."
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "t"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [10, 5, 95, 51]
+      ForegroundColor	      blue
+      DropShadow	      on
+      FontName		      "Arial"
+      ShowName		      off
+      OpenFcn		      "fdchelp oloop"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('OLOOP3T\\nMarc Rauw\\nOctober 1997')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"t"
+	Location		[0, 0, 264, 222]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Annotation {
+      Position		      [329, 207]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      FontSize		      11
+      Text		      "  <--- Mux control inputs and atmospheric "
+			      "disturbances together into one inputvector. "
+			      "Connect  \nthis vector to the state-space "
+			      "model and add Ground and Termination blocks "
+			      "to open lines."
+    }
+    Annotation {
+      Position		      [285, 162]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      FontSize		      11
+      Text		      " <--- Add control-input generators (deviations "
+			      "from nominal values of inputs)."
+    }
+    Annotation {
+      Position		      [192, 7]
+      VerticalAlignment	      top
+      ForegroundColor	      blue
+      FontName		      "Times New Roman"
+      FontSize		      14
+      FontWeight	      bold
+      Text		      "OLOOP3  TUTORIAL"
+    }
+    Annotation {
+      Position		      [339, 32]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      FontSize		      11
+      Text		      "The subsystems OLOOP3a to OLOOP3e contain "
+			      "a stepwise construction of the LINEAR\nopen-loop"
+			      " simulation model of the 'Beaver', which "
+			      "will be obtained by applying the linea-\nrizatio"
+			      "n program ACLIN to the system BEAVER. Type "
+			      "HELP ACLIN for more information \nabout the "
+			      "linearization program. Type BEAVER to see "
+			      "the internal structure of the NON-\nLINEAR "
+			      "dynamic model of the 'Beaver' aircraft.         "
+			      "                                                "
+			      "       "
+    }
+    Annotation {
+      Position		      [323, 117]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      FontSize		      11
+      Text		      "<--- Open new system and implement linear "
+			      "aircraft model by means of a State-space block."
+    }
+    Annotation {
+      Position		      [232, 297]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      FontSize		      11
+      Text		      "  <--- Add 'buttonbar' to facilitate system "
+			      "initializiation etc."
+    }
+    Annotation {
+      Position		      [286, 257]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      FontSize		      11
+      Text		      "<--- Add To Workspace blocks in order to "
+			      "send results to Matlab Workspace."
+    }
+    Annotation {
+      Position		      [315, 332]
+      VerticalAlignment	      top
+      ForegroundColor	      red
+      FontName		      "Arial"
+      FontSize		      11
+      Text		      "Double-click button block 1a (ACLIN) to obtain "
+			      "a linearized aircraft model before\nstarting "
+			      "a new simulation, or load the model directly "
+			      "from file after double-clicking\nblock 1b "
+			      "(INCOLOAD). During a simulation, the time-axis "
+			      "will be stored in the vec-\ntor t, the output "
+			      "trajectories are stored in the matrix yout, "
+			      "and the input trajectories\nare stored in "
+			      "the matrix yin. Note: RESULTS.M doesn't work "
+			      "for linearized models!\nCompare the system "
+			      "OLOOP3 with OLOOP1 to see the differences "
+			      "between linear\nand nonlinear open-loop simulati"
+			      "ons. Remember that the linear model always "
+			      "uses\nDEVIATIONS from nominal values of x, "
+			      "u, and y, whereas the nonlinear model\nuses "
+			      "the real values (deviations + initial value)."
+    }
+  }
+}

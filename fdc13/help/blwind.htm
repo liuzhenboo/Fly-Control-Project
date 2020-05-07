@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: BLwind</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">BLwind</FONT></I>: wind in Earth's boundary layer</H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">BLwind</FONT></I> is a masked subsystem block, contained in the FDC blocklibrary <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="windlib.htm">WINDLIB</A></FONT></I>. It calculates velocity components of a horizontal wind along the body-axes of the aircraft, where the wind velocity and direction may change along the flight path as a function of altitude. By default, the wind profile is valid in the <U>B</U>oundary <U>L</U>ayer of the Earth. However, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">BLwind</FONT></I> can easily be altered in order to implement wind shears at different altitudes.<BR><BR>
+
+The user must specify the wind profile by changing two functions:
+<OL>
+<LI>  wind velocity function; expresses <I>V<SUB>w</SUB></I> as a function of the altitude <I>H</I>,
+<LI>  wind direction function; expresses <I>psi_w</I> as a function of <I>H</I>.
+</OL>
+where <I>V<SUB>w</SUB></I> is the wind velocity [m/s] and <I>psi_w</I> is the wind direction [rad]. If the wind is blowing to the north, <I>psi_w</I> should be equal to <I>pi</I> rad! In the default setting, the following expressions, taken from <A HREF="#References">ref.[1]</A> have been used:
+<PRE>  Vw(H) = (H^0.2545 - 0.4097)/1.3470     0 &#60;= H &#60;= 300 m
+
+  Vw(H) = 2.8658 m/s                     H &#62; 300 m
+
+  psi_w = 0 rad for all H
+</PRE>
+Change these functions according your own wishes.
+<B>Note:</B> if you want to implement a constant wind, use the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="cwind.htm">Cwind</A></FONT></I> instead.
+
+<H3>Inputsignals (scalars)</H3>
+<PRE>  H    : altitude of aircraft above sea level [m]
+  psi  : heading of aircraft [rad]
+</PRE>
+
+<H3>Outputvector</H3>
+<PRE>  ywind = [uw vw ww]'
+
+  uw   : wind velocity component along XB-axis [m/s]
+  vw   : wind velocity component along YB-axis [m/s]
+  ww   : wind velocity component along ZB-axis [m/s] (by default: ww = 0)
+</PRE>
+
+<H3><A NAME= "References">References</A></H3>
+<OL>
+<LI>Approach and Landing Simulation, AGARD report 632, Ames, 1975.
+</OL>
+
+</BODY>
+
+</HTML>

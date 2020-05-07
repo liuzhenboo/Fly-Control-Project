@@ -1,0 +1,79 @@
+-----------------------------------------------------------------
+UVWDOT is a masked Simulink subsystem, which is contained in the
+subsystem 'Additional Outputs' from the S-function BEAVER. UVWDOT
+computes time-derivatives of the body-axes velocity components u,
+v, and w. It is an additional OUTPUT block, which is NOT needed
+to solve the state equations themselves! In the system BEAVER,
+the true airspeed V, angle of attack alpha, and sideslip angle
+beta have been used as state variables in stead of u, v, and w!
+Nowhere in the system BEAVER, time-derivatives of the body-axes
+velocities are integrated; therefore, UVWDOT may be deleted from
+the system BEAVER without affecting the solution of the equations
+of motion.
+
+Note: contrary to UVWDOT, the block UVW which is contained in the
+subsystem 'Aircraft equations of motion' should NOT be removed
+from the system, because the outputs from that block (u, v and w)
+are needed in order to compute the aircraft's coordinates. The
+blocks UVW and UVWDOT both contain output equations only, and
+neither one of them uses the outputs from the other. The outputs
+from UVW are necessary for solving the state equations; the outputs
+from UVWDOT are not.
+
+Inputvectors: x, xdot, and yhlp (the inputvariables which are
+not actually used by UVWDOT are displayed between accolades).
+=============================================================
+  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+
+  xdot = dx'/dt                 (time derivative of state vector)
+
+  yhlp = [cos(alpha) sin(alpha) cos(beta) sin(beta) ...
+          ... tan(beta) sin(psi) cos(psi) sin(theta) ...
+          ... cos(theta) sin(phi) cos(phi)]'
+          (frequently used sines and cosines, coming from HLPFCN)
+
+where:
+
+  V    : airspeed [m/s]
+ {alpha: angle of attack [rad]                                  }
+ {beta : sideslip angle [rad]                                   }
+ {p    : roll rate [rad/s]                                      }
+ {q    : pitch rate [rad/s]                                     }
+ {r    : yaw rate [rad/s]                                       }
+ {psi  : yaw angle [rad]                                        }
+ {theta: pitch angle [rad]                                      }
+ {phi  : roll angle [rad]                                       }
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+
+ Of the vector xdot, the time derivatives of V, alpha, and beta
+ are used; from yhlp, cos(alpha), sin(alpha), cos(beta), and
+ sin(beta) are extracted.
+
+Outputvector: yuvw.
+===================
+  yuvw = [udot vdot wdot]' = d/dt([u v w]')
+
+where:
+
+  u    : velocity component along the XB (body-) axis [m/s]
+  v    : velocity component along the YB axis [m/s]
+  w    : velocity component along the ZB axis [m/s]
+
+More info:
+==========
+UVWDOT is an additional output block, which is not needed to
+solve the state equations. It uses the outputs from the subsystem
+'Aircraft Equations of Motion' as inputvectors, and it is, of
+course, closely related to the time-derivatives of the other
+state variables. See therefore EQMOTION.HLP, 12ODES.HLP, VABDOT.HLP,
+PQRDOT.HLP, EULERDOT.HLP, and XYHDOT.HLP for more info. See also
+UVW.HLP. Consult HLPFCN.HLP for more info about the vector yhlp.
+
+See MOREOUTS.HLP for details about the subsystem 'Additional
+Outputs'.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.
+

@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: WINDLIB</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Blocklibrary <I><FONT FACE="Arial","Helvetica","Sans Serif">WINDLIB</FONT></I></H2>
+
+The FDC blocklibrary <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">WINDLIB</FONT></I> contains sublibraries with S<SMALL>IMULINK</SMALL> models of wind and atmospheric turbulence. The models determine external atmospheric disturbances, which can be connected to a non-linear aircraft model (e.g. <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>), because the results are determined in terms velocity components within the body-fixed reference frame of the aircraft. For more details about the underlying theory, see the <A HREF="#References">references</A> at the end of this help-text.
+<BR><BR>
+
+The <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Wind models</FONT></I> sublibrary contains the following blocks:
+
+<UL>
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="blwind.htm">BLwind</A></FONT></I><BR>&#160;&#160;&#160;&#160;&#160;Wind profile in Earth's <U>B</U>oundary <U>L</U>ayer
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="cwind.htm">Cwind</A></FONT></I><BR> &#160;&#160;&#160;&#160;&#160;<U>C</U>onstant horizontal wind
+</UL>
+<BR>
+
+The <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Atmospheric turbulence models</FONT></I> sublibrary contains the following blocks:
+
+<UL>
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="turb1.htm">turb1</A></FONT></I><BR>&#160;&#160;&#160;&#160;&#160;Example system which combines <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">UDRYD1</FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">VDRYD1</FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">WDRYD1</FONT></I> in one subsystem
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="turb2.htm">turb2</A></FONT></I><BR>&#160;&#160;&#160;&#160;&#160;Example system which combines <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">UDRYD2</FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">VDRYD2</FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">WDRYD2</FONT></I> in one subsystem
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="udryd1.htm">UDRYD1</A></FONT></I><BR>&#160;&#160;&#160;&#160;&#160;Longitudinal Dryden filter with constant coefficients
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="udryd2.htm">UDRYD2</A></FONT></I><BR> &#160;&#160;&#160;&#160;&#160;Longitudinal Dryden filter with velocity-dependent coefficients
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vdryd1.htm">VDRYD1</A></FONT></I><BR>&#160;&#160;&#160;&#160;&#160;Lateral Dryden filter with constant coefficients
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vdryd2.htm">VDRYD2</A></FONT></I><BR> &#160;&#160;&#160;&#160;&#160;Lateral Dryden filter with velocity-dependent coefficients
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="wdryd1.htm">WDRYD1</A></FONT></I><BR>&#160;&#160;&#160;&#160;&#160;Vertical Dryden filter with constant coefficients
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="wdryd2.htm">WDRYD2</A></FONT></I><BR> &#160;&#160;&#160;&#160;&#160;Vertical Dryden filter with velocity-dependent coefficients
+</UL>
+<BR>
+
+<H3><A NAME= "References">References</A></H3>
+
+<OL>
+<LI>M.O. Rauw: <I>FDC 1.2 - A S<SMALL>IMULINK</SMALL> Environment for Flight Dynamics and Control Analysis</I>. Zeist, March 1997
+<LI>M.O. Rauw: <I>A S<SMALL>IMULINK</SMALL> environment for Flight Dynamics and Control analysis - Application to the DHC-2 'Beaver'</I>, part I: <I>Implementation of a model library in S<SMALL>IMULINK</SMALL></I>. Delft University of Technology, September 1993 (also contained in the STAR database of NASA, report number NONP-NASA-SUPPL-DK-94-28027)
+<LI>Approach and Landing Simulation, AGARD report 632, Ames, 1975.
+</OL>
+
+</BODY>
+
+</HTML>

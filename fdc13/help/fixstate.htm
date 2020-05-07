@@ -1,0 +1,39 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: FIXSTATE</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+
+<H2>The utility <FONT FACE="Arial","Helvetica","Sans Serif"><I>FIXSTATE</I></FONT></H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">FIXSTATE</FONT></I> is a M<SMALL>ATLAB</SMALL> program, which can be used to artificially fix state variables of the non-linear aircraft model (in this case the S<SMALL>IMULINK</SMALL> system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>). <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">FIXSTATE</FONT></I> sets the value of the gain vector <I>xfix</I>, which is a multiplication factor for the time-derivative of the state vector (<I>xdot = dx/dt</I>) within the non-linear aircraft model. The corresponding gain block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="xfix.htm">XFIX</A></FONT></I> can be found in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="eqmotion.htm">Aircraft equations of motion</A></FONT></I> within the S-function <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>.
+
+The gain-factor <I>xfix</I> functions as follows: the time-derivative of the state-vector, used by the S<SMALL>IMULINK</SMALL> integrator, is equal to:
+<PRE>       xdot_used = xdot_true .* xfix
+</PRE>
+(the <CODE> .* </CODE> symbol corresponds with the M<SMALL>ATLAB</SMALL> operator for element-by-element of vectors). The elements of <I>xfix</I> are either equal to one or zeros. If <I>xfix = ones(1,12)</I> or <I>xfix = 1</I>, <I>xdot_used</I> will be equal to <I>xdot_true</I>, which means that none of the state variables will be artificially fixed. If one or more elements of <I>xfix</I> is (are) equal to zero, the time-derivatives of the corresponding states will remain zero, hence, these states will remain equal to their initial condition.<BR><BR>
+
+For instance: if the true airspeed (that is: the first element of the state vector <I>x</I>) needs to be kept constant, <I>xfix</I> has to equal <I>[0 1 1 1 1 1 1 1 1 1 1 1]</I>. This may be practical for the comparison of a speed hold autopilot mode with the 'ideal' response with artificially fixed airspeed. Another practical purpose for <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">FIXSTATE</FONT></I> is the determination of purely longitudinal or lateral dynamics, without cross-coupling effects.<BR><BR>
+
+<B>Note:</B> the variable <I>xfix</I> needs to be defined in the workspace if the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> (or a similarly structured aircraft model) is evaluated for simulation, trimming, and/or linearization purposes. Either set <CODE>xfix = 1</CODE> manually, or use <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I> to load the model parameters from file.
+
+<H3>Definition of the state-vector</H3>
+<PRE>    x     = [V alpha beta p q r psi theta phi xe ye H]'
+
+    V     = true airspeed [m/s]
+    alpha = angle of attack [rad]
+    beta  = sideslip angle [rad]
+    p     = roll-rate [rad/s]
+    q     = pitch-rate [rad/s]
+    r     = yaw-rate [rad/s]
+    psi   = yaw angle [rad]
+    theta = pitch angle [rad]
+    phi   = roll angle [rad]
+    xe    = X-coordinate of aircraft's c.g. [m]
+    ye    = Y-coordinate of aircraft's c.g. [m]
+    H     = altitude of aircraft's c.g. [m] (above sea level)
+</PRE>
+
+</BODY>
+
+</HTML>

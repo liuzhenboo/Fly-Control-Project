@@ -1,0 +1,53 @@
+-----------------------------------------------------------------
+ Asymmetrical Autopilot modes.
+ =============================
+ Subsystem of APILOT1, APILOT2, or APILOT3.
+
+ The 'Beaver' autopilot contains the following asymmetrical con-
+ trol modes:
+
+ *  Roll Attitude Hold (RAH), including turn coordination
+ *  Heading Hold / Heading Select (HH)
+ *  VOR-Navigation (NAV)
+ *  asymmetrical approach mode: Localizer (LOC)
+
+ The RAH mode is also used as inner-loop for HH, NAV, and LOC.
+
+ In Localizer mode, a switch criterion is used to switch from
+ the Localizer-Armed phase, in which the aircraft is usually
+ flying under HH control, to Localizer-Coupled. Note: for rea-
+ sons of computing speed, LOC is not included in the system
+ APILOT1.
+
+ The block 'Select asymm. mode-controller signals' separates the
+ mode-switch settings and reference signals for the asymmetrical
+ autopilot modes from the symmetrical mode-switch settings and
+ reference signals.
+
+ More info
+ =========
+ See the .HLP file APILOT for more details about the complete
+ autopilot simulation systems APILOT1, APILOT2, and APILOT3. The
+ .HLP files MODECTRL and REFSGNLS give more info about the blocks
+ 'Mode Controller' and 'Reference Signals'; AP_SYMM.HLP gives
+ details about the symmetrical autopilot modes.
+
+ See also COLORS.HLP for more info on color definitions!
+
+ References
+ ==========
+ For a detailed description of the 'Beaver' autopilot, the fol-
+ lowing references should be consulted:
+
+ [1]  M.O. Rauw, A SIMULINK environment for Flight Dynamics and
+      Control analysis - Application to the DHC-2 'Beaver',
+      PART II! Graduate's thesis, Delft University of Technology,
+      Faculty of Aerospace Engineering, Delft, 1993.
+
+ [2]  P.N.H. Wever, Ontwerp en implementatie van de regelwetten
+      van de De Havilland DHC-2 'Beaver' (in Dutch). Graduate's
+      thesis, Delft University of Technology, Faculty of Aero-
+      space Engineering, Delft, 1993.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

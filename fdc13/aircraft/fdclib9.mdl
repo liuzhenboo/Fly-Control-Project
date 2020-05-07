@@ -1,0 +1,100 @@
+Library {
+  Name			  "fdclib9"
+  Version		  2.09
+  PaperOrientation	  landscape
+  PaperType		  usletter
+  PaperUnits		  inches
+  BlockDefaults {
+    Orientation		    right
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    NamePlacement	    normal
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+    ShowName		    on
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    center
+    VerticalAlignment	    middle
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  System {
+    Name		    "fdclib9"
+    Location		    [10, 45, 456, 219]
+    Open		    on
+    ScreenColor		    white
+    Block {
+      BlockType		      SubSystem
+      Name		      "res1"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [15, 40, 87, 108]
+      ForegroundColor	      blue
+      BackgroundColor	      cyan
+      DropShadow	      on
+      FontName		      "Arial"
+      ShowName		      off
+      OpenFcn		      "results"
+      ShowPortLabels	      off
+      MaskType		      "results"
+      MaskDisplay	      "disp('Create\\ntrajectories\\nof individual\\nou"
+			      "tputs\\nRESULTS')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"res1"
+	Location		[0, 0, 364, 143]
+	Open			off
+	ScreenColor		cyan
+      }
+    }
+    Annotation {
+      Position		      [174, 7]
+      VerticalAlignment	      top
+      ForegroundColor	      blue
+      FontName		      "Times New Roman"
+      FontSize		      14
+      FontWeight	      bold
+      Text		      "FDC Toolbox - Simulation-data processing blocks"
+    }
+    Annotation {
+      Position		      [270, 47]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      Text		      "<-- Button block which calls RESULTS.M to "
+			      "create time-trajectories of\nindividual inputs "
+			      "and outputs after performing a simulation. "
+			      "The resul-\nting time-trajectories have self-exp"
+			      "laining variable names. Type HELP\nRESULTS "
+			      "for more info. See also INPUTS.HLP and OUTPUTS.H"
+			      "LP\nfrom the subdirectory HELP!"
+    }
+    Annotation {
+      Position		      [223, 132]
+      VerticalAlignment	      top
+      ForegroundColor	      red
+      FontName		      "Arial"
+      FontSize		      11
+      Text		      "This library will be enhanced with plotting "
+			      "routines and more general input/output \npost-pr"
+			      "ocessing routines in future versions of the "
+			      "FDC toolbox."
+    }
+  }
+}

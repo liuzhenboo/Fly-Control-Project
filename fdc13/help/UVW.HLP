@@ -1,0 +1,66 @@
+-----------------------------------------------------------------
+UVW is a masked Simulink subsystem, which is used to compute the
+body-axes velocities u, v, and w. Since the aircraft model uses
+the true airspeed V, angle of attack alpha, and sideslip angle
+beta as state variables, the equations for u, v, and w are simple
+output equations. The body-axes velocity components are needed
+to solve the equations for the coordinates xe, ye, and the alti-
+tude H, so the block UVW cannot be deleted from the system! UVW
+is included in the subsystem 'Aircraft Equations of Motion' of
+the S-function BEAVER.
+
+Since u, v, and w are no state variables, the time-derivatives of
+u, v, and w don't have to be computed to solve the equations of
+motion. However, for some purposes, knowledge of these time-deri-
+vatives still may be useful; therefore, a block UVWDOT has been
+included in the subsystem 'Additional Outputs' within the S-func-
+tion BEAVER. See UVWDOT.HLP for more details.
+
+Inputvectors: x and yhlp (the inputvariables which are not used
+in the block UVW are displayed between accolades).
+===============================================================
+  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+
+  yhlp = [cos(alpha) sin(alpha) cos(beta) sin(beta) ...
+          ... tan(beta) sin(psi) cos(psi) sin(theta) ...
+          ... cos(theta) sin(phi) cos(phi)]'
+          (frequently used sines and cosines, coming from HLPFCN)
+
+where:
+
+  V    : airspeed [m/s]
+ {alpha: angle of attack [rad]                                  }
+ {beta : sideslip angle [rad]                                   }
+ {p    : roll rate [rad/s]                                      }
+ {q    : pitch rate [rad/s]                                     }
+ {r    : yaw rate [rad/s]                                       }
+ {psi  : yaw angle [rad]                                        }
+ {theta: pitch angle [rad]                                      }
+ {phi  : roll angle [rad]                                       }
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+
+ of yhlp are used: cos(alpha), cos(beta), sin(alpha) and sin(beta)
+
+Outputvector: ybvel (bvel = 'body-axes velocities').
+====================================================
+  ybvel = [u v w]',
+
+where:
+
+  u     : component of the true airspeed V along XB-axis [m/s]
+  v     : component of the true airspeed V along YB-axis [m/s]
+  w     : component of the true airspeed V along ZB-axis [m/s]
+
+More info.
+==========
+See EQMOTION.HLP for more info about the subsystem 'Aircraft
+Equations of Motion', in which UVW is contained. See HLPFCN.HLP
+for more details about the inputvector yhlp to the block UVW.
+The outputs from UVW are used by the block XYHDOT in the sub-sub-
+system '12 ODEs'; see 12ODES.HLP and XYHDOT.HLP for more info.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.
+

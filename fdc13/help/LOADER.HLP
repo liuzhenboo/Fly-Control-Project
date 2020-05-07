@@ -1,0 +1,9 @@
+-----------------------------------------------------------------
+LOADER.M is a Matlab routine for loading the model parameters
+for the non-linear aircraft model from the datafile AIRCRAFT.DAT,
+which can be created by running MODBUILD.
+
+Type HELP LOADER for more info.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

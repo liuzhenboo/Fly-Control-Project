@@ -1,0 +1,131 @@
+-----------------------------------------------------------------
+Level 1 of the system BEAVER
+============================
+The first level of the system BEAVER contains the Inports and
+Outports to and from the nonlinear aircraft model, To Workspace
+blocks to store the input and outputvectors along with a time-
+vector in the Matlab workspace, Mux blocks to combine the scalar
+signals from the different Inport blocks into vector signals, and
+Demux blocks to extract scalar output signals from the different
+output vectors. The actual model of the 'Beaver' dynamics is con-
+tained in the subsystem 'Beaver dynamics and output equations',
+i.e., level 1 is needed only to manage the input/output signals
+to and from the system BEAVER.
+
+S-function inputs & outputs vs. inputs & outputs which are send
+to the Matlab workspace.
+===============================================================
+It is important to notice that the number of outputs which are
+send to the Matlab workspace by means of To Workspace blocks is
+considerably larger than the number of Outport blocks, represen-
+ting 'S-function outputs' of the system BEAVER. The Outport
+blocks are needed for connecting other systems to the output-side
+of the system BEAVER, e.g., systems with models of sensor dyna-
+mics, controllers, etc. Unfortunately, Simulink does not accept
+vector outputs to be connected to Outport blocks within the first
+level of a graphical system; therefore, only a small subset of
+the output variables from BEAVER have actually been connected to
+the Outport blocks.
+
+By default, the sixteen outputs which were needed to simulate
+the 'Beaver' autopilot are connected to Outports. If other out-
+put signals are needed by systems which ought to be connected
+to BEAVER, it is necessary to add more Outport blocks to this
+list of 'S-function outputs'. For instance: if you want to exa-
+mine control laws which use accelerations as reference signals,
+these signals must be connected to new Outport blocks in the
+first level of BEAVER. Currently, the accelerations are send to
+the Matlab workspace only, but they cannot yet be used as inputs
+to other Simulink systems, connected to the output side of the
+system BEAVER.
+
+Currently, it is not possible to send complete vectors through
+individual Inport and Outport blocks in the first level of a
+graphical system (where they serve to connect the graphical sys-
+tem to other Simulink systems, or to provide access to the system
+for analytical tools such as trim and linearization routines).
+Inports and Outports in the first level of graphical Simulink
+systems only accept SCALAR signals, which is really a serious
+limitation of Simulink! Hopefully, this problem will be solved
+in future versions of Simulink!
+
+S-function inputs
+=================
+   deltae, deltaa, deltar, deltaf, n, pz, uw, vw, ww, uwdot,
+   vwdot, and wwdot
+
+   When connecting other systems to a block 'S-function' which
+   calls the system BEAVER, or when you want to access the sys-
+   tem BEAVER directly from the Matlab command-line, a vector of
+   length twelve must always be used as inputvector:
+
+   u = [deltae, deltaa, deltar, deltaf, n, pz, uw, vw, ww, uwdot,
+        vwdot, wwdot]'
+
+   The time-trajectories of these twelve 'S-function inputs' are
+   collected in the matrix In in the Matlab workspace.
+
+S-function outputs
+==================
+   V, alpha, beta, p, q, r, psi, theta, phi, xe, ye, H, Hdot,
+   pb/2V, qc/V, rb/2V
+
+   The first thirteen outputs (states + climb velocity Hdot) are
+   needed by the control laws of the 'Beaver' autopilot; the last
+   three outputs (dimensionless rotational velocities) are needed
+   by the linear state-space model of the dynamics of the steering
+   column/steering wheel, cables, control surfaces, and hydraulic
+   actuators, used in the 'Beaver' autopilot. These sixteen 'S-
+   function outputs' form a subset of the 89 outputs which are
+   send to the matrix Out in the Matlab workspace.
+
+See INPUTS.HLP and OUTPUTS.HLP for the exact definitions of these
+input and output signals, respectively.
+
+Inputs & outputs which are sent to the Matlab workspace
+=======================================================
+There are three 'To Workspace' blocks. The first one is used to
+send the inputs to the system BEAVER to the matrix In in the Mat-
+lab workspace, including the wind and turbulence velocity compo-
+nents and their time-derivatives. The second To Workspace block
+sends ALL outputs to the matrix Out in the Matlab workspace.
+In order to be able to plot the results against time, a third
+To Workspace block is connected to a Clock block, which yields
+a time-axis in the vector time. Therefore, results can be plot-
+ted by typing:
+
+    plot(time,Out(:,1))
+    plot(time,In(:,6))
+
+and so on. The exact definitions of the matrices In and Out can
+be found by double-clicking the corresponding Mux blocks in the
+first level of BEAVER, or by viewing the help texts INPUTS.HLP
+and OUTPUTS.HLP.
+
+The Matlab macro RESULTS.M
+==========================
+In stead of directly using the matrices In and Out for plotting
+and analyzing results, it is also possible to first run the Mat-
+lab program RESULTS.M, which has been included in the directory
+TOOLS. This program will extract the trajectories of individual
+inputs from the vector In and the trajectories of individual out-
+puts from the vector Out. The plotting commands, given above
+may then be replaced by:
+
+    plot(time,V)
+    plot(time,pz)
+
+Note: RESULTS.M can be used only for the default definitions of
+the matrices In and Out, as listed in INPUTS.HLP and OUTPUTS.HLP!
+Type HELP RESULTS for more info.
+
+More info
+=========
+See also LEVEL2.HLP, INPUTS.HLP, and OUTPUTS.HLP. See COLORS.HLP
+for an overview of the color conventions, used in the block-dia-
+grams from FDC 1.2.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.
+
+

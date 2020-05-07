@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Input-list</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>List of input signals to the system <I><FONT FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I></H2>
+
+The system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I> contains the nonlinear dynamic model of the DHC-2 'Beaver' aircraft, which consists of twelve state equations, forces and moment equations, airdata equations, and many additional output equations. <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> is a graphical S<SMALL>IMULINK</SMALL> block-diagram.<BR><BR>
+
+The first level of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> contains a number of input and output ports, which are needed to connect other subsystems (e.g. command generators, autopilots, sensor models, etc.) to the aircraft model. For simulation purposes, aircraft linearization and the determination of steady-state trimmed flight conditions, the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> can be treated as a <I>black-box</I> model, which can be accessed through this input and output ports only.
+
+<H3>S-function inputs of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I></H3>
+
+There are twelve (scalar) <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Inport</FONT></I> blocks, which means that the system must be accessed with an input vector of length twelve. This input vector (i.e. <I>the</I> inputvector to the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>) has been defined as:
+<PRE>  u     = [uaero'  uprop'  uwind']'
+
+  uaero = [deltae deltaa deltar deltaf]'
+  uprop = [n pz]'
+  uwind = [uw vw ww uwdot vwdot wwdot]'
+
+
+  deltae: elevator deflection [rad]
+  deltaa: ailerons deflection [rad]
+  deltar: rudder deflection [rad]
+  delfaf: flap deflection [rad]
+
+  n     : engine speed [RPM]
+  pz    : manifold pressure ["Hg]
+
+  uw    : wind & turbulence velocity along XB-axis [m/s]
+  vw    : wind & turbulence velocity along YB-axis [m/s]
+  ww    : wind & turbulence velocity along ZB-axis [m/s]
+  uwdot : d(uw)/dt [m/s^2]
+  vwdot : d(vw)/dt [m/s^2]
+  wwdot : d(ww)/dt [m/s^2]
+</PRE>
+
+<H3>Input variables which are send to the M<SMALL>ATLAB</SMALL> workspace</H3>
+
+During simulations, the time-trajectories of these input variables are recorded in the matrix <I>In</I> in the M<SMALL>ATLAB</SMALL> workspace. The matrix <I>In</I> contains twelve columns and <I>N</I> rows, where <I>N</I> is the number of time-steps taken during the simulation. The twelve columns correspond with the twelve elements of the inputvector <I>u</I>, so:
+<PRE>  In == [  u'(t0)  ;  u'(t1)  ;  u'(t2)  ;  ...  ;  u'(tN)  ]
+</PRE>
+The twelve columns of <I>In</I> therefore correspond with the variables <I>deltae</I>, <I>deltaa</I>, <I>deltar</I>, <I>deltaf</I>, <I>n</I>, <I>pz</I>, <I>uw</I>, <I>vw</I>, <I>ww</I>, <I>uwdot</I>, <I>vwdot</I>, and <I>wwdot </I>(in this particular order), respectively. The outputs from the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> are sent to the matrix <I>Out</I>, and a time-axis is send to the vector <I>time</I>. See the <A HREF="outputs.htm">list of outputs</A> for more information.
+
+<H3>Using the M<SMALL>ATLAB</SMALL>-macro <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">RESULTS</FONT></I></H3>
+
+Although the time-trajectories of the input variables are thus send to the matrix <I>In</I> in the M<SMALL>ATLAB</SMALL> workspace, analyzing these results may still be difficult, because it is not easy to memorize the exact definition of this matrix. For this reason, the M<SMALL>ATLAB</SMALL> program <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="results.htm">RESULTS</A></FONT></I> has been created. The file <SMALL>RESULTS.M</SMALL> can be found in the FDC subdirectory <SMALL>TOOLS</SMALL>.<BR><BR>
+
+If you run <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">RESULTS</FONT></I> after a simulation, the time-trajectories of <I>deltae</I>, <I>deltaa</I>, <I>deltar</I>, <I>deltaf</I>, <I>n</I>, <I>pz</I>, <I>uw</I>, <I>vw</I>, <I>ww</I>, <I>uwdot</I>, <I>vwdot</I>, and <I>wwdot</I> will be extracted from the matrix <I>In</I> as separate <I>vectors</I>. These vectors can be plotted against the vector <I>time</I>, which was created together with the matrices <I>In</I> and <I>Out</I>. The resulting plot commands look like:
+<PRE>        plot(time,uwdot)
+        plot(time,deltae)
+
+        etc.
+</PRE>
+The input-variables from the input-vector <I>u</I> are used by the blocks <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="aeromod.htm">Aeromod</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="engmod.htm">Engmod</A></FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="fwind.htm">Fwind</A></FONT></I> within the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>. See the list of <A HREF="outputs.htm">outputs</A> for an exact definition of the outputvector from the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>. See also the description of the first level of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> (denoted as <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="level1.htm">Level 1</A></FONT></I>) to find out how the definition of the inputvector <I>u</I> is related to the graphical block-diagram structure in this system level.<BR><BR>
+
+<B>Note:</B> if you want to adapt the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> for implementing a dynamic model of another aircraft, it may well be possible that you need other input-variables than the twelve listed above. In that case, the first level of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> needs to be changed according to your own wishes and the file <SMALL>RESULTS.M</SMALL> needs to be edited.
+
+</BODY>
+
+</HTML>

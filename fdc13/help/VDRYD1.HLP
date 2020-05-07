@@ -1,0 +1,56 @@
+-----------------------------------------------------------------
+VDRYD1 = Lateral Dryden filter #1. This masked subsystem block
+which is contained in the library WINDLIB from the subdirectory
+WIND, implements a lateral Dryden filter with constant coeffi-
+cients. The user must specify the scale lenght Lvg, the standard
+deviation sigma_vg and the airspeed V. In reality, V will not be
+constant, but often, the resulting changes in the filter coeffi-
+cients may be neglected, without affecting the resulting gust
+velocities very much. Use the block VDRYD2 if the airspeed varies
+so much that the filter coefficients cannot be held constant any-
+more (see VDRYD2.HLP for more info).
+
+The lateral gust velocity vg is obtained by passing white noise
+through a Dryden filter, which is defined by the following trans-
+fer function:
+
+            b0 + b1*s        a0 = (V/Lvg)^2
+  Hvg = -----------------    a1 = 2*(V/Lvg)
+         s^2 + a1*s + a0     b0 = sigma_vg*sqrt(Lvg/V)*(V/Lvg)^2
+                             b1 = sigma_vg*sqrt(3*Lvg/V)*(V/Lvg)
+where:
+
+  V       : true airspeed [m/s]
+  sigma_vg: standard deviation of lateral gust velocity [m/s]
+  Lvg     : scale length for lateral gust [m]
+
+Here, V is pre-specified by the user in one of the dialog-boxes
+of the subsystem VDRYD1.
+
+Outputs from the block VDRYD1:
+==============================
+  vg      : lateral gust velocity [m/s]
+  d(vg)/dt: time derivative of vg [m/s^2]
+
+The block VDRYD1 has no inputs.
+
+The gust velocity and its time derivative have to be added to the
+total wind velocity component vw and its time derivative vwdot in
+the vector uwind.
+
+More info.
+==========
+See UDRYD1.HLP, WDRYD1.HLP, and TURB1.HLP for more info about
+other Dryden filters with constant coefficients. See UDRYD2.HLP,
+VDRYD2.HLP, WDRYD2.HLP, and TURB2.HLP for more info about Dryden
+filters with coefficients that vary with the airspeed V.
+
+See CWIND.HLP and BLWIND.HLP for more information about blocks
+to compute the components of wind along the aircraft's body-axes
+(constant wind and a wind profile in the Earth's boundary layer,
+respectively). The use of the vector uwind within the aircraft
+model is outlined in the helpfiles LEVEL1.HLP, FWIND.HLP, and
+XYHDOT.HLP, which refer to blocks within the system BEAVER.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

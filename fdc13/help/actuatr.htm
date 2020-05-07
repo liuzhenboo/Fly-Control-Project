@@ -1,0 +1,14 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Actuator & cable dynamics</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>The autopilot subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Actuator & cable dynamics</FONT></I></H2>
+
+The autopilot subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Actuator & cable dynamics</FONT></I> contains the dynamics of the actuators and cables for the ailerons, elevator, and rudder channels. It is used by the systems <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT1">APILOT1</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT2">APILOT2</A></FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT3">APILOT3</A></FONT></I>. In the case of the 'Beaver' aircraft, these dynamics have been modeled as linear state-space blocks with state matrices <I>Aail</I>, <I>Bail</I>, <I>Cail</I>, <I>Dail</I>, <I>Aelv</I>, <I>Belv</I>, <I>Celv</I>, <I>Delv</I>, and <I>Arud</I>, <I>Brud</I>, <I>Crud</I>, and <I>Drud</I>. These matrices must be loaded into the M<SMALL>ATLAB</SMALL> workspace before starting a simulation of the autopilot models. They can be obtained with the initialization utility <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apinit.htm">APINIT</A></FONT></I>, which will call the subroutine <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">ACTRLOAD</FONT></I> when the user presses the button 'Load state-space actuator/cable models'. The model-data will then be extracted from the files <SMALL>FCS35.DAT</SMALL>, <SMALL>FCS45.DAT</SMALL>, or <SMALL>FCS55.DAT</SMALL>. The three datafiles contain state matrices for the airspeeds <I>V = 35 m/s</I>, <I>V = 45 m/s</I>, and <I>V = 55 m/s</I>, respectively. Choose the set which best fits your desired flight-condition; in general the data for <I>V = 45 m/s</I> (<SMALL>FCS45.DAT</SMALL>) will yield good results.<BR><BR>
+
+Note that all signals between the control laws and the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Actuator and cable dynamics</FONT></I> have been expressed in Volts, whereas the <I>outputs</I> of the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Actuator and cable dynamics</FONT></I> represent changes in elevator-deflection, aileron-deflection, and rudder-deflection, respectively, which consequently have been measured in [rad].
+
+</BODY>
+
+</HTML>

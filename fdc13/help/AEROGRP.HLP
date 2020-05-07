@@ -1,0 +1,87 @@
+-----------------------------------------------------------------
+System BEAVER - subsystem 'Aerodynamics Group (Beaver)'
+=======================================================
+The subsystem 'Aerodynamics Group (Beaver)' contains some blocks
+which determine the aerodynamic forces and moments for the 'Bea-
+ver' aircraft. The block Dimless first makes the components of
+the rotational speed, p, q, and r, dimensionless. The dimension-
+less force and moment coefficients are then calculated in the
+block Aeromod (Beaver), which contains the actual (aircraft-
+dependent) aerodynamic model, and finally, the real values of
+these forces and moments are determined by the block FMdims.
+
+The internal structure of the subsystem 'Aerodynamics Group' as
+outlined above is valid only for the De Havilland DHC-2 'Beaver',
+using the aerodynamic model from ref.[1]. The internal structure
+of similar models for other aircraft may look entirely different.
+For instance, here, the block Dimless is needed, because the
+dimensionless rotational velocities are used as helpvariables for
+the actual aerodynamic model in Aeromod, whereas aerodynamic mo-
+dels for other aircraft may need different helpvariables.
+
+For this reason, the internal structure of the subsystem 'Aerody-
+namics Group' will always depend upon the aircraft model consi-
+dered.
+
+Inputs:
+=======
+  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+  uaero= [deltae deltaa deltar deltaf]' (aerodyn. control-inputs)
+  yad1 = [a M qdyn]'                   (basic airdata variables,
+                                            coming from AIRDATA1)
+
+where:
+
+  V     : true airspeed [m/s]
+  alpha : angle of attack [rad]
+  beta  : sideslip angle [rad]
+  p     : roll-rate [rad/s]
+  q     : pitch-rate [rad/s]
+  r     : yaw-rate [rad/s]
+ {psi   : yaw-angle [rad]                                       }
+ {theta : pitch-angle [rad]                                     }
+ {phi   : roll-angle [rad]                                      }
+ {xe    : X-coordinate, relative to Earth-axes [m]              }
+ {ye    : Y-coordinate, relative to Earth-axes [m]              }
+ {H     : altitude above sea level [m]                          }
+
+  deltae: deflection of elevator [rad]
+  deltaa: deflection of ailerons [rad]
+  deltar: deflection of rudder [rad]
+  deltaf: deflection of flaps [rad]
+
+ {a     : speed of sound [m/s]                                  }
+ {M     : Mach number [-]                                       }
+  qdyn  : dynamic pressure [N/m^2]
+
+The variables which are not used by any of the masked subsystems
+Dimless, Aeromod, and FMdims, are displayed between accolades.
+
+Outputs:
+========
+  ydl   = [pb/2V qc/V rb/2V]'              (outputs from Dimless)
+  Caero = [CXa CYa CZa Cla Cma Cna]'       (outputs from Aeromod)
+  FMaero= [Xa Ya Za La Ma Na]'              (outputs from FMdims)
+
+where:
+
+  CXa, CYa, CZa: dimensionless aerodynamic force coefficients
+  Cla, Cma, Cna: dimensionless aerodynamic moment coefficients
+  Xa, Ya, Za   : aerodynamic forces [N]
+  La, Ma, Na   : aerodynamic moments [Nm]
+
+References.
+===========
+[1]  R.T.H. Tjee and J.A. Mulder. Stability and Control Deriva-
+     tives of the De Havilland DHC-2 "Beaver" aircraft. Report
+     LR-556, Delft University of Technology, 1988.
+
+More info.
+==========
+See the helpfiles DIMLESS.HLP, AEROMOD.HLP, and FMDIMS.HLP for
+more info about the masked subsystem blocks within the subsystem
+'Aerodynamics Group (Beaver)'. See also AIRDATA1.HLP for details
+about the determination of yad1.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Flpath</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Flpath</FONT></I></H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Flpath</FONT></I> is a masked S<SMALL>IMULINK</SMALL> subsystem, which computes some flight-path related parameters. Since the outputvariables from <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Flpath</FONT></I> are not needed for solving the equations of motion themselves, this block has been included in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="moreouts.htm">Additional Outputs</A></FONT></I>. It is therefore possible to delete the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Flpath</FONT></I> from the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>, but in that case the connections to the <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">To Workspace</FONT></I> blocks need to be checked.
+
+<H3>Inputvectors: <I>x</I> and <I>xdot</I></H3>
+<PRE>  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+  xdot = dx'/dt                 (time derivative of state vector)
+
+
+  V    : airspeed [m/s]
+ {alpha: angle of attack [rad]                                   }
+  beta : sideslip angle [rad]
+ {p    : roll rate [rad/s]                                       }
+ {q    : pitch rate [rad/s]                                      }
+ {r    : yaw rate [rad/s]                                        }
+  psi  : yaw angle [rad]
+  theta: pitch angle [rad]
+  phi  : roll angle [rad]
+ {xe   : x-coordinate in Earth-fixed reference frame [m]         }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]         }
+ {H    : altitude above sea-level [m]                            }
+</PRE>
+The variables which are not actually needed by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Flpath</FONT></I> have been displayed between accolades. Of the vector <I>xdot</I>, the time derivatives of <I>V</I> and <I>H</I> are used.
+
+<H3>Outputvector: <I>yfp</I></H3>
+<PRE>  yfp = [gamma fpa chi Phi]'
+
+  gamma: flightpath angle in [rad]
+  fpa  : flightpath acceleration in [m/s^2]
+  chi  : azimuth angle in [rad]
+  Phi  : bank angle in [rad]
+</PRE>
+
+<H3>Parameters to be defined the M<SMALL>ATLAB</SMALL> Workspace</H3>
+
+The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Flpath</FONT></I> needs the initial value of the angle of attack to compute the bank angle. This initial (trim) value of alpha is read from the initial state vector <I>xinco</I>, which must be defined in the M<SMALL>ATLAB</SMALL> workspace before starting simulations. The M<SMALL>ATLAB</SMALL> program <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="actrim.htm">ACTRIM</A></FONT></I> can be used to determine steady-state initial flight conditions; the utility <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="incoload.htm">INCOLOAD</A></FONT></I> can be used to load such conditions from file.
+
+</BODY>
+
+</HTML>

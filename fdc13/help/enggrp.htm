@@ -1,0 +1,80 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Engine Group</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Engine Group (Beaver)</FONT></I></H2>
+
+The subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Engine Group (Beaver)</FONT></I> of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I> is used to compute the forces and moments which arise due to the operation of the engine. These include slipstream effects, induced by the propeller. In the case of the 'Beaver', this is done by first computing the engine power and the closely related increase of pressure across the propeller, then using this result for determining the magnitude of non-dimensional force and moment coefficients, and finally computing the forces and moments in <I>N</I> and <I>Nm</I>, respectively. A similar sequence will usually be followed for other piston-engined aircraft.<BR><BR>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Engine Group (Beaver)</FONT></I> consists of three masked subsystems: <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="power.htm">Power (Beaver)</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="engmod.htm">Engmod (Beaver)</A></FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="fmdims.htm">FMdims</A></FONT></I>. <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Power</FONT></I> computes the engine power and pressure increase across the propeller, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Engmod</FONT></I> contains the actual engine model according to <A HREF="#References">ref.[1]</A> which determines the dimensionless force and moment coefficients, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">FMdims</FONT></I> computes the forces and moments in <I>N</I> and <I>Nm</I>. The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Power</FONT></I> uses the state vector <I>x</I>, the vector with external inputs to the engine <I>uprop</I>, and the outputvector <I>yatm</I> from the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="atmosph.htm">Atmosph</A></FONT></I> in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="adgrp.htm">Airdata Group</A></FONT></I> as inputs. <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Engmod</FONT></I> uses <I>x</I> and the outputvector <I>ypow</I> from the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Power</FONT></I>, hence, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Engmod</FONT></I> has been placed on the lower right side of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Power</FONT></I>. Finally, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">FMdims</FONT></I> uses the outputvector of the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Engmod</FONT></I>, <I>Cprop</I>, and the outputvector <I>yad1</I>of the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="airdata1.htm">Airdata1</A></FONT></I> in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata Group</FONT></I>. Hence, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">FMdims</FONT></I> is located on the right side of the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Engmod</FONT></I>. <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Power</FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Engmod</FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">FMdims</FONT></I> have also been shifted vertically with respect to each other, in order to make it possible to connect their outputs to the <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks on the right side of the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Engine Group (Beaver)</FONT></I>.
+
+<H3>Inputs: <I>x</I>, <I>uprop</I>, <I>yatm</I>, <I>yad1</I></H3>
+<PRE>  x    = [V alpha beta p q r psi theta phi xe ye H]'    (states)
+  uprop= [n pz]'           (external engine inputs (propulsive))
+  yatm = [rho ps T mu g]'    (atmosphere variables, computed in
+                                   the masked subsystem <A HREF="atmosph.htm">Atmosph</A>)
+  yad1 = [a M qdyn]'        (airdata variables, computed in the
+                                      masked subsystem <A HREF="airdata1.htm">Airdata1</A>)
+
+  V    : true airspeed [m/s]
+  alpha: angle of attack [rad]
+ {beta : sideslip angle [rad]                                   }
+ {p    : roll-rate [rad/s]                                      }
+ {q    : pitch-rate [rad/s]                                     }
+ {r    : yaw-rate [rad/s]                                       }
+ {psi  : yaw-angle [rad]                                        }
+ {theta: pitch-angle [rad]                                      }
+ {phi  : roll-angle [rad]                                       }
+ {xe   : X-coordinate, relative to Earth-axes [m]               }
+ {ye   : Y-coordinate, relative to Earth-axes [m]               }
+ {H    : altitude above sea level [m]                           }
+
+  n    : engine speed [RPM]
+  pz   : manifold pressure ["Hg]
+
+  rho  : air density [kg/m^3]
+ {ps   : static pressure [N/m^2]                                }
+ {T    : air temperature [K]                                    }
+ {mu   : dynamic viscosity [kg/(m*s)]                           }
+ {g    : acceleration of gravity [m/s^2]                        }
+
+ {a    : speed of sound [m/s]                                   }
+ {M    : Mach number [-]                                        }
+  qdyn : dynamic pressure [N/m^2]
+</PRE>
+The variables which are not actually used by any of the blocks from the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Engine Group (Beaver)</FONT></I> have been put between accolades.
+
+<H3>Outputs (prop = 'propulsive'): <I>ypow</I>, <I>Cprop</I>, <I>FMprop</I></H3>
+<PRE>  ypow  = [dpt P]'
+  Cprop = [CXp CYp CZp Clp Cmp Cnp]'
+  FMprop= [Xp Yp Zp Lp Mp Np]'
+
+  dpt  : dimensionless pressure increase across the propeller [-]
+  P    : engine power [Nm/s]
+
+  CXp, CYp, CZp: propulsive force coefficients along body-axes [-]
+  Clp, Cmp, Cnp: propulsive moment coefficients along body-axes [-]
+
+  Xp, Yp, Zp: propulsive force components along body-axes [N]
+  Lp, Mp, Np: propulsive moment components along body-axes [Nm]
+</PRE>
+
+<H3>Parameters which must be defined in the M<SMALL>ATLAB</SMALL> Workspace
+</H3>
+
+<UL><LI><I>GM1</I>: vector with some important geometrical properties of the 'Beaver' aircraft, and the mass of the aircraft (which is assumed to be constant during the motions of interest). Here, it is needed by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">FMdims</FONT></I> in order to extract geometrical data for the determination of dimensional forces and moments from the non-dimensional force and moment coefficients.
+<LI><I>EM</I>: matrix with stability and control derivatives of the 'Beaver' (valid only for the nonlinear engine forces and moments model of the DHC-2 'Beaver', see <A HREF="#References">ref.[1]</A>). This matrix is needed by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Engmod (Beaver)</FONT></I>.
+</UL>
+
+<I>EM</I> and <I>GM1</I> can be loaded into the workspace from datafile by running the utility <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I>. Run <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="modbuild.htm">MODBUILD</A></FONT></I> first if the datafile does not yet exist.
+
+<H3><A NAME= "References">References
+</A></H3>
+<OL>
+<LI>R.T.H. Tjee and J.A. Mulder. <I>Stability and Control Derivatives of the De Havilland DHC-2 "Beaver" aircraft</I>. Report LR-556, Delft University of Technology, 1988.
+</OL>
+
+</BODY>
+
+</HTML>

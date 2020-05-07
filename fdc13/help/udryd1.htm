@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: UDRYD1</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2><I><FONT FACE="Arial","Helvetica","Sans Serif">UDRYD1</FONT></I>: Longitudinal Dryden filter with constant coefficients</H2>
+
+The masked subsystem block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">UDRYD1</FONT></I> is contained in the block-library <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="windlib.htm">WINDLIB</A></FONT></I>. It implements a longitudinal Dryden filter with constant coefficients. The user must specify the scale lenght <I>L<SUB>u<SUB>g</SUB></SUB></I>, the standard deviation <I>sigma_u<SUB>g</SUB></I> and the airspeed <I>V</I>. In reality, <I>V</I> will not be constant, which results in non-constant filter coefficients. However, for most purposes the influence of the change in airspeed upon the gust velocities may be neglected. Use <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="udryd2.htm">UDRYD2</A></FONT></I> instead of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">UDRYD1</FONT></I> if the airspeed varies so much that the filter coefficients cannot be held constant anymore.<BR>
+<BR>
+The longitudinal gust velocity <I>u<SUB>g</SUB></I> is obtained by passing white noise through a Dryden filter, which is defined by the following transfer function:
+
+<PRE>               K
+  Hug  =  -----------          K   = sigma_ug * sqrt(2*Lug/V)
+           1 + tau*s           tau = Lug/V
+</PRE>
+where:
+
+<PRE>  V       : true airspeed [m/s]
+  sigma_ug: standard deviation of longitudinal gust velocity [m/s]
+  Lug     : scale length for longitudinal gust [m]
+</PRE>
+In this case, <I>V</I> must be pre-specified by the user in the dialog-boxes from the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">UDRYD1</FONT></I>.
+
+<H3>Outputs from the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">UDRYD1</FONT></I></H3>
+<PRE>  ug      : longitudinal gust velocity [m/s]
+  d(ug)/dt: time derivative of ug [m/s^2]
+</PRE>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">UDRYD1</FONT></I> has no inputs.<BR><BR>
+
+<H3>More information</H3>
+
+While <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">UDRYD1</FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">UDRYD2</FONT></I> contain longitudinal Dryden filters, the blocks <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vdryd1.htm">VDRYD1</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vdryd2.htm">VDRYD2</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="wdryd1.htm">WDRYD1</A></FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="wdryd2.htm">WDRYD2</A></FONT></I> can be used to determine lateral and vertical turbulence (the suffix 1 denotes filters with constant coefficients and 2 denotes filters with velocity-dependent coefficients). Practical combinations of the longitudinal, lateral, and vertical Dryden filters can be found in the subsystems <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="turb1.htm">Turb1</A></FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="turb2.htm">Turb2</A></FONT></I>. Those subsystems combine the turbulence velocity-components and their time-derivatives in a vector <I>uwind</I>, which can be connected to the non-linear aircraft model <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>.<BR>
+<BR>
+<B>Note:</B> the vector <I>uwind</I> that leaves <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Turb1</FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Turb2</FONT></I> does not contain deterministic wind velocity components. Add this vector to the outputs from <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="blwind.htm">BLwind</A></FONT></I> or <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="cwind.htm">Cwind</A></FONT></I> if you want to take into account those components as well.<BR>
+<BR>
+All wind and turbulence systems have been gathered in the blocklibrary <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="windlib.htm">WINDLIB</A></FONT></I>.
+</BODY>
+
+</HTML>

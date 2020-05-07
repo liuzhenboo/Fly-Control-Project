@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Turb1</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>The turbulence block <I><FONT FACE="Arial","Helvetica","Sans Serif">Turb1</FONT></I></H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Turb1</FONT></I> is a S<SMALL>IMULINK</SMALL> subsystem which is contained in the Atmospheric Turbulence sublibrary of the library <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="windlib.htm">WINDLIB</A></FONT></I>. It contains the Dryden filters <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="udryd1.htm">UDRYD1</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vdryd1.htm">VDRYD1</A></FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="wdryd1.htm">WDRYD1</A></FONT></I> for longitudinal, lateral and vertical turbulence, respectively. The filters have been implemented in masked subsystem blocks, in which the user must specify the scale lengths <I>L<SUB>u<SUB>g</SUB></SUB></I>, <I>L<SUB>v<SUB>g</SUB></SUB></I>, and <I>L<SUB>w<SUB>g</SUB></SUB></I>, the standard deviations <I>sigma_u<SUB>g</SUB></I>, <I>sigma_v<SUB>g</SUB></I>, and <I>sigma_w<SUB>g</SUB></I>, and the velocity <I>V</I> (for each of the three masked subsystem blocks!). The coefficients of the Dryden filters are determined for the value of the airspeed <I>V</I> which is specified in the dialog boxes from the blocks <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">UDRYD1</FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">VDRYD1</FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">WDRYD1</FONT></I>, i.e., <I>V</I> is assumed to be constant during the simulations.<BR><BR>
+
+In cases where the airspeed changes over a very large range, it is recommended to use the <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="turb2.htm">Turb2</A></FONT></I> instead, because it takes into account variations of the filter coefficients due to changes in the true airspeed <I>V</I> during the simulations (using the more sophisticated <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="udryd2.htm">UDRYD2</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vdryd2.htm">VDRYD2</A></FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="wdryd2.htm">WDRYD2</A></FONT></I> Dryden filter implementations).
+
+<H3>Outputvector</H3>
+<PRE>  uwind = [uw vw ww uwdot vwdot wwdot]'
+</PRE>
+(Actually, this vector should have been called <CODE>ugust = [ug vg wg ugdot vgdot wgdot]'</CODE>, since the wind velocities and their time-derivatives from the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Turb1</FONT></I> represent gust velocities only; contributions due to <I>wind</I> (-shear) still have to be added to this vector! See <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="cwind.htm">Cwind</A></FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="blwind.htm">BLwind</A></FONT></I> for more information on the implementation of constant wind and a wind-profile in the Earth's boundary layer, respectively.).
+<PRE> uw   : wind (gust-) velocity along XB-axis of aircraft [m/s]
+ vw   : wind (gust-) velocity along YB-axis of aircraft [m/s]
+ ww   : wind (gust-) velocity along ZB-axis of aircraft [m/s]
+
+ uwdot: time-derivative of uw [m/s^2]
+ vwdot: time-derivative of vw [m/s^2]
+ wwdot: time-derivative of ww [m/s^2]
+</PRE>
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Turb1</FONT></I> does not have any input signals.
+
+<H3>Parameters to be set in dialog boxes of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Turb1</FONT></I></H3>
+
+Before starting a simulation of a system in which the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Turb1</FONT></I> is involved, the parameters of the masked subsystem blocks <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="udryd1.htm">UDRYD1</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vdryd1.htm">VDRYD1</A></FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="wdryd1.htm">WDRYD1</A></FONT></I> have to be defined by double-clicking these blocks and entering the correct values in their dialog-boxes. These parameters are:<BR><BR>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">UDRYD1</FONT></I>:
+<PRE>        Lug     = scale length for longitudinal turbulence [m]
+        sigma_ug= standard deviation for longitudinal
+                                                  turbulence [m/s]
+        V       = value of airspeed, used to determine filter
+                    coefficients for longitudinal turbulence [m/s]
+</PRE>
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">VDRYD1</FONT></I>:
+<PRE>        Lvg     = scale length for lateral turbulence [m]
+        sigma_vg= standard deviation for lateral turbulence [m/s]
+        V       = value of airspeed, used to determine filter
+                         coefficients for lateral turbulence [m/s]
+</PRE>
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">WDRYD1</FONT></I>:
+<PRE>        Lwg     = scale length for vertical turbulence [m]
+        sigma_wg= standard deviation for vertical turbulence [m/s]
+        V       = value of airspeed, used to determine filter
+                        coefficients for vertical turbulence [m/s]
+</PRE>
+
+</BODY>
+
+</HTML>

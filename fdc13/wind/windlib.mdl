@@ -1,0 +1,163 @@
+Library {
+  Name			  "windlib"
+  Version		  2.09
+  PaperOrientation	  landscape
+  PaperType		  usletter
+  PaperUnits		  inches
+  BlockDefaults {
+    Orientation		    right
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    NamePlacement	    normal
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+    ShowName		    on
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    center
+    VerticalAlignment	    middle
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  System {
+    Name		    "windlib"
+    Location		    [13, 46, 335, 161]
+    Open		    on
+    ScreenColor		    white
+    Block {
+      BlockType		      SubSystem
+      Name		      "1"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [40, 45, 115, 100]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "wndlib1"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Wind\\nmodels')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"1"
+	Location		[0, 0, 471, 193]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "2"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [125, 45, 205, 100]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "wndlib2"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Atmospheric\\nTurbulence\\nmodels')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"2"
+	Location		[0, 0, 530, 409]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "i"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [240, 15, 300, 50]
+      ForegroundColor	      red
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('???\\nMore Info')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"i"
+	Location		[4, 42, 403, 232]
+	Open			off
+	ScreenColor		white
+	Annotation {
+	  Position		  [196, 127]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "Note: it may take some time to load the "
+				  "sublibraries. It is recommended\nnot "
+				  "to close them, unless you are really "
+				  "sure you don't need them\n(minimize the "
+				  "sublibraries in stead, in case you temporari"
+				  "ly don't\nneed them)."
+	}
+	Annotation {
+	  Position		  [196, 82]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "On-line help for the different blocks "
+				  "from this library is then \navailable "
+				  "by typing FDCHELP <BLOCKNAME> at the "
+				  "Matlab command-\nline. Press the HELP "
+				  "button of Masked blocks to find the blocknam"
+				  "e itself."
+	}
+	Annotation {
+	  Position		  [196, 37]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "This library contains several models "
+				  "of wind and atmospheric turbulence.\nTo "
+				  "make sure that all relevant files are "
+				  "found, type FDC or MODINIT\nat the Matlab "
+				  "command line to set the Matlabpath correctly"
+				  "."
+	}
+	Annotation {
+	  Position		  [197, 12]
+	  VerticalAlignment	  top
+	  ForegroundColor	  red
+	  FontName		  "Times New Roman"
+	  FontSize		  14
+	  Text			  "The FDC toolbox - Wind and atmospheric "
+				  "turbulence models"
+	}
+      }
+    }
+    Annotation {
+      Position		      [122, 7]
+      VerticalAlignment	      top
+      ForegroundColor	      blue
+      FontName		      "Times New Roman"
+      FontSize		      14
+      FontWeight	      bold
+      Text		      "Wind and turbulence block-library"
+    }
+  }
+}

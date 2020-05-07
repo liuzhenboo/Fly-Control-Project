@@ -1,0 +1,63 @@
+Support for the FDC toolbox
+===========================
+If you have any questions about the FDC toolbox, contact the author at the
+address given below. But read the .TXT files and the FAQ and Known Problems
+pages on the FDC website first; they already provide answers to many
+questions. Also, do not forget to check the user-manual; see the FDC home-
+page for more information (address given below).
+
+Support by telephone is not possible. I can give no guarantees with regard
+to the user-support, except that I will do my very best to find answers to
+your questions. No guarantees with regard to present and future support of
+the FDC package can be given.
+
+
+Reporting bugs
+==============
+If you find a bug please contact the author so that it can be corrected.
+Please include information about the Matlab/Simulink version and the machine
+type on which the programs were run. If an error occurs with customized
+versions of the FDC tools or systems, please send a diskette containing the
+appropriate files, or attach those files to your e-mail message. Suggestions
+for bug-fixes are very much appreciated.
+
+
+FDC enhancements
+================
+You are free to enhance the software from the FDC toolbox and/or modify
+the existing source codes, as long as you don't violate the licence rules
+in LICENSE.TXT. I am very interested in such improvements and additions to
+the FDC tools and models an I would appreciate it if you keep me informed.
+If you think your own developments are useful for all FDC users, please
+send me a copy. Maybe I can implement your tools and models in new versions
+of the FDC toolbox.
+
+It is recommended to publish any enhancements for the toolbox under the
+Dutchroll Open Source Software License (DOSSL) version 1.0, the terms of
+which can be found in LICENSE.TXT, especially if you want me to include
+your enhancements. Notice the 'copyleft' character of the DOSSL: any
+derivative works may be distributed only if they remain available under the
+terms of DOSSL 1.0!
+
+Of course, any suggestions for future developments with regard to the FDC
+toolbox are very welcome.
+
+
+Contact address
+===============
+M.O. Rauw
+Schuilenburg 14
+2036 BL  Haarlem
+The Netherlands
+
+FDC homepage: http://www.dutchroll.com
+e-mail      : rauw@dutchroll.com
+
+Note: these addresses may be subject to change.
+
+
+---------------------------------------------------------------------
+The FDC toolbox. Copyright M.O. Rauw, 1994-2002. All rights reserved.
+This software is licensed under the Dutchroll Open Source Software
+License (DOSSL), version 1.0. See LICENSE.TXT in the DOC subdirectory
+for detailed information.

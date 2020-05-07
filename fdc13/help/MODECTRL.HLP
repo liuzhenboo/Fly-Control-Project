@@ -1,0 +1,82 @@
+-----------------------------------------------------------------
+ Mode Controller
+ ===============
+ Subsystem of APILOT1, APILOT2, and APILOT3.
+
+ The block Mode Controller supplies the switch-settings for the
+ different autopilot modes. The systems APILOT2 and APILOT3 con-
+ tain radio-navigation modes (Glideslope, Localizer, and Naviga-
+ tion) which start in 'Armed' setting and switch over to 'Coupled'
+ if some switch-criterion is satisfied. These switch-criteria are
+ evaluated in the block Mode Controller. In the system APILOT1
+ the radio-navigation modes have been omitted. In that case, the
+ block Mode Controller only DEFINES the autopilot modes, but does
+ not contain any mode-switching functions.
+
+ Before starting a new simulation, double-click the block 'Select
+ Mode and Reference Signals', or type APMODE at the Matlab com-
+ mand line to define the autopilot modes (and hence, the initial
+ switch-settings). The autopilot modes are stored in the vectors
+ ymod1S, ymod2S, ymod1A, and ymod2A in the Matlab Workspace.
+ These vectors are defined as follows:
+
+   ymod1S/ymod2S: symmetrical autopilot modes
+   ymod1A/ymod2A: asymmetrical autopilot modes
+
+   1: initial autopilot setting
+   2: second autopilot setting (used for radio-navigation modes
+      to make it possible to switch from 'Armed' = initial phase
+      to 'Coupled' = second phase)
+
+ Symmetrical modes:
+ ------------------
+ ymodS = [symm. autopilot modes on/off ,
+          symm. outer-loops on/off     ,
+          Altitude Hold mode on/off    ,
+          Altitude Select mode on/off  ,
+          Glideslope mode on/off        ]
+
+ with the following combinations for ymodS:
+
+          Pitch Attitude Hold              :  [1 0 0 0 0]
+          Altitude Hold / Glideslope Armed :  [1 1 1 0 0]
+          Altitude Select                  :  [1 1 0 1 0]
+          Glideslope Coupled               :  [1 1 0 0 1]
+
+ Asymmetrical modes:
+ -------------------
+ ymodA = [asymm. autopilot modes on/off,
+          asymm. outer-loops on/off    ,
+          Heading Hold/Select on/off   ,
+          VOR-Navigation mode on/off   ,
+          Localizer mode on/off         ]
+
+ with the following combinations for ymodA:
+
+          Roll Attitude Hold               :  [1 0 0 0 0]
+          Heading Hold/Heading Select/
+                 NAV Armed/Localizer Armed :  [1 1 1 0 0]
+          NAV Coupled                      :  [1 1 0 1 0]
+          Localizer Coupled                :  [1 1 0 0 1]
+
+ More info
+ =========
+ See the source-codes of GSSWITCH.M, LOCSWTCH.M, and NAVSWTCH.M
+ for the switch-criteria used in Glideslope, Localizer, and NAV
+ modes, respectively. See APMODE.M for more details on the mode-
+ initialization of the autopilot.
+
+ References
+ ==========
+ [1]  M.O. Rauw, A SIMULINK environment for Flight Dynamics and
+      Control analysis - Application to the DHC-2 'Beaver',
+      PART II! Graduate's thesis, Delft University of Technology,
+      Faculty of Aerospace Engineering, Delft, 1993.
+
+ [2]  P.N.H. Wever, Ontwerp en implementatie van de regelwetten
+      van de De Havilland DHC-2 'Beaver' (in Dutch). Graduate's
+      thesis, Delft University of Technology, Faculty of Aero-
+      space Engineering, Delft, 1993.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

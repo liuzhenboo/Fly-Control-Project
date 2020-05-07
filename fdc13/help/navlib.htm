@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Blocklibrary NAVLIB</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>The blocklibrary <I><FONT FACE="Arial","Helvetica","Sans Serif">NAVLIB</FONT></I></H2>
+
+The FDC blocklibrary <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">NAVLIB</FONT></I> contains radio-navigation blocks for S<SMALL>IMULINK</SMALL>. Currently, there are two sublibraries, one for ILS signals and one for VOR signals. ILS stands for <I>Instrument Landing System</I>; VOR means <I>Very high frequency Omnidirectional Range</I>. This library may be enhanced with other radio-navigation blocks, such as Global Positioning System. A detailed theoretical description about these simulation models can be found in the <A HREF="#References">references</A> at the end of this help-text.
+<BR><BR>
+
+The ILS sublibrary contains the following blocks:
+
+<UL>
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="ils.htm">ILS (Nominal ILS signals)</A></FONT></I><BR>&#160;&#160;&#160;&#160;&#160;ILS signals without noise and/or steady-state errors
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="gserr.htm">GSerr</A></FONT></I><BR> &#160;&#160;&#160;&#160;&#160;Glideslope steady-state errors according to ICAO guidelines
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="gsnoise.htm">GSnoise1</A></FONT></I><BR>
+&#160;&#160;&#160;&#160;&#160;Glideslope noise according to AGARD R-632 (<A HREF="#References">ref.[3]</A>)
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="gsnoise.htm">GSnoise2</A></FONT></I><BR> &#160;&#160;&#160;&#160;&#160;Glideslope noise according to NASA CR-2022 (<A HREF="#References">ref.[4]</A>)
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="locerr.htm">LOCerr</A></FONT></I><BR> &#160;&#160;&#160;&#160;&#160;Localizer steady-state errors according to ICAO guidelines
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="locnoise.htm">LOCnoise1</A></FONT></I><BR> &#160;&#160;&#160;&#160;&#160;Localizer noise according to AGARD R-632 (<A HREF="#References">ref.[3]</A>)
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="locnoise.htm">LOCnoise2</A></FONT></I><BR> &#160;&#160;&#160;&#160;&#160;Localizer noise according to NASA CR-2022 (<A HREF="#References">ref.[4]</A>)
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="ilsxmpl.htm">ILS example</A></FONT></I><BR>
+&#160;&#160;&#160;&#160;&#160;Example system which demonstrates the practical use of the other ILS blocks
+</UL>
+<BR>
+
+The VOR sublibrary contains the following blocks:
+
+<UL>
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vor.htm">VOR (Nominal VOR signals)</A></FONT></I><BR>
+&#160;&#160;&#160;&#160;&#160;VOR signals without error components
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vorerr.htm">VORerr</A></FONT></I><BR>
+&#160;&#160;&#160;&#160;&#160;Steady-state error for the VOR signal
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vorxmpl.htm">VOR example</A></FONT></I><BR>
+&#160;&#160;&#160;&#160;&#160;Example system which demonstrates the practical use of the other VOR blocks
+</UL>
+<BR>
+<B>Note:</B> currently there are no accurate noise models available for the VOR blocks. Should such models become available, they can easily be included in the VOR sublibrary of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">NAVLIB</FONT></I>.
+
+<H3><A NAME= "References">References</A></H3>
+
+<OL>
+<LI>M.O. Rauw: <I>FDC 1.2 - A S<SMALL>IMULINK</SMALL> Environment for Flight Dynamics and Control Analysis</I>. Zeist, March 1997
+<LI>M.O. Rauw: <I>A S<SMALL>IMULINK</SMALL> environment for Flight Dynamics and Control analysis - Application to the DHC-2 'Beaver'</I>, part I: <I>Implementation of a model library in S<SMALL>IMULINK</SMALL></I>. Delft University of Technology, September 1993 (also contained in the STAR database of NASA, report number NONP-NASA-SUPPL-DK-94-28027)
+<LI>Anon.: <I>Approach and Landing Simulation</I>. AGARD report 632, Ames, 1975
+<LI>Johnson, W.A., McRuer, D.T.: <I>Development of a Category II Approach System Model</I>. NASA Contractor Report 2022, Washington D.C., USA, 1972
+</OL>
+
+</BODY>
+
+</HTML>

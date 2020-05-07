@@ -1,0 +1,89 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: xdotcorr (Beaver)</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">xdotcorr (Beaver)</FONT></I>
+</H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">xdotcorr (Beaver)</FONT></I> is a masked S<SMALL>IMULINK</SMALL> subsystem, which is contained in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="eqmotion.htm">Aircraft Equations of Motion (Beaver)</A></FONT></I> of the S-function <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>. <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">xdotcorr</FONT></I> is the only aircraft-dependent block of this subsystem. In this case it depends upon the aerodynamic model of the DHC-2 'Beaver' from <A HREF="#Tjee&Mulder">ref.[1]</A>. It is used to convert implicit state equations of the 'Beaver' dynamic model into explicit state equations. The implicitness of the original model equations is caused by a contribution of the time-derivative of beta-dot to the aerodynamic sideforce. Since S<SMALL>IMULINK</SMALL> can not always cope with implicit ODEs, the ODEs were divided in an aircraft-independent part and a separate correction term. It is this correction term which has been implemented in <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">xdotcorr (Beaver)</FONT></I>.
+<BR><BR>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">xdotcorr</FONT></I> can be adapted for other aircraft models, in cases where it is necessary to bring into account contributions of time-derivatives of states to the aerodynamic forces and/or moments, which would otherwise result in implicit state equations. Such implicit state equations most often involve alpha-dot and beta-dot terms.
+
+<H3>Inputvectors for <I><FONT FACE="Arial","Helvetica","Sans Serif">xdotcorr (Beaver)</FONT></I></H3>
+
+<PRE>  xdot = dx/dt = [Vdot alphadot betadot pdot qdot rdot ...
+                  psidot thetadot phidot xedot yedot Hdot]'
+        (state derivatives, without corrections which make impli-
+           cit equations explicit, coming from subsystem <A HREF="12odes.htm">12 ODEs</A>)
+
+  yhlp = [cos(alpha) sin(alpha) cos(beta) sin(beta) ...
+          ... tan(beta) sin(psi) cos(psi) sin(theta) ...
+          ... cos(theta) sin(phi) cos(phi)]'
+            (frequently used sines & cosines, coming from <A HREF="hlpfcn.htm">Hlpfcn</A>)
+
+  yatm = [rho ps T mu g]',  (atmospheric properties, computed in
+                                               the block <A HREF="atmosph.htm">Atmosph</A>)
+
+
+ {Vdot    : time-derivative of airspeed [m/s^2]                 }
+ {alphadot: time-derivative of angle of attack [rad/s]          }
+  betadot : time-derivative of sideslip angle [rad/s]
+                                                (uncorrected!)
+ {psidot  : time-derivative of yaw angle [rad/s]                }
+ {thetadot: time-derivative of pitch angle [rad/s]              }
+ {phidot  : time-derivative of roll angle [rad/s]               }
+ {pdot    : time-derivative of roll rate [rad/s^2]              }
+ {qdot    : time-derivative of pitch rate [rad/s^2]             }
+ {rdot    : time-derivative of yaw rate [rad/s^2]               }
+ {xedot   : time-derivative of x-coordinate in Earth-fixed
+                                         reference frame [m/s]  }
+ {yedot   : time-derivative of y-coordinate in Earth-fixed
+                                         reference frame [m/s]  }
+ {Hdot    : time-derivative of altitude above sea-level [m/s]   }
+
+  rho  : airdensity [kg/m^3]
+ {ps   : static pressure [N/m^2]                                }
+ {T    : temperature [K]                                        }
+ {mu   : dynamic viscosity [kg/(m*s)]                           }
+ {g    : acceleration of gravity [m/s^2]                        }
+</PRE>
+
+The inputvariables which are not used by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">xdotcorr</FONT></I> have been put between accolades. Of the vector <I>yhlp</I>, only <I>cos(beta)</I> is used.
+
+<H3>Outputvector of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">xdotcorr</FONT></I>
+</H3>
+
+<PRE>  xdot = [Vdot alphadot betadot pdot qdot rdot psidot ...
+          ... thetadot phidot xedot yedot Hdot]'
+
+   (xdot with correction for beta-dot influence upon sideforce Ya)
+</PRE>
+
+Here, <I>betadot</I> has been corrected for the beta-dot influence upon the aerodynamic sideforce <I>Y<SUB>a</SUB></I>!
+
+<H3>Parameters which must be set in the M<SMALL>ATLAB</SMALL> Workspace
+</H3>
+
+<UL>
+<LI><I>AM</I>: matrix with stability and control derivatives (currently valid for the nonlinear aerodynamic model of the DHC-2 'Beaver', see <A HREF="#Tjee&Mulder">ref.[1]</A>). The stability derivative <I>CYbdot</I> is extracted from this matrix to determine the influence of beta-dot upon aerodynamic sideforce <I>Y<SUB>a</SUB></I>.
+
+<LI><I>GM1</I>: vector with some important geometrical properties of the 'Beaver' aircraft, and the mass of the aircraft (which is assumed to be constant during the motions of interest). In <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">xdotcorr</FONT></I>, the wing span <I>b</I>, wing area <I>S</I>, and mass <I>m</I> are extracted from <I>GM1</I>.
+</UL>
+
+The vector GM1 and the matrix AM can be loaded into the workspace
+from file by applying the routine <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I>. Run <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="modbuild.htm">MODBUILD</A></FONT></I> first
+if this datafile does not yet exist.
+
+<H3><A NAME= "Tjee&Mulder">References</A>
+</H3>
+
+<OL>
+<LI>R.T.H. Tjee and J.A. Mulder: <I><FONT COLOR=#505050>Stability and Control Derivatives of the De Havilland DHC-2 "Beaver" aircraft</FONT></I>. Report LR-556, Delft University of Technology, Delft, The Netherlands, 1988.
+</OL>
+
+</BODY>
+
+</HTML>

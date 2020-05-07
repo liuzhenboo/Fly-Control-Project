@@ -1,0 +1,15 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Utility RECOVER</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>The macro <I><FONT FACE="Arial","Helvetica","Sans Serif">RECOVER</FONT></I></H2>
+
+The M<SMALL>ATLAB</SMALL> macro <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">RECOVER</FONT></I> can be called if, after running a simulation, the results have not properly been sent to the M<SMALL>ATLAB</SMALL> workspace. This sometimes happens due to a bug in S<SMALL>IMULINK</SMALL>, which apparantly prevents results to be transferred to the Workspace when <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">To Workspace</FONT></I> blocks are used in deeper levels of graphical systems (the bug has been encountered in several S<SMALL>IMULINK</SMALL> versions up to 1.2c). <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">RECOVER</FONT></I> basically makes one more call to the S-function in order to re-initialize the system. This often helps to restore the 'lost' results, without repeating the simulation itself.
+<BR><BR>
+
+Type <CODE>recover('sfunc')</CODE> at the command-line if you want to rescue simulation results for the S-function <I>sfunc</I>.
+
+</BODY>
+
+</HTML>

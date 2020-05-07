@@ -1,0 +1,40 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: color conventions</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Color conventions for the FDC toolbox</H2>
+
+In the blockdiagrams from the FDC toolbox, all 'normal' function blocks have standard colors: black foreground, white background, no shadows. Shadows have been used for <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Inports</FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outports</FONT></I> (which makes it easier to distinguish them from <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Constant</FONT></I> blocks) and for 'Button'-blocks, which start M<SMALL>ATLAB</SMALL> programs or execute M<SMALL>ATLAB</SMALL> commands when being double-clicked. The artificial feedback loops from the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>, including the masked subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="hlpfcn.htm">Hlpfcn</A></FONT></I>, are magenta, in order to distinguish these signals from the external inputs and outputs which enter the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> by means of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Inport</FONT></I> blocks. Title blocks on the upper left side of the (sub-)systems use a blue foreground on a white background. The title-blocks that will display help texts when being double-clicked are distinguished by their shadows.
+<BR><BR>
+
+A complete list of color schemes has been given below.<BR><BR><BR>
+
+<CENTER><TABLE WIDTH=80% BORDER CELLPADDING=4 CELLSPACING=3>
+<TR><TH ALIGN=LEFT VALIGN=TOP>Blocktype:</TH><TH ALIGN=LEFT VALIGN=TOP>Color scheme:</TH></TR>
+<TR><TD VALIGN=TOP>Standard <BIG>S</BIG>IMULINK blocks, except <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Inport</FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks; subsystems; masked subsystems, except <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">'Button'</FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Title</FONT></I> blocks and the artificial feedback block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="hlpfcn.htm">Hlpfcn</A></FONT></I></TD><TD VALIGN=TOP>Black on white, no shadows</TD></TR>
+<TR><TD VALIGN=TOP><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Inport</FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks</TD><TD VALIGN=TOP>Black on white with shadows</TD></TR>
+<TR><TD VALIGN=TOP><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Title</FONT></I> blocks which are <I>not</I> linked to help texts</TD><TD VALIGN=TOP>Blue on white, no shadows</TD></TR>
+<TR><TD VALIGN=TOP><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Title</FONT></I> blocks and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">'Button'</FONT></I> blocks which will display help texts when being double-clicked</TD><TD VALIGN=TOP>Blue on white with shadows</TD></TR>
+<TR><TD VALIGN=TOP><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">'More info'</FONT></I> blocks which display help-texts in <BIG>S</BIG>IMULINK window</TD><TD VALIGN=TOP>Red on white with shadows</TD></TR>
+<TR><TD VALIGN=TOP><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">'Button'</FONT></I> blocks which start up <BIG>M</BIG>ATLAB programs/functions when being double-clicked</TD><TD VALIGN=TOP>Blue on cyan with shadows</TD></TR>
+<TR><TD VALIGN=TOP><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">To Workspace</FONT></I> blocks</TD><TD VALIGN=TOP>Black on yellow, no shadows</TD></TR>
+<TR><TD VALIGN=TOP><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Scope</FONT></I> blocks</TD><TD VALIGN=TOP>Black on gray, no shadows</TD></TR>
+<TR><TD VALIGN=TOP>Artificial feedback loops and blocks which are involved in such loops (e.g. <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="hlpfcn.htm">Hlpfcn</A></FONT></I> in the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>)</TD><TD VALIGN=TOP>Magenta on white, no shadows</TD></TR>
+<TR><TD VALIGN=TOP><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">S-function</FONT></I> blocks and subsystems that can also be used as stand-alone systems</TD><TD ALIGN=LEFT VALIGN=TOP>Black on light blue, no shadows</TD></TR>
+</TABLE>
+</CENTER><BR><BR><BR>
+
+In the autopilot simulation systems <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT1">APILOT1</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT2">APILOT2</A></FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT3">APILOT3</A></FONT></I>, the following color conventions have been used:<BR><BR><BR>
+
+<CENTER><TABLE WIDTH=80% BORDER CELLPADDING=4 CELLSPACING=3>
+<TR><TD VALIGN=TOP>Signals used for gain-scheduling (notably the airspeed <I>V</I> and altitude <I>H</I>)</TD><TD ALIGN=LEFT VALIGN=TOP>Magenta on white with shadows for the <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Inport/Outport</FONT></I> blocks of these signals</TD></TR>
+<TR><TD VALIGN=TOP>Reference signals, issued directly by the subsystem block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Reference Signals</FONT></I> and switch-settings from the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="modectrl.htm">Mode Controller</A></FONT></I></TD><TD ALIGN=LEFT VALIGN=TOP>Red on white with shadows for the <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Inport/Outport</FONT></I> blocks of these signals</TD></TR>
+<TR><TD VALIGN=TOP>Reference signals which are sent to the inner-loops by the outer-loops</TD><TD ALIGN=LEFT VALIGN=TOP>Black on orange with shadows for the <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Inport/Outport</FONT></I> blocks of these signals</TD></TR>
+<TR><TD VALIGN=TOP><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">To Workspace</FONT></I> blocks</TD><TD ALIGN=LEFT VALIGN=TOP>Black on yellow, no shadows</TD></TR>
+<TR><TD VALIGN=TOP><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">S-function</FONT></I> blocks and subsystems that can also be used as stand-alone systems (in particular: links to the non-linear aircraft model <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>)</TD><TD ALIGN=LEFT VALIGN=TOP>Black on light blue, no shadows</TD></TR>
+</TABLE></CENTER>
+
+</BODY>
+
+</HTML>

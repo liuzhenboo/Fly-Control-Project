@@ -1,0 +1,575 @@
+Library {
+  Name			  "wndlib1"
+  Version		  2.09
+  PaperOrientation	  landscape
+  PaperType		  usletter
+  PaperUnits		  inches
+  BlockDefaults {
+    Orientation		    right
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    NamePlacement	    normal
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+    ShowName		    on
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    center
+    VerticalAlignment	    middle
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  System {
+    Name		    "wndlib1"
+    Location		    [14, 47, 460, 219]
+    Open		    on
+    ScreenColor		    white
+    Block {
+      BlockType		      SubSystem
+      Name		      "BLwind"
+      Ports		      [2, 1, 0, 0, 0]
+      Position		      [15, 29, 105, 76]
+      FontName		      "Arial"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Windprofile in\\nEarth''s boun-\\ndary "
+			      "layer')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"BLwind"
+	Location		[4, 42, 589, 255]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  Inport
+	  Name			  "psi [rad]"
+	  Position		  [20, 165, 40, 185]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "H [m]"
+	  Position		  [20, 90, 40, 110]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "2"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "FE2FB"
+	  Ports			  [1, 1, 0, 0, 0]
+	  Position		  [420, 93, 505, 127]
+	  FontName		  "Arial"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('From Earth\\nto body-axes')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "FE2FB"
+	    Location		    [140, 74, 635, 246]
+	    Open		    off
+	    ScreenColor		    white
+	    Block {
+	      BlockType		      Inport
+	      Name		      "[Vw psi_w psi]'"
+	      Position		      [35, 60, 55, 80]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      Port		      "1"
+	      PortWidth		      "-1"
+	      SampleTime	      "-1"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux1"
+	      Ports		      [3, 1, 0, 0, 0]
+	      Position		      [400, 54, 405, 156]
+	      BackgroundColor	      black
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Inputs		      "3"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "uw"
+	      Position		      [115, 60, 375, 80]
+	      FontName		      "Arial"
+	      Expr		      "u[1]*(cos(u[2])*cos(u[3]) + sin(u[2])*si"
+				      "n(u[3]))"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "vw"
+	      Position		      [115, 95, 375, 115]
+	      FontName		      "Arial"
+	      Expr		      "-u[1]*(cos(u[2])*sin(u[3]) + sin(u[2])*c"
+				      "os(u[3]))"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "ww = 0"
+	      Position		      [220, 130, 250, 150]
+	      FontName		      "Arial"
+	      Value		      "0"
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "x"
+	      Ports		      [0, 0, 0, 0, 0]
+	      Position		      [10, 5, 230, 35]
+	      Orientation	      down
+	      ForegroundColor	      blue
+	      NamePlacement	      alternate
+	      FontName		      "Arial"
+	      ShowName		      off
+	      ShowPortLabels	      off
+	      MaskDisplay	      "disp('Convert wind velocities from "
+				      "Earth\\nto Body-axes. Marc Rauw, "
+				      "October 1997')"
+	      MaskIconFrame	      on
+	      MaskIconOpaque	      on
+	      MaskIconRotate	      none
+	      MaskIconUnits	      autoscale
+	      System {
+		Name			"x"
+		Location		[19, 102, 144, 192]
+		Open			off
+		ScreenColor		white
+	      }
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "[uw vw ww]'"
+	      Position		      [440, 95, 460, 115]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      Port		      "1"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "[Vw psi_w psi]'"
+	      SrcPort		      1
+	      Points		      [30, 0]
+	      Branch {
+		Points			[0, 35]
+		DstBlock		"vw"
+		DstPort			1
+	      }
+	      Branch {
+		DstBlock		"uw"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "uw"
+	      SrcPort		      1
+	      DstBlock		      "Mux1"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "vw"
+	      SrcPort		      1
+	      DstBlock		      "Mux1"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "ww = 0"
+	      SrcPort		      1
+	      DstBlock		      "Mux1"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Mux1"
+	      SrcPort		      1
+	      DstBlock		      "[uw vw ww]'"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "H profile\nboundaries"
+	  Position		  [80, 90, 105, 110]
+	  FontName		  "Arial"
+	  UpperLimit		  "300"
+	  LowerLimit		  "0"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  Ports			  [3, 1, 0, 0, 0]
+	  Position		  [395, 93, 400, 127]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "3"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "Vw [m/s]"
+	  Position		  [160, 90, 350, 110]
+	  FontName		  "Arial"
+	  Expr			  "1*(u[1]^0.2545 - 0.4097)/1.3470"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "psi_w [rad]"
+	  Position		  [160, 130, 350, 150]
+	  FontName		  "Arial"
+	  Expr			  "(0)*pi/180"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "t"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [12, 9, 185, 45]
+	  ForegroundColor	  blue
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  ShowName		  off
+	  OpenFcn		  "fdchelp blwind"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('Wind profile in Earth''s boundary\\nla"
+				  "yer. Marc Rauw, July 1998')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "t"
+	    Location		    [19, 102, 144, 192]
+	    Open		    off
+	    ScreenColor		    white
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "[uw vw ww]'"
+	  Position		  [530, 100, 550, 120]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "FE2FB"
+	  SrcPort		  1
+	  DstBlock		  "[uw vw ww]'"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "H profile\nboundaries"
+	  SrcPort		  1
+	  Points		  [25, 0]
+	  Branch {
+	    Points		    [0, 40]
+	    DstBlock		    "psi_w [rad]"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Vw [m/s]"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "H [m]"
+	  SrcPort		  1
+	  DstBlock		  "H profile\nboundaries"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  DstBlock		  "FE2FB"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Vw [m/s]"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "psi_w [rad]"
+	  SrcPort		  1
+	  Points		  [10, 0; 0, -30]
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "psi [rad]"
+	  SrcPort		  1
+	  Points		  [330, 0; 0, -55]
+	  DstBlock		  "Mux"
+	  DstPort		  3
+	}
+	Annotation {
+	  Position		  [260, 57]
+	  VerticalAlignment	  top
+	  ForegroundColor	  red
+	  FontName		  "Arial"
+	  Text			  "Wind velocity and direction\nas a function "
+				  "of H [m]:"
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Cwind"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [15, 102, 105, 138]
+      FontName		      "Arial"
+      ShowPortLabels	      off
+      MaskType		      "Constant horizontal wind"
+      MaskDescription	      "Constant horizontal wind"
+      MaskHelp		      "eval('fdchelp cwind')"
+      MaskPromptString	      "Windspeed [m/s]:|Wind direction [deg] (wind "
+			      "to the north = 180 deg!!):"
+      MaskStyleString	      "edit,edit"
+      MaskVariables	      "Vw=@1;"
+      MaskInitialization      " psi_w = @2 * pi/180;"
+      MaskDisplay	      "disp('Constant hori-\\nzontal wind')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      MaskValueString	      "15|180"
+      System {
+	Name			"Cwind"
+	Location		[4, 42, 585, 241]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  Inport
+	  Name			  "psi [rad]"
+	  Position		  [25, 150, 45, 170]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  Ports			  [3, 1, 0, 0, 0]
+	  Position		  [125, 73, 130, 107]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "3"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  Ports			  [3, 1, 0, 0, 0]
+	  Position		  [470, 74, 475, 176]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "3"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Vw (const)"
+	  Position		  [15, 70, 65, 90]
+	  FontName		  "Arial"
+	  Value			  "Vw"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "psi_w (const)"
+	  Position		  [15, 110, 65, 130]
+	  FontName		  "Arial"
+	  Value			  "psi_w"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "t"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [5, 5, 155, 35]
+	  ForegroundColor	  blue
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  ShowName		  off
+	  OpenFcn		  "fdchelp cwind"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('Constant horizontal wind\\nMarc "
+				  "Rauw, October 1997')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "t"
+	    Location		    [19, 102, 144, 192]
+	    Open		    off
+	    ScreenColor		    white
+	  }
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "uw"
+	  Position		  [190, 80, 450, 100]
+	  FontName		  "Arial"
+	  Expr			  "u[1]*(cos(u[2])*cos(u[3]) + sin(u[2])*sin(u["
+				  "3]))"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "vw"
+	  Position		  [190, 115, 450, 135]
+	  FontName		  "Arial"
+	  Expr			  "-u[1]*(cos(u[2])*sin(u[3]) + sin(u[2])*cos(u"
+				  "[3]))"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "ww = 0"
+	  Position		  [305, 150, 335, 170]
+	  FontName		  "Arial"
+	  Value			  "0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "[uw vw ww]'"
+	  Position		  [525, 115, 545, 135]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  DstBlock		  "[uw vw ww]'"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "uw"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "vw"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "ww = 0"
+	  SrcPort		  1
+	  DstBlock		  "Mux1"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  Points		  [40, 0]
+	  Branch {
+	    Points		    [-20, 0; 0, 35]
+	    DstBlock		    "vw"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "uw"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "psi [rad]"
+	  SrcPort		  1
+	  Points		  [50, 0; 0, -60]
+	  DstBlock		  "Mux"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Vw (const)"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "psi_w (const)"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, -30]
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Annotation {
+	  Position		  [363, 47]
+	  VerticalAlignment	  top
+	  ForegroundColor	  red
+	  FontName		  "Arial"
+	  Text			  "|\nV"
+	}
+	Annotation {
+	  Position		  [298, 37]
+	  VerticalAlignment	  top
+	  ForegroundColor	  red
+	  FontName		  "Arial"
+	  Text			  "From Earth to Body-axes ----"
+	}
+      }
+    }
+    Annotation {
+      Position		      [275, 107]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      Text		      "<-- Constant horizontal wind. Double-click "
+			      "block to specify wind\nvelocity and wind "
+			      "direction (both constants). The block CWIND\ncon"
+			      "tains the necessary conversion from Earth "
+			      "to Body-axes.\nInput: psi [rad]. Outputvector: "
+			      "[uw vw ww]', ww == 0."
+    }
+    Annotation {
+      Position		      [107, 2]
+      VerticalAlignment	      top
+      ForegroundColor	      blue
+      FontName		      "Times New Roman"
+      FontSize		      14
+      FontWeight	      bold
+      Text		      "FDC Toolbox - Wind library"
+    }
+    Annotation {
+      Position		      [273, 37]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      Text		      "<-- Wind profile in Earth's boundary layer. "
+			      "Specify magnitude and \ndirection of wind "
+			      "velocity as a function of altitude. The block\nF"
+			      "E2FB converts the wind velocity from Earth "
+			      "to Body-axes.\nInputs: H [m] and psi [rad]. "
+			      "Outputvector: [uw vw ww]',  ww==0"
+    }
+  }
+}

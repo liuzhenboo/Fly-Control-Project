@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Blocklibrary FDCLIB</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>The blocklibrary <I><FONT FACE="Arial","Helvetica","Sans Serif">FDCLIB</FONT></I>
+</H2>
+
+The block library <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">FDCLIB</FONT></I> contains buttons, which will reveal block-libraries or open complete systems from the FDC package when they are double-clicked. See the <A HREF="#list">sublibary-list</A> below. Except for the autopilot examples, all systems from the FDC toolbox can be reached through <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">FDCLIB</FONT></I>.
+
+<H3>Some important hints</H3>
+<OL>
+<LI>The block-libraries with elements from the nonlinear aircraft model (system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>) are stored in the files <SMALL>FDCLIB1.M</SMALL> to <SMALL>FDCLIB9.M</SMALL> in order to keep the file-size of <SMALL>FDCLIB.M</SMALL> itself within reasonable limits. Since it takes quite some time to open these sublibraries, it is recommended not to close them until your are sure you don't need them anymore. If you want to clean up your windows, but still plan to use the opened block-libraries, you better minimize these libraries in stead of closing them.
+
+<LI>The cyan-coloured blocks contain 'buttons' which can be inserted in your systems to start up M<SMALL>ATLAB</SMALL> subroutines such as the trim and linearization tools. Note that the three sublibraries <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Initialization blocks</FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Aircraft trim and Linearization blocks</FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Simulation data processing blocks</FONT></I> together contain the same elements as the library <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Collection of Button blocks</FONT></I> (<SMALL>BUTTONS.M</SMALL>), although in the latter library, the button blocks have been numbered and changed somewhat in size. Try unmasking a '<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Button</FONT></I>-block' to see how it works (it's really simple to make your own buttons!).
+
+<LI>In the aircraft model, many systems have been masked. Due to the quite inefficient way in which S<SMALL>IMULINK</SMALL> stores graphical systems, the following trick has been used in order to keep the file-size of all graphical systems within reasonable limits: subsystems have very short titles, e.g. '<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">ad</FONT></I>' in stead of '<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata Group</FONT></I>'. These titles have been <I>hidden</I> and <I>overwritten</I> by a <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Note</FONT></I>-block containing the full title (in this example: '<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata Group</FONT></I>'). If you open a source-code of an M-file containing a graphical system description (e.g. <SMALL>BEAVER.M</SMALL>, which contains the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>) and search for <I>subsystem</I> you'll see why this trick isn't as silly as it may seem.
+
+<LI>In the blocklibraries, many help-texts have been included. If you want to know more about the blocks, simply double-click them and look for <I>HELP</I> buttons, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Title</FONT></I>-blocks with shadow-borders, or <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">More Info</FONT></I> blocks. These will show you how to get more help.
+
+<LI>If you feel this 'help' text brings more confusion than real help, just forget it for the time being. Start double-clicking some fields in the library <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">FDCLIB</FONT></I>, and you'll see for yourself what happens. It is not a bad idea to create a backup directory if you want to be sure you won't destroy anything (so don't throw away your FDC installation-files).</OL>
+
+However, if you don't know anything about <I>M-files</I>, <I>S-functions</I>, subsystems, the <I>Mask</I> option, <I>shadow borders</I>, or <I>double-clicking</I>, but still have managed to come this far: please read your S<SMALL>IMULINK</SMALL> manual first (otherwise you will be disappointed by an apparant complexity which really isn't as frightening as it seems...).
+
+<H3><A NAME= "list">More Info</A></H3>
+
+FDCLIB provides the following links to other libraries and example systems:
+<BR>
+
+<SMALL>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="navlib.htm">NAVLIB</A></FONT></I><DIV>&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;radio navigation library
+</DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="windlib.htm">WINDLIB</A></FONT></I><DIV>&#160;&#160;&#160;&#160;&#160;wind and turbulence library</DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="oloop.htm">OLOOP1</A></FONT></I> <DIV>&#160;&#160;&#160;&#160;&#160;example, demonstrating deterministic open-loop aircraft responses
+</DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="oloop.htm">OLOOP1T</A></FONT></I> <DIV>&#160;&#160;&#160;&#160;&#160;tutorial for <I><FONT FACE="Arial","Helvetica","Sans Serif">OLOOP1</FONT></I></DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="oloop.htm">OLOOP2</A></FONT></I> <DIV>&#160;&#160;&#160;&#160;&#160;example, demonstrating stochastic open-loop aircraft responses</DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="oloop.htm">OLOOP2T</A></FONT></I> <DIV>&#160;&#160;&#160;&#160;&#160;tutorial for <I><FONT FACE="Arial","Helvetica","Sans Serif">OLOOP2</FONT></I></DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="oloop.htm">OLOOP3</A></FONT></I> <DIV>&#160;&#160;&#160;&#160;&#160;example, demonstrating linearized open-loop aircraft responses</DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="oloop.htm">OLOOP3T</A></FONT></I> <DIV>&#160;&#160;&#160;&#160;&#160;tutorial for <I><FONT FACE="Arial","Helvetica","Sans Serif">OLOOP3</FONT></I></DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I> <DIV>&#160;&#160;&#160;&#160;&#160;core system of the FDC toolbox, containing the non-linear aircraft model</DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="adgrp.htm">Airdata Group</A></FONT></I> <DIV>&#160;&#160;&#160;&#160;&#160;subsystem of <I><FONT FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I></DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="aerogrp.htm">Aerodynamics Group</A></FONT></I> <DIV>&#160;&#160;&#160;&#160;&#160;subsystem of <I><FONT FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I></DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="enggrp.htm">Engine Group</A></FONT></I> <DIV>&#160;&#160;&#160;&#160;&#160;subsystem of <I><FONT FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I></DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="gravity.htm">Gravity</A></FONT></I> <DIV>&#160;&#160;&#160;&#160;&#160;subsystem of <I><FONT FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I></DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="fwind.htm">Fwind</A></FONT></I> <DIV>&#160;&#160;&#160;&#160;&#160;subsystem of <I><FONT FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I></DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="eqmotion.htm">Aircraft Equations of Motion</A></FONT></I> <DIV>&#160;&#160;&#160;&#160;&#160;subsystem of <I><FONT FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I></DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="moreouts.htm">Additional Output Equations</A></FONT></I> <DIV>&#160;&#160;&#160;&#160;&#160;subsystem of <I><FONT FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I></DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="aclin.htm">ACLIN</A></FONT></I>  <DIV>&#160;&#160;&#160;&#160;&#160;linearization tool</DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="actrim.htm">ACTRIM</A></FONT></I> <DIV>&#160;&#160;&#160;&#160;&#160;tool to determine steady-state trimmed flight conditions</DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="fixstate.htm">FIXSTATE</A></FONT></I> <DIV>&#160;&#160;&#160;&#160;&#160;initialization utility for <I><FONT FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I></DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I> <DIV>&#160;&#160;&#160;&#160;&#160;initialization utility for <I><FONT FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>, loads model parameters</DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="incoload.htm">INCOLOAD</A></FONT></I> <DIV>&#160;&#160;&#160;&#160;&#160;initialization utility for <I><FONT FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>, loads initial conditions, etc.</DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="modbuild.htm">MODBUILD</A></FONT></I> <DIV>&#160;&#160;&#160;&#160;&#160;initialization utility for <I><FONT FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>, defines model parameters</DIV>
+<I><FONT FACE="Arial","Helvetica","Sans Serif"><A HREF="results.htm">RESULTS</A></FONT></I> <DIV>&#160;&#160;&#160;&#160;&#160;utility for processing simulation results of the system <I><FONT FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I></DIV>
+</SMALL>
+
+
+</BODY>
+
+</HTML>

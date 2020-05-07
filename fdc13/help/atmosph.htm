@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Atmosph</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Atmosph</FONT></I></H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Atmosph</FONT></I> is a masked S<SMALL>IMULINK</SMALL> subsystem, which computes some atmospheric properties, using the ICAO Standard Atmosphere model (see for instance <A HREF="#Standard Atmosphere">ref.[1]</A>). The block also computes the acceleration of gravity and the dynamic coefficient of viscosity. The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Atmosph</FONT></I> is contained in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="adgrp.htm">Airdata Group</A></FONT></I> of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>. Other airdata
+(-related) variables are computed in the blocks <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="airdata1.htm">Airdata1</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="airdata2.htm">Airdata2</A></FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="airdata3.htm">Airdata3</A></FONT></I>, which also contained in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata Group</FONT></I></FONT></I>.
+
+<H3>Inputvector: <I>x
+</I></H3>
+<PRE>  x = [V alpha beta p q r psi theta phi xe ye H]'        (states)
+
+ {V    : airspeed [m/s]                                         }
+ {alpha: angle of attack [rad]                                  }
+ {beta : sideslip angle [rad]                                   }
+ {p    : roll rate [rad/s]                                      }
+ {q    : pitch rate [rad/s]                                     }
+ {r    : yaw rate [rad/s]                                       }
+ {psi  : yaw angle [rad]                                        }
+ {theta: pitch angle [rad]                                      }
+ {phi  : roll angle [rad]                                       }
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+  H    : altitude above sea-level [m]
+</PRE>
+
+The variables which are not actually used by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Atmosph</FONT></I> have been displayed between accolades.
+
+<H3>Outputvector: <I>yatm</I>
+</H3>
+<PRE>  yatm = [rho ps T mu g]', (atmospheric properties)
+
+  rho  : airdensity [kg/m^3]
+  ps   : static pressure [N/m^2]
+  T    : temperature [K]
+  mu   : dynamic viscosity [kg/(m*s)]
+  g    : acceleration of gravity [m/s^2]
+</PRE>
+
+<H3><A NAME= "Standard Atmosphere">References</A></H3>
+
+<OL>
+<LI>Ruijgrok, G.J.J. <EM>Elements of airplane performance</EM>. Delft University Press, Delft, The Netherlands, 1993.
+</OL>
+
+</BODY>
+
+</HTML>

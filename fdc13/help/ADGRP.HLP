@@ -1,0 +1,78 @@
+-----------------------------------------------------------------
+System BEAVER, subsystem 'Airdata Group'
+========================================
+The subsystem 'Airdata Group' consists of four masked subsystem
+blocks: Atmosph, Airdata1, Airdata2, and Airdata3. The block
+Atmosph computes a number of atmospheric properties, Airdata1
+computes the basic airdata variables, and Airdata2 and Airdata3
+compute additional airdata (-related) variables.
+
+The results from the masked subsystem Atmosph are needed by the
+three Airdata blocks, and the results from Airdata1 are needed by
+Airdata2 and Airdata3. Therefore, the block Atmosph has been lo-
+cated on the upper left side of the subsystem, Airdata1 has been
+located in the middle of the subsystem, and Airdata2 and Airdata3
+have been located on the lower right side of the subsystem. The
+vertical shift is needed in order to be able to connect the out-
+putvectors from the different blocks to the Outports on the right
+side of the subsystem 'Airdata Group'.
+
+Note: ICAO Standard Atmosphere is used for atmosphere model!
+
+Inputs:
+=======
+  x = [V alpha beta p q r psi theta phi xe ye H]'        (states)
+
+where:
+
+  V    : true airspeed [m/s]
+ {alpha: angle of attack [rad]                                  }
+ {beta : sideslip angle [rad]                                   }
+ {p    : roll-rate [rad/s]                                      }
+ {q    : pitch-rate [rad/s]                                     }
+ {r    : yaw-rate [rad/s]                                       }
+ {psi  : yaw-angle [rad]                                        }
+ {theta: pitch-angle [rad]                                      }
+ {phi  : roll-angle [rad]                                       }
+ {xe   : X-coordinate, relative to Earth-axes [m]               }
+ {ye   : Y-coordinate, relative to Earth-axes [m]               }
+  H    : altitude above sea level [m]
+
+The accolades denote states which are not needed by the masked
+subsystem blocks in the subsystem 'Airdata Group'.
+
+Outputs:
+========
+  yatm = [rho ps T mu g]'                  (outputs from Atmosph)
+  yad1 = [a M qdyn]'                      (outputs from Airdata1)
+  yad2 = [qc Ve Vc]'                      (outputs from Airdata2)
+  yad3 = [Tt Re Rc]'                      (outputs from Airdata3)
+
+where:
+
+  rho  : air density [kg/m^3]
+  ps   : static pressure [N/m^2]
+  T    : air temperature [K]
+  mu   : dynamic viscosity [kg/(m*s)]
+  g    : acceleration of gravity [m/s^2]
+
+  a    : speed of sound [m/s]
+  M    : Mach number [-]
+  qdyn : dynamic pressure [N/m^2]
+
+  qc   : impact pressure [N/m^2]
+  Ve   : equivalent airspeed [m/s]
+  Vc   : calibrated airspeed [m/s]
+
+  Tt   : total temperature [K]
+  Re   : Reynolds number per unit length [1/m]
+  Rc   : Reynolds number with respect to mean aerodyn. chord [-]
+
+
+More info:
+==========
+See ATMOSPH.HLP, AIRDATA1.HLP, AIRDATA2.HLP, and AIRDATA3.HLP for
+more info about the blocks from the subsystem 'Airdata Group'.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

@@ -1,0 +1,269 @@
+Library {
+  Name			  "fbuttons"
+  Version		  2.09
+  PaperOrientation	  landscape
+  PaperType		  usletter
+  PaperUnits		  inches
+  BlockDefaults {
+    Orientation		    right
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    NamePlacement	    normal
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+    ShowName		    on
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    center
+    VerticalAlignment	    middle
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  System {
+    Name		    "fbuttons"
+    Location		    [9, 44, 473, 379]
+    Open		    on
+    ScreenColor		    white
+    Block {
+      BlockType		      SubSystem
+      Name		      "ini1"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [100, 45, 170, 130]
+      ForegroundColor	      blue
+      BackgroundColor	      cyan
+      DropShadow	      on
+      FontName		      "Arial"
+      ShowName		      off
+      OpenFcn		      "modbuild"
+      ShowPortLabels	      off
+      MaskType		      "modbuild"
+      MaskDisplay	      "disp('(1). Create\\ndatafiles\\n\\n\\nMODBUILD')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"ini1"
+	Location		[0, 0, 364, 143]
+	Open			off
+	ScreenColor		cyan
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "ini2"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [175, 45, 250, 130]
+      ForegroundColor	      blue
+      BackgroundColor	      cyan
+      DropShadow	      on
+      FontName		      "Arial"
+      ShowName		      off
+      OpenFcn		      "loader"
+      ShowPortLabels	      off
+      MaskType		      "loader"
+      MaskDisplay	      "disp('2. Load\\nparameters\\nfrom file\\n\\nLOAD"
+			      "ER')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"ini2"
+	Location		[0, 0, 364, 143]
+	Open			off
+	ScreenColor		cyan
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "ini3"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [255, 90, 355, 130]
+      ForegroundColor	      blue
+      BackgroundColor	      cyan
+      DropShadow	      on
+      FontName		      "Arial"
+      ShowName		      off
+      OpenFcn		      "incoload"
+      ShowPortLabels	      off
+      MaskType		      "incoload"
+      MaskDisplay	      "disp('3b. Load initial\\ncondition from file\\nI"
+			      "NCOLOAD')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"ini3"
+	Location		[0, 0, 364, 143]
+	Open			off
+	ScreenColor		cyan
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "ini4"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [360, 45, 420, 130]
+      ForegroundColor	      blue
+      BackgroundColor	      cyan
+      DropShadow	      on
+      FontName		      "Arial"
+      ShowName		      off
+      OpenFcn		      "fixstate"
+      ShowPortLabels	      off
+      MaskType		      "fixstate"
+      MaskDisplay	      "disp('(4). Fix\\nindividual\\nstates\\n\\nFIXSTA"
+			      "TE')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"ini4"
+	Location		[0, 0, 364, 143]
+	Open			off
+	ScreenColor		cyan
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "lin"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [100, 235, 170, 320]
+      ForegroundColor	      blue
+      BackgroundColor	      cyan
+      DropShadow	      on
+      FontName		      "Arial"
+      ShowName		      off
+      OpenFcn		      "aclin"
+      ShowPortLabels	      off
+      MaskType		      "linearize aircraft model"
+      MaskDisplay	      "disp('1. Call\\nlinearization\\nroutine\\n\\nACL"
+			      "IN')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"lin"
+	Location		[0, 0, 364, 143]
+	Open			off
+	ScreenColor		cyan
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "res1"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [100, 140, 170, 225]
+      ForegroundColor	      blue
+      BackgroundColor	      cyan
+      DropShadow	      on
+      FontName		      "Arial"
+      ShowName		      off
+      OpenFcn		      "results"
+      ShowPortLabels	      off
+      MaskType		      "results"
+      MaskDisplay	      "disp('1. Create\\ntrajectories\\nof individual\\n"
+			      "outputs\\n\\nRESULTS')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"res1"
+	Location		[0, 0, 364, 143]
+	Open			off
+	ScreenColor		cyan
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "trim"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [255, 45, 355, 85]
+      ForegroundColor	      blue
+      BackgroundColor	      cyan
+      DropShadow	      on
+      FontName		      "Arial"
+      ShowName		      off
+      OpenFcn		      "actrim"
+      ShowPortLabels	      off
+      MaskType		      "aircraft trim"
+      MaskDisplay	      "disp('3a. Call aircraft\\ntrim routine\\nACTRIM'"
+			      ")"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"trim"
+	Location		[0, 0, 364, 143]
+	Open			off
+	ScreenColor		cyan
+      }
+    }
+    Annotation {
+      Position		      [320, 267]
+      ForegroundColor	      red
+      FontSize		      11
+      Text		      "Usage: double-clicking activates the associated "
+			      "\nMatlab routine. The numbers express the "
+			      "order of\nthe blocks - keep this order for "
+			      "proper functioning of \nthe Matlab routines. "
+			      "Blocks with bracketed numbers\nmay be skipped. "
+			      "Indexed numbers (3a, 3b) denote\nthat you "
+			      "must select only one of those blocks (e.g.\nACTR"
+			      "IM or INCOLOAD)."
+    }
+    Annotation {
+      Position		      [50, 142]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      FontSize		      11
+      Text		      "Simulation-\ndata proces-\nsing blocks,\nuse "
+			      "after\nsimulating"
+    }
+    Annotation {
+      Position		      [52, 52]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      FontSize		      11
+      Text		      "Initialization\nblocks,\nuse before\nsimulating"
+    }
+    Annotation {
+      Position		      [53, 242]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      FontSize		      11
+      Text		      "Aircraft model\nlinearization\nblock, use "
+			      "\nbefore simu-\nlating linear\nmodel"
+    }
+    Annotation {
+      Position		      [224, 2]
+      VerticalAlignment	      top
+      ForegroundColor	      blue
+      FontName		      "Times New Roman"
+      FontSize		      14
+      FontWeight	      bold
+      Text		      "Collection of button-blocks to call the most "
+			      "\nimportant Matlab routines from the FDC Toolbox"
+    }
+  }
+}

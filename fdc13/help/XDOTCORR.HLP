@@ -1,0 +1,111 @@
+-----------------------------------------------------------------
+XDOTCORR is a masked Simulink subsystem, which is contained in
+the subsystem 'Aircraft Equations of Motion (Beaver)' of the
+S-function BEAVER. XDOTCORR is the only block of this subsystem
+which depends upon the aircraft model considered, in this case
+the aerodynamic model of the DHC-2 'Beaver' from ref.[1].
+
+XDOTCORR is used to convert the state equations of the 'Beaver'
+dynamic model, which are implicit due to the contributions of the
+time-derivative of beta-dot to the aerodynamic sideforce, into
+explicit state equations. The resulting equations consist of a
+part which is independent of the aircraft considered, and a
+correction part, which is implemented in XDOTCORR.
+
+XDOTCORR can be changed to implement models of other aircraft,
+in cases where it is necessary to bring into account contribu-
+tions of time-derivatives of states to the aerodynamic forces
+and moments, which would otherwise result in implicit state equa-
+tions. Such implicit state equations most often involve alpha-
+dot and beta-dot terms.
+
+Inputvectors (the variables which are not used in the block
+XDOTCORR are displayed between accolades):
+===========================================================
+  xdot = dx/dt = [Vdot alphadot betadot pdot qdot rdot ...
+                  psidot thetadot phidot xedot yedot Hdot]'
+        (state derivatives, without corrections which make impli-
+         cit equations explicit, coming from subsystem '12 ODEs')
+
+  yhlp = [cos(alpha) sin(alpha) cos(beta) sin(beta) ...
+          ... tan(beta) sin(psi) cos(psi) sin(theta) ...
+          ... cos(theta) sin(phi) cos(phi)]'
+            (frequently used sines & cosines, coming from HLPFCN)
+
+  yatm = [rho ps T mu g]',  (atmospheric properties, computed in
+                                               the block ATMOSPH)
+
+where:
+
+ {Vdot    : time-derivative of airspeed [m/s^2]                 }
+ {alphadot: time-derivative of angle of attack [rad/s]          }
+  betadot : time-derivative of sideslip angle [rad/s]
+                                                (uncorrected!)
+ {psidot  : time-derivative of yaw angle [rad/s]                }
+ {thetadot: time-derivative of pitch angle [rad/s]              }
+ {phidot  : time-derivative of roll angle [rad/s]               }
+ {pdot    : time-derivative of roll rate [rad/s^2]              }
+ {qdot    : time-derivative of pitch rate [rad/s^2]             }
+ {rdot    : time-derivative of yaw rate [rad/s^2]               }
+ {xedot   : time-derivative of x-coordinate in Earth-fixed
+                                         reference frame [m/s]  }
+ {yedot   : time-derivative of y-coordinate in Earth-fixed
+                                         reference frame [m/s]  }
+ {Hdot    : time-derivative of altitude above sea-level [m/s]   }
+
+  rho  : airdensity [kg/m^3]
+ {ps   : static pressure [N/m^2]                                }
+ {T    : temperature [K]                                        }
+ {mu   : dynamic viscosity [kg/(m*s)]                           }
+ {g    : acceleration of gravity [m/s^2]                        }
+
+ Of the vector yhlp, only cos(beta) is used.
+
+Outputvector: xdot with beta-dot correction.
+============================================
+  xdot = [Vdot alphadot betadot pdot qdot rdot psidot ...
+          ... thetadot phidot xedot yedot Hdot]'
+
+ Here, betadot is corrected for the beta-dot influence upon the
+ aerodynamic sideforce Ya!
+
+Parameters, which must be set in the Matlab Workspace.
+======================================================
+  AM  = matrix with stability and control derivatives of the
+        'Beaver' (valid only for the nonlinear aerodynamic model
+        of the DHC-2 'Beaver', see ref.[1]). Here, the stability
+        derivative CYbdot is extracted (influence of beta-dot
+        upon aerodynamic sideforce Ya).
+
+  GM1 = vector with some important geometrical properties of the
+        'Beaver' aircraft, and the mass of the aircraft (which is
+        assumed to be constant during the motions of interest).
+        In XDOTCORR, the wing span b, wing area S, and mass m are
+        extracted from GM1.
+
+The vector GM1 and the matrix AM can be loaded into the workspace
+from file by applying the routine LOADER.M. Run MODBUILD.M first
+if the datafile does not yet exist. Type HELP LOADER or HELP MOD-
+BUILD for more info.
+
+References.
+===========
+[1]  R.T.H. Tjee and J.A. Mulder. Stability and Control Deriva-
+     tives of the De Havilland DHC-2 "Beaver" aircraft. Report
+     LR-556, Delft University of Technology, 1988.
+
+More Info.
+==========
+More info about the implicitness of the beta-dot equation for
+the 'Beaver' can be found in AEROMOD.HLP, and 12ODES.HLP. See also
+VABDOT.HLP, PQRDOT.HLP, EULERDOT.HLP, and XYHDOT.HLP, for more
+info about the time-derivatives of other state variables. The
+block XDOTCORR uses the outputs of the masked subsystem HLPFCN as
+inputvariables; see HLPFCN.HLP for more info.
+
+See also EQMOTION.HLP for more details about the subsystem 'Air-
+craft Equations of Motion (Beaver)'.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.
+

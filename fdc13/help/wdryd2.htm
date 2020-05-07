@@ -1,0 +1,44 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: WDRYD2</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2><I><FONT FACE="Arial","Helvetica","Sans Serif">WDRYD2</FONT></I>: Vertical Dryden filter with varying coefficients</H2>
+
+The masked subsystem block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">WDRYD2</FONT></I>,
+which is contained in the library <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="windlib.htm">WINDLIB</A></FONT></I> from the FDC subdirectory <SMALL>WIND</SMALL>, implements a vertical Dryden filter with coefficients that vary with the true airspeed <I>V</I>. The user must specify the scale lenght <I>L<SUB>w<SUB>g</SUB></SUB></I> and the standard deviation <I>sigma_w<SUB>g</SUB></I>. The airspeed <I>V</I> is used as inputsignal to the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">WDRYD2</FONT></I>. Often, the changes in <I>V</I> due to atmospheric turbulence are not very large, which means that it may be more straightforward to use a Dryden filter with constant coefficients, computed under the assumption that <I>V</I> is constant and equal to a user-specified value. The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="wdryd1.htm">WDRYD1</A></FONT></I> contains such a filter for vertical turbulence.<BR><BR>
+
+The vertical gust velocity <I>w<SUB>g</SUB></I> is obtained by passing white noise through a Dryden filter, which is defined by the following transfer function:
+<PRE>            b0 + b1*s        a0 = (V/Lwg)^2
+  Hwg = -----------------    a1 = 2*(V/Lwg)
+         s^2 + a1*s + a0     b0 = sigma_wg*sqrt(Lwg/V)*(V/Lwg)^2
+                             b1 = sigma_wg*sqrt(3*Lwg/V)*(V/Lwg)
+</PRE>where:
+<PRE>  V       : true airspeed [m/s]
+  sigma_wg: standard deviation of vertical gust velocity [m/s]
+  Lwg     : scale length for vertical gust [m]
+</PRE>
+Here, <I>V</I> is the <I>input</I> signal to the masked subsystem block. <I>V</I> itself has to be obtained from the aircraft model considered, e.g.,
+<I>V</I> may be an outputsignal from the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>, which uses the turbulence velocity <I>u<SUB>g</SUB></I> and its time-derivative as inputsignals!
+
+<H3>Input signal</H3>
+<PRE>  V       : true airspeed [m/s]
+</PRE>
+
+<H3>Output signals</H3>
+<PRE>  wg      : vertical gust velocity [m/s]
+  d(wg)/dt: time derivative of wg [m/s^2]
+</PRE>
+
+<H3>More information</H3>
+
+While <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">WDRYD1</FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">WDRYD2</FONT></I> contain vertical Dryden filters, the blocks <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="udryd1.htm">UDRYD1</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="udryd2.htm">UDRYD2</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vdryd1.htm">VDRYD1</A></FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vdryd2.htm">VDRYD2</A></FONT></I> can be used to determine longitudinal and lateral turbulence (the suffix 1 denotes filters with constant coefficients and 2 denotes filters with velocity-dependent coefficients). Practical combinations of the longitudinal, lateral, and vertical Dryden filters can be found in the subsystems <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="turb1.htm">Turb1</A></FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="turb2.htm">Turb2</A></FONT></I>. Those subsystems combine the turbulence velocity-components and their time-derivatives in a vector <I>uwind</I>, which can be connected to the non-linear aircraft model <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>.<BR>
+<BR>
+<B>Note:</B> the vector <I>uwind</I> that leaves <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Turb1</FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Turb2</FONT></I> does not contain deterministic wind velocity components. Add this vector to the outputs from <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="blwind.htm">BLwind</A></FONT></I> or <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="cwind.htm">Cwind</A></FONT></I> if you want to take into account those components as well.<BR>
+<BR>
+All wind and turbulence systems have been gathered in the blocklibrary <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="windlib.htm">WINDLIB</A></FONT></I>.
+
+
+</BODY>
+
+</HTML>

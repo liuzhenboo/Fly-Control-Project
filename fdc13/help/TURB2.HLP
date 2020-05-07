@@ -1,0 +1,80 @@
+-----------------------------------------------------------------
+TURB2 is a Simulink subsystem which is contained in the Atmosphe-
+ric Turbulence sublibrary of the library WINDLIB. It contains the
+Dryden filters UDRYD2, VDRYD2, and WDRYD2 for longitudinal, late-
+ral and vertical turbulence, respectively. The filters have been
+implemented in masked subsystem blocks, in which the user must
+specify the scale lengths Lug, Lvg, and Lwg, and the standard de-
+viations sigma_ug, sigma_vg, and sigma_wg.
+
+In TURB2, the coefficients of the Dryden filters vary with the
+true airspeed V, which is the INPUTSIGNAL to this subsystem. The
+value of the true airspeed must be obtained from the model of the
+aircraft under consideration, e.g., V may be extracted from the
+outputvector of the system BEAVER, which itself uses the outputs
+of TURB2 as inputvector.
+
+In many cases, the variations of V due to atmospheric turbulence
+are not very large, and the resulting changes in filter coeffi-
+cients may be neglected. In such cases, it is recommended to use
+TURB1 in stead of TURB2, thus eliminating the feedback-loop of V
+from the aircraft model to TURB2 within the resulting Simulink
+system. See TURB1.HLP for more details.
+
+Inputsignal to TURB2:
+=====================
+  V = true airspeed [m/s]
+
+Outputvector from TURB2:
+========================
+  uwind = [uw vw ww uwdot vwdot wwdot]',
+
+ (actually, this vector should be called ugust = [ug vg wg ...
+ ... ugdot vgdot wgdot]', since the wind velocities and their
+ time-derivatives from the subsystem TURB2 are equal to gust
+ velocities only; contributions due to WIND(-shear) still have to
+ be added to this vector!).
+
+ uw   : wind (gust-) velocity along XB-axis of aircraft [m/s]
+ vw   : wind (gust-) velocity along YB-axis of aircraft [m/s]
+ ww   : wind (gust-) velocity along ZB-axis of aircraft [m/s]
+
+ uwdot: time-derivative of uw [m/s^2]
+ vwdot: time-derivative of vw [m/s^2]
+ wwdot: time-derivative of ww [m/s^2]
+
+Parameters which must be set in dialog boxes within TURB2:
+==========================================================
+Before starting a simulation of a system in which the subsystem
+TURB2 is involved, the parameters of the masked subsystem blocks
+UDRYD2, VDRYD2, and WDRYD2 have to be defined by double-clicking
+these blocks and entering the correct values in their dialog-
+boxes. These parameters are:
+
+UDRYD2: Lug     = scale length for longitudinal turbulence [m]
+        sigma_ug= standard deviation for longitudinal
+                                                  turbulence [m/s]
+
+VDRYD2: Lvg     = scale length for lateral turbulence [m]
+        sigma_vg= standard deviation for lateral turbulence [m/s]
+
+WDRYD2: Lwg     = scale length for vertical turbulence [m]
+        sigma_wg= standard deviation for vertical turbulence [m/s]
+
+More info:
+==========
+See UDRYD2.HLP, VDRYD2.HLP, and WDRYD2.HLP for more details about
+the masked subsystem blocks from TURB2 (Dryden filters with coef-
+ficients that vary with V). More details about Dryden filters with
+constant coefficients can be found in the helpfiles TURB1.HLP,
+UDRYD1.HLP, VDRYD1.HLP, and WDRYD1.hlp.
+
+See CWIND.HLP and BLWIND.HLP for more information on the imple-
+mentation of constant wind and a wind-profile in the Earth's
+boundary layer, respectively.
+
+Type WINDLIB to open the Wind & Atmospheric Turbulence Library.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.
+

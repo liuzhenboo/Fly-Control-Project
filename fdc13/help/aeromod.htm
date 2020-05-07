@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Aeromod (Beaver)</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Aeromod (Beaver)</FONT></I></H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Aeromod (Beaver)</FONT></I> is a masked S<SMALL>IMULINK</SMALL> subsystem, used to compute aerodynamic force and moment coefficients for the DHC-2 'Beaver'. The aerodynamic model is aircraft-dependent, hence, this block must be replaced if models of other aircraft are to be implemented in the simulation structure of FDC. Instant replacement of the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Aeromod (Beaver)</FONT></I> is possible only if the same inputs and outputs to and from this block remain the same. However, the internal structure of a replacement for the current block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Aeromod</FONT></I> may look completely different. For instance, the aerodynamic model of the DHC-2 'Beaver', contained in <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Aeromod (Beaver)</FONT></I> determines the force and moment coefficients by means of evaluation of six polynomial equations (<A HREF="#References">see ref.[1]</A>), whereas it is more customary to compute aerodynamic forces and moments by means of interpolation in large multi-dimensional tables. The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Aeromod</FONT></I> is contained in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="aerogrp.htm">Aerodynamics Group (Beaver)</A></FONT></I> of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>. Other blocks within that subsystem are: <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="dimless.htm">Dimless</A></FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="fmdims.htm">FMdims</A></FONT></I>.
+<BR><BR>
+
+<B>Note:</B> The side-force coefficient with respect to beta-dot has been neglected in the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Aeromod (Beaver)</FONT></I>, because it would have yielded an algebraic loop. Therefore, the beta-dot equation has been written out as an explicit equation with an aircraft-independent and an aircraft-dependent term. The latter is evaluated in a separate block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="xdotcorr.htm">xdotcorr (Beaver)</A></FONT></I>, which is contained in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="eqmotion.htm">Aircraft Equations of Motion</A></FONT></I>.
+
+<H3>Inputvectors: <I>x</I>, <I>uaero</I>, <I>ydl</I>
+</H3>
+<PRE>  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+  uaero= [deltae deltaa deltar deltaf]'      (aerodynamic inputs)
+  ydl  = [pb/2V qc/V rb/2V]'           (dimensionless velocities,
+                                   computed in the block <A HREF="dimless.htm">Dimless</A>)
+
+ {V    : airspeed [m/s]                                         }
+  alpha: angle of attack [rad]
+  beta : sideslip angle [rad]
+ {p    : roll rate [rad/s]                                      }
+ {q    : pitch rate [rad/s]                                     }
+ {r    : yaw rate [rad/s]                                       }
+ {psi  : yaw angle [rad]                                        }
+ {theta: pitch angle [rad]                                      }
+ {phi  : roll angle [rad]                                       }
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+
+  deltae: elevator deflection [rad]
+  deltaa: deflection of the ailerons [rad]
+  deltar: rudder deflection [rad]
+  deltaf: flap setting [rad]
+
+  pb/2V: dimensionless roll rate [-]
+  qc/V : dimensionless pitch rate [-]
+  rb/2V: dimensionless yaw rate [-]
+</PRE>
+
+The inputvariables which are not actually used by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Aeromod (Beaver)</FONT></I> have been displayed between accolades.
+
+<H3>Outputvector: <I>Caero</I>
+</H3>
+<PRE>  Caero = [CXa CYz CZa Cla Cma Cna]'
+
+  CXa, CYa, CZa: dimensionless aerodynamic force coefficients
+  Cla, Cma, Cna: dimensionless aerodynamic moment coefficients.
+</PRE>
+
+<H3>Parameters, which must be defined in the M<SMALL>ATLAB</SMALL> Workspace
+</H3>
+
+<UL>
+<LI><I>AM</I>: matrix with stability and control derivatives of the 'Beaver' (valid only for the nonlinear aerodynamic model of the DHC-2 'Beaver', see <A HREF="#References">ref.[1]</A>). The matrix <I>AM</I> can be loaded into the M<SMALL>ATLAB</SMALL> workspace from file by running <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I>. Run <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><SMALL><A HREF="modbuild.htm">MODBUILD</A></SMALL></FONT></I> first if this datafile does not yet exist.
+</UL>
+
+<H3><A NAME= "References">References
+</A></H3>
+
+<OL>
+<LI>R.T.H. Tjee and J.A. Mulder. <I>Stability and Control Derivatives of the De Havilland DHC-2 "Beaver" aircraft</I>. Report LR-556, Delft University of Technology, 1988.
+</OL>
+
+</BODY>
+
+</HTML>

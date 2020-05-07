@@ -1,0 +1,42 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Hlpfcn</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Hlpfcn</FONT></I></H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Hlpfcn</FONT></I> is a S<SMALL>IMULINK</SMALL> subsystem, contained in the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>. It is used to compute some frequently used sines and cosines, which are needed for the calculation of the time derivatives of the state variables. Since the results are, of course, quite trivial, it is not necessary to send the outputs from the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Hlpfcn</FONT></I> to the Workspace. This is why <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Hlpfcn</FONT></I> has been placed in a feedback loop. The aircraft model therefore contains three build-in feedback loops: one for the state vector <I>x</I>, one for its time-derivative (this feedback is used for additional output equations only, so it does not induce algebraic loops into the system!), and one for the outputs from <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Hlpfcn</FONT></I>.
+<BR><BR>
+
+It is important to notice that these feedback loops are necessary in order to find a computation order for the simulations. In reality, the forces and moments depend upon the state variables and there time-derivatives, and vice-versa. This means that the computation order is not necessarily equal to the order of occurance in physical reality!
+
+<H3>Inputvector: <I>x</I></H3>
+<PRE>  x = [V alpha beta p q r psi theta phi xe ye H]'        (states)
+
+ {V    : airspeed [m/s]                                         }
+  alpha: angle of attack [rad]
+  beta : sideslip angle [rad]
+ {p    : roll rate [rad/s]                                      }
+ {q    : pitch rate [rad/s]                                     }
+ {r    : yaw rate [rad/s]                                       }
+  psi  : yaw angle [rad]
+  theta: pitch angle [rad]
+  phi  : roll angle [rad]
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+</PRE>
+
+The signals which are not actually used by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Hlpfcn</FONT></I> have been put between accolades.
+
+<H3>Outputvector: <I>yhlp</I></H3>
+<PRE>  yhlp = [cos(alpha) sin(alpha) cos(beta) sin(beta) ...
+          ... tan(beta) sin(psi) cos(psi) sin(theta) ...
+          ... cos(theta) sin(phi) cos(phi)]'.
+</PRE>
+
+Notice that this list also contains one tangens, which makes the definition of <I>yhlp</I> a little bit confusing. <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Hlpfcn</FONT></I> therefore needs to be 'fine-tuned' in the future.
+
+</BODY>
+
+</HTML>

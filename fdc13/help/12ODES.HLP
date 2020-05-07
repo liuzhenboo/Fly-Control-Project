@@ -1,0 +1,158 @@
+-----------------------------------------------------------------
+System BEAVER - 4th-level subsystem '12 ODEs'
+=============================================
+The dynamics of a rigid aircraft have been written in terms of
+12 Ordinary Differential Equations (ODEs). The subsystem '12 ODEs',
+which is contained in the 3rd level subsystem 'Aircraft Equations
+of Motion (Beaver)' of the system BEAVER, contains the general
+state equations for rigid aircraft, which are fully independent of
+the aircraft under consideration. The twelve state equations are
+valid only when four restrictive assumptions are made:
+
+1 - the airframe is assumed to be a rigid body in the motion under
+    consideration
+2 - the airplane's mass is assumed to be constant during the time
+    interval in which its motions are studied
+3 - the Earth is assumed to be fixed in space, i.e. its rotation
+    is neglected
+4 - the curvature of the Earth is neglected.
+
+Structure of the subsystem '12 ODEs'
+====================================
+In the subsystem '12 ODEs', these twelve state equations have been
+separated in four blocks:
+
+1 - ODEs for the true airspeed V, the angle of attack alpha, and the
+    sideslip angle beta, which have been derived from Newton's law
+    for translational motions
+2 - ODEs for the rotational speeds along the aircraft's body-axes, p,
+    q, and r, which have been derived from Newton's law for rotational
+    motions
+3 - ODEs for the Euler angles psi, theta, and phi, which determine the
+    attitude of the aircraft relatively to the Earth (derived from
+    basic kinematic relations)
+4 - ODEs for the coordinates xe and ye, and the altitude H, all
+    measured relatively to the (flat, non-rotating) Earth (derived
+    from basic kinematic relations)
+
+The four groups of state equations have been implemented as sepa-
+rate masked subsystems, called Vabdot, pqrdot, Eulerdot, and xyHdot,
+respectively.
+
+These four masked subsystems all use [x' Ftot' Mtot' yhlp']' as input-
+vector. In '12 ODEs', the different subvectors are first Muxed to-
+gether into one large inputvector for Vabdot, pqrdot, Eulerdot, and
+xyHdot. The position of the aircraft relative to the Earth depends upon
+the velocity components along the aircraft's body-axes, taking into
+account both the velocity of the aircraft with respect to the surroun-
+ding air, and the contributions due to atmospheric disturbances (wind +
+turbulence). Therefore, xyHdot has one additional input line.
+
+The outputs from Vabdot, pqrdot, Eulerdot, and xyHdot are Muxed
+together, to build one large vector xdot (time-derivative of the state
+vector). Note: the equations in the subsystem '12 ODEs' are fully
+independent of the aircraft under consideration. In practice, the
+equations of motion may become implicit, for instance if alpha-dot or
+beta-dot terms enter the force-equations of the aerodynamic model. If
+these equations are written out as explicit equations (in practice,
+this will often be possible), the twelve ODEs will contain aircraft-
+dependent terms. In the system BEAVER, this problem has been solved
+by neglecting these terms in the subsystem '12 ODEs', and making
+corrections to the vector xdot afterwards in the masked subsystem
+xdotcorr.
+
+Inputs to the subsystem '12 ODEs':
+==================================
+  x    = [V alpha beta p q r psi theta phi xe ye H]'        (states)
+
+  Ftot = [Fx Fy Fz]'         (total external forces along body-axes,
+                                       computed in the block FMSORT)
+
+  Mtot = [L M N]'            (total external moments along body-axes,
+                                        computed in the block FMSORT)
+
+  yhlp  = [cos(alpha) sin(alpha) cos(beta) sin(beta) tan(beta) ...
+           ... sin(psi) cos(psi) sin(theta) cos(theta) ...
+           ... sin(phi) cos(phi) ]'
+                      (sines & cosines, computed in the block HLPFCN)
+
+  [u+uw v+vw w+ww]'        (body-axes velocity components, including
+                          contributions due to non-steady atmosphere)
+where:
+
+  V    : true airspeed [m/s]
+ {alpha: angle of attack [rad]                                   }
+ {beta : sideslip angle [rad]                                    }
+  p    : roll-rate [rad/s]
+  q    : pitch-rate [rad/s]
+  r    : yaw-rate [rad/s]
+ {psi  : yaw-angle [rad]                                         }
+ {theta: pitch-angle [rad]                                       }
+ {phi  : roll-angle [rad]                                        }
+ {xe   : X-coordinate, relative to Earth-axes [m]                }
+ {ye   : Y-coordinate, relative to Earth-axes [m]                }
+ {H    : altitude above sea level [m]                            }
+
+  Fx, Fy, Fz: total external forces along body-axes [N]
+  L, M, N   : total external moments along body-axes [Nm]
+
+  u    : component of V along XB-axis [m/s]
+  v    : component of V along YB-axis [m/s]
+  w    : component of V along ZB-axis [m/s]
+
+  uw   : wind+turbulence velocity component along XB-axis [m/s]
+  vw   : wind+turbulence velocity component along YB-axis [m/s]
+  ww   : wind+turbulence velocity component along ZB-axis [m/s]
+
+The inputvariables which are not used by any of the blocks Vabdot,
+pqrdot, Eulerdot, or xyHdot, are displayed between accolades. The
+angles alpha, beta, psi, theta, and phi do play an important role in
+the ODEs, but for reasons of efficiency, they have been extracted
+from the helpvector yhlp, which contains the sines and cosines of
+these angles. The subsystem Hlpfcn in the 2nd level of BEAVER is used
+to create this helpvector. Of yhlp, all elements are used in the
+subsystem '12 ODEs'.
+
+Output from the subsystem '12 ODEs':
+====================================
+  xdot = dx/dt
+
+Note: the vector xdot that leaves the subsystem '12 ODEs' does not yet
+take into account the aircraft-dependent influences which are induced
+when writing out the implicit differential equations as a set of ex-
+plicit ODEs. For the 'Beaver', this means that the influence of the
+beta-dot term in the aerodynamic sideforce is neglected up to the sub-
+system '12 ODEs'. In the subsystem 'Aircraft Equations of Motion
+(Beaver)', the masked subsystem XDOTCORR (Beaver) takes care of the
+appropriate corrections to xdot. This subsystem also contains a gain
+block XFIX, which makes it possible to fix some of the states artifi-
+cially to their initial values.
+
+Parameters which must be set in the Matlab workspace:
+=====================================================
+The subsystem '12 ODEs' needs the following parameters to be loaded
+into the Matlab workspace:
+
+ GM1: matrix with the basic geometric properties and the mass of the
+      aircraft
+ GM2: matrix with inertia parameters of the aircraft
+
+You may use the load routine LOADER.M to load these parameters from
+file; type HELP LOADER for more info. Use MODBUILD.M to create such
+datafiles; type HELP MODBUILD for more info.
+
+More info:
+==========
+See VABDOT.HLP, PQRDOT.HLP, EULERDOT.HLP, and XYHDOT.HLP for more info
+about the masked subsystem blocks from the subsystem '12 ODEs'. See
+EQMOTION.HLP for more info about the subsystem 'Aircraft Equations of
+Motion (Beaver)'. For more info about the parameters which must be set
+in the Matlab workspace: type HELP LOADER and/or HELP MODBUILD.
+
+More details about the inputvectors to this subsystem can be found
+by examining HLPFCN.HLP and FMSORT.HLP. See XDOTCORR.HLP and XFIX.HLP
+for more info about the corrections which can or will be made to the
+vector xdot after it leaves the subsystem '12 ODEs'.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

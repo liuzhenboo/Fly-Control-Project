@@ -1,0 +1,113 @@
+-----------------------------------------------------------------
+The masked subsystem block ILS, which is contained in the library
+NAVLIB, is used to compute nominal values of the glideslope and
+localizer signals, for a given position of the aircraft. Also,
+the validity of the signals is checked (see ILSTEST.HLP). See
+the FDC 1.2 manual, or ref.[1] for more details about the defi-
+nitions of the different variables and parameters.
+
+Inputvector:
+============
+  uils = [xe ye H]'
+
+where:
+
+  xe: X-coordinate of aircraft in Earth-axes, [m]
+  ye: Y-coordinate of aircraft in Earth-axes, [m]
+  H : altitude of aircraft above sea level, [m]
+
+These inputvariables are OUTPUTS from a NONLINEAR aircraft model.
+The block ILS, which computes the nominal values of the ILS sig-
+nals, does not give correct results if a small-deviations model
+is used for the aircraft dynamics! Open the system BEAVER for
+an example of such a nonlinear aircraft model!
+
+Outputvectors:
+==============
+  yils1 = [igs iloc]'
+  yils2 = [epsilon_gs Gamma_loc]'
+  yils3 = [xf yf Hf dgs Rgs Rloc]'
+  yils4 = [LOC_flag GS_flag]'
+
+where:
+
+  igs       : nominal localizer current, [ÊA]
+  iloc      : nominal glideslope current, [ÊA]
+
+  epsilon_gs: angle between line through aircraft's c.g. and
+              glideslope antenna and nominal glide path, [rad]
+  Gamma_loc : angle between ground-projection of line through
+              aircraft's c.g. and localizer antenna, and runway
+              centerline, [rad]
+
+  xf        : X-coordinate of aircraft in runway-fixed reference
+              frame XF-YF-ZF, [m]
+  yf        : Y-coordinate of aircraft in runway-fixed reference
+              frame XF-YF-ZF, [m]
+  Hf        : altitude of aircraft in runway-fixed reference
+              frame XF-YF-ZF, [m]; Hf = -zf
+  dgs       : distance from aircraft's c.g. to nominal glide path,
+              measured perpendicularly to nominal glide path, [m]
+  Rgs       : 2D-distance from c.g. of aircraft to glideslope an-
+              tenna (as seen from above), [m]
+  Rloc      : 2D-distance from c.g. of aircraft to localizer an-
+              tenna (as seen from above), [m]
+
+  LOC_flag  : flag which is set to one if localizer signal cannot
+              be received with appropriate accuracy, else,
+              LOC_flag = 0
+  GS_flag   : flag which is set to one if glideslope signal can-
+              not be received with appropriate accuracy, else,
+              GS_flag = 0
+
+igs is proportional to epsilon_gs, iloc is proportional to
+Gamma_loc. Both igs and iloc are limited to +/- 150 [ÊA]. For
+more info about the definitions of the variables, consult ref.[1]
+or the FDC 1.2 user-manual.
+
+Parameters which need to be specified in dialog-boxes of masked
+subsystem ILS:
+===============================================================
+* position of the origin of the runway-fixed reference frame XF-
+  YF-ZF (given by the coordinates XRW, YRW, and altitude above
+  sea level HRW; all measured relatively to Earth-fixed reference
+  frame)
+
+* heading of the runway, psi_RW
+
+* nominal glideslope angle, gamma_gs
+
+* X-distance from runway threshold to localizer antenna, x_loc
+
+* X-distance from runway threshold to glideslope antenna, x_gs
+
+* Y-distance from runway centerline to glideslope antenna, y_gs
+
+Double-click ILS to specify these variables (units of measure-
+ments are given in dialog-boxes).
+
+References:
+===========
+[1]. Rauw, M.O. A Simulink environment for Flight Dynamics and
+     Control analysis - Application to the DHC-2 'Beaver'
+     (2 parts). Graduate's thesis, Delft University of Technology
+     (Aerospace Engineering), Delft, September 1993.
+
+More info.
+==========
+See GSERR.HLP and LOCERR.HLP for more info on steady-state errors
+in the glideslope and localizer currents, respectively. See
+GSNOISE.HLP and LOCNOISE.HLP for more info on noise in glideslope
+and localizer currents, respectively.
+
+An example of the practical use of the ILS and VOR blocks can be
+found in the 'Beaver' autopilot simulation model APILOT2. In that
+system, only nominal signals are considered; however, it is possi-
+ble to replace the ILS-block from APILOT2 by the system 'ILS exam-
+ple' from NAVLIB. See APILOT.HLP for more info.
+
+See also ILSXMPL.HLP (helptext for subsystem 'ILS example' from
+the NAVLIB library).
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

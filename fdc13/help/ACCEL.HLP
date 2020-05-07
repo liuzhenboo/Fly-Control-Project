@@ -1,0 +1,51 @@
+-----------------------------------------------------------------
+ACCEL is a masked Simulink subsystem, used to compute the speci-
+fic forces and accelerations of the aircraft, as measured in the
+aircraft's centre of gravity. The block ACCEL is contained in the
+subsystem 'Additional Outputs' of the system BEAVER. The outputs
+from ACCEL are not needed to solve the state equations. Hence,
+ACCEL can be removed from the system BEAVER without affecting
+the solution of the state equations.
+
+Inputvectors: Ftot and Fgrav.
+=============================
+  Ftot = [Fx Fy Fz]' (total body-axes forces, coming from FMSORT)
+
+  Fgrav= [Xgr Ygr Zgr]' (body-axes forces due to gravity, coming
+                                          from the block GRAVITY)
+where:
+
+  Fx, Fy, Fz   : total forces along the aircraft's body-axes [N]
+  Xgr, Ygr, Zgr: gravity forces along the aircraft's body-axes [N]
+
+Outputvector: yacc.
+===================
+  yacc = [Ax Ay Az axk ayk azk]'
+
+where:
+
+  Ax, Ay, Az   : specific forces (= outputs of accelerometers) in
+                 the centre of gravity of the aircraft [m/s^2]
+  axk, ayk, azk: components of the accelerations of the c.g. along
+                 the body-axes [m/s^2]
+
+Parameters which must be loaded in the Matlab Workspace.
+========================================================
+  GM1 = vector with some important geometrical properties of the
+        'Beaver' aircraft, and the mass of the aircraft (which is
+        assumed to be constant during the motions of interest).
+        Here, the mass m is extracted from the vector GM1. The
+        vector GM1 can be loaded from file by calling LOADER.M.
+        If the datafile does not yet exist, run MODBUILD.M first.
+        Type HELP LOADER or HELP MODBUILD for more details.
+
+More info:
+==========
+See GRAVITY.HLP, FMSORT.HLP, for details about the determination
+of the gravity forces and total external forces.
+
+See MOREOUTS.HLP for help about the subsystem 'Additional Out-
+puts'.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

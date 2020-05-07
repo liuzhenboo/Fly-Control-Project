@@ -1,0 +1,32 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: VORerr</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>The radio-navigation block <I><FONT FACE="Arial","Helvetica","Sans Serif">VORerr</FONT></I></H2>
+
+The masked subsystem block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">VORerr</FONT></I> from the sublibrary VOR of the block-library <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="navlib.htm">NAVLIB</A></FONT></I> can be used to implement steady-state VOR errors. The user must specify the required error percentage.<BR><BR>
+
+<B>Note:</B> the nominal VOR signals can be determined with the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vor.htm">VOR</A></FONT></I> from the same block-library. The system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vorxmpl.htm">VOR example</A></FONT></I> demonstrates how these blocks can be combined.
+
+<H3>Input signal</H3>
+<PRE>  Gamma_VOR (nominal value, coming from block VOR), [rad]
+</PRE>
+<I>Gamma_VOR</I> is the angle between the line through the projection point of the aircraft's c.g. on the ground and the VOR antenna, and the nominal VOR bearing (see also the <A HREF="#References">references</A> below).
+
+<H3>Output signal</H3>
+<PRE>  Gamma_VOR (nominal value + steady-state error), [rad]
+</PRE>
+
+<H3><A NAME= "References">References</A></H3>
+
+For more information about the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">VOR</FONT></I>, consult the following references:
+<OL>
+<LI>M.O. Rauw: <I>FDC 1.2 - A S<SMALL>IMULINK</SMALL> Environment for Flight Dynamics and Control Analysis</I>. Zeist, The Netherlands, March 1997.
+<LI>M.O. Rauw: <I>A S<SMALL>IMULINK</SMALL> environment for Flight Dynamics and Control analysis - Application to the DHC-2 'Beaver'</I>. MSc-thesis, Delft University of Technology, Faculty of Aerospace Engineering, Delft, The Netherlands, 1993.
+</OL>
+
+
+</BODY>
+
+</HTML>

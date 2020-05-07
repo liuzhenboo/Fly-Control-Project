@@ -1,0 +1,77 @@
+-----------------------------------------------------------------
+TURB1 is a Simulink subsystem which is contained in the Atmosphe-
+ric Turbulence sublibrary of the library WINDLIB. It contains the
+Dryden filters UDRYD1, VDRYD1, and WDRYD1 for longitudinal, late-
+ral and vertical turbulence, respectively. The filters have been
+implemented in masked subsystem blocks, in which the user must
+specify the scale lengths Lug, Lvg, and Lwg, the standard devia-
+tions sigma_ug, sigma_vg, and sigma_wg, and the velocity V (for
+each of the three masked subsystem blocks!). The coefficients of
+the Dryden filters are determined for the value of the airspeed V
+which is specified in the dialog boxes from the blocks UDRYD1,
+VDRYD1, and WDRYD1, i.e., V is assumed to be constant.
+
+Only in those cases where the airspeed changes over a very large
+range, it is recommended to use the subsystem TURB2, which takes
+into account variations of the filter coefficients due to changes
+in the true airspeed V. See TURB2.HLP for more info.
+
+Outputvector from TURB1:
+========================
+  uwind = [uw vw ww uwdot vwdot wwdot]',
+
+ (actually, this vector should be called ugust = [ug vg wg ...
+ ... ugdot vgdot wgdot]', since the wind velocities and their
+ time-derivatives from the subsystem TURB1 are equal to gust
+ velocities only; contributions due to WIND(-shear) still have to
+ be added to this vector!).
+
+ uw   : wind (gust-) velocity along XB-axis of aircraft [m/s]
+ vw   : wind (gust-) velocity along YB-axis of aircraft [m/s]
+ ww   : wind (gust-) velocity along ZB-axis of aircraft [m/s]
+
+ uwdot: time-derivative of uw [m/s^2]
+ vwdot: time-derivative of vw [m/s^2]
+ wwdot: time-derivative of ww [m/s^2]
+
+TURB1 does not have any inputsignals.
+
+Parameters which must be set in dialog boxes within TURB1:
+==========================================================
+Before starting a simulation of a system in which the subsystem
+TURB1 is involved, the parameters of the masked subsystem blocks
+UDRYD1, VDRYD1, and WDRYD1 have to be defined by double-clicking
+these blocks and entering the correct values in their dialog-
+boxes. These parameters are:
+
+UDRYD1: Lug     = scale length for longitudinal turbulence [m]
+        sigma_ug= standard deviation for longitudinal
+                                                  turbulence [m/s]
+        V       = value of airspeed, used to determine filter
+                    coefficients for longitudinal turbulence [m/s]
+
+VDRYD1: Lvg     = scale length for lateral turbulence [m]
+        sigma_vg= standard deviation for lateral turbulence [m/s]
+        V       = value of airspeed, used to determine filter
+                         coefficients for lateral turbulence [m/s]
+
+WDRYD1: Lwg     = scale length for vertical turbulence [m]
+        sigma_wg= standard deviation for vertical turbulence [m/s]
+        V       = value of airspeed, used to determine filter
+                        coefficients for vertical turbulence [m/s]
+More info:
+==========
+See UDRYD1.HLP, VDRYD1.HLP, and WDRYD1.HLP for more details about
+the masked subsystem blocks from TURB1 (Dryden filters with con-
+stant coefficients). More details about the Dryden filters with
+coefficients that vary with V can be found in the helpfiles
+TURB2.HLP, UDRYD2.HLP, VDRYD2.HLP, and WDRYD2.hlp.
+
+See CWIND.HLP and BLWIND.HLP for more information on the imple-
+mentation of constant wind and a wind-profile in the Earth's
+boundary layer, respectively.
+
+Type WINDLIB to open the Wind & Atmospheric Turbulence Library.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

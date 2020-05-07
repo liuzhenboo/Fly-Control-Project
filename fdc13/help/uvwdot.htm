@@ -1,0 +1,52 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: uvwdot</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">uvwdot</FONT></I></H2>
+
+The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">uvwdot</FONT></I> is a masked S<SMALL>IMULINK</SMALL> subsystem, which is contained in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="moreouts.htm">Additional Outputs</A></FONT></I> from the S-function <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>. <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">uvwdot</FONT></I> computes time-derivatives of the body-axes velocity components <I>u</I>, <I>v</I>, and <I>w</I>. It is an additional <I>output</I> block, which is <I>not</I> needed to solve the state equations themselves! In the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>, the true airspeed <I>V</I>, angle of attack <I>alpha</I>, and sideslip angle <I>beta</I> have been used as state variables in stead of <I>u</I>, <I>v</I>, and <I>w</I>! Nowhere in the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> time-derivatives of the body-axes velocities are sent through an integrator block or used by other blocks which are necessary to solve the equations of motion; therefore, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">uvwdot</FONT></I> may be deleted from the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> without affecting the solution of the equations of motion.
+<BR><BR>
+
+Note: contrary to <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">uvwdot</FONT></I>, the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="uvw.htm">uvw</A></FONT></I> which is contained in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="eqmotion.htm">Aircraft equations of motion</A></FONT></I> may <I>not</I> be removed from the system, because the outputs from that block (<I>u</I>, <I>v</I> and <I>w</I>) are needed in order to compute the aircraft's coordinates. The blocks <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">uvw</FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">uvwdot</FONT></I> both contain output equations only, and neither one of them uses the outputs from the other. The outputs from <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">uvw</FONT></I> are necessary for solving the state equations; the outputs from <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">uvwdot</FONT></I> are not.
+<BR><BR>
+
+The equations in <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">uvwdot</FONT></I> are, of course, closely related to the time-derivatives of the other state variables. See therefore the descriptions of the subsystems <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="eqmotion.htm">Aircraft Equations of Motion</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="12odes.htm">12 ODEs</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vabdot.htm">Vabdot</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="pqrdot.htm">pqrdot</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="eulerdot.htm">Eulerdot</A></FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="xyhdot.htm">xyHdot</A></FONT></I> for more information.
+
+<H3>Inputvectors: <I>x</I>, <I>xdot</I>, and <I>yhlp</I></H3>
+<PRE>  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+
+  xdot = dx'/dt                 (time derivative of state vector)
+
+  yhlp = [cos(alpha) sin(alpha) cos(beta) sin(beta) ...
+          ... tan(beta) sin(psi) cos(psi) sin(theta) ...
+          ... cos(theta) sin(phi) cos(phi)]'
+          (frequently used sines and cosines, coming from <A HREF="hlpfcn.htm">Hlpfcn</A>)
+
+
+  V    : airspeed [m/s]
+ {alpha: angle of attack [rad]                                  }
+ {beta : sideslip angle [rad]                                   }
+ {p    : roll rate [rad/s]                                      }
+ {q    : pitch rate [rad/s]                                     }
+ {r    : yaw rate [rad/s]                                       }
+ {psi  : yaw angle [rad]                                        }
+ {theta: pitch angle [rad]                                      }
+ {phi  : roll angle [rad]                                       }
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+</PRE>
+
+The inputvariables which are not actually used by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">uvwdot</FONT></I> have been displayed between accolades. Of the vector <I>xdot</I>, the time derivatives of <I>V</I>, <I>alpha</I>, and <I>beta</I> are used; from <I>yhlp</I>, <I>cos(alpha)</I>, <I>sin(alpha)</I>, <I>cos(beta)</I>, and <I>sin(beta)</I> are extracted.
+
+<H3>Outputvector: <I>yuvw</I></H3>
+<PRE>  yuvw = [udot vdot wdot]' = d/dt([u v w]')
+
+  u    : velocity component along the XB (body-) axis [m/s]
+  v    : velocity component along the YB axis [m/s]
+  w    : velocity component along the ZB axis [m/s]
+</PRE>
+</BODY>
+
+</HTML>

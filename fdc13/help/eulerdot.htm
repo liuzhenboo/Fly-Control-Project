@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Eulerdot</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Eulerdot</FONT></I></H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Eulerdot</FONT></I> is a masked S<SMALL>IMULINK</SMALL> subsystem, which contains the equations to calculate time derivatives of the Euler angles <I>psi</I>, <I>theta</I>, and <I>phi</I>. The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Eulerdot</FONT></I> is contained in the sub-sub-system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="12odes.htm">12 ODEs</A></FONT></I> of the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="eqmotion.htm">Aircraft Equations of Motion</A></FONT></I> in the S-function <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>. The remaining nine differential equations are stored in the subsystems <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vabdot.htm">Vabdot</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="pqrdot.htm">pqrdot</A></FONT></I>, and <FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><I><A HREF="xyhdot.htm">xyHdot</A></I></FONT>, which are all contained in <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">12 ODEs</FONT></I>.
+
+<H3>Inputvector: <I>ueul</I>
+</H3>
+<PRE>  ueul = [x' Ftot' Mtot' yhlp'],
+
+  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+  Ftot = [Fx Fy Fz]'                     (total body-axes forces,
+                                              computed in <A HREF="fmsort.htm">FMsort</A>)
+  Mtot = [L M N]'                       (total body-axes moments,
+                                              computed in <A HREF="fmsort.htm">FMsort</A>)
+  yhlp = [cos(alpha) sin(alpha) cos(beta) sin(beta) ...
+          ... tan(beta) sin(psi) cos(psi) sin(theta) ...
+          ... cos(theta) sin(phi) cos(phi)]'
+                          (sines and cosines, computed in <A HREF="hlpfcn.htm">Hlpfcn</A>)
+
+
+ {V    : airspeed [m/s]                                         }
+ {alpha: angle of attack [rad]                                  }
+ {beta : sideslip angle [rad]                                   }
+  p    : roll rate [rad/s]
+  q    : pitch rate [rad/s]
+  r    : yaw rate [rad/s]
+ {psi  : yaw angle [rad]                                        }
+ {theta: pitch angle [rad]                                      }
+ {phi  : roll angle [rad]                                       }
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+
+ {Fx, Fy, Fz: total forces along the aircraft's body-axes [N]   }
+ {L, M, N   : total moments along the aircraft's body-axes [Nm] }
+</PRE>
+
+The inputvariables which are not actually used by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Eulerdot</FONT></I> have been displayed between accolades. Of the inputvector <I>yhlp</I>, <I>sin(phi)</I>, <I>cos(phi)</I>, <I>sin(theta)</I>, and <I>cos(theta)</I> are used.
+
+<H3>Outputvector: <I>yeul</I>
+</H3>
+<PRE>  yeul = [psidot thetadot phidot]'
+
+  psidot, thetadot, phidot: time derivatives of the Euler angles [rad/s^2].
+</PRE>
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,1984 @@
+Library {
+  Name			  "navlib1"
+  Version		  2.09
+  PaperOrientation	  landscape
+  PaperType		  usletter
+  PaperUnits		  inches
+  BlockDefaults {
+    Orientation		    right
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    NamePlacement	    normal
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+    ShowName		    on
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    center
+    VerticalAlignment	    middle
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  System {
+    Name		    "navlib1"
+    Location		    [13, 47, 396, 294]
+    Open		    on
+    ScreenColor		    white
+    Block {
+      BlockType		      SubSystem
+      Name		      "GSerr"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [250, 153, 360, 197]
+      FontName		      "Arial"
+      ShowPortLabels	      off
+      MaskType		      "GS steady-state errors"
+      MaskDescription	      "Glideslope steady-state errors"
+      MaskHelp		      "eval('fdchelp gserr')"
+      MaskPromptString	      "Performance category (1, 2, or 3):|% of max. "
+			      "allowable error in glideslope sensitivity:|% "
+			      "of max. allowable glideslope misalignment:|Nomin"
+			      "al glideslope elevation angle [deg]:"
+      MaskStyleString	      "edit,edit,edit,edit"
+      MaskVariables	      "cat=@1;"
+      MaskInitialization      "gamgs=-abs(@4*pi/180); Sgs=625/abs(gamgs); "
+			      "if cat == 1, D_igs=Sgs*0.075*gamgs; KSgs=1+(@2/1"
+			      "00)*0.25; elseif cat == 2, D_igs=Sgs*0.075*gamgs"
+			      ";  KSgs=1+(@2/100)*0.20; else, D_igs=Sgs*0.04*ga"
+			      "mgs; KSgs=1+(@2/100)*0.15; end; D_igs=D_igs*@3/1"
+			      "00;"
+      MaskDisplay	      "disp('Glideslope steady\\nstate errors\\nAGARD "
+			      "R-632')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      MaskValueString	      "2|100|100|-3"
+      System {
+	Name			"GSerr"
+	Location		[8, 46, 426, 241]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  Inport
+	  Name			  "igs\n(nominal)"
+	  Position		  [20, 60, 40, 80]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "KSgs"
+	  Position		  [255, 51, 320, 99]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Gain			  "KSgs"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [185, 65, 200, 85]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "++"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "offset"
+	  Position		  [70, 105, 125, 135]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Value			  "D_igs"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "t5"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [5, 5, 180, 40]
+	  ForegroundColor	  blue
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  ShowName		  off
+	  OpenFcn		  "fdchelp gserr"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('Glideslope steady-state errors\\nMarc "
+				  "Rauw, October 1997')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "t5"
+	    Location		    [144, 125, 279, 240]
+	    Open		    off
+	    ScreenColor		    white
+	    Annotation {
+	      Position		      [58, 42]
+	      VerticalAlignment	      top
+	      Text		      "T"
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "igs\n(actual)"
+	  Position		  [380, 65, 400, 85]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "KSgs"
+	  SrcPort		  1
+	  DstBlock		  "igs\n(actual)"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Sum"
+	  SrcPort		  1
+	  DstBlock		  "KSgs"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "igs\n(nominal)"
+	  SrcPort		  1
+	  DstBlock		  "Sum"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "offset"
+	  SrcPort		  1
+	  Points		  [25, 0; 0, -40]
+	  DstBlock		  "Sum"
+	  DstPort		  2
+	}
+	Annotation {
+	  Position		  [551, 47]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  Text			  "`"
+	}
+	Annotation {
+	  Position		  [99, 137]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  Text			  "Error signal due to deviation \nof nominal "
+				  "glideslope \nelevation angle"
+	}
+	Annotation {
+	  Position		  [290, 102]
+	  VerticalAlignment	  top
+	  ForegroundColor	  red
+	  FontName		  "Arial"
+	  Text			  "KSgs = 1 if glideslope sen-\nsitivity "
+				  "has the nominal value.\nKSgs = 1.xx if "
+				  "the offset in\nSgs is 100*xx%\n"
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "GSnoise1"
+      Ports		      [0, 1, 0, 0, 0]
+      Position		      [250, 38, 360, 72]
+      FontName		      "Arial"
+      ShowPortLabels	      off
+      MaskType		      "GsNoise1"
+      MaskDescription	      "Glideslope noise (AGARD R-632)"
+      MaskHelp		      "eval('fdchelp gsnoise')"
+      MaskPromptString	      "Scale length Lgs [m]:|Standard deviation "
+			      "sigma_gs [µA]:|Approach speed [m/s]:"
+      MaskStyleString	      "edit,edit,edit"
+      MaskVariables	      "Lgs=@1;sigma_gs=@2;V=@3;"
+      MaskInitialization      " K=sigma_gs*sqrt(2*Lgs/V); tau=Lgs/V;"
+      MaskDisplay	      "disp('GS noise\\nAGARD R-632')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      MaskValueString	      "85|15|40"
+      System {
+	Name			"GSnoise1"
+	Location		[7, 44, 252, 214]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  RandomNumber
+	  Name			  "White Noise"
+	  Position		  [30, 92, 55, 118]
+	  FontName		  "Arial"
+	  Mean			  "0"
+	  Variance		  "1"
+	  Seed			  "200"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  TransferFcn
+	  Name			  "noise filter"
+	  Position		  [105, 84, 155, 126]
+	  FontName		  "Arial"
+	  Numerator		  "[K]"
+	  Denominator		  "[tau 1]"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "t"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [15, 10, 210, 55]
+	  ForegroundColor	  blue
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  ShowName		  off
+	  OpenFcn		  "fdchelp gsnoise"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('Glideslope noise AGARD R-632\\n(consta"
+				  "nt approach speed)\\nMarc Rauw, October "
+				  "1997')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "t"
+	    Location		    [46, 26, 151, 116]
+	    Open		    off
+	    ScreenColor		    white
+	    Annotation {
+	      Position		      [53, 47]
+	      VerticalAlignment	      top
+	      Text		      "T"
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Glideslope\nnoise [µA]"
+	  Position		  [200, 95, 220, 115]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "White Noise"
+	  SrcPort		  1
+	  DstBlock		  "noise filter"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "noise filter"
+	  SrcPort		  1
+	  DstBlock		  "Glideslope\nnoise [µA]"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "GSnoise2"
+      Ports		      [0, 1, 0, 0, 0]
+      Position		      [250, 93, 360, 127]
+      FontName		      "Arial"
+      ShowPortLabels	      off
+      MaskType		      "GSNoise NASA-CR2022"
+      MaskDescription	      "Glideslope Noise\n(NASA-CR2022)"
+      MaskHelp		      "eval('fdchelp gsnoise')"
+      MaskDisplay	      "disp('GS noise\\nNASA CR-2022')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"GSnoise2"
+	Location		[4, 16, 273, 183]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  RandomNumber
+	  Name			  "White Noise"
+	  Position		  [35, 80, 55, 100]
+	  FontName		  "Arial"
+	  Mean			  "0"
+	  Variance		  "1"
+	  Seed			  "200"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  ZeroPole
+	  Name			  "noise filter"
+	  Position		  [95, 65, 165, 115]
+	  FontName		  "Arial"
+	  Zeros			  "[]"
+	  Poles			  "[-0.25]"
+	  Gain			  "[3.9875]"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "t"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [5, 5, 195, 40]
+	  ForegroundColor	  blue
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  ShowName		  off
+	  OpenFcn		  "fdchelp gsnoise"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('Glideslope noise NASA CR2022\\nMarc "
+				  "Rauw, October 1997')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "t"
+	    Location		    [144, 125, 279, 240]
+	    Open		    off
+	    ScreenColor		    white
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Glideslope\nnoise [µA]"
+	  Position		  [205, 80, 225, 100]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "noise filter"
+	  SrcPort		  1
+	  DstBlock		  "Glideslope\nnoise [µA]"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "White Noise"
+	  SrcPort		  1
+	  DstBlock		  "noise filter"
+	  DstPort		  1
+	}
+	Annotation {
+	  Position		  [465, 17]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  Text			  "`"
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "ILS"
+      Ports		      [1, 4, 0, 0, 0]
+      Position		      [20, 37, 75, 98]
+      FontName		      "Arial"
+      ShowPortLabels	      off
+      MaskType		      "ILS"
+      MaskDescription	      "Approach: ILS"
+      MaskHelp		      "eval('fdchelp ils')"
+      MaskPromptString	      "Heading of runway [deg]:|Runway position "
+			      "[X,Y,H]_RW, coordinates in [m]:|X-Distance "
+			      "from threshold to localizer antenna [m]:|X-Dista"
+			      "nce from threshold to glideslope antenna "
+			      "[m]:|Y-Distance from centerline to glideslope "
+			      "antenna [m]:|Nominal glideslope angle [deg]:"
+      MaskStyleString	      "edit,edit,edit,edit,edit,edit"
+      MaskVariables	      "RWpos=@2;"
+      MaskInitialization      "psiRW=@1*pi/180; cos_psiRW=cos(psiRW); sin_psiRW"
+			      "=sin(psiRW); xloc=abs(@3); xgs=abs(@4); ygs=-abs"
+			      "(@5); gamgs=-abs(@6)*pi/180; tan_gamgs=tan(gamgs"
+			      "); cos_gamgs=cos(gamgs); Sgs=625/abs(gamgs); "
+			      "if xloc == 0, Sloc = 1; else, Sloc=1.4*xloc; "
+			      "end;"
+      MaskDisplay	      "disp('Nominal\\nILS\\nsignals')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      MaskValueString	      "0|[20000,-100,0]|2200|300|100|3"
+      System {
+	Name			"ILS"
+	Location		[5, 42, 697, 596]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  Inport
+	  Name			  "uils =\n[xe,ye,H]'"
+	  Position		  [25, 60, 45, 80]
+	  Orientation		  down
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "+/- 150  e-6A"
+	  Position		  [550, 395, 575, 415]
+	  FontName		  "Arial"
+	  UpperLimit		  "150"
+	  LowerLimit		  "-150"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "+/- 150 e-6A"
+	  Position		  [550, 355, 575, 375]
+	  FontName		  "Arial"
+	  UpperLimit		  "150"
+	  LowerLimit		  "-150"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux"
+	  Ports			  [1, 2, 0, 0, 0]
+	  Position		  [80, 86, 85, 144]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Outputs		  "[2 1]"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "Gamma gs"
+	  Position		  [165, 435, 370, 455]
+	  FontName		  "Arial"
+	  Expr			  "asin((u[2]-ygs)/u[4])"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "Gamma loc"
+	  Position		  [165, 395, 370, 415]
+	  FontName		  "Arial"
+	  Expr			  "asin(u[2]/u[4])"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "ILStest"
+	  Ports			  [1, 1, 0, 0, 0]
+	  Position		  [465, 504, 570, 536]
+	  FontName		  "Arial"
+	  ShowPortLabels	  off
+	  MaskType		  "ILStest"
+	  MaskDescription	  "ILS coverage test"
+	  MaskHelp		  "eval('fdchelp ilstest')"
+	  MaskDisplay		  "disp('ILS coverage\\ntest (LOC & GS)')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "ILStest"
+	    Location		    [9, 48, 628, 251]
+	    Open		    off
+	    ScreenColor		    white
+	    Block {
+	      BlockType		      Inport
+	      Name		      "[Gamma_loc;\nGamma_gs;\nRloc;\nRgs]"
+	      Position		      [35, 105, 55, 125]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      Port		      "1"
+	      PortWidth		      "-1"
+	      SampleTime	      "-1"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "Fcn"
+	      Position		      [205, 35, 330, 55]
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Expr		      "(u[1]>35)*(u[3]>10)"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "Fcn1"
+	      Position		      [205, 65, 330, 85]
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Expr		      "(u[1]>10)*(u[3]>17)"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "Fcn2"
+	      Position		      [205, 95, 330, 115]
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Expr		      "u[3]>25"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "Fcn3"
+	      Position		      [410, 65, 460, 85]
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Expr		      "u[1]>0"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "Fcn4"
+	      Position		      [205, 135, 330, 155]
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Expr		      "u[2]>8"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "Fcn5"
+	      Position		      [205, 165, 330, 185]
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Expr		      "u[4]>10"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "Fcn6"
+	      Position		      [410, 150, 460, 170]
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Expr		      "u[1]>0"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [2, 1, 0, 0, 0]
+	      Position		      [540, 109, 545, 131]
+	      BackgroundColor	      black
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Inputs		      "2"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum"
+	      Ports		      [3, 1, 0, 0, 0]
+	      Position		      [375, 57, 390, 93]
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Inputs		      "+++"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum1"
+	      Ports		      [2, 1, 0, 0, 0]
+	      Position		      [375, 148, 390, 172]
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Inputs		      "++"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "deg --> rad\nNM --> m"
+	      Position		      [110, 102, 140, 128]
+	      FontName		      "Arial"
+	      Gain		      "1*[180/pi 180/pi 1.852e-03 1.852e-03]"
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "t"
+	      Ports		      [0, 0, 0, 0, 0]
+	      Position		      [5, 5, 155, 40]
+	      ForegroundColor	      blue
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      ShowName		      off
+	      OpenFcn		      "fdchelp ilstest"
+	      ShowPortLabels	      off
+	      MaskDisplay	      "disp('ILStest (coverage test)\\nM.O. "
+				      "Rauw, October 1997')"
+	      MaskIconFrame	      on
+	      MaskIconOpaque	      on
+	      MaskIconRotate	      none
+	      MaskIconUnits	      autoscale
+	      System {
+		Name			"t"
+		Location		[38, 151, 128, 236]
+		Open			off
+		ScreenColor		white
+	      }
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "[LOC_flag;\nGS_flag]"
+	      Position		      [575, 110, 595, 130]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      Port		      "1"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "[Gamma_loc;\nGamma_gs;\nRloc;\nRgs]"
+	      SrcPort		      1
+	      DstBlock		      "deg --> rad\nNM --> m"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Sum1"
+	      SrcPort		      1
+	      DstBlock		      "Fcn6"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Fcn5"
+	      SrcPort		      1
+	      Points		      [15, 0; 0, -10]
+	      DstBlock		      "Sum1"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Fcn4"
+	      SrcPort		      1
+	      Points		      [15, 0; 0, 10]
+	      DstBlock		      "Sum1"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Sum"
+	      SrcPort		      1
+	      DstBlock		      "Fcn3"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Fcn2"
+	      SrcPort		      1
+	      Points		      [15, 0; 0, -20]
+	      DstBlock		      "Sum"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Fcn1"
+	      SrcPort		      1
+	      DstBlock		      "Sum"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Fcn"
+	      SrcPort		      1
+	      Points		      [15, 0; 0, 20]
+	      DstBlock		      "Sum"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "[LOC_flag;\nGS_flag]"
+	      DstPort		      1
+	    }
+	    Line {
+	      Name		      "LOC_flag"
+	      Labels		      [0, 1]
+	      SrcBlock		      "Fcn3"
+	      SrcPort		      1
+	      Points		      [55, 0; 0, 40]
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      Name		      "GS_flag"
+	      Labels		      [0, 1]
+	      SrcBlock		      "Fcn6"
+	      SrcPort		      1
+	      Points		      [55, 0; 0, -35]
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "deg --> rad\nNM --> m"
+	      SrcPort		      1
+	      Points		      [20, 0]
+	      Branch {
+		Points			[0, 45; 20, 0]
+		Branch {
+		  Points		  [0, -15]
+		  DstBlock		  "Fcn4"
+		  DstPort		  1
+		}
+		Branch {
+		  Points		  [0, 15]
+		  DstBlock		  "Fcn5"
+		  DstPort		  1
+		}
+	      }
+	      Branch {
+		Points			[0, -40; 20, 0]
+		Branch {
+		  DstBlock		  "Fcn1"
+		  DstPort		  1
+		}
+		Branch {
+		  Points		  [0, -30]
+		  DstBlock		  "Fcn"
+		  DstPort		  1
+		}
+		Branch {
+		  Points		  [0, 30]
+		  DstBlock		  "Fcn2"
+		  DstPort		  1
+		}
+	      }
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  Ports			  [3, 1, 0, 0, 0]
+	  Position		  [365, 84, 370, 116]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "3"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  Ports			  [4, 1, 0, 0, 0]
+	  Position		  [465, 93, 470, 137]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "[3 1 1 1]"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux2"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [105, 234, 110, 261]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "[3 1]"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux3"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [105, 387, 110, 418]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "[3 1]"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux5"
+	  Ports			  [4, 1, 0, 0, 0]
+	  Position		  [135, 496, 140, 544]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "4"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux6"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [105, 434, 110, 456]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "[3 1]"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux7"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [465, 244, 470, 266]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux8"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [610, 390, 615, 410]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "Rgs"
+	  Position		  [105, 180, 295, 200]
+	  FontName		  "Arial"
+	  Expr			  "sqrt((xgs-u[1])^2 + (-ygs+u[2])^2)"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "Rloc"
+	  Position		  [105, 335, 295, 355]
+	  FontName		  "Arial"
+	  Expr			  "sqrt(u[2]^2 + (xloc - u[1])^2)"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Sgs"
+	  Position		  [465, 348, 510, 382]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Gain			  "Sgs"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "Sloc"
+	  Position		  [465, 388, 510, 422]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Gain			  "Sloc"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [50, 104, 65, 126]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "+-"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "cnst"
+	  Position		  [12, 145, 58, 165]
+	  Orientation		  up
+	  FontName		  "Arial"
+	  Value			  "RWpos"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "dgs"
+	  Position		  [170, 285, 395, 305]
+	  FontName		  "Arial"
+	  Expr			  "(u[4]*tan_gamgs + u[3]) * cos_gamgs"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "epsilon gs"
+	  Position		  [170, 240, 395, 260]
+	  FontName		  "Arial"
+	  Expr			  "gamgs + atan(u[3]/u[4])"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "t"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [5, 5, 144, 38]
+	  ForegroundColor	  blue
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  ShowName		  off
+	  OpenFcn		  "fdchelp ils"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('Nominal ILS signals\\nM.O. Rauw, "
+				  "January 1998')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "t"
+	    Location		    [-5, 57, 105, 157]
+	    Open		    off
+	    ScreenColor		    white
+	  }
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "xf"
+	  Position		  [125, 55, 325, 75]
+	  FontName		  "Arial"
+	  Expr			  "u[1]*cos_psiRW+u[2]*sin_psiRW"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "yf"
+	  Position		  [125, 90, 325, 110]
+	  FontName		  "Arial"
+	  Expr			  "-u[1]*sin_psiRW+u[2]*cos_psiRW"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "yils1"
+	  Position		  [635, 390, 655, 410]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "yils2"
+	  Position		  [635, 245, 655, 265]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "2"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "yils3"
+	  Position		  [635, 105, 655, 125]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "3"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "yils4"
+	  Position		  [635, 510, 655, 530]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "4"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "Gamma gs"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, 30; -285, 0; 0, 40]
+	  DstBlock		  "Mux5"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Mux5"
+	  SrcPort		  1
+	  DstBlock		  "ILStest"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "ILStest"
+	  SrcPort		  1
+	  DstBlock		  "yils4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Gamma loc"
+	  SrcPort		  1
+	  Points		  [25, 0]
+	  Branch {
+	    Points		    [0, 80; -285, 0; 0, 20]
+	    DstBlock		    "Mux5"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [40, 0]
+	    Branch {
+	      DstBlock		      "Sloc"
+	      DstPort		      1
+	    }
+	    Branch {
+	      Points		      [0, -145]
+	      DstBlock		      "Mux7"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "Mux6"
+	  SrcPort		  1
+	  DstBlock		  "Gamma gs"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Mux2"
+	  SrcPort		  1
+	  Points		  [35, 0]
+	  Branch {
+	    Points		    [0, 0]
+	    DstBlock		    "epsilon gs"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 45]
+	    DstBlock		    "dgs"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  DstBlock		  "yils3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Rloc"
+	  SrcPort		  1
+	  Points		  [20, 0]
+	  Branch {
+	    Points		    [110, 0; 0, -215]
+	    DstBlock		    "Mux1"
+	    DstPort		    4
+	  }
+	  Branch {
+	    Points		    [0, 30; -240, 0; 0, 35]
+	    Branch {
+	      DstBlock		      "Mux3"
+	      DstPort		      2
+	    }
+	    Branch {
+	      Points		      [0, 115]
+	      DstBlock		      "Mux5"
+	      DstPort		      3
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "dgs"
+	  SrcPort		  1
+	  Points		  [10, 0; 0, -185]
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Mux3"
+	  SrcPort		  1
+	  DstBlock		  "Gamma loc"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "yf"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "xf"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, 25]
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "igs"
+	  Labels		  [1, 0]
+	  SrcBlock		  "Sgs"
+	  SrcPort		  1
+	  DstBlock		  "+/- 150 e-6A"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "iloc"
+	  Labels		  [1, 0]
+	  SrcBlock		  "Sloc"
+	  SrcPort		  1
+	  DstBlock		  "+/- 150  e-6A"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "+/- 150  e-6A"
+	  SrcPort		  1
+	  DstBlock		  "Mux8"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Mux7"
+	  SrcPort		  1
+	  DstBlock		  "yils2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "+/- 150 e-6A"
+	  SrcPort		  1
+	  Points		  [15, 0]
+	  DstBlock		  "Mux8"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Mux8"
+	  SrcPort		  1
+	  DstBlock		  "yils1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Rgs"
+	  SrcPort		  1
+	  Points		  [20, 0]
+	  Branch {
+	    Points		    [100, 0; 0, -70]
+	    DstBlock		    "Mux1"
+	    DstPort		    3
+	  }
+	  Branch {
+	    Points		    [0, 30; -260, 0; 0, 35]
+	    Branch {
+	      DstBlock		      "Mux2"
+	      DstPort		      2
+	    }
+	    Branch {
+	      Points		      [0, 195]
+	      Branch {
+		DstBlock		"Mux6"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[0, 85]
+		DstBlock		"Mux5"
+		DstPort			4
+	      }
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "uils =\n[xe,ye,H]'"
+	  SrcPort		  1
+	  DstBlock		  "Sum"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "cnst"
+	  SrcPort		  1
+	  DstBlock		  "Sum"
+	  DstPort		  2
+	}
+	Line {
+	  Name			  "Hf"
+	  Labels		  [1, 1]
+	  SrcBlock		  "Demux"
+	  SrcPort		  2
+	  Points		  [255, 0; 0, -20]
+	  DstBlock		  "Mux"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "epsilon gs"
+	  SrcPort		  1
+	  Points		  [50, 0]
+	  Branch {
+	    DstBlock		    "Mux7"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Sgs"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  Name			  "[xf yf Hf]'"
+	  Labels		  [0, 1]
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  Points		  [25, 0]
+	  Branch {
+	    Points		    [0, 65; -330, 0; 0, 25]
+	    Branch {
+	      Points		      [0, 50]
+	      Branch {
+		DstBlock		"Mux2"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, 105]
+		Branch {
+		  DstBlock		  "Rloc"
+		  DstPort		  1
+		}
+		Branch {
+		  Points		  [0, 50]
+		  Branch {
+		    DstBlock		    "Mux3"
+		    DstPort		    1
+		  }
+		  Branch {
+		    Points		    [0, 45]
+		    DstBlock		    "Mux6"
+		    DstPort		    1
+		  }
+		}
+	      }
+	    }
+	    Branch {
+	      DstBlock		      "Rgs"
+	      DstPort		      1
+	    }
+	  }
+	  Branch {
+	    DstBlock		    "Mux1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Sum"
+	  SrcPort		  1
+	  DstBlock		  "Demux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  1
+	  Points		  [15, 0]
+	  Branch {
+	    Points		    [0, 0]
+	    DstBlock		    "yf"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -35]
+	    DstBlock		    "xf"
+	    DstPort		    1
+	  }
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "ILSxmpl"
+      Ports		      [1, 4, 0, 0, 0]
+      Position		      [20, 165, 75, 220]
+      FontName		      "Arial"
+      ShowName		      off
+      ShowPortLabels	      off
+      MaskDisplay	      "plot(0,0,100,100,[53,23,30,61,53],[45,60,64,49,4"
+			      "5],[16,27,32,26],[48,40,43,47],[21,20,24,26,21],"
+			      "[44,55,56,47,44],[20,20,16],[50,50,48],[38,27,26"
+			      ",33],[52,46,48,55],[42,38,27],[50,47,46],[40,44,"
+			      "44,45,45,44,42],[48,44,42,42,44,44,50],[47,45,43"
+			      "],[55,58,58],[54,84,98,90,54],[36,21,56,58,36],["
+			      "74,68],[34,29],[81,76],[43,38],[87,83],[49,45],["
+			      "94,89],[57,52],[105,105],[0,0])"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"ILSxmpl"
+	Location		[12, 44, 630, 318]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  Inport
+	  Name			  "uils = \n[xe,ye,H]'"
+	  Position		  [30, 130, 50, 150]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "1/Sgs"
+	  Position		  [395, 57, 425, 83]
+	  FontName		  "Arial"
+	  Gain			  "1/Sgs"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "1/Sloc"
+	  Position		  [395, 147, 425, 173]
+	  FontName		  "Arial"
+	  Gain			  "1/Sloc"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux"
+	  Ports			  [1, 2, 0, 0, 0]
+	  Position		  [195, 104, 200, 126]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Outputs		  "2"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "GSerr"
+	  Ports			  [1, 1, 0, 0, 0]
+	  Position		  [225, 53, 335, 97]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  SourceBlock		  "navlib1/GSerr"
+	  SourceType		  "GS steady-state errors"
+	  cat			  "2"
+	  MaskParam2		  "100"
+	  MaskParam3		  "100"
+	  MaskParam4		  "-3"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "GSnoise1"
+	  Ports			  [0, 1, 0, 0, 0]
+	  Position		  [225, 13, 335, 47]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  SourceBlock		  "navlib1/GSnoise1"
+	  SourceType		  "GsNoise1"
+	  Lgs			  "85"
+	  sigma_gs		  "15"
+	  V			  "40"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "ILS"
+	  Ports			  [1, 4, 0, 0, 0]
+	  Position		  [80, 107, 135, 168]
+	  FontName		  "Arial"
+	  SourceBlock		  "navlib1/ILS"
+	  SourceType		  "ILS"
+	  MaskParam1		  "0"
+	  RWpos			  "[20000,-100,0]"
+	  MaskParam3		  "2200"
+	  MaskParam4		  "300"
+	  MaskParam5		  "100"
+	  MaskParam6		  "3"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "LOCerr"
+	  Ports			  [1, 1, 0, 0, 0]
+	  Position		  [225, 132, 330, 178]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  SourceBlock		  "navlib1/LOCerr"
+	  SourceType		  "LOC steady-state errors"
+	  cat			  "2"
+	  MaskParam2		  "100"
+	  MaskParam3		  "100"
+	  xloc			  "2200"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "LOCnoise1"
+	  Ports			  [0, 1, 0, 0, 0]
+	  Position		  [225, 183, 330, 217]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  SourceBlock		  "navlib1/LOCnoise1"
+	  SourceType		  "LocNoise1"
+	  Lloc			  "130"
+	  sigma_loc		  "15"
+	  V			  "40"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  Ports			  [4, 1, 0, 0, 0]
+	  Position		  [195, 148, 200, 192]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "[2 2 6 2]"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [365, 58, 380, 82]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "++"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum1"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [365, 148, 380, 172]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "++"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "To Workspace"
+	  Position		  [193, 235, 227, 255]
+	  Orientation		  down
+	  BackgroundColor	  yellow
+	  FontName		  "Arial"
+	  VariableName		  "yils"
+	  Buffer		  "5000"
+	  Decimation		  "1"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  TransferFcn
+	  Name			  "differentia-\nting filter"
+	  Position		  [465, 187, 500, 223]
+	  FontName		  "Arial"
+	  Numerator		  "[1]"
+	  Denominator		  "[1 1]"
+	}
+	Block {
+	  BlockType		  TransferFcn
+	  Name			  "differentia-\nting filter "
+	  Position		  [465, 92, 500, 128]
+	  FontName		  "Arial"
+	  Numerator		  "[1]"
+	  Denominator		  "[1 1]"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "t"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [15, 10, 160, 45]
+	  ForegroundColor	  blue
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  FontSize		  11
+	  ShowName		  off
+	  OpenFcn		  "fdchelp ilsxmpl"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('ILS example\\nMarc Rauw, April 1998')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "t"
+	    Location		    [-20, 13, 110, 133]
+	    Open		    off
+	    ScreenColor		    white
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Gamma_loc"
+	  Position		  [550, 150, 570, 170]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "d(Gamma_loc)/dt"
+	  Position		  [550, 195, 570, 215]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "2"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "epsilon_gs"
+	  Position		  [550, 60, 570, 80]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "3"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "d(epsilon_gs)/dt"
+	  Position		  [550, 100, 570, 120]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "4"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "1/Sgs"
+	  SrcPort		  1
+	  Points		  [10, 0]
+	  Branch {
+	    DstBlock		    "epsilon_gs"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 40]
+	    DstBlock		    "differentia-\nting filter "
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "differentia-\nting filter "
+	  SrcPort		  1
+	  DstBlock		  "d(epsilon_gs)/dt"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "1/Sloc"
+	  SrcPort		  1
+	  Points		  [10, 0]
+	  Branch {
+	    DstBlock		    "Gamma_loc"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 45]
+	    DstBlock		    "differentia-\nting filter"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "differentia-\nting filter"
+	  SrcPort		  1
+	  DstBlock		  "d(Gamma_loc)/dt"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  Points		  [5, 0]
+	  DstBlock		  "To Workspace"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  1
+	  Points		  [5, 0]
+	  DstBlock		  "GSerr"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  2
+	  Points		  [5, 0]
+	  DstBlock		  "LOCerr"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "GSerr"
+	  SrcPort		  1
+	  DstBlock		  "Sum"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "LOCnoise1"
+	  SrcPort		  1
+	  Points		  [10, 0; 0, -35]
+	  DstBlock		  "Sum1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "uils = \n[xe,ye,H]'"
+	  SrcPort		  1
+	  DstBlock		  "ILS"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Sum"
+	  SrcPort		  1
+	  DstBlock		  "1/Sgs"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Sum1"
+	  SrcPort		  1
+	  DstBlock		  "1/Sloc"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "ILS"
+	  SrcPort		  4
+	  Points		  [10, 0; 0, 25]
+	  DstBlock		  "Mux1"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "ILS"
+	  SrcPort		  1
+	  Points		  [40, 0]
+	  Branch {
+	    DstBlock		    "Demux"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Mux1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "ILS"
+	  SrcPort		  3
+	  Points		  [20, 0; 0, 30]
+	  DstBlock		  "Mux1"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "GSnoise1"
+	  SrcPort		  1
+	  Points		  [5, 0; 0, 35]
+	  DstBlock		  "Sum"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "ILS"
+	  SrcPort		  2
+	  Points		  [30, 0; 0, 35]
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "LOCerr"
+	  SrcPort		  1
+	  DstBlock		  "Sum1"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "LOCerr"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [125, 152, 230, 198]
+      FontName		      "Arial"
+      ShowPortLabels	      off
+      MaskType		      "LOC steady-state errors"
+      MaskDescription	      "Localizer steady-state errors"
+      MaskHelp		      "eval('fdchelp locerr')"
+      MaskPromptString	      "Performance category (1, 2, or 3):|% of max. "
+			      "allowable error in localizer sensitivity:|% "
+			      "of max. allowable localizer misalignment:|Distan"
+			      "ce from runway threshold to LOC antenna [m]:"
+      MaskStyleString	      "edit,edit,edit,edit"
+      MaskVariables	      "cat=@1;xloc=@4;"
+      MaskInitialization      " Sloc = 1.4*xloc; if cat == 1, D_iloc=Sloc*atan("
+			      "10.5/xloc); KSloc=1+(@2/100)*0.17; elseif "
+			      "cat == 2, D_iloc=Sloc*atan(7.5/xloc);  KSloc=1+("
+			      "@2/100)*0.17; else, D_iloc=Sloc*atan(3/xloc); "
+			      "KSloc=1+(@2/100)*0.10; end; D_iloc=D_iloc*@3/100"
+			      ";"
+      MaskDisplay	      "disp('Localizer steady\\nstate errors\\nAGARD "
+			      "R-632')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      MaskValueString	      "2|100|100|2200"
+      System {
+	Name			"LOCerr"
+	Location		[5, 44, 429, 232]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  Inport
+	  Name			  "iloc\n(nominal)"
+	  Position		  [25, 60, 45, 80]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "KSloc"
+	  Position		  [255, 51, 320, 99]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Gain			  "KSloc"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [185, 65, 200, 85]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "++"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "offset"
+	  Position		  [85, 95, 140, 125]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Value			  "D_iloc"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "t2"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [5, 5, 170, 40]
+	  ForegroundColor	  blue
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  ShowName		  off
+	  OpenFcn		  "fdchelp locerr"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('Localizer steady-state errors\\nMarc "
+				  "Rauw, October 1997')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "t2"
+	    Location		    [144, 125, 279, 240]
+	    Open		    off
+	    ScreenColor		    white
+	    Annotation {
+	      Position		      [58, 42]
+	      VerticalAlignment	      top
+	      Text		      "T"
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "iloc\n(actual)"
+	  Position		  [375, 65, 395, 85]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "offset"
+	  SrcPort		  1
+	  Points		  [10, 0; 0, -30]
+	  DstBlock		  "Sum"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "iloc\n(nominal)"
+	  SrcPort		  1
+	  DstBlock		  "Sum"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Sum"
+	  SrcPort		  1
+	  DstBlock		  "KSloc"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "KSloc"
+	  SrcPort		  1
+	  DstBlock		  "iloc\n(actual)"
+	  DstPort		  1
+	}
+	Annotation {
+	  Position		  [119, 127]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  Text			  "Error signal due to difference \nbetween "
+				  "runway centerline and\nlocalizer reference "
+				  "plane"
+	}
+	Annotation {
+	  Position		  [285, 102]
+	  VerticalAlignment	  top
+	  ForegroundColor	  red
+	  FontName		  "Arial"
+	  Text			  "KSloc = 1 if localizer sen-\nsitivity "
+				  "has the nominal value.\nKSloc = 1.xx "
+				  "if the offset in\nSloc is 100*xx%\n"
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "LOCnoise1"
+      Ports		      [0, 1, 0, 0, 0]
+      Position		      [125, 38, 230, 72]
+      FontName		      "Arial"
+      ShowPortLabels	      off
+      MaskType		      "LocNoise1"
+      MaskDescription	      "Localizer noise (AGARD R-632)"
+      MaskHelp		      "eval('fdchelp locnoise')"
+      MaskPromptString	      "Scale length Lloc [m]:|Standard deviation "
+			      "sigma_loc [µA]:|Approach speed [m/s]:"
+      MaskStyleString	      "edit,edit,edit"
+      MaskVariables	      "Lloc=@1;sigma_loc=@2;V=@3;"
+      MaskInitialization      " K=sigma_loc*sqrt(2*Lloc/V); tau=Lloc/V;"
+      MaskDisplay	      "disp('LOC noise\\nAGARD R-632')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      MaskValueString	      "130|15|40"
+      System {
+	Name			"LOCnoise1"
+	Location		[9, 51, 259, 206]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  RandomNumber
+	  Name			  "White Noise"
+	  Position		  [30, 77, 55, 103]
+	  FontName		  "Arial"
+	  Mean			  "0"
+	  Variance		  "1"
+	  Seed			  "100"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  TransferFcn
+	  Name			  "noise filter"
+	  Position		  [105, 69, 155, 111]
+	  FontName		  "Arial"
+	  Numerator		  "[K]"
+	  Denominator		  "[tau 1]"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "t"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [5, 5, 180, 50]
+	  ForegroundColor	  blue
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  ShowName		  off
+	  OpenFcn		  "fdchelp locnoise"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('Localizer noise AGARD R-632\\n(constan"
+				  "t approach speed)\\nMarc Rauw, October "
+				  "1997')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "t"
+	    Location		    [46, 26, 151, 116]
+	    Open		    off
+	    ScreenColor		    white
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Localizer\nnoise [µA]"
+	  Position		  [200, 80, 220, 100]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "noise filter"
+	  SrcPort		  1
+	  DstBlock		  "Localizer\nnoise [µA]"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "White Noise"
+	  SrcPort		  1
+	  DstBlock		  "noise filter"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "LOCnoise2"
+      Ports		      [0, 1, 0, 0, 0]
+      Position		      [125, 93, 230, 127]
+      FontName		      "Arial"
+      ShowPortLabels	      off
+      MaskType		      "LocNoise 2"
+      MaskDescription	      "Localizer noise\n(NASA-CR2022)"
+      MaskHelp		      "eval('fdchelp locnoise')"
+      MaskDisplay	      "disp('LOC noise\\nNASA CR-2022')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"LOCnoise2"
+	Location		[6, 43, 307, 200]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  RandomNumber
+	  Name			  "White Noise"
+	  Position		  [30, 75, 50, 95]
+	  FontName		  "Arial"
+	  Mean			  "0"
+	  Variance		  "1"
+	  Seed			  "100"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  ZeroPole
+	  Name			  "noise filter"
+	  Position		  [105, 61, 195, 109]
+	  FontName		  "Arial"
+	  Zeros			  "[-1.5]"
+	  Poles			  "[-0.35; -10]"
+	  Gain			  "[5]"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "t"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [5, 5, 185, 40]
+	  ForegroundColor	  blue
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  ShowName		  off
+	  OpenFcn		  "fdchelp locnoise"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('Localizer noise NASA CR2022\\nMarc "
+				  "Rauw, October 1997')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "t"
+	    Location		    [144, 125, 279, 240]
+	    Open		    off
+	    ScreenColor		    white
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Localizer\nnoise [µA]"
+	  Position		  [250, 75, 270, 95]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "White Noise"
+	  SrcPort		  1
+	  DstBlock		  "noise filter"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "noise filter"
+	  SrcPort		  1
+	  DstBlock		  "Localizer\nnoise [µA]"
+	  DstPort		  1
+	}
+      }
+    }
+    Annotation {
+      Position		      [51, 227]
+      Text		      "ILS example"
+    }
+    Annotation {
+      Position		      [144, 7]
+      VerticalAlignment	      top
+      ForegroundColor	      blue
+      FontName		      "Times New Roman"
+      FontSize		      14
+      FontWeight	      bold
+      Text		      "FDC Toolbox - ILS sublibrary of NAVLIB"
+    }
+  }
+}

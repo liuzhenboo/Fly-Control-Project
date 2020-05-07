@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Mode Controller</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Autopilot subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Mode Controller</FONT></I></H2>
+
+The autopilot subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Mode Controller</FONT></I> supplies the switch-settings for the different autopilot modes. The systems <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT2">APILOT2</A></FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT3">APILOT3</A></FONT></I> contain radio-navigation modes (Glideslope, Localizer, and Navigation) which start in 'Armed' setting and switch over to 'Coupled' as soon as some switch-criterion is satisfied. The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Mode Controller</FONT></I> evaluates those switch-criteria. In the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT1">APILOT1</A></FONT></I> the radio-navigation modes have been omitted. In that simplified case, the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Mode Controller</FONT></I> only <I>defines</I> the autopilot modes, but does <I>not</I> contain any mode-switching functions.<BR><BR>
+
+Before starting a new simulation, double-click the block 'Select Mode and Reference Signals', or type <CODE>apstart</CODE> at the M<SMALL>ATLAB</SMALL> command line in order to define the autopilot modes (and hence, the initial switch-settings). The autopilot modes will be stored by the initalization routine <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apmode.htm">APMODE</A></FONT></I> in the vectors <I>ymod1S</I>, <I>ymod2S</I>, <I>ymod1A</I>, and <I>ymod2A</I> in the M<SMALL>ATLAB</SMALL> workspace. These vectors are defined as follows:
+<UL>
+<LI>   <I>ymod1S / ymod2S</I>: symmetrical autopilot modes
+<LI>   <I>ymod1A / ymod2A</I>: asymmetrical autopilot modes<BR><BR>
+<LI>   extension <I>1</I>: initial autopilot setting
+<LI>   extension <I>2</I>: second autopilot setting (used for radio-navigation modes to make it possible to switch from 'Armed' = initial phase to 'Coupled' = second phase)
+</UL>
+ <U>Symmetrical modes:</U>
+<PRE> ymodS = [symm. autopilot modes on/off ,
+          symm. outer-loops on/off     ,
+          Altitude Hold mode on/off    ,
+          Altitude Select mode on/off  ,
+          Glideslope mode on/off        ]
+</PRE>
+ with the following combinations for <I>ymodS</I>:
+<PRE>          Pitch Attitude Hold              :  [1 0 0 0 0]
+          Altitude Hold / Glideslope Armed :  [1 1 1 0 0]
+          Altitude Select                  :  [1 1 0 1 0]
+          Glideslope Coupled               :  [1 1 0 0 1]
+</PRE>
+ <U>Asymmetrical modes:</U>
+<PRE> ymodA = [asymm. autopilot modes on/off,
+          asymm. outer-loops on/off    ,
+          Heading Hold/Select on/off   ,
+          VOR-Navigation mode on/off   ,
+          Localizer mode on/off         ]
+</PRE>
+ with the following combinations for <I>ymodA</I>:
+<PRE>          Roll Attitude Hold               :  [1 0 0 0 0]
+          Heading Hold/Heading Select/
+                 NAV Armed/Localizer Armed :  [1 1 1 0 0]
+          NAV Coupled                      :  [1 1 0 1 0]
+          Localizer Coupled                :  [1 1 0 0 1]
+</PRE>
+
+<H3>More information</H3>
+See the source-codes of <SMALL>GSSWITCH.M</SMALL>, <SMALL>LOCSWTCH.M</SMALL>, and <SMALL>NAVSWTCH.M</SMALL> for the switch-criteria used in Glideslope, Localizer, and VOR navigation modes, respectively. See <SMALL>APMODE.M</SMALL> for more details on the mode-initialization of the autopilot.
+
+<H3><A NAME= "References">References</A></H3>
+
+For a detailed description of the 'Beaver' autopilot, the following references should be consulted:
+
+<OL>
+<LI>M.O. Rauw: <I>FDC 1.2 - A S<SMALL>IMULINK</SMALL> Environment for Flight Dynamics and Control Analysis</I>. Zeist, The Netherlands, March 1997.
+<LI>M.O. Rauw: <I>A S<SMALL>IMULINK</SMALL> environment for Flight Dynamics and Control analysis - Application to the DHC-2 'Beaver'</I> (PART II). MSc-thesis, Delft University of Technology, Faculty of Aerospace Engineering, Delft, The Netherlands, 1993.
+<LI>P.N.H. Wever: <I>Ontwerp en implementatie van de regelwetten van de De Havilland DHC-2 'Beaver'</I> (in Dutch). MSc-thesis, Delft University of Technology, Faculty of Aerospace Engineering, Delft, The Netherlands, 1993.
+</OL>
+
+
+</BODY>
+
+</HTML>

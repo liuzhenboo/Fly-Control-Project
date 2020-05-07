@@ -1,0 +1,63 @@
+-----------------------------------------------------------------
+UDRYD2 = Longitudinal Dryden filter #2. This masked subsystem
+block, which is contained in the library WINDLIB from the sub-
+directory WIND, implements a longitudinal Dryden filter with
+coefficients that vary with the true airspeed V. The user must
+specify the scale lenght Lug and the standard deviation sigma_ug.
+The airspeed V is used as inputsignal to the block UDRYD2. Often,
+the changes in V due to atmospheric turbulence are not very large.
+In such cases, you may wish to use a Dryden filter with constant
+coefficients, computed under the assumption that V is constant
+and equal to a user-specified value, in stead. The block UDRYD1
+contains such a filter for longitudinal turbulence (see
+UDRYD1.HLP for more info).
+
+The longitudinal gust velocity is obtained by passing white
+noise through a Dryden filter, which is defined by the following
+transfer function:
+
+               K
+  Hug  =  -----------          K   = sigma_ug * sqrt(2*Lug/V)
+           1 + tau*s           tau = Lug/V
+
+where:
+
+  V       : true airspeed [m/s]
+  sigma_ug: standard deviation of longitudinal gust velocity [m/s]
+  Lug     : scale length for longitudinal gust [m]
+
+Here, V is the INPUTSIGNAL to the masked subsystem block. V it-
+self has to be obtained from the aircraft model considered, e.g.,
+V may be an outputsignal from the system BEAVER, which uses the
+turbulence velocity ug and its time-derivative as inputsignals!
+
+Input to the block UDRYD2:
+==========================
+  V       : true airspeed [m/s]
+
+Outputs from the block UDRYD2:
+==============================
+  ug      : longitudinal gust velocity [m/s]
+  d(ug)/dt: time derivative of ug [m/s^2]
+
+The gust velocity and its time derivative have to be added to the
+total wind velocity component uw and its time derivative uwdot in
+the vector uwind.
+
+More info.
+==========
+See VDRYD2.HLP, WDRYD2.HLP, and TURB2.HLP for more info about
+other Dryden filters with coefficients that vary with the air-
+speed V. See UDRYD1.HLP, VDRYD1.HLP, WDRYD1.HLP, and TURB1.HLP
+for more info about Dryden filters with constant coefficients,
+assuming V = constant.
+
+See CWIND.HLP and BLWIND.HLP for more information about blocks
+to compute the components of wind along the aircraft's body-axes
+(constant wind and a wind profile in the Earth's boundary layer,
+respectively). The use of the vector uwind within the aircraft
+model is outlined in the helpfiles LEVEL1.HLP, FWIND.HLP, and
+XYHDOT.HLP, which refer to blocks within the system BEAVER.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

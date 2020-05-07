@@ -1,0 +1,197 @@
+-----------------------------------------------------------------
+System BEAVER - subsystem 'Aircraft Equations of Motion (Beaver)'
+=================================================================
+The dynamics of a rigid aircraft can be expressed by twelve Ordinary
+Differential Equations (ODEs). The equations which determine the mag-
+nitude of the time-derivatives of the twelve state variables as a
+function of the external forces and moments, external disturbances,
+and the states themselves, have been gathered in the subsystem 'Air-
+craft Equations of Motion (Beaver)'. This subsystem also contains the
+integrator which obtains the states from their time-derivatives.
+   The twelve ODEs themselves are independent of the aircraft con-
+sidered. However, some of the aerodynamic forces or moments may
+depend upon the time-derivatives of the state variables, in which
+case the differential equations become implicit and thence unsol-
+vable for Simulink (in general). Often, it is not difficult to
+rewrite the implicit differential equation(s) back into generalized
+explicit ODEs and an aircraft-dependent correction term. In the case
+of the system BEAVER, such an aircraft-dependent correction to the
+general state-equations proved to be necessary, and has been included
+in one of the masked subsystem blocks in the subsystem 'Aircraft
+Equations of Motion (Beaver)'. This explains the reason for putting
+the extension '(Beaver)' into the name of the subsystem.
+
+The subsystem contains two masked subsystem blocks: uvw, and
+xdotcorr (Beaver). The latter block contains the aircraft-dependent
+corrections to the state equations for the DHC-2 'Beaver' aircraft,
+which were induced when converting the original implicit differen-
+tial equations into a set of explicit ODEs (see XDOTCORR.HLP for
+more details). The masked subsystem uvw contains the transformation
+equations which make it possible to obtain the components of the true
+airspeed along the body-axes of the aircraft, given the true air-
+speed, angle of attack, and sideslip angle.
+    An Integrator block is used to obtain the time-trajectories of
+the state variables themselves from their derivatives with respect to
+time. The Gain block makes it possible to artificially fix states, by
+performing an element-by-element multiplication of the vector xdot
+with the vector xfix. All elements of the latter vector either equal
+one or zero, meaning that the corresponding states are free to vary
+or are artificially kept constant, respectively. Type HELP FIXSTATE
+for more info! See also XFIX.HLP.
+     Finally, the subsystem 'Aircraft Equations of Motion (Beaver)'
+also contains another subsystem, '12 ODEs', in which the twelve ODEs
+themselves have been grouped together. See ODES.HLP for more details
+about the internal structure of this subsystem.
+
+Computation order:
+==================
+The time-derivatives of the state variables are now computed as
+follows. First, the velocity components u, v, and w are computed,
+using the current value of the state vector x, and the outputvector
+from the masked subsystem HLPFCN, which contains frequently used
+sines and cosines of angular state variables, yhlp. The velocity
+components u, v, and w are needed in order to be able to solve the
+ODEs for the aircraft-coordinates xe and ye. In order to account for
+contributions of non-steady atmosphere, the velocity components due
+to wind and/or atmospheric turbulence, uw, vw, and ww, are extracted
+from the vector uwind, and added to u, v, and w. Next, the time-deri-
+vatives of the states are computed in the subsystem '12 ODEs', which
+uses the current state vector x, the helpvector yhlp, the vectors
+Ftot and Mtot with total forces and moments, and the vector
+[u+uw, v+vw, w+ww]' as inputs.
+     The time-derivatives of the states are gathered in the vector
+xdot = dx/dt. As said before, the vector xdot that leaves the subsystem
+'12 ODEs' needs to be corrected for aircraft-dependent terms. This is
+done in the subsystem xdotcorr (Beaver), which needs the current state
+vector x, and, in the case of the 'Beaver' aircraft, the outputvector
+from the masked subsystem Atmosph in the subsystem 'Airdata Group' (to
+be more specific: xdotcorr needs the airdensity for the correction of
+the beta-dot equation). The outputvector from xdotcorr, the corrected
+version of xdot, is send to the Gain xfix, which is used to artifi-
+cially fix states if required by the user (see XFIX.HLP). Finally,
+the time-derivatives are sent to the Integrator block, where they are
+integrated to obtain the updated value of the state vector x. Note: the
+Integrator block uses the vector xinco as initial condition (see below).
+
+The state vector x is fed back to the other subsystems in BEAVER, and
+internally in the subsystem 'Aircraft Equations of Motion', because the
+time-derivatives of the state variables depend upon the state variables
+themselves. The second level of BEAVER contains a masked subsystem
+block Hlpfcn, which computes the sines and cosines of the angles alpha,
+beta, psi, theta, and phi. These 'helpvariables' are also fed back to
+other subsystems in BEAVER, including the system 'Aircraft Equations of
+Motion'. The resulting feedback loops distinguish themselves from the
+other signals by a magenta foreground color.
+
+Inputs to the subsystem 'Aircraft Equations of Motion (Beaver)':
+================================================================
+  Ftot  = [Fx Fy Fz]' (total forces along body-axes, coming from FMSORT)
+  Mtot  = [L M N]'   (total moments along body-axes, coming from FMSORT)
+  uwind = [uw vw ww uwdot vwdot wwdot]'       (atmospheric disturbances)
+  yatm  = [rho ps T mu g]'     (atmosphere variables, computed in the
+                                               masked subsystem ATMOSPH)
+  yhlp  = [cos(alpha) sin(alpha) cos(beta) sin(beta) tan(beta) ...
+           ... sin(psi) cos(psi) sin(theta) cos(theta) sin(phi) ...
+           ... cos(phi) ]'         (sines & cosines, coming from HLPFCN)
+
+  Ftot and Mtot originate from the masked subsystem block FMsort, uwind
+  is an external inputvector to the system BEAVER, yatm originates from
+  the masked subsystem Atmosph (in the subsystem 'Airdata Group'), and
+  yhlp is the outputvector of the masked subsystem Hlpfcn.
+
+  Fx, Fy, Fz: total external forces along body-axes [N]
+  L, M, N   : total external moments along body-axes [Nm]
+  uw, vw, ww: body-axes components of velocity component due to
+              non-steady atmosphere (wind + turbulence) [m/s]
+ {uwdot     : d(uw)/dt [m/s^2]                                   }
+ {vwdot     : d(vw)/dt [m/s^2]                                   }
+ {wwdot     : d(ww)/dt [m/s^2]                                   }
+  rho       : air density [kg/m^3]
+ {ps        : static pressure [N/m^2]                            }
+ {T         : air temperature [K]                                }
+ {mu        : dynamic viscosity [kg/(m*s)]                       }
+ {g         : acceleration of gravity [m/s^2]                    }
+
+The variables which are not used by any of the (masked) subsystem
+blocks from the subsystem 'Aircraft Equations of Motion (Beaver)' have
+been put between accolades. Of yhlp, all elements are used.
+
+Outputs from subsystem 'Aircraft Equations of Motion (Beaver)':
+===============================================================
+  x     = [V alpha beta p q r psi theta phi xe ye H]'    (states)
+  xdot  = dx/dt                      (time-derivatives of states)
+  ybvel = [u v w]'        (body-axes components of true airspeed)
+
+  V    : true airspeed [m/s]
+  alpha: angle of attack [rad]
+  beta : sideslip angle [rad]
+  p    : roll-rate [rad/s]
+  q    : pitch-rate [rad/s]
+  r    : yaw-rate [rad/s]
+  psi  : yaw-angle [rad]
+  theta: pitch-angle [rad]
+  phi  : roll-angle [rad]
+  xe   : X-coordinate, relative to Earth-axes [m]
+  ye   : Y-coordinate, relative to Earth-axes [m]
+  H    : altitude above sea level [m]
+  u    : component of V along XB-axis [m/s]
+  v    : component of V along YB-axis [m/s]
+  w    : component of V along ZB-axis [m/s]
+
+Variables which must be present in Matlab workspace in order for sub-
+system 'Aircraft Equations of Motion (Beaver)' to function properly:
+=====================================================================
+  xinco: Initial value of the state vector x. Usually, a steady-state
+         trimmed-flight condition is used as initial condition for the
+         aircraft ('condition' = combination of input variables and
+         state vector, so xinco does not specify a complete initial
+         flight condition by itself!), for which reason a trim-routine
+         ACTRIM has been included to the FDC package. Type HELP ACTRIM
+         for more info, or examine the source code of ACTRIM.M, con-
+         tained in the subdirectory TOOLS. If you double-click the
+         block Integrator, you will find that xinco is specified as
+         initial value of the state vector.
+  xfix : Vector of length twelve (length(xfix) = length(x)), of which
+         all elements are equal to either one or zero. If the n'th
+         element of xfix is equal to one, the corresponding element of x
+         (= the corresponding state) may vary freely, according to the
+         'real' solution of the state equations. If the n'th element of
+         xfix is equal to zero, the corresponding state is ARTIFICIALLY
+         fixed to its initial value, even if the 'real' solution of the
+         state equations would give different results. For the analysis
+         of some types of aircraft responses, artificially fixing states
+         to their initial values may be useful. Type HELP FIXSTATE for
+         more info. The vector xfix can be defined manually, or by run-
+         ning FIXSTATE.M before starting a new simulation. Usually,
+         xfix = 1 or xfix = ones(1,12) will be used for simulations.
+         This default value will be set automatically by running
+         LOADER.M before starting a new simulation.
+  GM1  : Matrix with some basic geometric properties of the aircraft,
+         and its mass. GM1 is needed by the subsystem '12 ODEs', see
+         its helpfile for more info.
+  GM2  : Matrix with inertia parameters of the aircraft under conside-
+         ration. GM2 is needed by the subsystem '12 ODEs', see its
+         helpfile for more info.
+
+GM1, GM2, and the default value of xfix can be loaded in the Matlab
+workspace by applying the routine LOADER.M. Type HELP LOADER or HELP
+MODBUILD for more info about the parameter matrices GM1 and GM2. Type
+HELP FIXSTATE for more info about the gain xfix. The initial value of
+the state vector, xinco, can be loaded from file by applying the load
+routine INCOLOAD.M. Type HELP INCOLOAD for more info. Also type HELP
+ACTRIM for more info about the determination of steady-state trimmed-
+flight conditions.
+
+More info.
+==========
+See 12ODES.HLP for more info about the subsystem '12 ODEs'. Other rele-
+vant helpfiles are UVW.HLP, XDOTCORR.HLP, and XFIX.HLP. Type HELP
+FIXSTATE for more info about the option to artificially fix states to
+their initial values. More info about the parameters that need to be
+defined in the Matlab workspace can be found by typing HELP FIXSTATE,
+HELP LOADER, HELP MODBUILD, HELP INCOLOAD, or HELP ACTRIM.
+See FMSORT.HLP, ATMOSPH.HLP, and HLPFCN.HLP for more info about the
+inputvectors to the subsystem 'Aircraft Equations of Motion'.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

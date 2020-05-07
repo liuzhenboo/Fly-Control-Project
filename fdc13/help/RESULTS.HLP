@@ -1,0 +1,7 @@
+----------------------------------------------------------------
+ RESULTS.M is a Matlab macro, wich creates time-trajectories
+ of individual inputs to and outputs from the Simulink system
+ BEAVER. Type HELP RESULTS for more info.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

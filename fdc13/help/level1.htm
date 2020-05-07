@@ -1,0 +1,60 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Level 1</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Level 1 of the system <I><FONT FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I></H2>
+
+The first level of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I> contains the <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Inport</FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks to and from the non-linear aircraft model, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">To Workspace</FONT></I> blocks to store the input and outputvectors along with a time-vector in the M<SMALL>ATLAB</SMALL> workspace, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Mux</FONT></I> blocks combine the scalar signals from the different <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Inport</FONT></I> blocks into vector signals, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Demux</FONT></I> blocks extract scalar output signals from the different output vectors. The actual model of the 'Beaver' dynamics is contained in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="level2.htm">Beaver dynamics and output equations</A></FONT></I> (shortly denoted as <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Level 2</FONT></I>), i.e., the first level is needed only to manage the input/output signals to and from the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>.
+
+<H3>S-function in/outputs vs. in/outputs which are sent to the M<SMALL>ATLAB</SMALL> workspace.
+</H3>
+
+It is important to notice that the number of outputs which are send to the M<SMALL>ATLAB</SMALL> workspace by means of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">To Workspace</FONT></I> blocks is considerably larger than the number of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks, representing 'S-function outputs' of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>. The <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks are needed for connecting other systems to the output-side of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>, e.g., systems with models of sensor dynamics, controllers, etc. Unfortunately, S<SMALL>IMULINK</SMALL> does not accept vector outputs to be connected to <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks within the first level of a graphical system; therefore, only a small subset of the output variables from <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> have actually been connected to the <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks. The fact that <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Inport</FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks in the first level of graphical S<SMALL>IMULINK</SMALL> systems accept <I>scalar</I> signals only is really a serious limitation of S<SMALL>IMULINK</SMALL>! Hopefully, this problem will be solved in future versions of this program.
+<BR><BR>
+
+By default, the sixteen outputs which were needed to simulate the 'Beaver' autopilot are connected to <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks. If other output signals are needed by systems which ought to be connected to <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>, it is necessary to add more <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks to this list of 'S-function outputs'. For instance: if you want to examine control laws which use accelerations as reference signals, these signals must be connected to new <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks in the first level of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>. Currently, the accelerations are send to the M<SMALL>ATLAB</SMALL> workspace only, so they cannot be used yet as inputs to other S<SMALL>IMULINK</SMALL> systems, connected to the output side of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>.<BR><BR>
+
+<H3>S-function inputs</H3>
+<PRE>   deltae, deltaa, deltar, deltaf, n, pz, uw, vw, ww, uwdot,
+   vwdot, and wwdot
+</PRE>
+When connecting other systems to a block 'S-function' which calls the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>, or when you want to access the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> directly from the M<SMALL>ATLAB</SMALL> command-line, a vector of length twelve must be used as inputvector:
+
+<PRE>   u = [deltae, deltaa, deltar, deltaf, n, pz, uw, vw, ww, uwdot,
+        vwdot, wwdot]'
+</PRE>
+The time-trajectories of these twelve 'S-function inputs' are collected in the matrix <I>In</I> in the M<SMALL>ATLAB</SMALL> workspace.
+
+<H3>S-function outputs</H3>
+<PRE>   V, alpha, beta, p, q, r, psi, theta, phi, xe, ye, H, Hdot,
+   pb/2V, qc/V, rb/2V
+</PRE>
+The first thirteen outputs (states + climb velocity <I>Hdot</I>) are needed by the control laws of the 'Beaver' autopilot; the last three outputs (dimensionless rotational velocities) are needed by the linear state-space model of the dynamics of the steering column/steering wheel, cables, control surfaces, and hydraulic actuators, used in the 'Beaver' autopilot. These sixteen 'S-function outputs' form a subset of the 89 outputs which are send to the matrix <I>Out</I> in the M<SMALL>ATLAB</SMALL> workspace.<BR><BR>
+
+See the lists of <A HREF="inputs.htm">input</A> and <A HREF="outputs.htm">output</A> variables for the exact definitions of these
+signals.
+
+<H3>Inputs and outputs which are sent to the M<SMALL>ATLAB</SMALL> workspace</H3>
+
+There are three <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">To Workspace</FONT></I> blocks. The first one is used to send the inputs to the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> to the matrix <I>In</I> in the M<SMALL>ATLAB</SMALL> workspace, including the wind and turbulence velocity components and their time-derivatives. The second <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">To Workspace</FONT></I> block sends <I>all</I> outputs to the matrix <I>Out</I> in the M<SMALL>ATLAB</SMALL> workspace. In order to be able to plot the results against time, a third <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">To Workspace</FONT></I> block is connected to a <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Clock</FONT></I> block, which yields a time-axis in the vector <I>time</I>. Therefore, results can be plotted by typing:
+<PRE>    plot(time,Out(:,1))
+    plot(time,In(:,6))
+</PRE>
+and so on. The exact definitions of the matrices <I>In</I> and <I>Out</I> can be found by double-clicking the corresponding <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Mux</FONT></I> blocks in the first level of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>, or by viewing the lists of <A HREF="inputs.htm">inputs</A> and <A HREF="outputs.htm">outputs</A>.
+
+<H3>The macro <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">RESULTS</FONT></I></H3>
+
+In stead of directly using the matrices <I>In</I> and <I>Out</I> for plotting and analyzing simulation results, it is also possible to first run the M<SMALL>ATLAB</SMALL> program <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="results.htm">RESULTS</A></FONT></I>, which has been included in the FDC directory <SMALL>TOOLS</SMALL>. This program will extract the trajectories of individual inputs from the vector <I>In</I> and the trajectories of individual outputs from the vector <I>Out</I>. The plotting commands, given above can then be replaced by:
+<PRE>    plot(time,V)
+    plot(time,pz)
+</PRE>
+Note: <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">RESULTS</FONT></I> can be used only for the default definitions of the matrices <I>In</I> and <I>Out</I>, used by the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>! Any changes to these definitions must be taken into account within the source-file <SMALL>RESULTS.M</SMALL>.
+
+<H3>More information</H3>
+
+See also the lists of <A HREF="inputs.htm">inputs</A>, <A HREF="outputs.htm">outputs</A>, and <A HREF="colors.htm">color definitions</A> for more details about the signals in the FDC block-diagrams (in particular the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>). See the description of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="level2.htm">Level 2</A></FONT></I> for more information about the actual structure of the aircraft model.
+
+</BODY>
+
+</HTML>

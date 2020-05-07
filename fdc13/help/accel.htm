@@ -1,0 +1,45 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Accel</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Accel</FONT></I>
+</H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Accel</FONT></I> is a masked S<SMALL>IMULINK</SMALL> subsystem, used to compute the specific forces and accelerations of the aircraft, as measured in the aircraft's centre of gravity. The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Accel</FONT></I> is contained in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="moreouts.htm">Additional Outputs</A></FONT></I> of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>. The outputs from <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Accel</FONT></I> are not needed to solve the state equations. Hence, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Accel</FONT></I> can be removed from the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> without affecting the solution of the state equations.
+
+<H3>Inputvectors: <I>Ftot</I> and <I>Fgrav</I>
+</H3>
+<PRE>  Ftot = [Fx Fy Fz]'  (total body-axes forces, coming from <A HREF="fmsort.htm">FMsort</A>)
+
+  Fgrav= [Xgr Ygr Zgr]' (body-axes forces due to gravity, coming
+                                           from the block <A HREF="gravity.htm">Gravity</A>)
+
+
+  Fx, Fy, Fz   : total forces along the aircraft's body-axes [N]
+  Xgr, Ygr, Zgr: gravity forces along the aircraft's body-axes [N]
+</PRE>
+
+<H3>Outputvector: <I>yacc
+</I></H3>
+
+<PRE>  yacc = [Ax Ay Az axk ayk azk]'
+
+
+  Ax, Ay, Az   : specific forces (= outputs of accelerometers) in
+                 the centre of gravity of the aircraft [m/s^2]
+  axk, ayk, azk: components of the accelerations of the c.g. along
+                 the body-axes [m/s^2]
+</PRE>
+
+<H3>Parameters which must be defined in the M<SMALL>ATLAB</SMALL> Workspace
+</H3>
+
+<UL>
+<LI><I>GM1</I>: vector with some important geometrical properties of the         'Beaver' aircraft, and the mass of the aircraft (which is assumed to be constant during the motions of interest). Here, the mass <I>m</I> is extracted from the vector <I>GM1</I>. The vector <I>GM1</I> can be loaded from file by calling <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I>. If the datafile does not yet exist, run <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="MODBUILD.htm">modbuild</A></FONT></I> first.
+</UL>
+
+</BODY>
+
+</HTML>

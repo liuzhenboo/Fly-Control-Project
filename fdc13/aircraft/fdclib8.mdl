@@ -1,0 +1,117 @@
+Library {
+  Name			  "fdclib8"
+  Version		  2.09
+  PaperOrientation	  landscape
+  PaperType		  usletter
+  PaperUnits		  inches
+  BlockDefaults {
+    Orientation		    right
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    NamePlacement	    normal
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+    ShowName		    on
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    center
+    VerticalAlignment	    middle
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  System {
+    Name		    "fdclib8"
+    Location		    [11, 45, 442, 226]
+    Open		    on
+    ScreenColor		    white
+    Block {
+      BlockType		      SubSystem
+      Name		      "lin"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [15, 105, 90, 160]
+      ForegroundColor	      blue
+      BackgroundColor	      cyan
+      DropShadow	      on
+      FontName		      "Arial"
+      ShowName		      off
+      OpenFcn		      "aclin"
+      ShowPortLabels	      off
+      MaskType		      "linearize aircraft model"
+      MaskDisplay	      "disp('Call\\nlinearization\\nroutine\\nACLIN')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"lin"
+	Location		[0, 0, 364, 143]
+	Open			off
+	ScreenColor		cyan
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "trim"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [15, 35, 90, 90]
+      ForegroundColor	      blue
+      BackgroundColor	      cyan
+      DropShadow	      on
+      FontName		      "Arial"
+      ShowName		      off
+      OpenFcn		      "actrim"
+      ShowPortLabels	      off
+      MaskType		      "aircraft trim"
+      MaskDisplay	      "disp('Call aircraft\\ntrim routine\\nACTRIM')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"trim"
+	Location		[0, 0, 364, 143]
+	Open			off
+	ScreenColor		cyan
+      }
+    }
+    Annotation {
+      Position		      [164, 7]
+      VerticalAlignment	      top
+      ForegroundColor	      blue
+      FontName		      "Times New Roman"
+      FontSize		      14
+      FontWeight	      bold
+      Text		      "FDC Toolbox - Trim and linearization blocks"
+    }
+    Annotation {
+      Position		      [247, 47]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      Text		      "<-- Button block which starts up the trim "
+			      "program ACTRIM.M\nwhen double-clicked. Type "
+			      "HELP ACTRIM for more info."
+    }
+    Annotation {
+      Position		      [263, 112]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      Text		      "<-- Button block which starts up the linearizati"
+			      "on program ACLIN.M \nwhen double-clicked. "
+			      "Type HELP ACLIN for more info."
+    }
+  }
+}

@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Fwind</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Fwind</FONT></I></H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Fwind</FONT></I> is a masked S<SMALL>IMULINK</SMALL> subsystem, contained within the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>. It is used to compute the contributions to the external forces along the body-axes in non-steady atmosphere (i.e., forces due to non-constant wind and/or atmospheric turbulence).
+
+See the descriptions of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="cwind.htm">Cwind</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="blwind.htm">BLwind</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="turb1.htm">Turb1</A></FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="turb2.htm">Turb2</A></FONT></I> for more information about the generation of the wind and turbulence velocities (and their time-derivatives). The outputs from Fwind are sent to the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="fmsort.htm">FMsort</A></FONT></I>.
+
+<H3>Inputvectors: <I>x</I> and <I>uwind</I></H3>
+<PRE>  x     = [V alpha beta p q r psi theta phi xe ye H]'    (states)
+  uwind = [uw vw ww uwdot vwdot wwdot]' (wind + turbulence velo-
+                                        cities and accelerations)
+
+ {V    : airspeed [m/s]                                         }
+ {alpha: angle of attack [rad]                                  }
+ {beta : sideslip angle [rad]                                   }
+  p    : roll rate [rad/s]
+  q    : pitch rate [rad/s]
+  r    : yaw rate [rad/s]
+ {psi  : yaw angle [rad]                                        }
+ {theta: pitch angle [rad]                                      }
+ {phi  : roll angle [rad]                                       }
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+
+  uw   : wind + turbulence velocity along the XB-axis [m/s]
+  vw   : wind + turbulence velocity along the YB-axis [m/s]
+  ww   : wind + turbulence velocity along the ZB-axis [m/s]
+  uwdot: d(uw)/dt [m/s^2]
+  vwdot: d(vw)/dt [m/s^2]
+  wwdot: d(ww)/dt [m/s^2]
+</PRE>
+
+The variables which are not actually needed by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Fwind</FONT></I> have been displayed between accolades.
+
+<H3>Outputvector: <I>Fwind</I></H3>
+<PRE>  Fwind = [Xw Yw Zw]'.
+
+where:
+
+  Xw, Yw, Zw: forces due to non-steady atmosphere, measured along
+              the aircraft's body-axes [N]
+</PRE>
+
+<H3>Parameters which must be defined in the M<SMALL>ATLAB</SMALL> Workspace</H3>
+
+<I>GM1</I>: vector with some important geometrical properties of the 'Beaver' aircraft, and its mass (which is assumed to be constant during the motions of interest). Here, the mass <I>m</I> is extracted from <I>GM1</I>. <I>GM1</I> can be loaded from file by running the utility <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I>. Run <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="modbuild.htm">MODBUILD</A></FONT></I> first if the datafile does not yet exist.
+
+
+</BODY>
+
+</HTML>

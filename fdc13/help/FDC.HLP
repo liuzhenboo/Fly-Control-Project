@@ -1,0 +1,71 @@
+------------------------------------------------------------------
+The FDC toolbox
+===============
+FDC 1.3 is a Matlab/Simulink toolbox for Flight Dynamics and
+Control analysis, which has been applied to the De Havilland DHC-2
+'Beaver' aircraft. The FDC package includes a full-featured
+nonlinear dynamic model of the 'Beaver', implemented in a modular
+Simulink blockdiagram structure. It also contains some Matlab pro-
+grams, which access this Simulink system for the determination of
+steady-state trimmed flight conditions and linearization of the
+aircraft model.
+    FDC 1.3 also contains additional Simulink systems which can
+be coupled to the input or output side of the nonlinear aircraft
+model. These systems include wind and turbulence generators for
+assessing aircraft responses to wind and/or atmospheric turbulence,
+and radio navigation signal generators, to simulate ILS or VOR
+radio-navigation applications (for instance: autopilot modes).
+
+Although the FDC toolbox has been built around a model of the
+DHC-2 'Beaver' aircraft, it can easily be adapted for analyzing
+ANY kind of aircraft within the same graphical user environment,
+based upon Simulink and Matlab.
+
+The heart of the FDC package is formed by the system BEAVER,
+which has been contained in the subdirectory AIRCRAFT. This sys-
+tem contains the nonlinear state equations which determine the
+motions of the aircraft, as well as a large number of additional
+output equations. Input and output ports make it possible to
+connect this system to other Simulink systems, such as control
+laws of autopilot modes, input generators, sensor models, etc.
+The system BEAVER can be opened by typing beaver at the Matlab
+command line.
+    The subdirectory AIRCRAFT also contains the blocklibrary
+FDCLIB with the sublibraries FDCLIB1 to FDCLIB8. These libra-
+ries together contain all blocks from the system BEAVER. Help
+texts which briefly explain the function of all blocks have
+been included in the subdirectory HELP.
+
+Examples of the practical use of the system BEAVER for nonlinear,
+off-line, open-loop simulations can be found in the subdirectory
+EXAMPLES. The system OLOOP1 can be used to simulate open-loop
+responses to control inputs. OLOOP1T is a 'tutorial system' which
+gives a detailed explanation about the meaning of each block in
+OLOOP1. OLOOP2 gives an example of open-loop simulations of the
+'Beaver' encountering atmospheric turbulence; OLOOP2T is the
+accompagnying 'tutorial'. OLOOP3 is used for creating open-loop
+responses of a linearized aircraft model; OLOOP3T is the accom-
+pagnying 'tutorial'.
+    It is recommended to closesly examine the examples from this
+subdirectory, because they demonstrate how the system BEAVER can
+be used in practice. Once you know the basics, it is quite easy to
+build your own open or closed-loop simulation systems of the
+'Beaver' aircraft. Next, you only have to zoom in to the system
+BEAVER, to find out how the aircraft equations of motion them-
+selves are structured, and eventually, to adapt the structure of
+this model for your own purposes.
+
+The subdirectory APILOT contains a very detailed example of a
+closed-loop simulation model, which again uses the system BEAVER
+as most important element. The autopilot simulation systems
+APILOT1, APILOT2, etc., may look quite complicated if you look
+at them for the first time. It is certainly not recommended to
+examine these systems if you don't know the basics about the
+aircraft model BEAVER and the example systems OLOOP1, OLOOP2,
+etc. yet, because the autopilot logic is quite complicated.
+Still, the autopilot simulation systems gives you an idea about
+the power of the Simulink simulation structure, used in the FDC
+package.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

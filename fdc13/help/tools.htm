@@ -1,0 +1,18 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: analytical tools</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Analytical tools from the FDC toolbox</H2>
+
+The FDC toolbox makes use of the standard S<SMALL>IMULINK</SMALL> integrators for simulations and two dedicated M<SMALL>ATLAB</SMALL> programs for the determination of linearized aircraft models and steady-state trimmed flight conditions. The source files of these programs can be found in the FDC subdirectory <SMALL>TOOLS</SMALL>.
+<UL>
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="actrim.htm">ACTRIM</A></FONT></I> computes trimmed-flight conditions for the non-linear 'Beaver' model <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>, or any other  aircraft model that uses the same inputs and state variables as that system. <BR><BR>
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="aclin.htm">ACLIN</A></FONT></I> linearizes the aircraft model around a user-specified operating point and gives the user the opportunity to select a subset of the state equations from the linearized model. It uses the S<SMALL>IMULINK</SMALL> program <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">LINMOD</FONT></I> for the actual linearization process.
+</UL>
+The FDC subdirectory <SMALL>TOOLS</SMALL> also contains the routines <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="incoload.htm">INCOLOAD</A></FONT></I>, which facilitate initialization of the non-linear aircraft model, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="results.htm">RESULTS</A></FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="resplot.htm">RESPLOT</A></FONT></I>, which simplify processing of simulation results. <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="fixstate.htm">FIXSTATE</A></FONT></I> is a companion program for the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="xfix.htm">XFIX</A></FONT></I> within the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="nswitch.htm">NSWITCH</A></FONT></I> creates graphical switch-blocks with <I>n</I> input signals, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="recover.htm">RECOVER</A></FONT></I> solves problems due to a nasty S<SMALL>IMULINK</SMALL> bug, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="systprop.htm">SYSTPROP</A></FONT></I> is a useful utility for extracting system-information from a linearized model. <BR><BR>
+
+Finally, a S<SMALL>IMULINK</SMALL> block-library <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">FDCTOOLS</FONT></I> has been included in the <SMALL>TOOLS</SMALL> subdirectory; it contains some useful general-purpose S<SMALL>IMULINK</SMALL> blocks. Type <CODE>fdctools</CODE> at the command-line to open it.
+</BODY>
+
+</HTML>

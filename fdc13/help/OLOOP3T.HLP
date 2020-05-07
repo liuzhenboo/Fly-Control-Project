@@ -1,0 +1,14 @@
+----------------------------------------------------------------
+OLOOP3T is a 'tutorial system', which contains a step-by-step
+explanaition of the construction of OLOOP3. The system OLOOP3
+demonstrates how a linearized aircraft model (obtained by using
+the linearization program ACLIN) can be used in practice for
+linear, off-line, open-loop simulations of aircraft responses
+to control inputs. Both OLOOP3 and OLOOP3T have been included
+in the directory EXAMPLES. Type OLOOP3T, or OLOOP3 at the Matlab
+command line to open these systems.
+
+Type HELP ACLIN for more info about the linearization program.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

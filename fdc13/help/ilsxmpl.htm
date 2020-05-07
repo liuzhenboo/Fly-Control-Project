@@ -1,0 +1,84 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: ILS example</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>The radio-navigation subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">ILS example</FONT></I></H2>
+
+The subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">ILS example</FONT></I> from the library <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="navlib.htm">NAVLIB</A></FONT></I> demonstrates how to combine the different ILS blocks in one subsystem. First, the nominal signals are computed in the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="ils.htm">ILS (Nominal ILS values)</A></FONT></I>. Then, the steady-state errors are added (blocks <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="gserr.htm">GSerr</A></FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="locerr.htm">LOCerr</A></FONT></I>), and finally glideslope noise and localizer noise are added (blocks <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="gsnoise.htm">GSnoise</A></FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="locnoise.htm">LOCnoise</A></FONT></I>). Double-clicking the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">ILS example</FONT></I> will reveal this internal structure. <BR><BR>
+
+<B>Note:</B> the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">ILS</FONT></I> and the error blocks need to be double-clicked as well in order to specify their parameters. See the <A HREF="#References">references</A> below for more information about the block-parameters.
+
+<H3>Inputvector: <I>uils</I></H3>
+<PRE>  uils = [xe ye H]'
+
+  xe: X-coordinate of aircraft in Earth-axes, [m]
+  ye: Y-coordinate of aircraft in Earth-axes, [m]
+  H : altitude of aircraft above sea level, [m]
+</PRE>
+
+<B>Note:</B> these inputvariables are usually <I>extracted</I> from a <I>non-linear</I> aircraft model. The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">ILS</FONT></I> computes the nominal values of the ILS signals, using the actual aircraft position. Therefore it does <I>not</I> give correct results whenever a small-deviations model is used for the aircraft dynamics! Open the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I> for an example of such a nonlinear aircraft model.
+
+<H3>Outputvector: <I>yils</I></H3>
+<PRE>  yils = [igs_true iloc_true]'
+
+  igs_true : true value of glideslope current = nominal value +
+             + steady-state error + glideslope noise, [micro-Ampere]
+  iloc_true: true value of localizer current = nominal value +
+             + steady-state error + localizer noise, [micro-Ampere]
+</PRE>
+The noise and error models are according to <A HREF="#References">refs.[1] and [2]</A>.<BR><BR>
+
+During simulations, the time-trajectories of the nominal ILS signals and several interim results from the block ILS are sent to the matrix <I>yils</I> in the M<SMALL>ATLAB</SMALL> workspace. Each row from this matrix corresponds with the vector <I>yils_workspace</I> at a certain time <I>t</I>, according the following definition (notice the difference between the workspace variable <I>yils</I> and the S<SMALL>IMULINK</SMALL> vector <I>yils</I> within <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">ILS example</FONT></I>):
+
+<PRE>  yils_workspace = [yils1; yils2; yils3; yils4]'
+
+  yils1 = [igs iloc]'
+  yils2 = [epsilon_gs Gamma_loc]'
+  yils3 = [xf yf Hf dgs Rgs Rloc]'
+  yils4 = [LOC_flag GS_flag]'
+
+
+  igs       : nominal localizer current, [micro-Ampere]
+  iloc      : nominal glideslope current, [micro-Ampere]
+
+  epsilon_gs: angle between line through aircraft's c.g. and
+              glideslope antenna and nominal glide path, [rad]
+  Gamma_loc : angle between ground-projection of line through
+              aircraft's c.g. and localizer antenna, and runway
+              centerline, [rad]
+
+  xf        : X-coordinate of aircraft in runway-fixed reference
+              frame XF-YF-ZF, [m]
+  yf        : Y-coordinate of aircraft in runway-fixed reference
+              frame XF-YF-ZF, [m]
+  Hf        : altitude of aircraft in runway-fixed reference
+              frame XF-YF-ZF, [m]; Hf = -zf
+  dgs       : distance from aircraft's c.g. to nominal glide path,
+              measured perpendicularly to nominal glide path, [m]
+  Rgs       : 2D-distance from c.g. of aircraft to glideslope an-
+              tenna (as seen from above), [m]
+  Rloc      : 2D-distance from c.g. of aircraft to localizer an-
+              tenna (as seen from above), [m]
+
+  LOC_flag  : flag which is set to one if localizer signal cannot
+              be received with appropriate accuracy, else,
+              LOC_flag = 0
+  GS_flag   : flag which is set to one if glideslope signal can-
+              not be received with appropriate accuracy, else,
+              GS_flag = 0
+</PRE>
+<B>Note:</B> <I>i<SUB>gs</SUB></I> is proportional to <I>epsilon_gs</I>, <I>i<SUB>loc</SUB></I> is proportional to <I>Gamma_loc</I>. Both <I>i<SUB>gs</SUB></I> and <I>i<SUB>loc</SUB></I> are limited to +/- 150 [micro-Ampere]. For more information about the definitions of the variables, consult <A HREF="#References">refs.[1] or [2]</A>.
+
+<H3><A NAME= "References">References</A></H3>
+
+For more information about <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">ILS example</FONT></I>, consult the following references:
+<OL>
+<LI>M.O. Rauw: <I>FDC 1.2 - A S<SMALL>IMULINK</SMALL> Environment for Flight Dynamics and Control Analysis</I>. Zeist, The Netherlands, March 1997.
+<LI>M.O. Rauw: <I>A S<SMALL>IMULINK</SMALL> environment for Flight Dynamics and Control analysis - Application to the DHC-2 'Beaver'</I>. MSc-thesis, Delft University of Technology, Faculty of Aerospace Engineering, Delft, The Netherlands, 1993.
+</OL>
+
+
+</BODY>
+
+</HTML>

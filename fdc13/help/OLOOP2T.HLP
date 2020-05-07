@@ -1,0 +1,11 @@
+----------------------------------------------------------------
+OLOOP2T is a 'tutorial system', which contains a step-by-step
+explanaition of the construction of OLOOP2. The system OLOOP2
+demonstrates how the system BEAVER can be used in practice for
+nonlinear, off-line, open-loop simulations of the 'Beaver' res-
+ponses to atmospheric disturbances. Both OLOOP2 and OLOOP2T have
+been included in the directory EXAMPLES. Type OLOOP2T, or OLOOP2
+at the Matlab command line to open these systems.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

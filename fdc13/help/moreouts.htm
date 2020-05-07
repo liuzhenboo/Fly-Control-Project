@@ -1,0 +1,105 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Additional Outputs</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Additional Outputs</FONT></I></H2>
+
+The 3<SUP>rd</SUP>-level subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Additional Outputs</FONT></I> of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I> contains a number of masked subsystem blocks which generate output signals that were not needed for solving the equations of motion, and which could not logically be placed in one of the other subsystems (i.e. <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="adgrp.htm">Airdata Group</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="aerogrp.htm">Aerodynamics Group</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="enggrp.htm">Engine Group</A></FONT></I>, or <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="eqmotion.htm">Aircraft Equations of Motion</A></FONT></I>). Deleting <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Additional Outputs</FONT></I> from the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> will not affect the solution of the equations of motion. It is easy to add more output equations to the list that is currently contained in this subsystem. <BR><BR>
+
+Since the outputs from this subsystem are in no way involved in the actual solution of the state equations, the outputs may depend not only upon the state-vector <I>x</I> and the inputvectors <I>uaero</I>, <I>uprop</I>, and <I>uwind</I>, but also upon the time-derivative of the state vector, <I>xdot</I>. If the outputs from the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Additional Outputs</FONT></I> would have been needed for solving the state equations, this would not be possible (or at least undesirable), because it would yield an algebraic loop and it wouldn't be possible anymore to delete the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Additional Outputs</FONT></I> without any consequences for the solutions of the state equations.<BR><BR>
+
+By default, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Additional Outputs</FONT></I> contains masked subsystem blocks <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="accel.htm">Accel</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="flpath.htm">Flpath</A></FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="uvwdot.htm">uvwdot</A></FONT></I>, which determine accelerations and specific forces, flightpath variables, and time-derivatives of the velocity components <I>u</I>, <I>v</I>, and <I>w</I>, respectively (note: <I>u</I>, <I>v</I>, and <I>w</I> are <U>not</U> state variables!). More output equations may be included in this subsystem if desired.
+
+<H3>Inputs: <I>x</I>, <I>xdot</I>, <I>yhlp</I>, <I>Ftot</I>, <I>Fgrav</I></H3>
+<PRE>  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+
+  xdot = dx/dt = [Vdot alphadot betadot pdot qdot rdot ...
+                  ... psidot thetadot phidot xedot yedot Hdot]'
+                                (time-derivative of state-vector)
+
+  yhlp = [cos(alpha) sin(alpha) cos(beta) sin(beta) tan(beta) ...
+          ... sin(psi) cos(psi) sin(theta) cos(theta) ...
+          ... sin(phi) cos(phi) ]'
+                  (sines & cosines, computed in the block <A HREF="hlpfcn.htm">Hlpfcn</A>)
+
+  Ftot = [Fx Fy Fz]'              (total forces along body-axes,
+                                    computed in the block <A HREF="fmsort.htm">FMsort</A>)
+
+  Fgrav= [Xgr Ygr Zgr]'         (gravity forces along body-axes,
+                                   computed in the block <A HREF="gravity.htm">Gravity</A>)
+
+
+  V        : airspeed [m/s]
+ {alpha    : angle of attack [rad] or [deg]                      }
+  beta     : sideslip angle [rad] or [deg]
+ {p        : roll-rate [rad/s] or [deg/s]                        }
+ {q        : pitch-rate [rad/s] or [deg/s]                       }
+ {r        : yaw-rate [rad/s] or [deg/s]                         }
+  psi      : yaw-angle [rad] or [deg]
+  theta    : pitch-angle [rad] or [deg]
+  phi      : roll-angle [rad] or [deg]
+ {xe       : X-coordinate in Earth-axes [m]                      }
+ {ye       : Y-coordinate in Earth-axes [m]                      }
+ {H        : altitude [m]                                        }
+
+  Vdot     : time-derivative of airspeed [m/s^2]
+  alphadot : time-derivative of alpha [rad/s] or [deg/s]
+  betadot  : time-derivative of beta [rad/s] or [deg/s]
+ {pdot     : time-derivative of p [rad/s^2] or [deg/s^2]         }
+ {qdot     : time-derivative of q [rad/s^2] or [deg/s^2]         }
+ {rdot     : time-derivative of r [rad/s^2] or [deg/s^2]         }
+ {psidot   : time-derivative of psi [rad/s] or [deg/s]           }
+ {thetadot : time-derivative of theta [rad/s] or [deg/s]         }
+ {phidot   : time-derivative of phi [rad/s] or [deg/s]           }
+ {xedot    : time-derivative of xe [m/s]                         }
+ {yedot    : time-derivative of ye [m/s]                         }
+  Hdot     : time-derivative of H [m/s]
+
+  Fx       : total external force along XB-axis [N]
+  Fy       : total external force along YB-axis [N]
+  Fz       : total external force along ZB-axis [N]
+
+  Xgr      : gravity force along XB-axis [N]
+  Ygr      : gravity force along YB-axis [N]
+  Zgr      : gravity force along ZB-axis [N]
+</PRE>
+The variables which are not actually used by any of the masked subsystems within the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Additional Outputs</FONT></I> have been bracketed between accolades. Of the vector <I>yhlp</I>, only <I>sin(alpha)</I>, <I>cos(alpha)</I>, <I>sin(beta)</I>, and <I>cos(beta)</I> are used within <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Additional
+Outputs</FONT></I>.
+
+<H3>Outputs</H3>
+<PRE>  yfp  = [gamma fpa chi Phi]'             (flightpath parameters)
+
+  yuvw = [udot vdot wdot]'  (time-derivatives (!) of u, v, and w)
+
+  yacc = [Ax Ay Az axk ayk azk]'    (specific forces and accele-
+                                                         rations)
+
+  gamma    : flightpath angle [rad] or [deg]
+  fpa      : flightpath acceleration [m/s^2]
+  chi      : azimuth angle [rad] or [deg]
+  Phi      : bank angle [rad] or [deg]
+
+  udot     : time-derivative of u [m/s^2]
+  vdot     : time-derivative of v [m/s^2]
+  wdot     : time-derivative of w [m/s^2]
+
+  Ax       : specific force along XB-axis [g]
+  Ay       : specific force along YB-axis [g]
+  Az       : specific force along ZB-axis [g]
+  axk      : kinematic acceleration along XB-axis [g]
+  ayk      : kinematic acceleration along YB-axis [g]
+  azk      : kinematic acceleration along ZB-axis [g]
+</PRE>
+
+<B>Note:</B> the time-derivatives of the body-axes velocity components, <I>udot</I>, <I>vdot</I>, and <I>wdot</I>, are not needed for solving the equations of motion, because the true airspeed <I>V</I>, angle of attack <I>alpha</I>, and sideslip angle <I>beta</I> have been used as state variables in stead of <I>u</I>, <I>v</I>, and <I>w</I>.
+
+<H3>Parameters that need to be defined in the M<SMALL>ATLAB</SMALL> workspace</H3>
+
+<UL>
+<LI><I>GM1</I>: Vector which contains some basic geometrical properties of the aircraft, as well as its mass (which is considered to be constant during the motions of interest). Here, the value of the mass is needed by the masked subsystem block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="accel.htm">Accel</A></FONT></I>. <I>GM1</I> can be loaded to workspace from file by means of the routine <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I>. Use <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="modbuild.htm">MODBUILD</A></FONT></I> first if the datafile does not yet exist.
+<LI><I>xinco</I>: Initial value of state vector. The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="flpath.htm">Flpath</A></FONT></I> extracts the initial value of the angle of attack from <I>xinco</I>, in order to compute the bank angle. Use the routine <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="actrim.htm">ACTRIM</A></FONT></I> to determine a steady-state initial flight condition, or use <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="incoload.htm">INCOLOAD</A></FONT></I> to retrieve an initial condition from file.
+</UL>
+</BODY>
+
+</HTML>

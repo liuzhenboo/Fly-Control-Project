@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Airdata Group</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Airdata Group</FONT></I>
+</H2>
+
+The subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata Group</FONT></I> from the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I> consists of four masked subsystem blocks: <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="atmosph.htm">Atmosph</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="airdata1.htm">Airdata1</A></FONT></I>, <FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><I><A HREF="airdata2.htm">Airdata2</A></I></FONT>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="airdata3.htm">Airdata3</A></FONT></I>. The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Atmosph</FONT></I> computes a number of atmospheric properties, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata1</FONT></I> computes the basic airdata variables, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata2</FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata3</FONT></I> compute additional airdata (-related) variables.
+<BR><BR>
+
+The results from the masked subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Atmosph</FONT></I> are needed by the three <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata</FONT></I> blocks, and the results from <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata1</FONT></I> are needed by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata2 </FONT></I>and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata3</FONT></I>. For this reason, the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Atmosph</FONT></I> has been located on the upper left side of the subsystem, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata1</FONT></I> has been located in the middle of the subsystem, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata2</FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata3</FONT></I> have been located on the lower right side of the subsystem. The vertical shift is needed in order to be able to connect the outputvectors from the different blocks to the <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outports</FONT></I> on the right side of the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata Group</FONT></I>.
+<BR><BR>
+
+<B>Note</B>: ICAO Standard Atmosphere is used for the atmosphere model. See for instance <A HREF="#Standard Atmosphere">ref.[1]</A> for details about that model.
+
+<H3>Inputvector: <I>x</I>
+</H3>
+<PRE>  x = [V alpha beta p q r psi theta phi xe ye H]'        (states)
+
+  V    : true airspeed [m/s]
+ {alpha: angle of attack [rad]                                  }
+ {beta : sideslip angle [rad]                                   }
+ {p    : roll-rate [rad/s]                                      }
+ {q    : pitch-rate [rad/s]                                     }
+ {r    : yaw-rate [rad/s]                                       }
+ {psi  : yaw-angle [rad]                                        }
+ {theta: pitch-angle [rad]                                      }
+ {phi  : roll-angle [rad]                                       }
+ {xe   : X-coordinate, relative to Earth-axes [m]               }
+ {ye   : Y-coordinate, relative to Earth-axes [m]               }
+  H    : altitude above sea level [m]
+</PRE>
+
+The accolades denote state variables which are not needed by the masked subsystem blocks in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata Group</FONT></I>.
+
+<H3>Outputvectors: <I>yatm</I>, <I>yad1</I>, <I>yad2</I>, and <I>yad3</I>
+</H3>
+<PRE>  yatm = [rho ps T mu g]'                  (outputs from <A HREF="atmosph.htm">Atmosph</A>)
+  yad1 = [a M qdyn]'                      (outputs from <A HREF="airdata1.htm">Airdata1</A>)
+  yad2 = [qc Ve Vc]'                      (outputs from <A HREF="airdata2.htm">Airdata2</A>)
+  yad3 = [Tt Re Rc]'                      (outputs from <A HREF="airdata3.htm">Airdata3</A>)
+
+
+  rho  : air density [kg/m^3]
+  ps   : static pressure [N/m^2]
+  T    : air temperature [K]
+  mu   : dynamic viscosity [kg/(m*s)]
+  g    : acceleration of gravity [m/s^2]
+
+  a    : speed of sound [m/s]
+  M    : Mach number [-]
+  qdyn : dynamic pressure [N/m^2]
+
+  qc   : impact pressure [N/m^2]
+  Ve   : equivalent airspeed [m/s]
+  Vc   : calibrated airspeed [m/s]
+
+  Tt   : total temperature [K]
+  Re   : Reynolds number per unit length [1/m]
+  Rc   : Reynolds number with respect to mean aerodyn. chord [-]
+</PRE>
+
+<H3>Parameters which must be defined in the M<SMALL>ATLAB</SMALL> Workspace
+</H3>
+<UL>
+<LI><I>GM1</I>: vector with some important geometrical properties of the 'Beaver' aircraft, and the mass of the aircraft (which is assumed to be constant during the motions of interest). This vector is needed by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata3</FONT></I>.
+<I>GM1</I> can be loaded into the workspace from file by running the utility <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I>. Run <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="modbuild.htm">MODBUILD</A></FONT></I> first if the datafile does not yet exist.
+</UL>
+
+<H3><A NAME= "Standard Atmosphere">References</A></H3>
+
+<OL>
+<LI>Ruijgrok, G.J.J. <EM>Elements of airplane performance</EM>. Delft University Press, Delft, The Netherlands, 1993.
+</OL>
+
+
+</BODY>
+
+</HTML>

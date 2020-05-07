@@ -1,0 +1,9 @@
+-----------------------------------------------------------------
+INCOLOAD.M is a Matlab routine for loading all kinds of model-
+data, trimmed flight conditions, linearized aircraft models, etc.
+from datafiles.
+
+Type HELP INCOLOAD for more info.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

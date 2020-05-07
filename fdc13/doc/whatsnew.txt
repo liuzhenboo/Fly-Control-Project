@@ -1,0 +1,220 @@
+Change log
+==========
+
+
+Introduction
+============
+After the release of version 1.2 it was planned not to distribute a new
+FDC version until a significantly better user-interface would have been
+developed. However, due to the release of Matlab 5 / Simulink 2 it proved
+to be necessary to make an interim-release of the package. Version 1.3 of
+the FDC toolbox is therefore nothing more than a somewhat improved version
+1.2 with Matlab 5 / Simulink 2 compatibility. Full Matlab 5 / Simulink 2
+functionality has not yet been obtained, but the package will certainly keep
+evolving in the right direction.
+
+Since the first release of FDC 1.3, two so-called 'Service Releases' were
+created, which fixed a couple of minor bugs without adding any significant
+new features. All major development efforts were directed at the new version
+FDC 2.0, which is still very much a work in progress. This third minor
+update, called FDC 1.3.3, reflects a change in licensing terms only.
+
+
+
+FDC 1.3.3
+=========
+*  This is the first release that has been made available on SourceForge. It
+   is identical to FDC 1.3 SR2, but has been re-licensed under the Dutchroll
+   Open Source Software License (DOSSL) version 1.0 (see LICENSE.TXT for more
+   details).
+
+*  New version numbering: the Service Release logic has been replaced by a
+   more straightforward scheme that uses a third number to denote minor
+   changes. Working backwards, this yields:
+
+   FDC 1.3     -> FDC 1.3.0
+   FDC 1.3 SR1 -> FDC 1.3.1
+   FDC 1.3 SR2 -> FDC 1.3.2
+
+   and consequently, this new minor release is called FDC 1.3.3.
+
+
+FDC 1.3 SR2
+===========
+*  Corrected some small bugs and further improved behavior for non-Windows
+   platforms
+
+
+FDC 1.3 SR1
+===========
+*  Converted the filenames of the HTML-helpfiles to lower-case and fixed the
+   HTML-links accordingly in order to solve HTML referencing problems on
+   non-Windows computers. As far as I could tell, the HTML-links in the
+   Simulink systems were typeset in lower-case already, except for the block
+   BLWIND in the library WINDLIB, but the links inside the HTML-files themselves
+   all needed to be updated. If you still encounter link problems, please
+   send an e-mail to rauw@worldonline.nl.
+
+*  Included the missing REFSGNLS.HTM file.
+
+*  Enhanced the font-lists within the HTML-helpfiles for non-Windows platforms.
+   Also decreased the fontsize. The results seem to be quite good on modern
+   browsers such as IE3, IE4, Netscape 3, and Netscape 4. Older browsers may
+   have more problems with the lay-out, but the results will still be acceptable.
+   If necessary, use the font-size option in your browser.
+
+*  Replaced some DOS-specific path and file-separators which were left unnoticed
+   in the first release of FDC 1.3 by generic 'filesep' and 'pathsep' commands.
+
+
+FDC 1.3
+=======
+*  The user-interface of the load routines LOADER and INCOLOAD has been
+   improved by applying the function UIGETFILE to specify the filename
+   and path.
+
+*  The user-interface of the save routines within ACTRIM and ACLIN has been
+   improved by applying UIPUTFILE to specify the filename and path.
+
+*  Previous versions of the FDC toolbox used the block-diagram of the
+   aircraft model as an S-function. Unfortunately, the ability to use a
+   block diagram as an S-function wasn't implemented in Simulink 2.0.
+   The Mathworks claims that there is no workaround and that work is in
+   progress to reimplement this functionality or an equivalent for a later
+   release, but that doesn't solve the problem. For that reason, the
+   S-function blocks that call the aircraft model from the systems OLOOP1,
+   OLOOP2, OLOOP3, APILOT1, APILOT2, and APILOT3 have been replaced by a
+   masked subsystem-equivalent of the S-function BEAVER. Actually, this
+   change has several advantages over the original version, in particular
+   since the potential disadvantages of this method have largely been
+   eliminated by other new Simulink options such as the improved block-
+   library support. The most noticable consequences of the use of a subsystem
+   equivalent of the S-function BEAVER are:
+
+   - The size of the systems OLOOP1, OLOOP2, OLOOP3, APILOT1, APILOT2, and
+     APILOT3 has been increased considerably. Luckily, downloading is still
+     quite fast due to the new MDL file-format.
+   - The input/output connections in the block-diagrams were streamlined,
+     although care has been taken to maintain system compatibility by using
+     the same input/output signals as before. In fact, a more radical
+     simplification of the input/output relations of the aircraft model can
+     be obtained here, but that will be postponed for a future release of
+     the toolbox.
+
+*  A completely new on-line help facility, based upon HTML language, has
+   been created. As in FDC 1.2, double-clicking on title blocks in Simulink
+   diagrams opens the on-line help facility, but the new version uses a
+   web-browser to show the help texts (note: the on-line help facility won't
+   function without a web-browser!). Some advantages:
+
+   - fundamentally improved lay-out and enhanced readability
+   - hyperlinks provide connections to related subjects in the on-line help
+     database
+
+   Moreover, additional help-texts for APINIT, APMODE, NAVLIB, WINDLIB, and
+   RECOVER have been created, and a large number of small errors and
+   omissions in the old help texts (*.HLP) have been fixed. In addition,
+   pressing the HELP button of a masked Simulink block from the FDC toolbox
+   now provide an automatic link to your web-browser. The HELP subfolder
+   of the FDC toolbox still contains the old *.HLP files (even slightly
+   improved ones) for compatibility reasons.
+
+   Note: typing fdchelp('index') at the command-line will reveal the index-
+   page of the HTML-helpfiles for FDC 1.3.
+
+*  Clicking the HELP button of masked subsystems now provides a direct link
+   to the new HTML helpfiles. Much more comfortable than before!
+
+*  Many small editorial changes to the models and tools help improve their
+   readability.
+
+*  Autopilot systems: button-blocks now contain the names of the Matlab
+   routines which will run after the blocks are double clicked. Subsystem
+   `Computational Delay & Limiters' has got its own on-line help text.
+
+*  Graphical systems now stored in the new MDL format of Simulink 2.
+   The `button'-library BUTTONS has been renamed to FBUTTONS to prevent
+   clashes with the new Matlab 5 routine BUTTONS.M.
+
+*  FDCLIB, NAVLIB, and WINDLIB are now saved as Simulink libraries instead
+   of 'ordinary' Simulink models (also a new feature of Simulink 2).
+
+*  To prevent Simulink from issuing warning messages about blocks which
+   were purposedly left unconnected, the ground and termination blocks
+   from Simulink 2 have been applied. This is for instance clearly
+   visible in the systems OLOOP1, OLOOP2, and OLOOP3 and the autopilot
+   systems. If you don't mind the warning messages you may delete these
+   blocks, since their appearance in the graphical systems is actually
+   quite ugly...
+
+*  Several blocks from the Simulink block-diagrams were replaced by new
+   Simulink 2 versions.
+
+*  Removed revision dates from title blocks of subsystems. Revision date
+   is now only shown in masked subsystems and top-level (saves me a lot of
+   time and prevents confusing mistakes). Replaced title blocks for auto-
+   pilot control modes by simple blue text-line and added similar lines to
+   autopilot-blocks which previously didn't have a title-block at all.
+
+*  All graphical block-diagrams are now optimized for a screen-resolution
+   of 800x600 pixels or more (was 640x480 or more).
+
+*  Formatted most Mux blocks as thin black bars (makes the systems more
+   comprehensive).
+
+*  Added revision history lists to the Matlab programs.
+
+*  The autopilot initialization routines have been improved by eliminating
+   command-window messages where possible (not yet realized for places where
+   user inputs are required).
+
+*  Installation routine has been streamlined, using new self-extracting
+   ZIP technology for MS-Windows. Default destination directory for the
+   installation will now be C:\MATLAB\TOOLBOX\FDC13 (can be changed
+   easily during the installation, e.g. if your Matlabroot is not equal
+   to C:\MATLAB) and default directory used by FDC initialization routines
+   is set to MATLABROOT\TOOLBOX\FDC13.
+
+*  CONTENTS.TXT file from the subfolder DOC now only contains a file-list.
+   More information is available in the CONTENTS.M files, which will be
+   shown if you use HELPWIN at the command-line and double-click the
+   references to the FDC subfolders.
+
+*  FDCINIT.M now shows graphically more appealing welcome screen, which
+   isn't as irritating for new users as the old welcome-screens. Furthermore,
+   a menu is displayed after initialization, guiding the user to the main
+   FDC library (FDCLIB) or the on-line help-texts as desired. Many smaller
+   changes in this utility have improved the path-definitions for the FDC
+   toolbox (hopefully eliminating some of the compatibility problems expe-
+   rienced by users who ran FDC on a UNIX machine or MAC).
+
+
+Earlier FDC versions
+====================
+See HISTORY.TXT for a complete overview of the FDC development since the very
+first version of the FDC toolbox.
+
+
+
+References
+==========
+The main source of information about the FDC toolbox is the following
+report:
+
+    FDC 1.2 - A Simulink Toolbox for Flight Dynamics and Control
+    Analysis. Marc Rauw, Zeist, The Netherlands, March 1997.
+
+Since the toolbox has not been altered fundamentally, this reference is
+still largely valid, except for some sections concerning user-interface
+and on-line help functions.
+
+Contrary to earlier plans, specific documentation for FDC 1.3 will not
+be published. So far, I haven't got any user-reports about difficulties
+with the documentation, so I better spend my time on upgrading the software
+itself.
+
+---------------------------------------------------------------------
+The FDC toolbox. Copyright M.O. Rauw, 1994-2002. All rights reserved.
+This software is licensed under the Dutchroll Open Source Software
+License (DOSSL), version 1.0. See LICENSE.TXT in the DOC subdirectory
+for detailed information.

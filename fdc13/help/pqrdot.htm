@@ -1,0 +1,64 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: pqrdot</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">pqrdot</FONT></I></H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">pqrdot</FONT></I> is a S<SMALL>IMULINK</SMALL> subsystem which is used to compute the time-derivatives of the angular body-axes velocities <I>p</I>, <I>q</I>, and <I>r</I>. The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">pqrdot</FONT></I> is contained in the sub-sub-system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="12odes.htm">12 ODEs</A></FONT></I> of the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="eqmotion.htm">Aircraft Equations of Motion</A></FONT></I> in the S-function <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>. The remaining nine differential equations are stored in the subsystems <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vabdot.htm">Vabdot</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="eulerdot.htm">Eulerdot</A></FONT></I>, and <FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><I><A HREF="xyhdot.htm">xyHdot</A></I></FONT>, which are all contained in <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">12 ODEs</FONT></I>.
+
+<H3>Inputvector: <I>upqr</I>
+</H3>
+<PRE>  upqr = [x' Ftot' Mtot' yhlp'],
+
+  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+
+  Ftot = [Fx Fy Fz]'           (total forces along the body-axes,
+                                    computed in the block <A HREF="fmsort.htm">FMsort</A>)
+
+  Mtot = [L M N]'             (total moments along the body-axes,
+                                    computed in the block <A HREF="fmsort.htm">FMsort</A>)
+
+  yhlp = [cos(alpha) sin(alpha) cos(beta) sin(beta) ...
+          ... tan(beta) sin(psi) cos(psi) sin(theta) ...
+          ... cos(theta) sin(phi) cos(phi)]'
+                (sines and cosines, coming from the block <A HREF="hlpfcn.htm">Hlpfcn</A>)
+
+
+ {V    : airspeed [m/s]                                          }
+ {alpha: angle of attack [rad]                                   }
+ {beta : sideslip angle [rad]                                    }
+  p    : roll rate [rad/s]
+  q    : pitch rate [rad/s]
+  r    : yaw rate [rad/s]
+ {psi  : yaw angle [rad]                                         }
+ {theta: pitch angle [rad]                                       }
+ {phi  : roll angle [rad]                                        }
+ {xe   : x-coordinate in Earth-fixed reference frame [m]         }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]         }
+ {H    : altitude above sea-level [m]                            }
+
+ {Fx, Fy, Fz: total forces along the aircraft's body-axes [N]    }
+  L, M, N   : total moments along the aircraft's body-axes [Nm]
+</PRE>
+
+The inputvariables which are not actually used by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">pqrdot</FONT></I> have been displayed between accolades.
+None of the elements of <I>yhlp</I> are used by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">pqrdot</FONT></I>.
+
+<H3>Outputvector: <I>ypqr</I>
+</H3>
+<PRE>  ypqr = [pdot qdot rdot]'
+
+  pdot : dp/dt [rad/s^2]
+  qdot : dq/dt [rad/s^2]
+  rdot : dr/dt [rad/s^2]
+</PRE>
+
+<H3>Parameters which must be loaded in the M<SMALL>ATLAB</SMALL> Workspace
+</H3>
+<I>GM2</I>: matrix with inertia parameters of the 'Beaver' aircraft (which is assumed to be constant during the motions of interest). <I>GM2</I> can be loaded into the workspace by calling the routine <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I>. Use <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="modbuild.htm">MODBUILD</A></FONT></I> if the datafile with model parameters does not yet exist.
+
+</BODY>
+
+</HTML>

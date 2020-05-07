@@ -1,0 +1,18 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Autopilot utility APINIT</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>The autopilot initialization routine <I><FONT FACE="Arial","Helvetica","Sans Serif">APINIT</FONT></I></H2>
+
+The M<SMALL>ATLAB</SMALL> program <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">APINIT</FONT></I> can be used to initialize the autopilot systems <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT1">APILOT1</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT2">APILOT2</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT3">APILOT3</A></FONT></I>, and the non-linear aircraft model <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>. This routine needs to be runned before starting a new simulation <I>and</I> before editing the system (the latter is not really necessary, although S<SMALL>IMULINK</SMALL> will sometimes complain about missing parameters if the system is edited without having initialized the system).
+<BR><BR>
+
+The program can be started by typing <CODE>apinit</CODE> at the M<SMALL>ATLAB</SMALL> command-line, or by double-clicking the <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">APINIT</FONT></I> button in the autopilot systems. First, a graphical user-menu will be displayed. The user must click the buttons in the appropriate order and enter all necessary values at the M<SMALL>ATLAB</SMALL> command-line (for the simplified system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">APILOT1</FONT></I> the VOR/ILS initialization may be skipped). <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">APINIT</FONT></I> calls several subroutines; see the source-code of <SMALL>APINIT.M</SMALL> in the FDC directory <SMALL>APILOT</SMALL> for more details.
+<BR><BR>
+
+<B>Note:</B> <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">APINIT</FONT></I> does not initialize the autopilot mode and reference values of the control inputs. Those values should be defined with the routine <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apmode.htm">APMODE</A></FONT></I>.
+
+</BODY>
+
+</HTML>

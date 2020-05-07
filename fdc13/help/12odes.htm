@@ -1,0 +1,115 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: 12 ODEs</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">12 ODEs</FONT></I>
+</H2>
+
+The dynamics of a rigid aircraft have been written in terms of
+12 Ordinary Differential Equations (ODEs). The subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">12 ODEs</FONT></I>,
+which is contained in the 3<SUP>rd</SUP> level subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="eqmotion.htm">Aircraft Equations
+of Motion (Beaver)</A></FONT></I> of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>, contains the general
+state equations for rigid aircraft, which are fully independent of
+the aircraft under consideration. The twelve state equations are
+valid only when four restrictive assumptions are made:
+
+<OL>
+<LI>the airframe is assumed to be a rigid body in the motion under consideration
+
+<LI>the airplane's mass is assumed to be constant during the time interval in which its motions are studied
+
+<LI>the Earth is assumed to be fixed in space, i.e. its rotation is neglected
+
+<LI>the curvature of the Earth is neglected.
+</OL>
+
+<H3>Structure of the subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">12 ODEs</FONT></I>
+</H3>
+
+In the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">12 ODEs</FONT></I>, these twelve state equations have been separated in four masked subsystem blocks:
+
+<OL>
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vabdot.htm">Vabdot</A></FONT></I> contains ODEs for the true airspeed <I>V</I>, the angle of attack <I>alpha</I>, and the sideslip angle <I>beta</I>, which have been derived from Newton's law for translational motions
+
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="pqrdot.htm">pqrdot</A></FONT></I> contains ODEs for the rotational speeds along the aircraft's body-axes, <I>p</I>, <I>q</I>, and <I>r</I>, which have been derived from Newton's law for rotational motions
+
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="eulerdot.htm">Eulerdot</A></FONT></I> contains ODEs for the Euler angles <I>psi</I>, <I>theta</I>, and <I>phi</I>, which determine the attitude of the aircraft relatively to the Earth; derived from basic kinematic relations
+
+<LI><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="xyhdot.htm">xyHdot</A></FONT></I> contains ODEs for the coordinates <I>x<SUB>e</SUB></I> and <I>y<SUB>e</SUB></I>, and the altitude <I>H</I>, all measured relatively to the (flat, non-rotating) Earth; derived from basic kinematic relations
+</OL>
+
+These four masked subsystems all use the inputvector [<I>x<SUP>T</SUP></I> <I>Ftot<SUP>T</SUP></I> <I>Mtot<SUP>T</SUP></I> <I>yhlp<SUP>T</SUP></I>]<I><SUP>T</SUP></I>. In <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">12 ODEs</FONT></I>, the different subvectors are first 'Muxed' together into one large inputvector for <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Vabdot</FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">pqrdot</FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Eulerdot</FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">xyHdot</FONT></I>. The position of the aircraft relative to the Earth depends upon the velocity components along the aircraft's body-axes, taking into account both the velocity of the aircraft with respect to the surrounding air, and the contributions due to atmospheric disturbances (wind and turbulence). This explains why <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">xyHdot</FONT></I> has an additional input line.
+<BR><BR>
+
+The outputs from <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Vabdot</FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">pqrdot</FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Eulerdot</FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">xyHdot </FONT></I>are 'Muxed' together, to build one large vector <I>xdot</I> (time-derivative of the state vector). Note: the equations in the subsystem <FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><I>12 ODEs</I></FONT> are fully independent of the aircraft under consideration. In practice, the equations of motion may become implicit, for instance if alpha-dot or beta-dot terms enter the force-equations of the aerodynamic model. If these equations are written out as explicit equations (in practice, this will often be possible), the twelve ODEs will contain aircraft-dependent terms. In the system <FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><I><A HREF="beaver.htm">Beaver</A></I></FONT>, this problem has been solved by neglecting these terms in the subsystem <FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><I>12 ODEs</I></FONT>, and making corrections to the vector <I>xdot </I>afterwards in the masked subsystem
+<FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><I><A HREF="xdotcorr.htm">xdotcorr</A></I></FONT>.
+
+<H3>Inputs to the subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">12 ODEs</FONT></I>
+</H3>
+<PRE> x    = [V alpha beta p q r psi theta phi xe ye H]'   (states)
+
+ Ftot = [Fx Fy Fz]'         (total external forces along body-axes,
+                                        computed in the block <A HREF="fmsort.htm">FMsort</A>)
+
+ Mtot = [L M N]'            (total external moments along body-axes,
+                                        computed in the block <A HREF="fmsort.htm">FMsort</A>)
+
+ yhlp = [cos(alpha) sin(alpha) cos(beta) sin(beta) tan(beta) ...
+           ... sin(psi) cos(psi) sin(theta) cos(theta) ...
+           ... sin(phi) cos(phi) ]'
+                      (sines & cosines, computed in the block <A HREF="hlpfcn.htm">Hlpfcn</A>)
+
+ [u+uw v+vw w+ww]'        (body-axes velocity components, including
+                          contributions due to non-steady atmosphere)
+
+
+  V    : true airspeed [m/s]
+ {alpha: angle of attack [rad]                                   }
+ {beta : sideslip angle [rad]                                    }
+  p    : roll-rate [rad/s]
+  q    : pitch-rate [rad/s]
+  r    : yaw-rate [rad/s]
+ {psi  : yaw-angle [rad]                                         }
+ {theta: pitch-angle [rad]                                       }
+ {phi  : roll-angle [rad]                                        }
+ {xe   : X-coordinate, relative to Earth-axes [m]                }
+ {ye   : Y-coordinate, relative to Earth-axes [m]                }
+ {H    : altitude above sea level [m]                            }
+
+  Fx, Fy, Fz: total external forces along body-axes [N]
+  L, M, N   : total external moments along body-axes [Nm]
+
+  u    : component of V along XB-axis [m/s]
+  v    : component of V along YB-axis [m/s]
+  w    : component of V along ZB-axis [m/s]
+
+  uw   : wind+turbulence velocity component along XB-axis [m/s]
+  vw   : wind+turbulence velocity component along YB-axis [m/s]
+  ww   : wind+turbulence velocity component along ZB-axis [m/s]
+</PRE>
+
+The inputvariables which are not used by any of the blocks <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vabdot.htm">Vabdot</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="pqrdot.htm">pqrdot</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="eulerdot.htm">Eulerdot</A></FONT></I>, or <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="xyhdot.htm">xyHdot</A></FONT></I>, are displayed between accolades. The angles <I>alpha</I>, <I>beta</I>, <I>psi</I>, <I>theta</I>, and <I>phi</I> do play an important role in the ODEs, but for reasons of efficiency, they have been extracted from the helpvector <I>yhlp</I>, which contains the sines and cosines of these angles. The subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="hlpfcn.htm">Hlpfcn </A></FONT></I>in the 2<SUP>nd</SUP> level of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I> is used to create this helpvector. All elements from the vector <I>yhlp</I> are used by the blocks from <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">12 ODEs</FONT></I>.
+
+<H3>Output from the subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">12 ODEs</FONT></I>
+</H3>
+<PRE> xdot = dx/dt
+</PRE>
+
+Note: the vector <I>xdot</I> which leaves the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">12 ODEs</FONT></I> does not yet take into account the aircraft-dependent influences which are induced when writing out the implicit differential equations as a set of explicit ODEs. For the 'Beaver', this means that the influence of the beta-dot term in the aerodynamic sideforce is neglected up to the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">12 ODEs</FONT></I>. In the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="eqmotion.htm">Aircraft Equations of Motion (Beaver)</A></FONT></I>, the masked subsystem <FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><I><A HREF="xdotcorr.htm">xdotcorr (Beaver)</A></I></FONT> takes care of the appropriate corrections to <I>xdot</I>. This subsystem also contains a gain block <I><A HREF="xfix.htm"><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">XFIX</FONT></I></A></I>, which makes it possible to fix some of the states artificially to their initial values.
+
+<H3>Parameters which must be defined in the M<SMALL>ATLAB</SMALL> workspace
+</H3>
+
+The subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">12 ODEs </FONT></I>needs the following parameters to be defined in the M<SMALL>ATLAB</SMALL> workspace:
+
+<UL>
+<LI> <I>GM1</I>: matrix with the basic geometric properties and the mass of the aircraft
+
+<LI> <I>GM2</I>: matrix with inertia parameters of the aircraft
+</UL>
+
+You may use the load routine <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I> to load these parameters from file. Use <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="modbuild.htm">MODBUILD</A></FONT></I> to create such datafiles.
+
+</BODY>
+</HTML>

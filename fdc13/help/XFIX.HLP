@@ -1,0 +1,63 @@
+-----------------------------------------------------------------
+XFIX is a standard Simulink gain-block, which is used in the sub-
+system 'Aircraft Equations of Motion' (level 3) of the aircraft
+model BEAVER to atificially fix states to their initial values.
+The value of the constant xfix needs to be defined in the Matlab
+workspace before starting a simulation or any other evaluation of
+the system BEAVER.
+
+How does it work?
+=================
+The gain XFIX multiplies the vector with time-derivatives of the
+state variables, xdot, with the gain-factor xfix. If the user
+does not impose artificial restrictions upon the states, xfix
+will be equal to one, and the outputvector from XFIX is equal to
+xdot, according to the equations of motions. The same result is
+obtained when the constant xfix is equal to a vector of length
+12 with elements that are all equal to one.
+
+If, however, the user wants to fix some of the twelve states to
+their initial values, xfix needs to be equalled to a vector of
+length 12 with elements that are all equal to one, EXCEPT for the
+element numbers that correspond with the states that must be
+fixed. If the user wants to fix the first, fifth, and last states
+to their initial values, the first, fifth, and last element of
+xfix must be set to zero. In that case, the input/output structure
+around the block XFIX looks like:
+
+
+xdot_in = [V dot;      \             /    xdot_out = [  0
+           alpha dot;  |             |                 alpha dot;
+           beta dot;   |             |                 beta dot;
+           p dot;      |             |                 p dot;
+           q dot;      |             |                  0
+           r dot;      |             |                 r dot;
+           psi dot;    |>  * xfix   <|                 psi dot;
+           theta dot;  |             |                 theta dot;
+           phi dot;    |             |                 phi dot;
+           xe dot;     |             |                 xe dot;
+           ye dot;     |             |                 ye dot;
+           H dot]      /             \                  0 ]
+
+
+Since the first, fifth, and last elements of xdot are always
+artificially set to zero, the corresponding states will always be
+equal to their initial values!
+
+The constant xfix is, by default, set to 1 if the routine LOADER
+is applied to define the system parameters in the Matlab work-
+space. Run FIXSTATE.M if you really want to fix a number of state
+variables, for instance if you want to analyze symmetrical or
+asymmetrical motions only, or if you want to fix the airspeed to
+its initial value, representing an 'ideal' autothrottle system.
+
+More info
+=========
+Type HELP FIXSTATE for more info about the definition of the con-
+stant xfix in the Matlab workspace. See EQMOTION.HLP for more in-
+fo about the subsystem 'Aircraft Equations of Motion' in the sys-
+tem BEAVER. Type HELP LOADER for more info about the definition
+of other system parameters.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

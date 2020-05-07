@@ -1,0 +1,28 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: SYSTPROP</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>The utility <I><FONT FACE="Arial","Helvetica","Sans Serif">SYSTPROP</FONT></I></H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">SYSTPROP</FONT></I> computes the following properties of a linear system:
+<PRE>     1. time constant                             tau
+     2. natural frequency of undamped system      w0
+     3. eigenfrequency of the system              wn
+     4. period                                    P
+     5. damping factor                            zeta
+     6. percentage overshoot                      PO
+     7. peak-time                                 Tpeak
+     8. settling time                             Tset
+     9. halve-time                                Thalve
+</PRE>
+Conclusions are displayed on screen and stored in the file <SMALL>SYSTPROP.DAT</SMALL>.<BR><BR>
+
+<CODE>[X,Y] = systprop(A,B,C,D)</CODE> or <CODE>[X,Y] = systprop(A)</CODE> will return the system properties in the matrix <I>X</I> and the eigenvalues of <I>A</I> in the columnvector <I>Y</I>. The matrix <I>X</I> is defined as: <I>X = [tau, w0, wn, P, zeta, PO, Tpeak, Tset, Thalve]</I>.<BR><BR>
+
+<CODE>[X,Y] = systprop(num,den)</CODE> will evaluate the equivalent transfer function representation. <BR><BR>
+
+<CODE>systprop(Y)</CODE> returns the vector <I>X</I> if <I>Y</I> contains the eigenvalues of a system in a columnvector.
+</BODY>
+
+</HTML>

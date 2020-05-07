@@ -1,0 +1,91 @@
+-----------------------------------------------------------------
+AEROMOD (Beaver) is a masked Simulink subsystem, used to compute
+aerodynamic force and moment coefficients for the DHC-2 'Beaver'.
+The aerodynamic model is aircraft-dependent, hence, this block
+must be replaced if models of other aircraft are to be implemen-
+ted in the simulation structure of FDC. Instant replacement of
+the block AEROMOD (Beaver) is possible only if the same inputs
+and outputs to and from this block remain the same. However, the
+internal structure of a new block AEROMOD may look completely
+different. For instance, the aerodynamic model of the DHC-2 'Bea-
+ver', contained in AEROMOD (Beaver) determines the force and mo-
+ment coefficients by means of evaluation of six polynomial equa-
+tions, whereas in other cases, it is more customary to compute
+aerodynamic forces and moments by means of interpolation in large
+multi-dimensional tables. The block AEROMOD is contained in the
+subsystem 'Aerodynamics Group (Beaver)' of the system BEAVER.
+
+The force coefficient with respect to beta-dot has not been in-
+cluded in the block AEROMOD (Beaver), because it would have yiel-
+ded an algebraic loop. Therefore, the beta-dot equation has been
+written out as an explicit equation, which has been included in
+the block XDOTCORR, in the subsystem 'Aircraft Equations of
+Motion'. See XDOTCORR.HLP for more details.
+
+
+Inputvectors: x, uaero, ydl (the inputvariables which are not
+used by AEROMOD are displayed between accolades).
+==============================================================
+  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+  uaero= [deltae deltaa deltar deltaf]'      (aerodynamic inputs)
+  ydl  = [pb/2V qc/V rb/2V]'           (dimensionless velocities,
+                                   computed in the block DIMLESS)
+
+where:
+
+ {V    : airspeed [m/s]                                         }
+  alpha: angle of attack [rad]
+  beta : sideslip angle [rad]
+ {p    : roll rate [rad/s]                                      }
+ {q    : pitch rate [rad/s]                                     }
+ {r    : yaw rate [rad/s]                                       }
+ {psi  : yaw angle [rad]                                        }
+ {theta: pitch angle [rad]                                      }
+ {phi  : roll angle [rad]                                       }
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+
+  deltae: elevator deflection [rad]
+  deltaa: deflection of the ailerons [rad]
+  deltar: rudder deflection [rad]
+  deltaf: flap setting [rad]
+
+  pb/2V: dimensionless roll rate [-]
+  qc/V : dimensionless pitch rate [-]
+  rb/2V: dimensionless yaw rate [-]
+
+Outputvector: Caero.
+====================
+  Caero = [CXa CYz CZa Cla Cma Cna]'
+
+where:
+
+  CXa, CYa, CZa: dimensionless aerodynamic force coefficients
+  Cla, Cma, Cna: dimensionless aerodynamic moment coefficients.
+
+Parameters, which must be set in the Matlab Workspace.
+======================================================
+  AM = matrix with stability and control derivatives of the
+       'Beaver' (valid only for the nonlinear aerodynamic model
+       of the DHC-2 'Beaver', see ref.[1]). The matrix AM can
+       be loaded into the Matlab workspace from file by calling
+       LOADER.M. Run MODBUILD.M first if this datafile does not
+       yet exist. Type HELP LOADER or HELP MODBUILD for more info.
+
+References.
+===========
+[1]  R.T.H. Tjee and J.A. Mulder. Stability and Control Deriva-
+     tives of the De Havilland DHC-2 "Beaver" aircraft. Report
+     LR-556, Delft University of Technology, 1988.
+
+More info.
+==========
+See also FMDIMS.HLP, DIMLESS.HLP, and AEROGRP.HLP. See the help
+file XDOTCORR.HLP for more info about the correction to beta-dot
+which in the case of the 'Beaver' aircraft is needed to compen-
+sate for the neglection of the beta-dot influence upon the aero-
+dynamic sideforce Ya (CYa).
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

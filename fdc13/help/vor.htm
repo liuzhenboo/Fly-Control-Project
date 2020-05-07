@@ -1,0 +1,46 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: VOR</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>The radio-navigation block <I><FONT FACE="Arial","Helvetica","Sans Serif">VOR (Nominal VOR signals)</FONT></I></H2>
+
+The masked subsystem block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">VOR</FONT></I>, from the VOR sublibrary of the <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="navlib.htm">NAVLIB</A></FONT></I> block-library, calculates VOR signals which an aircraft receives when it flies at a certain position with respect to a certain user-specified reference VOR bearing. The coordinates of the VOR antenna, measured relatively to the Earth-bounded reference frame, must be defined by the user for <I>t</I> = 0. See the <A HREF="#References">references</A> below for more information.<BR><BR>
+
+<B>Note:</B> the block VOR determines the nominal VOR signals, without taking into account noise and/or steady-state errors. For the latter kind of errors in the VOR signal, a separate block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vorerr.htm">VORerr</A></FONT></I> has been created. The system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vorxmpl.htm">VOR example</A></FONT></I> demonstrates how these blocks can be combined.
+
+<H3>Inputsignals: <I>uvor1</I> and <I>uvor2</I></H3>
+<PRE> uvor1 = [xe ye H]',
+ uvor2 = psi.
+
+ xe : X-coordinate of aircraft in Earth-fixed reference frame [m]
+ ye : Y-coordinate of aircraft in Earth-fixed reference frame [m]
+ H  : altitude of aircraft above sea level [m]
+ psi: heading of the aircraft (yaw angle) [rad]
+</PRE>
+<B>Note:</B> these signals are outputs from the non-linear aircraft dynamics model (e.g. from the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>).
+
+<H3>Outputsignals: <I>yvor1</I>, <I>yvor2</I>, and <I>yvor3</I></H3>
+<PRE> yvor1 = Gamma_VOR: Angle between chosen VOR-bearing and line
+                    from aircraft's c.g. to VOR antenna [rad]
+ yvor2 = R_VOR    : 2D-distance from origin Earth-fixed reference
+                    frame to VOR (as seen from above) [m]
+
+ yvor3 = [Cone-of-silence-flag, Range-flag]'.
+ yvor4 = ToFrom
+</PRE>
+The Cone-of-silence-flag is set to 1 if the aircraft enters the 'cone of silence'. The Range-flag is set to 1 if the aircraft flies outside the area where the VOR signals can be received with appropriate reliability.<BR><BR>
+
+The variable <I>ToFrom</I> is set to 1 if aircraft is flying towards the VOR antenna or 0 if the aircraft flies away from the antenna.
+
+<H3><A NAME= "References">References</A></H3>
+
+For more information about the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">VOR</FONT></I>, consult the following references:
+<OL>
+<LI>M.O. Rauw: <I>FDC 1.2 - A S<SMALL>IMULINK</SMALL> Environment for Flight Dynamics and Control Analysis</I>. Zeist, The Netherlands, March 1997.
+<LI>M.O. Rauw: <I>A S<SMALL>IMULINK</SMALL> environment for Flight Dynamics and Control analysis - Application to the DHC-2 'Beaver'</I>. MSc-thesis, Delft University of Technology, Faculty of Aerospace Engineering, Delft, The Netherlands, 1993.
+</OL>
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,221 @@
+Library {
+  Name			  "fdclib7"
+  Version		  2.09
+  PaperOrientation	  landscape
+  PaperType		  usletter
+  PaperUnits		  inches
+  BlockDefaults {
+    Orientation		    right
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    NamePlacement	    normal
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+    ShowName		    on
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    center
+    VerticalAlignment	    middle
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  System {
+    Name		    "fdclib7"
+    Location		    [9, 44, 478, 518]
+    Open		    on
+    ScreenColor		    white
+    Block {
+      BlockType		      SubSystem
+      Name		      "ini1"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [15, 95, 95, 160]
+      ForegroundColor	      blue
+      BackgroundColor	      cyan
+      DropShadow	      on
+      FontName		      "Arial"
+      ShowName		      off
+      OpenFcn		      "modbuild"
+      ShowPortLabels	      off
+      MaskType		      "modbuild"
+      MaskDisplay	      "disp('(1). Create\\ndatafiles\\n\\n\\nMODBUILD')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"ini1"
+	Location		[0, 0, 364, 143]
+	Open			off
+	ScreenColor		cyan
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "ini2"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [15, 175, 95, 240]
+      ForegroundColor	      blue
+      BackgroundColor	      cyan
+      DropShadow	      on
+      FontName		      "Arial"
+      ShowName		      off
+      OpenFcn		      "loader"
+      ShowPortLabels	      off
+      MaskType		      "loader"
+      MaskDisplay	      "disp('2. Load\\nparameters\\nfrom file\\n\\nLOAD"
+			      "ER')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"ini2"
+	Location		[0, 0, 364, 143]
+	Open			off
+	ScreenColor		cyan
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "ini3"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [15, 255, 95, 320]
+      ForegroundColor	      blue
+      BackgroundColor	      cyan
+      DropShadow	      on
+      FontName		      "Arial"
+      ShowName		      off
+      OpenFcn		      "incoload"
+      ShowPortLabels	      off
+      MaskType		      "incoload"
+      MaskDisplay	      "disp('3. Load initial\\ncondition\\nfrom "
+			      "file\\n\\nINCOLOAD')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"ini3"
+	Location		[0, 0, 364, 143]
+	Open			off
+	ScreenColor		cyan
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "ini4"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [15, 340, 95, 405]
+      ForegroundColor	      blue
+      BackgroundColor	      cyan
+      DropShadow	      on
+      FontName		      "Arial"
+      ShowName		      off
+      OpenFcn		      "fixstate"
+      ShowPortLabels	      off
+      MaskType		      "fixstate"
+      MaskDisplay	      "disp('(4). Fix\\nindividual\\nstates\\n\\nFIXSTA"
+			      "TE')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"ini4"
+	Location		[0, 0, 364, 143]
+	Open			off
+	ScreenColor		cyan
+      }
+    }
+    Annotation {
+      Position		      [241, 27]
+      VerticalAlignment	      top
+      ForegroundColor	      red
+      FontName		      "Arial"
+      FontSize		      11
+      Text		      "Double-click these blocks before starting "
+			      "a new simulation (numbers give right order,\nbra"
+			      "ckets specify blocks which need to be double-cli"
+			      "cked under certain circumstances only).\n\nNote:"
+			      " the trim and linearization blocks have been "
+			      "put in separate sublibrary!"
+    }
+    Annotation {
+      Position		      [285, 187]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      Text		      "<-- Button block which calls LOADER.M to "
+			      "load datafiles with model\nparameters, created "
+			      "by MODBUILD. If these files do not exist, "
+			      "\nor if they need to be changed, run MODBUILD "
+			      "first."
+    }
+    Annotation {
+      Position		      [284, 257]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      Text		      "<-- Button block which calls INCOLOAD.M to "
+			      "load initial condition\n(x0 = xinco, u0 = "
+			      "[ua0; ut0; 0;0;0;0;0;0]) or state matrices "
+			      "of linearized\nmodel from file to workspace. "
+			      "If these datafiles do not exist, run the\ntrim "
+			      "program ACTRIM or linearization program ACLIN "
+			      "first, to generate\nthese files. Buttons "
+			      "to call ACTRIM and ACLIN have been stored "
+			      "in\na separate sublibrary."
+    }
+    Annotation {
+      Position		      [278, 352]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      Text		      "<-- Button block which calls FIXSTATE.M to "
+			      "fix individual states to\ntheir initial values. "
+			      "Under certain circumstances, this may be "
+			      "useful,\nfor instance if you want to examine "
+			      "symmetrical responses only.\nType HELP FIXSTATE "
+			      "for more info. The block FIXSTATE needs\nto "
+			      "be double-clicked before simulating only "
+			      "when you really want to\nfix one or more "
+			      "state variables; otherwise, LOADER will define "
+			      "the \ncorrect setting for the simulation!"
+    }
+    Annotation {
+      Position		      [278, 102]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      Text		      "<-- Button block which calls MODBUILD.M to "
+			      "create datafiles with\nmodel parameters. "
+			      "Currently, MODBUILD.M is configured for\nthe "
+			      "models of the DHC-2 'Beaver', according to "
+			      "report LR556 of\nthe Faculty of Aerospace "
+			      "Engineering (type HELP MODBUILD\nfor more "
+			      "info). If datafiles already exist, MODBUILD "
+			      "does not have\nto be called before simulating. "
+			      "In that case, start with LOADER."
+    }
+    Annotation {
+      Position		      [234, 2]
+      VerticalAlignment	      top
+      ForegroundColor	      blue
+      FontName		      "Times New Roman"
+      FontSize		      14
+      FontWeight	      bold
+      Text		      "FDC Toolbox - Aircraft model initialization "
+			      "blocks"
+    }
+  }
+}

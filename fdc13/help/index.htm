@@ -1,0 +1,229 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Index page</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H1><U>FDC help-index</U></H1>
+
+<H2>Introduction</H2>
+
+This index provides links to all on-line help texts currently available for the FDC toolbox. In the future, more sophisticated lists will be developed. See also the list of <A HREF="#References">references</A> for more information about the FDC toolbox.<BR><BR>
+<BR>
+
+<CENTER><TABLE CELLPADDING=3 CELLSPACING=2 BORDER=5>
+<CAPTION>CLICK HERE FOR MORE INFORMATION ABOUT:</CAPTION>
+<TR><TD><A HREF="#ACmodel">Non-linear aircraft model</A></TD><TD><A HREF="#RNAVmodels">Radio-navigation models</A></TD><TD><A HREF="#Windmodels">Wind and turbulence models</A></TD><TD><A HREF="#Openloop">Open-loop simulation models of the 'Beaver'</A></TD></TR>
+<TR><TD><A HREF="#Libraries">FDC libraries</A></TD><TD><A HREF="#Utils">M<SMALL>ATLAB</SMALL> utilities</A></TD><TD><A HREF="#APmodels">Autopilot models</A></TD><TD><A HREF="#APutils">M<SMALL>ATLAB</SMALL> utilities for the autopilot models</A></TD></TR>
+</TABLE><BR><BR><BR>
+</CENTER>
+
+<A NAME= "Libraries"></A><H2>Links to the main FDC block-libraries</H2>
+
+The FDC toolbox contains three blocklibraries, of which the main FDC library is the most important one:<BR><BR><BR>
+
+<CENTER><TABLE CELLPADDING=3 CELLSPACING=2 BORDER=1>
+<TR><TD>Main FDC library</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="fdclib.htm">FDCLIB</A></FONT></I></TD></TR>
+<TR><TD>Radio navigation library</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="navlib.htm">NAVLIB</A></FONT></I></TD></TR>
+<TR><TD>Wind and turbulence library</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="windlib.htm">WINDLIB</A></FONT></I></TD></TR>
+</TABLE>
+</CENTER>
+<BR><BR>
+
+<H2>Links to S<SMALL>IMULINK</SMALL> systems from the FDC toolbox</H2>
+
+<A NAME= "ACmodel"></A><H3>Non-linear aircraft model</H3>
+
+The FDC toolbox contains a generalized non-linear aircraft model. The aircraft-dependent parts of this model were designed for the De Havilland 'Beaver' aircraft, but it shouldn't be too difficult to adapt the model for other types of aircraft. This model is stored in the S<SMALL>IMULINK</SMALL> system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>. This contains the following subsystems (the table reflects the ordering within the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> itself, showing the full 'path' of each subsystem):<BR><BR><BR>
+
+<PRE>   <A HREF="level1.htm">First level of BEAVER</A> (Level 1)
+
+         <A HREF="level2.htm">Beaver dynamics and output equations</A> (Level 2)
+
+            <A HREF="adgrp.htm">Airdata Group</A>
+                  <A HREF="atmosph.htm">Atmosph</A>
+                  <A HREF="airdata1.htm">Airdata1</A>
+                  <A HREF="airdata2.htm">Airdata2</A>
+                  <A HREF="airdata3.htm">Airdata3</A>
+
+            <A HREF="aerogrp.htm">Aerodynamics Group</A>
+                  <A HREF="dimless.htm">Dimless</A>
+                  <A HREF="aeromod.htm">Aeromod</A>
+                  <A HREF="fmdims.htm">FMdims</A>
+
+            <A HREF="enggrp.htm">Engine Group</A>
+                  <A HREF="power.htm">Power</A>
+                  <A HREF="engmod.htm">Engmod</A>
+                  <A HREF="fmdims.htm">FMdims</A>
+
+            <A HREF="gravity.htm">Gravity</A>
+            <A HREF="fwind.htm">Fwind</A>
+            <A HREF="fmsort.htm">FMsort</A>
+
+            <A HREF="eqmotion.htm">Aircraft Equations of motion</A>
+
+                  <A HREF="12odes.htm">12 ODEs</A>
+                        <A HREF="vabdot.htm">Vabdot</A>
+                        <A HREF="pqrdot.htm">pqrdot</A>
+                        <A HREF="eulerdot.htm">Eulerdot</A>
+                        <A HREF="xyhdot.htm">xyHdot</A>
+
+                  <A HREF="xdotcorr.htm">xdotcorr</A>
+                  <A HREF="xfix.htm">xfix</A>
+                  <A HREF="uvw.htm">uvw</A>
+
+            <A HREF="Moreouts.htm">Additional outputs</A>
+                  <A HREF="flpath.htm">Flpath</A>
+                  <A HREF="uvwdot.htm">uvwdot</A>
+                  <A HREF="accel.htm">Accel</A>
+
+            <A HREF="hlpfcn.htm">Hlpfcn</A>
+
+
+</PRE>
+
+<A NAME= "RNAVmodels"></A><H3>Radio-navigation models</H3>
+
+The library <A HREF="navlib.htm"><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">NAVLIB</FONT></I></A> contains the following radio-navigation blocks:
+<BR><BR>
+
+<CENTER><TABLE CELLPADDING=3 CELLSPACING=2 BORDER=1>
+<TR><TD>Nominal ILS signals</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="ils.htm">ILS</A></FONT></I></TD></TR>
+<TR><TD>Localizer noise</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="locnoise.htm">LOCnoise</A></FONT></I></TD></TR>
+<TR><TD>Glideslope noise</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="gsnoise.htm">GSnoise</A></FONT></I></TD></TR>
+<TR><TD>Steady-state errors in localizer signal</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="locerr.htm">LOCerr</A></FONT></I></TD></TR>
+<TR><TD>Steady-state errors in glideslope signal</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="gserr.htm">GSerr</A></FONT></I></TD></TR>
+<TR><TD>Nominal VOR signals</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vor.htm">VOR</A></FONT></I></TD></TR>
+<TR><TD>Steady-state errors in VOR signal</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vorerr.htm">VORerr</A></FONT></I></TD></TR>
+</TABLE></CENTER><BR><BR>
+
+Examples which show how these blocks are to be combined for practical purposes are:<BR><BR>
+
+<CENTER><TABLE CELLPADDING=3 CELLSPACING=2 BORDER=1>
+<TR><TD>Complete ILS simulation</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="ilsxmpl.htm">ILS example</A></FONT></I></TD></TR>
+<TR><TD>Complete VOR simulation</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vorxmpl.htm">VOR example</A></FONT></I></TD></TR>
+</TABLE>
+</CENTER>
+<BR><BR><BR>
+
+<A NAME= "Windmodels"></A><H3>Wind and turbulence models</H3>
+
+The library <A HREF="windlib.htm"><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">WINDLIB</FONT></I></A> contains the following wind and atmospheric turbulence blocks (the latter ones implemented according to the Dryden turbulence models):
+<BR><BR>
+
+<CENTER><TABLE CELLPADDING=3 CELLSPACING=2 BORDER=1>
+<TR><TD>Wind profile in Earth's boundary layer</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="blwind.htm">BLwind</A></FONT></I></TD></TR>
+<TR><TD>Constant horizontal wind</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="cwind.htm">Cwind</A></FONT></I></TD></TR>
+<TR><TD>Longitudinal Dryden filter with constant coefficients</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="udryd1.htm">UDRYD1</A></FONT></I></TD></TR>
+<TR><TD>Lateral Dryden filter with constant coefficients</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vdryd1.htm">VDRYD1</A></FONT></I></TD></TR>
+<TR><TD>Vertical Dryden filter with constant coefficients</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="wdryd1.htm">WDRYD1</A></FONT></I></TD></TR>
+<TR><TD>Longitudinal Dryden filter with airspeed-dependent coefficients</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="udryd2.htm">UDRYD2</A></FONT></I></TD></TR>
+<TR><TD>Lateral Dryden filter with airspeed-dependent coefficients</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vdryd2.htm">VDRYD2</A></FONT></I></TD></TR>
+<TR><TD>Vertical Dryden filter with airspeed-dependent coefficients</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="wdryd2.htm">WDRYD2</A></FONT></I></TD></TR>
+</TABLE></CENTER><BR><BR>
+
+Examples which show how to combine the turbulence blocks for practical purposes are:<BR><BR>
+
+<CENTER><TABLE CELLPADDING=3 CELLSPACING=2 BORDER=1>
+<TR><TD>Atmospheric turbulence filters with constant coefficients</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="turb1.htm">Turb1</A></FONT></I></TD></TR>
+<TR><TD>Atmospheric turbulence filters  with airspeed-dependent coefficients</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="turb2.htm">Turb2</A></FONT></I></TD></TR>
+</TABLE>
+</CENTER>
+<BR><BR><BR>
+
+<A NAME= "Openloop"></A><H3>Open-loop simulation models of the 'Beaver' aircraft</H3>
+
+There are three different <A HREF="oloop.htm">open-loop simulation models</A> for the 'Beaver' aircraft (which can be applied to any aircraft model that uses the same inputs and outputs as the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>). For each of these open-loop models there is also a 'tutorial' which explains the function of each block within these systems. These systems and tutorials have been listed in the following table:<BR><BR>
+
+<CENTER><TABLE CELLPADDING=3 CELLSPACING=2 BORDER=1>
+<TR><TD>Non-linear open-loop responses to control inputs</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP1</FONT></I></TD></TR>
+<TR><TD>Non-linear open-loop responses to atmospheric turbulence</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP2</FONT></I></TD></TR>
+<TR><TD>Open-loop responses to control inputs, using a linearized aircraft model</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP3</FONT></I></TD></TR>
+<TR><TD>Tutorial for <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP1</FONT></I></TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP1T</FONT></I></TD></TR>
+<TR><TD>Tutorial for <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP2</FONT></I></TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP2T</FONT></I></TD></TR>
+<TR><TD>Tutorial for <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP3</FONT></I></TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP3T</FONT></I></TD></TR>
+</TABLE>
+</CENTER><BR><BR>
+
+Another example of an open-loop application is the routine <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">TRIMDEMO</FONT></I>. There is no on-line help available for this routine yet; type <CODE>help trimdemo</CODE> at the M<SMALL>ATLAB</SMALL> command-line for information about that routine.<BR><BR><BR>
+
+<A NAME= "APmodels"></A><H3>Simulation models of the 'Beaver' autopilot</H3>
+
+The FDC toolbox contains a complete non-linear model of the 'Beaver' autopilot, which includes options like gain-scheduling and longitudinal/lateral cross-coupling. Two simplified versions of the autopilot simulation model were included as well in order to speed-up computations:<BR><BR>
+
+<CENTER><TABLE CELLPADDING=3 CELLSPACING=2 BORDER=1>
+<TR><TD>Autopilot simulation without sensor models, radio-navigation signals, and noise signals</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT1">APILOT1</A></FONT></I></TD></TR>
+<TR><TD>Autopilot simulation models without noise  signals</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT2">APILOT2</A></FONT></I></TD></TR>
+<TR><TD>Complete autopilot simulation model</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT3">APILOT3</A></FONT></I></TD></TR>
+</TABLE></CENTER><BR><BR>
+
+The systems PAH, RAH, and PAHRAH provide alternative implementations of the Pitch and Roll Attitude Hold modes. These systems haven't been documented here; see chapter 12 of the <A HREF="#References">user-manual</A> for more details.<BR><BR>
+
+The complete autopilot model <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">APILOT3</FONT></I> contains the following subsystems (the list reflects the ordering in the block-diagram):
+
+<PRE>      <A HREF="apilot.htm">APILOT1/2/3</A>
+            Wind and turbulence
+                  <A HREF="turb1.htm">Turb1</A>
+                  <A HREF="blwind.htm">BLwind</A>
+
+            Beaver dynamics
+                  <A HREF="beaver.htm">Beaver</A>
+
+            <A HREF="sensors.htm">Sensors / subtract initial conditions</A>
+            VOR (see <A HREF="vorxmpl.htm">VOR example</A>)
+            ILS (see <A HREF="ilsxmpl.htm">ILS example</A>)
+            Reference signals
+            <A HREF="modectrl.htm">Mode controller</A>
+            <A HREF="ap_asymm.htm">Asymmetrical autopilot modes</A>
+            <A HREF="ap_symm.htm">Symmetrical autopilot modes</A>
+            <A HREF="delaylim.htm">Computational delay and limiters</A>
+            <A HREF="actuatr.htm">Actuator and cable dynamics</A>
+            Add initial inputs
+
+
+</PRE>
+
+<H2>Links to M<SMALL>ATLAB</SMALL> utilities from the FDC toolbox</H2>
+
+<A NAME= "Utils"></A><H3>General M<SMALL>ATLAB</SMALL> utilities for the FDC toolbox</H3>
+
+In addition to the S<SMALL>IMULINK</SMALL> systems, the FDC toolbox contains a number of supporting M<SMALL>ATLAB</SMALL> utilities:<BR><BR>
+
+<CENTER><TABLE CELLPADDING=3 CELLSPACING=2 BORDER=1>
+<TR><TD>Aircraft model linearization utility</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="aclin.htm">ACLIN</A></FONT></I></TD></TR>
+<TR><TD>Aircraft trim utility</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="actrim.htm">ACTRIM</A></FONT></I></TD></TR>
+<TR><TD>Utility to artificially fix state variables of the non-linear aircraft model</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="fixstate.htm">FIXSTATE</A></FONT></I></TD></TR>
+<TR><TD>General utility for loading datafiles</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="incoload.htm">INCOLOAD</A></FONT></I></TD></TR>
+<TR><TD>Utility to load aircraft model parameters</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I></TD></TR>
+<TR><TD>Utility that creates datafile with aircraft model parameters</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="modbuild.htm">MODBUILD</A></FONT></I></TD></TR>
+<TR><TD>Utility to recover 'lost' simulation results</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="recover.htm">RECOVER</A></FONT></I></TD></TR>
+<TR><TD>Utility for post-processing simulation results</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="results.htm">RESULTS</A></FONT></I></TD></TR>
+<TR><TD>Utility for plotting simulation results</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="resplot.htm">RESPLOT</A></FONT></I></TD></TR>
+<TR><TD>Utility to determine properties of linearized systems</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="systprop.htm">SYSTPROP</A></FONT></I></TD></TR>
+</TABLE></CENTER><BR><BR><BR>
+
+<A NAME= "APutils"></A><H3>M<SMALL>ATLAB</SMALL> utilities for the autopilot models</H3>
+
+The following two M<SMALL>ATLAB</SMALL> programs are necessary for the initialization of the autopilot models:
+<BR><BR>
+
+<CENTER><PRE><TABLE CELLPADDING=3 CELLSPACING=2 BORDER=1>
+<TR><TD>Utility to initialize the autopilot model (including all its subcomponents)</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apinit.htm">APINIT</A></FONT></I></TD></TR>
+<TR><TD>Utility to define the autopilot mode</TD><TD><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apmode.htm">APMODE</A></FONT></I></TD></TR>
+</TABLE></PRE></CENTER><BR><BR><BR>
+
+<H2><A NAME= "References">References</A></H2>
+
+The main source of information about the FDC toolbox is the following report:
+<OL>
+<LI>M.O. Rauw: <I>FDC 1.2 - A S<SMALL>IMULINK</SMALL> Environment for Flight Dynamics and Control Analysis</I>. Zeist, The Netherlands, March 1997.
+<BR><BR>
+Other, closely related references are:
+<BR><BR>
+<LI>M.O. Rauw: <I>A S<SMALL>IMULINK</SMALL> environment for Flight Dynamics and Control analysis - Application to the DHC-2 'Beaver'</I> (2 parts). MSc-thesis, Delft University of Technology, Faculty of Aerospace Engineering, Delft, The Netherlands, 1993.
+<LI>P.N.H. Wever: <I>Ontwerp en implementatie van de regelwetten van de De Havilland DHC-2 'Beaver'</I> (in Dutch). MSc-thesis, Delft University of Technology, Faculty of Aerospace Engineering, Delft, The Netherlands, 1993.
+</OL>
+
+
+</BODY>
+
+</HTML>

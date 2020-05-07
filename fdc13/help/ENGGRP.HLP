@@ -1,0 +1,103 @@
+-----------------------------------------------------------------
+System BEAVER - subsystem 'Engine Group (Beaver)'.
+==================================================
+The subsystem 'Engine Group' is used to compute the forces and
+moments which arise due to the operation of the engine. These in-
+clude slipstream effects, induced by the propeller. In the case
+of the 'Beaver', this is done by first computing the engine power
+and the closely related increase of pressure across the propeller,
+then using this result for determining the magnitude of dimension-
+less force and moment coefficients, and finally computing the forces
+and moments in N and Nm, respectively. A similar sequence will
+usually be followed for other piston-engined aircraft.
+
+The subsystem 'Engine Group (Beaver)' consists of three masked
+subsystems: Power, Engmod, and FMdims. Power computes the engine
+power and pressure increase across the propeller, Engmod contains
+the actual engine model according to ref.[1] which determines the
+dimensionless force and moment coefficients, and FMdims is used to
+compute the forces and moments in N and Nm. The block Power uses the
+state vector x, the vector with external inputs to the engine, uprop,
+and the outputvector yatm from the block Atmosph in the subsystem
+'Airdata Group' as inputs. Engmod uses x and the outputvector ypow
+from the block Power, hence, Engmod has been placed on the lower
+right side of Power. Finally, FMdims uses the outputvector of the
+block Engmod, Cprop, and the outputvector of the block Airdata1 in
+the subsystem 'Airdata Group', yad1. Hence, FMdims is located on
+the right side of the block Engmod. Power, Engmod, and FMdims
+have also been shifted vertically with respect to eachother, to
+make it possible to connect their outputs to the Outport blocks
+on the right side of the subsystem 'Engine Group (Beaver)'.
+
+Inputs:
+=======
+  x    = [V alpha beta p q r psi theta phi xe ye H]'    (states)
+  uprop= [n pz]'           (external engine inputs (propulsive))
+  yatm = [rho ps T mu g]'    (atmosphere variables, computed in
+                                   the masked subsystem ATMOSPH)
+  yad1 = [a M qdyn]'        (airdata variables, computed in the
+                                      masked subsystem AIRDATA1)
+
+where:
+
+  V    : true airspeed [m/s]
+  alpha: angle of attack [rad]
+ {beta : sideslip angle [rad]                                   }
+ {p    : roll-rate [rad/s]                                      }
+ {q    : pitch-rate [rad/s]                                     }
+ {r    : yaw-rate [rad/s]                                       }
+ {psi  : yaw-angle [rad]                                        }
+ {theta: pitch-angle [rad]                                      }
+ {phi  : roll-angle [rad]                                       }
+ {xe   : X-coordinate, relative to Earth-axes [m]               }
+ {ye   : Y-coordinate, relative to Earth-axes [m]               }
+ {H    : altitude above sea level [m]                           }
+
+  n    : engine speed [RPM]
+  pz   : manifold pressure ["Hg]
+
+  rho  : air density [kg/m^3]
+ {ps   : static pressure [N/m^2]                                }
+ {T    : air temperature [K]                                    }
+ {mu   : dynamic viscosity [kg/(m*s)]                           }
+ {g    : acceleration of gravity [m/s^2]                        }
+
+ {a    : speed of sound [m/s]                                   }
+ {M    : Mach number [-]                                        }
+  qdyn : dynamic pressure [N/m^2]
+
+The accolades denote variables which are not used by any of the
+blocks from the subsystem 'Engine Group (Beaver)'.
+
+Outputs (prop = 'propulsive'):
+==============================
+  ypow  = [dpt P]'
+  Cprop = [CXp CYp CZp Clp Cmp Cnp]'
+  FMprop= [Xp Yp Zp Lp Mp Np]'
+
+where:
+
+  dpt  : dimensionless pressure increase across the propeller [-]
+  P    : engine power [Nm/s]
+
+  CXp, CYp, CZp: propulsive force coefficients along body-axes [-]
+  Clp, Cmp, Cnp: propulsive moment coefficients along body-axes [-]
+
+  Xp, Yp, Zp: propulsive force components along body-axes [N]
+  Lp, Mp, Np: propulsive moment components along body-axes [Nm]
+
+References:
+===========
+[1]  R.T.H. Tjee and J.A. Mulder. Stability and Control Deriva-
+     tives of the De Havilland DHC-2 "Beaver" aircraft. Report
+     LR-556, Delft University of Technology, 1988.
+
+More info:
+==========
+See POWER.HLP, ENGMOD.HLP, and FMDIMS.HLP for more info about the
+masked subsystem blocks from the subsystem 'Engine Group (Bea-
+ver)'. See ATMOSPH.HLP and AIRDATA1.HLP for more info about the
+determination of yatm and yad1.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

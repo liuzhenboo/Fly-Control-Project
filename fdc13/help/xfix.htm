@@ -1,0 +1,43 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Gain block XFIX</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Gain block <I><FONT FACE="Arial","Helvetica","Sans Serif">XFIX</FONT></I>
+</H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">XFIX</FONT></I> is a standard S<SMALL>IMULINK</SMALL> gain-block, which is used in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="eqmotion.htm">Aircraft Equations of Motion (level 3)</A></FONT></I> of the aircraft model <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I> to artificially fix states to their initial values. The value of the constant <I>xfix</I> needs to be defined in the M<SMALL>ATLAB</SMALL> workspace before starting a simulation or any other evaluation of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>.
+
+<H3>Why artificially fix state variables?
+</H3>
+Artificially fixing state variables to their initial values means that one deliberately eliminates certain couplings from the simulation model. This may for instance be useful if you want to assess the aircraft's longitudinal and lateral motions independently from eachother (thus deliberatly neglecting the cross-coupling effects), or to implement the 'ideal' control-behavior (e.g. pitch attitude hold or speed hold) against which a practical control system should be measured.
+
+<H3>How does it work?
+</H3>
+The gain <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">XFIX</FONT></I> multiplies the vector with time-derivatives of the state variables, <I>xdot</I>, with the gain-factor <I>xfix</I>. If the user does not impose artificial restrictions upon the states, <I>xfix</I> will be equal to one, and the outputvector from <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">XFIX</FONT></I> is equal to <I>xdot</I>, according to the equations of motion. The same result is obtained when the constant <I>xfix </I>is equal to a vector of length 12 with elements that are all equal to one.
+<BR><BR>
+
+If, however, the user wants to fix some of the twelve states to their initial values, <I>xfix </I>needs to be equalled to a vector of length 12 with elements that are all equal to one, <I>except </I>for the element numbers that correspond with the states to be fixed. If, for instance, the user wants to fix the first, fifth, and last states to their initial values, the first, fifth, and last element of <I>xfix </I>must be set to zero. In that case, the input/output structure around the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">XFIX</FONT></I> looks like:
+
+<PRE>xdot_in = [V dot;      \             /    xdot_out = [  0
+           alpha dot;  |             |                 alpha dot;
+           beta dot;   |             |                 beta dot;
+           p dot;      |             |                 p dot;
+           q dot;      |             |                  0
+           r dot;      |             |                 r dot;
+           psi dot;    |>  * <I>xfix</I>   <|                 psi dot;
+           theta dot;  |             |                 theta dot;
+           phi dot;    |             |                 phi dot;
+           xe dot;     |             |                 xe dot;
+           ye dot;     |             |                 ye dot;
+           H dot]      /             \                  0 ]
+</PRE>
+
+Since the first, fifth, and last elements of xdot are artificially set to zero, the corresponding states will equal their initial values until the value of  <I>xfix</I> is changed again!
+<BR><BR>
+
+By default, <I>xfix</I> will be set to 1 if the routine <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I> is applied to define the system parameters in the M<SMALL>ATLAB</SMALL> workspace <I>before </I>a different value of <I>xfix</I> is defined. Run <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="fixstate.htm">FIXSTATE</A></FONT></I> if you actually want to fix one or more state variables (this routine simplifies the definition of the constant <I>xfix</I> in the M<SMALL>ATLAB</SMALL> workspace).
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,38 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Asymmetrical autopilot modes</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Autopilot model, subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Asymmetrical autopilot modes</FONT></I></H2>
+
+The subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Asymmetrical autopilot modes</FONT></I>, which is part of the systems <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT1">APILOT1</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT2">APILOT2</A></FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT3">APILOT3</A></FONT></I> contains the following control modes of the 'Beaver' autopilot:
+<UL>
+<LI>Roll Attitude Hold (RAH), including turn coordination
+<LI>Heading Hold / Heading Select (HH)
+<LI>VOR-Navigation (NAV)
+<LI>asymmetrical approach mode: Localizer (LOC)
+</UL>
+The RAH mode is also used as inner-loop for HH, NAV, and LOC.
+<BR><BR>
+
+In Localizer mode, a switch criterion is used to switch from the Localizer-Armed phase, in which the aircraft is usually flying under HH control, to Localizer-Coupled. Note: for reasons of computing speed, LOC has not been included in the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">APILOT1</FONT></I>.
+<BR><BR>
+
+The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Select asymm. mode-controller signals</FONT></I> in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Asymmetrical autopilot modes</FONT></I> separates the mode-switch settings from the inputvector <I>ymode</I> and reference signals from the inputvector <I>yref</I> for the asymmetrical autopilot modes from the symmetrical mode-switch settings and reference signals.
+
+<H3>More information</H3>
+See the explanation of the subsystems <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="modectrl.htm">Mode Controller</A></FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="refsgnls.htm">Reference Signals</A></FONT></I> for more information about the inputvectors <I>ymode</I> and <I>yref</I>. See also the <A HREF="colors.htm">color definition table</A> for the FDC toolbox and the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="ap_symm.htm">Symmetrical autopilot modes</A></FONT></I>.
+
+<H3><A NAME= "References">References</A></H3>
+
+For a detailed description of the 'Beaver' autopilot, the following references should be consulted:
+
+<OL>
+<LI>M.O. Rauw: <I>FDC 1.2 - A S<SMALL>IMULINK</SMALL> Environment for Flight Dynamics and Control Analysis</I>. Zeist, The Netherlands, March 1997.
+<LI>M.O. Rauw: <I>A S<SMALL>IMULINK</SMALL> environment for Flight Dynamics and Control analysis - Application to the DHC-2 'Beaver'</I> (PART II). MSc-thesis, Delft University of Technology, Faculty of Aerospace Engineering, Delft, The Netherlands, 1993.
+<LI>P.N.H. Wever: <I>Ontwerp en implementatie van de regelwetten van de De Havilland DHC-2 'Beaver'</I> (in Dutch). MSc-thesis, Delft University of Technology, Faculty of Aerospace Engineering, Delft, The Netherlands, 1993.
+</OL>
+
+</BODY>
+
+</HTML>

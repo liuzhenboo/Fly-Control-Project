@@ -1,0 +1,22 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Autopilot utility APMODE</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>The autopilot initialization routine <I><FONT FACE="Arial","Helvetica","Sans Serif">APMODE</FONT></I></H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">APMODE</FONT></I> is used to specify the symmetrical and asymmetrical <I>autopilot-modes</I> for autopilot simulation models <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT1">APILOT1</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT2">APILOT2</A></FONT></I>, or <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT3">APILOT3</A></FONT></I>. The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="modectrl.htm">Mode Controller</A></FONT></I> within the autopilot simulation model uses data from <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">APMODE</FONT></I> to define the initial autopilot mode, and to find out what switch criteria need to be monitored. The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Reference Signals</FONT></I> uses data from <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">APMODE</FONT></I> to specify the reference values of <I>theta</I>, <I>phi</I>, <I>H</I>, <I>Hdot</I>, or <I>psi</I>. In the current versions of the autopilot simulations, only step-inputs at <I>t=0</I> are possible, but it is relatively easy to insert other reference signals in this block if required. It is also possible to insert a <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">From Workspace</FONT></I> block in place of the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Reference Signals</FONT></I>, e.g. in order to insert reference values which were actually measured in a flight-test.
+<BR><BR>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">APMODE</FONT></I> will create the vectors <I>ymod1S</I>, <I>ymod2S</I>, <I>ymod1A</I>, <I>ymod2A</I>, <I>yrefS</I>, and <I>yrefA</I> in the workspace. <I>S</I> = symmetrical autopilot mode, <I>A</I> = asymmetrical autopilot mode. The vectors <I>ymod</I> contain mode-switches, the vectors <I>yref</I> contain reference values. 1 is the initial mode, 2 is used for a possible second mode for control laws which have separate 'Armed' and 'Coupled' phases. Examine the blocks <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Mode Controller</FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Reference Signals</FONT></I> and the source-code of <SMALL>APMODE.M</SMALL> in the FDC directory <SMALL>APILOT</SMALL> for more details.
+<BR><BR>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">APMODE</FONT></I> can be started by typing <CODE>apmode</CODE> at the M<SMALL>ATLAB</SMALL> command-line, or by double-clicking the <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">APMODE</FONT></I> button in the autopilot simulation systems. Depending upon the selected autopilot modes it may be necessary to enter some values at the M<SMALL>ATLAB</SMALL> command-line.
+<BR><BR>
+
+<B>Note:</B> <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">APMODE</FONT></I> does not initialize the aircraft model, actuator and cable models, radio-navigation models, and initial flight-condition! Those values must be defined separately, which can be done with the utility <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apinit.htm">APINIT</A></FONT></I>.
+
+
+</BODY>
+
+</HTML>

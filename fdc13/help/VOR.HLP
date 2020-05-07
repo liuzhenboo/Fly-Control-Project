@@ -1,0 +1,55 @@
+-----------------------------------------------------------------
+The masked subsystem block VOR, from the VOR sublibrary of the
+NAVLIB library, calculates VOR signals which an aircraft re-
+ceives if it flies at a certain position with respect to a user-
+defined reference VOR bearing. The coordinates of the VOR antenna,
+measured relatively to the earth-bounded reference frame, must be
+defined for t = 0.
+
+Inputsignals: uvor1 and uvor2.
+==============================
+ uvor1 = [xe ye H]',
+ uvor2 = psi.
+
+where:
+
+ xe : X-coordinate of aircraft in Earth-fixed reference frame [m]
+ ye : Y-coordinate of aircraft in Earth-fixed reference frame [m]
+ H  : altitude of aircraft above sea level [m]
+ psi: heading of the aircraft (yaw angle) [rad]
+
+(these signals are outputs from the aircraft dynamics model).
+
+Outputsignals: yvor1, yvor2, and yvor3.
+=======================================
+ yvor1 = Gamma_VOR: Angle between chosen VOR-bearing and line
+                    from aircraft's c.g. to VOR antenna [rad]
+ yvor2 = R_VOR    : 2D-distance from origin Earth-fixed reference
+                    frame to VOR (as seen from above) [m]
+
+ yvor3 = [Cone-of-silence-flag, Range-flag]'.
+ yvor4 = ToFrom
+
+ The Cone-of-silence-flag is set to 1 if the aircraft enters the
+ 'cone of silence'. The Range-flag is set to 1 if the aircraft
+ flies outside the area where the VOR signals can be received
+ with appropriate reliability.
+
+ The variable ToFrom is set to 1 if aircraft is flying towards
+ the VOR antenna or 0 if the aircraft flies away from the antenna.
+
+References.
+===========
+[1]. A Simulink environment for Flight Dynamics and Control ana-
+     lysis - Application to the DHC-2 'Beaver', part I: Implemen-
+     tation of a model library in Simulink. Delft University of
+     Technology, September 1993.
+
+More info.
+==========
+See VORERR.HLP for more info about the block VORERR, which can
+be used to implement steady-state errors in the VOR signals.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.
+

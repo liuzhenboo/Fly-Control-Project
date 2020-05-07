@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: uvw</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>The subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">uvw</FONT></I></H2>
+
+The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">uvw</FONT></I> is a masked S<SMALL>IMULINK</SMALL> subsystem, which is used to compute the body-axes velocities <I>u</I>, <I>v</I>, and <I>w</I>. Since the aircraft model uses the true airspeed <I>V</I>, angle of attack <I>alpha</I>, and sideslip angle <I>beta</I> as state variables, the equations for <I>u</I>, <I>v</I>, and <I>w</I> are simple output equations. The body-axes velocity components are needed to solve the equations for the coordinates <I>x<SUB>e</SUB></I>, <I>y<SUB>e</SUB></I>, and the altitude <I>H</I>, so the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">uvw</FONT></I> may <I>not</I> be deleted from the system! The outputs from <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">uvw</FONT></I> are used by the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="xyhdot.htm">xyHdot</A></FONT></I> in the
+subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="12odes.htm">12 ODEs</A></FONT></I>. <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">uvw</FONT></I> is included in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="eqmotion.htm">Aircraft Equations of Motion</A></FONT></I> of the S-function <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>.
+<BR><BR>
+
+Since <I>u</I>, <I>v</I>, and <I>w</I> are not state variables, their time-derivatives are not necessary to solve the equations of motion. However, for some purposes, knowledge of these time-derivatives still may be useful; therefore, a separate block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="uvwdot.htm">uvwdot</A></FONT></I> has been included in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="moreouts.htm">Additional Outputs</A></FONT></I> within the S-function <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>.
+
+<H3>Inputvectors: <I>x</I> and <I>yhlp</I></H3>
+<PRE>  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+
+  yhlp = [cos(alpha) sin(alpha) cos(beta) sin(beta) ...
+          ... tan(beta) sin(psi) cos(psi) sin(theta) ...
+          ... cos(theta) sin(phi) cos(phi)]'
+          (frequently used sines and cosines, coming from <A HREF="hlpfcn.htm">Hlpfcn</A>)
+
+
+  V    : airspeed [m/s]
+ {alpha: angle of attack [rad]                                  }
+ {beta : sideslip angle [rad]                                   }
+ {p    : roll rate [rad/s]                                      }
+ {q    : pitch rate [rad/s]                                     }
+ {r    : yaw rate [rad/s]                                       }
+ {psi  : yaw angle [rad]                                        }
+ {theta: pitch angle [rad]                                      }
+ {phi  : roll angle [rad]                                       }
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+</PRE>
+
+The inputvariables which are not actually used by the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">uvw</FONT></I> have been displayed between accolades. From <I>yhlp</I> the signals <I>cos(alpha)</I>, <I>cos(beta)</I>, <I>sin(alpha)</I> and <I>sin(beta)</I> are used.
+
+<H3>Outputvector: <I>ybvel</I> (bvel = 'body-axes velocities')</H3>
+<PRE>  ybvel = [u v w]',
+
+  u     : component of the true airspeed V along XB-axis [m/s]
+  v     : component of the true airspeed V along YB-axis [m/s]
+  w     : component of the true airspeed V along ZB-axis [m/s]
+</PRE>
+</BODY>
+
+</HTML>

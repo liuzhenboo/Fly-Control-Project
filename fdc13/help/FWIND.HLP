@@ -1,0 +1,61 @@
+-----------------------------------------------------------------
+FWIND is a Simulink subsystem, used to compute the contributions
+to the external forces along the body-axes in non-steady atmos-
+phere (i.e., forces due to non-constant wind and/or atmospheric
+turbulence).
+
+Inputvectors: x and uwind (variables which are not needed by
+FWIND are displayed between accolades).
+============================================================
+  x     = [V alpha beta p q r psi theta phi xe ye H]'    (states)
+  uwind = [uw vw ww uwdot vwdot wwdot]' (wind + turbulence velo-
+                                        cities and accelerations)
+where:
+
+ {V    : airspeed [m/s]                                         }
+ {alpha: angle of attack [rad]                                  }
+ {beta : sideslip angle [rad]                                   }
+  p    : roll rate [rad/s]
+  q    : pitch rate [rad/s]
+  r    : yaw rate [rad/s]
+ {psi  : yaw angle [rad]                                        }
+ {theta: pitch angle [rad]                                      }
+ {phi  : roll angle [rad]                                       }
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+
+  uw   : wind + turbulence velocity along the XB-axis [m/s]
+  vw   : wind + turbulence velocity along the YB-axis [m/s]
+  ww   : wind + turbulence velocity along the ZB-axis [m/s]
+  uwdot: d(uw)/dt [m/s^2]
+  vwdot: d(vw)/dt [m/s^2]
+  wwdot: d(ww)/dt [m/s^2]
+
+Outputvector: Fwind.
+====================
+  Fwind = [Xw Yw Zw]'.
+
+where:
+
+  Xw, Yw, Zw: forces due to non-steady atmosphere, measured along
+              the aircraft's body-axes [N]
+
+Parameters which must be loaded in the Matlab Workspace.
+========================================================
+  GM1 = vector with some important geometrical properties of the
+        'Beaver' aircraft, and the mass of the aircraft (which is
+        assumed to be constant during the motions of interest).
+        Here, the mass m is extracted from GM1. GM1 can be loaded
+        from file by calling the M-file LOADER.M. Run MODBUILD.M
+        first if the datafile does not yet exist. Type HELP
+        LOADER or HELP MODBUILD for more info.
+
+More info.
+==========
+See the .HLP files CWIND, BLWIND, TURB1, and TURB2 for more info
+about the generation of the signals uw, vw, ww, uwdot, vwdot, and
+wwdot. See also FMSORT.HLP.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

@@ -1,0 +1,30 @@
+-----------------------------------------------------------------
+CWIND is a masked Simulink system, which is used to calculate ve-
+locity components of a constant horizontal wind along the body-
+axes of the aircraft. CWIND can be enhanced for vertical wind-
+components if it is unmasked.
+
+The user must specify the windspeed Vw in [m/s] and the wind
+direction psi_w in [rad]. Note: if the wind is blowing to the
+north, psi_w should be equal to pi rad!
+
+Inputsignal (scalar):
+=====================
+  psi: heading of the aircraft [rad].
+
+Outputvector:
+=============
+  ywind = [uw vw ww]'
+
+where:
+
+  uw : wind velocity component along XB-axis [m/s]
+  vw : wind velocity component along YB-axis [m/s]
+  ww : wind velocity component along ZB-axis [m/s] (by default:
+                                                          ww = 0)
+More info:
+==========
+See also BLWIND.HLP.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

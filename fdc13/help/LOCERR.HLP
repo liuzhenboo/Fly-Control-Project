@@ -1,0 +1,55 @@
+-----------------------------------------------------------------
+The masked subsystem block LOCALIZER STEADY-STATE ERROR, from the
+sublibrary ILS of the library NAVLIB, can be used to simulate a
+steady-state error in the localizer signals, caused by the ground
+equipment. The error is determined according to ICAO guidelines.
+Both localizer misalignment and steady-state errors in the loca-
+lizer sensitivity are taken into account in this block. See refs.
+[1] or [2], or FDC 1.2 manual, for more info about the theore-
+tical backgrounds.
+
+Inputsignal:
+============
+  nominal value of localizer current iloc, [ÊA]
+
+Outputsignal:
+=============
+  localizer current iloc, including steady-state errors, [ÊA]
+
+Block-parameters:
+=================
+* performance category (1, 2, or 3, see ref.[2] or FDC 1.2
+  manual for more info)
+* percentage of maximum allowable error in localizer sensitivity
+  (iloc = Sloc * Gamma_loc, where iloc is localizer current
+  through cockpit instrument, Gamma_loc is the angle between the
+  line from projection of aircraft's c.g. on ground to localizer
+  antenna and runway centerline, Sloc is the localizer sensiti-
+  vity)
+* percentage of maximum allowable localizer misalignment
+* distance from runway threshold to localizer antenna, [m]
+
+The block-parameters can be specified in dialog-boxes which
+appear after double-clicking the block LOCerr.
+
+References:
+===========
+[1] Approach and Landing Simulation. AGARD report 632, Ames, 1975
+
+[2] A Simulink environment for Flight Dynamics and Control
+    analysis - Application to the DHC-2 'Beaver', part I: Im-
+    plementation of a model library in Simulink. Delft Univer-
+    sity of Technology, September 1993
+
+More info:
+==========
+See ILS.HLP for details about the nominal ILS signals. See also
+GSERR.HLP for more info about the determination of steady-state
+errors in the glideslope signal.
+
+See also the subsystem 'ILS example' and its help-text
+ILSXMPL.HLP, to find out how the noise-blocks can be connected
+to the masked subsystem block ILS.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

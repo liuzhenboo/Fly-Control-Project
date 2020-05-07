@@ -1,0 +1,17 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: load routine LOADER</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Load routine <I><FONT FACE="Arial","Helvetica","Sans Serif">LOADER</FONT></I>
+</H2>
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">LOADER </FONT></I>is a M<SMALL>ATLAB</SMALL> program which loads parameters for the non-linear aircraft model from file. By default it will search for &#42;.<SMALL>DAT</SMALL> files. The aircraft model-data will normally be stored in <SMALL>AIRCRAFT.DAT</SMALL>.
+<BR><BR>
+
+These datafiles can be created with <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="modbuild.htm">MODBUILD</A></FONT></I>. This is <I>only</I> necessary if you want to implement data for a different aircraft, or change parameters of the current aircraft model.
+<BR><BR>
+
+Note: <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">LOADER</FONT></I> will also search for the vector <I>xfix</I> in the M<SMALL>ATLAB</SMALL> workspace. If this vector can't be found it will be set to its default value. <I>xfix</I> is used by the gain-block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="xfix.htm">XFIX</A></FONT></I> within the aircraft model for artificially fixing state variables to their initial values.
+
+</BODY>
+</HTML>

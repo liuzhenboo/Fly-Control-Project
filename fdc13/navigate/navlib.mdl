@@ -1,0 +1,608 @@
+Library {
+  Name			  "navlib"
+  Version		  2.09
+  PaperOrientation	  landscape
+  PaperType		  usletter
+  PaperUnits		  inches
+  BlockDefaults {
+    Orientation		    right
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    NamePlacement	    normal
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+    ShowName		    on
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    center
+    VerticalAlignment	    middle
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  System {
+    Name		    "navlib"
+    Location		    [13, 47, 276, 218]
+    Open		    on
+    ScreenColor		    white
+    Block {
+      BlockType		      SubSystem
+      Name		      "1"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [35, 65, 120, 150]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "navlib1"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('ILS signals\\nincluding\\nsteady-state\\na"
+			      "nd noise\\nerrors')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"1"
+	Location		[0, 0, 338, 314]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "2"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [135, 65, 220, 150]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "navlib2"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('VOR signals\\nincluding\\nerrors')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"2"
+	Location		[0, 0, 135, 195]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "VOR"
+	  Ports			  [2, 4, 0, 0, 0]
+	  Position		  [25, 45, 100, 95]
+	  ShowPortLabels	  off
+	  MaskType		  "VOR"
+	  MaskDescription	  "Calculation of nominal\nVOR signals"
+	  MaskHelp		  "Unmask this block, or type HELP VOR\\nat "
+				  "the Matlab command line for more info."
+	  MaskPromptString	  "x-position VOR at t=0 sec. [m]:|y-position "
+				  "VOR at t=0 sec. [m]:|Altitude of VOR "
+				  "in [m] above sea level:|Course Datum "
+				  "[deg] (0 = north):"
+	  MaskStyleString	  "edit,edit,edit,edit"
+	  MaskInitialization	  "xVOR=@1; yVOR=@2; HVOR=@3; CD=@4*pi/180;"
+	  MaskDisplay		  "disp('Nominal VOR\\nsignals')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  MaskValueString	  "10000|10000|0|15"
+	  System {
+	    Name		    "VOR"
+	    Location		    [0, 0, 618, 398]
+	    Open		    off
+	    ScreenColor		    white
+	    Block {
+	      BlockType		      Inport
+	      Name		      "[xe ye H]'"
+	      Position		      [20, 95, 40, 115]
+	      DropShadow	      on
+	      Port		      "1"
+	      PortWidth		      "-1"
+	      SampleTime	      "-1"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "psi"
+	      Position		      [240, 40, 260, 60]
+	      DropShadow	      on
+	      Port		      "2"
+	      PortWidth		      "-1"
+	      SampleTime	      "-1"
+	    }
+	    Block {
+	      BlockType		      Saturate
+	      Name		      "+/- 10 deg"
+	      Position		      [430, 100, 455, 120]
+	      UpperLimit	      "10*pi/180"
+	      LowerLimit	      "-10*pi/180"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "1 = to, 0 = from"
+	      Position		      [380, 45, 495, 65]
+	      Expr		      "abs(u[1]) > (pi/2)"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "CD (const.)"
+	      Position		      [240, 129, 270, 151]
+	      Value		      "CD"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "Cone of silence flag"
+	      Position		      [200, 245, 400, 265]
+	      Expr		      "atan((u[3]-HVOR)/u[4])>40*pi/180"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [2, 1, 0, 0, 0]
+	      Position		      [95, 244, 125, 266]
+	      ShowName		      off
+	      Inputs		      "[3 1]"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux1"
+	      Ports		      [2, 1, 0, 0, 0]
+	      Position		      [95, 349, 125, 371]
+	      ShowName		      off
+	      Inputs		      "2"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux2"
+	      Ports		      [2, 1, 0, 0, 0]
+	      Position		      [530, 344, 560, 366]
+	      ShowName		      off
+	      Inputs		      "2"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "QDR"
+	      Position		      [85, 95, 270, 115]
+	      Expr		      "atan((u[2]-yVOR)/(u[1]-xVOR))"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "R_VOR"
+	      Position		      [85, 190, 275, 210]
+	      Expr		      "sqrt((u[1]-xVOR)^2+(u[2]-yVOR)^2)"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "Range-flag"
+	      Position		      [240, 350, 355, 370]
+	      Expr		      "u[2]>u[1]"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum"
+	      Ports		      [2, 1, 0, 0, 0]
+	      Position		      [305, 100, 320, 120]
+	      ShowName		      off
+	      Inputs		      "-+"
+	    }
+	    Block {
+	      BlockType		      Sum
+	      Name		      "Sum1"
+	      Ports		      [2, 1, 0, 0, 0]
+	      Position		      [305, 45, 320, 65]
+	      ShowName		      off
+	      Inputs		      "+-"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "VOR-Range approximation"
+	      Position		      [85, 285, 495, 305]
+	      Expr		      "1000*(-2.3570*10^(-6)*(u[3]-HVOR)^2 "
+				      "+ 5.7087*10^(-2)*(u[3]-HVOR) + 80.8612)"
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "t"
+	      Ports		      [0, 0, 0, 0, 0]
+	      Position		      [15, 5, 110, 50]
+	      ForegroundColor	      blue
+	      ShowName		      off
+	      ShowPortLabels	      off
+	      MaskDisplay	      "disp('VOR signals\\nMarc Rauw\\nDec "
+				      "1995')"
+	      MaskIconFrame	      on
+	      MaskIconOpaque	      on
+	      MaskIconRotate	      none
+	      MaskIconUnits	      autoscale
+	      System {
+		Name			"t"
+		Location		[22, 190, 132, 275]
+		Open			off
+		ScreenColor		white
+		Annotation {
+		  Position		  [53, 47]
+		  VerticalAlignment	  top
+		  Text			  "T"
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "yVOR1"
+	      Position		      [575, 100, 595, 120]
+	      DropShadow	      on
+	      Port		      "1"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "yVOR2"
+	      Position		      [575, 190, 595, 210]
+	      DropShadow	      on
+	      Port		      "2"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "yVOR3"
+	      Position		      [575, 345, 595, 365]
+	      DropShadow	      on
+	      Port		      "3"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "yVOR4"
+	      Position		      [575, 45, 595, 65]
+	      DropShadow	      on
+	      Port		      "4"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "1 = to, 0 = from"
+	      SrcPort		      1
+	      DstBlock		      "yVOR4"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "CD (const.)"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -25]
+	      DstBlock		      "Sum"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Cone of silence flag"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "[xe ye H]'"
+	      SrcPort		      1
+	      Points		      [15, 0]
+	      Branch {
+		Points			[0, 95]
+		Branch {
+		  DstBlock		  "R_VOR"
+		  DstPort		  1
+		}
+		Branch {
+		  Points		  [0, 50]
+		  Branch {
+		    Points		    [0, 45]
+		    DstBlock		    "VOR-Range approximation"
+		    DstPort		    1
+		  }
+		  Branch {
+		    DstBlock		    "Mux"
+		    DstPort		    1
+		  }
+		}
+	      }
+	      Branch {
+		DstBlock		"QDR"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "R_VOR"
+	      SrcPort		      1
+	      Points		      [15, 0]
+	      Branch {
+		Points			[0, 30; -225, 0; 0, 30]
+		Branch {
+		  Points		  [0, 105]
+		  DstBlock		  "Mux1"
+		  DstPort		  2
+		}
+		Branch {
+		  DstBlock		  "Mux"
+		  DstPort		  2
+		}
+	      }
+	      Branch {
+		DstBlock		"yVOR2"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Mux1"
+	      SrcPort		      1
+	      DstBlock		      "Range-flag"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Range-flag"
+	      SrcPort		      1
+	      DstBlock		      "Mux2"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "VOR-Range approximation"
+	      SrcPort		      1
+	      Points		      [5, 0; 0, 40; -425, 0]
+	      DstBlock		      "Mux1"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Mux2"
+	      SrcPort		      1
+	      DstBlock		      "yVOR3"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Cone of silence flag"
+	      SrcPort		      1
+	      Points		      [110, 0]
+	      DstBlock		      "Mux2"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "QDR"
+	      SrcPort		      1
+	      Points		      [10, 0]
+	      Branch {
+		Points			[0, -45]
+		DstBlock		"Sum1"
+		DstPort			2
+	      }
+	      Branch {
+		DstBlock		"Sum"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "psi"
+	      SrcPort		      1
+	      DstBlock		      "Sum1"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Sum1"
+	      SrcPort		      1
+	      DstBlock		      "1 = to, 0 = from"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "+/- 10 deg"
+	      SrcPort		      1
+	      DstBlock		      "yVOR1"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Sum"
+	      SrcPort		      1
+	      DstBlock		      "+/- 10 deg"
+	      DstPort		      1
+	    }
+	    Annotation {
+	      Position		      [528, 192]
+	      VerticalAlignment	      top
+	      Text		      "R_VOR "
+	    }
+	    Annotation {
+	      Position		      [521, 102]
+	      VerticalAlignment	      top
+	      Text		      "Gamma_VOR"
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "VORERR"
+	  Ports			  [1, 1, 0, 0, 0]
+	  Position		  [25, 120, 100, 160]
+	  ShowPortLabels	  off
+	  MaskType		  "VOR error"
+	  MaskDescription	  "Steady-state error VOR"
+	  MaskHelp		  "Unmask this block, or type HELP VORERR\\nat "
+				  "the Matlab command line for more info."
+	  MaskPromptString	  "Overall VOR system error [%]:"
+	  MaskStyleString	  "edit"
+	  MaskInitialization	  "KVORerr = 1 + (@1/100)"
+	  MaskDisplay		  "disp('VOR Steady-\\nstate error')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  MaskValueString	  "5"
+	  System {
+	    Name		    "VORERR"
+	    Location		    [124, 167, 474, 332]
+	    Open		    off
+	    ScreenColor		    white
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Gamma_VOR\n(nominal value)"
+	      Position		      [40, 95, 60, 115]
+	      DropShadow	      on
+	      Port		      "1"
+	      PortWidth		      "-1"
+	      SampleTime	      "-1"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "KVORerr"
+	      Position		      [140, 78, 225, 132]
+	      Gain		      "KVORerr"
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "t"
+	      Ports		      [0, 0, 0, 0, 0]
+	      Position		      [15, 5, 148, 53]
+	      ForegroundColor	      blue
+	      ShowName		      off
+	      ShowPortLabels	      off
+	      MaskDisplay	      "disp('VOR steady-state error\\nMarc "
+				      "Rauw\\nDec 1995')"
+	      MaskIconFrame	      on
+	      MaskIconOpaque	      on
+	      MaskIconRotate	      none
+	      MaskIconUnits	      autoscale
+	      System {
+		Name			"t"
+		Location		[-14, 88, 81, 173]
+		Open			off
+		ScreenColor		white
+		Annotation {
+		  Position		  [53, 42]
+		  VerticalAlignment	  top
+		  Text			  "T"
+		}
+	      }
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Gamma_VOR\n(actual value)"
+	      Position		      [305, 95, 325, 115]
+	      DropShadow	      on
+	      Port		      "1"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "KVORerr"
+	      SrcPort		      1
+	      DstBlock		      "Gamma_VOR\n(actual value)"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Gamma_VOR\n(nominal value)"
+	      SrcPort		      1
+	      DstBlock		      "KVORerr"
+	      DstPort		      1
+	    }
+	    Annotation {
+	      Position		      [491, 32]
+	      VerticalAlignment	      top
+	      Text		      "`"
+	    }
+	  }
+	}
+	Annotation {
+	  Position		  [51, 17]
+	  VerticalAlignment	  top
+	  Text			  "VOR library"
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "i"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [185, 15, 245, 50]
+      ForegroundColor	      red
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('???\\nMore Info')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"i"
+	Location		[4, 61, 317, 279]
+	Open			off
+	ScreenColor		white
+	Annotation {
+	  Position		  [157, 147]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "The basic blocks have been masked. If "
+				  "you don't know\nthe original block-name "
+				  "anymore, press the HELP\nbutton. The "
+				  "blocks can be examined more closely if\nthey"
+				  " are 'unmasked'."
+	}
+	Annotation {
+	  Position		  [153, 72]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "On-line help is available from the MATLAB "
+				  "command\nline: type FDCHELP <blockname> "
+				  "at the command\nline. For large systems, "
+				  "it is better to abbreviate the\nblock "
+				  "names, to avoid excessive file sizes. "
+				  "See the blocks\nfrom the system BEAVER "
+				  "for an example."
+	}
+	Annotation {
+	  Position		  [150, 37]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "This library contains  models for the "
+				  "ILS and VOR\nsystems, including steady-state"
+				  " errors and noise."
+	}
+	Annotation {
+	  Position		  [146, 12]
+	  VerticalAlignment	  top
+	  ForegroundColor	  red
+	  FontName		  "Times New Roman"
+	  FontSize		  14
+	  Text			  "Block library of ILS and VOR models"
+	}
+      }
+    }
+    Annotation {
+      Position		      [247, 36]
+    }
+    Annotation {
+      Position		      [94, 7]
+      VerticalAlignment	      top
+      ForegroundColor	      blue
+      FontName		      "Times New Roman"
+      FontSize		      14
+      FontWeight	      bold
+      Text		      "FDC Toolbox - ILS/VOR\nradio-navigation library."
+    }
+  }
+}

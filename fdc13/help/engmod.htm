@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Engmod (Beaver)</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Engmod (Beaver)</FONT></I></H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Engmod (Beaver)</FONT></I> is a masked S<SMALL>IMULINK</SMALL> subsystem which computes the dimensionless force and moment coefficients due to operation of the powerplant, using the engine forces & moments model of the DHC-2 'Beaver' aircraft from <A HREF="#References">ref.[1]</A>. The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Engmod</FONT></I> is contained in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="enggrp.htm">Engine Group</A></FONT></I> of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>. It uses the outputs from the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="power.htm">Power (Beaver)</A></FONT></I> and its outputs are sent to the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="fmdims.htm">FMdims</A></FONT></I>, which are both also contained in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Engine Group</FONT></I>.
+
+<H3>Inputvectors: <I>x</I> and <I>ypow</I></H3>
+<PRE>  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+
+  ypow = [dpt P]'    (dimensionless pressure increase across the
+                       propeller and engine power, both computed
+                                     in the block <A HREF="power.htm">Power (Beaver)</A>)
+
+ {V    : airspeed [m/s]                                         }
+  alpha: angle of attack [rad]
+ {beta : sideslip angle [rad]                                   }
+ {p    : roll rate [rad/s]                                      }
+ {q    : pitch rate [rad/s]                                     }
+ {r    : yaw rate [rad/s]                                       }
+ {psi  : yaw angle [rad]                                        }
+ {theta: pitch angle [rad]                                      }
+ {phi  : roll angle [rad]                                       }
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+
+  dpt  : dimensionless pressure increase across the propeller [-]
+ {P    : engine power [Nm/s]                                    }
+</PRE>
+
+The input variables which are not actually used by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Engmod (Beaver)</FONT></I> have been displayed between brackets
+
+<H3>Outputvector: <I>Cprop</I> (<I>prop</I> = 'propulsion')</H3>
+<PRE>  Cprop = [CXp CYp CZp Clp Cmp Cnp]'
+
+  CXp, CYp, CZp: force coefficients due to engine operation [-]
+  Clp, Cmp, Cnp: moment coefficients due to engine operation [-]
+</PRE>
+
+<H3>Parameters to be defined in the M<SMALL>ATLAB</SMALL> Workspace.</H3>
+
+<UL>
+<LI><I>EM</I>: matrix with stability and control derivatives of the 'Beaver', due to engine operation (valid only for engine forces & moments model of the DHC-2 'Beaver', see <A HREF="#References">ref.[1]</A>). The matrix <I>EM</I> can be loaded into the workspace from file by running the routine <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I>. Run <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="modbuild.htm">MODBUILD</A></FONT></I> first if the datafile does not yet exist.
+</UL>
+
+<H3><A NAME= "References">References</A></H3>
+
+<OL>
+<LI>R.T.H. Tjee and J.A. Mulder. <I>Stability and Control Derivatives of the De Havilland DHC-2 "Beaver" aircraft</I>. Report LR-556, Delft University of Technology, 1988.
+</OL>
+
+
+</BODY>
+
+</HTML>

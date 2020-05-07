@@ -1,0 +1,153 @@
+-----------------------------------------------------------------
+System BEAVER - subsystem 'Additional Outputs'
+==============================================
+The 3rd-level subsystem 'Additional Outputs' of the system BEAVER
+contains a number of masked subsystem blocks which generate out-
+put signals that were not needed for solving the equations of
+motion, and which could not logically be placed in one of the
+other subsystems (i.e., 'Airdata Group', 'Aerodynamics Group',
+'Engine Group', or 'Aircraft Equations of Motion'). The subsystem
+'Additional Outputs' can be deleted from the system BEAVER, with-
+out affecting the solution of the equations of motion, and it is
+easy to add more output equations to the list that is currently
+contained in this subsystem.
+
+Since the outputs from this subsystem are in no way involved in
+the actual solution of the state equations, the outputs may de-
+pend not only upon the state-vector x and the inputvectors uaero,
+uprop, and uwind, but also upon the time-derivative of the state
+vector, xdot. If the outputs from the subsystem 'Additional Out-
+puts' were needed for solving the state equations, this would
+not be possible, because it would yield an algebraic loop.
+
+By default, the subsystem 'Additional Outputs' contains masked
+subsystem blocks ACCEL, FLPATH, and UVWDOT, which determine
+accelerations and specific forces, flightpath variables, and
+time-derivatives of the velocity components u, v, and w (which
+are NOT state variables!), respectively. More output equations
+may be included in this subsystem!
+
+Inputs to the subsystem 'Additional Outputs':
+=============================================
+  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+
+  xdot = dx/dt = [Vdot alphadot betadot pdot qdot rdot ...
+                  ... psidot thetadot phidot xedot yedot Hdot]'
+                                (time-derivative of state-vector)
+
+  yhlp = [cos(alpha) sin(alpha) cos(beta) sin(beta) tan(beta) ...
+          ... sin(psi) cos(psi) sin(theta) cos(theta) ...
+          ... sin(phi) cos(phi) ]'
+                  (sines & cosines, computed in the block HLPFCN)
+
+  Ftot = [Fx Fy Fz]'              (total forces along body-axes,
+                                    computed in the block FMSORT)
+
+  Fgrav= [Xgr Ygr Zgr]'         (gravity forces along body-axes,
+                                   computed in the block GRAVITY)
+
+where:
+
+  V        : airspeed [m/s]
+ {alpha    : angle of attack [rad] or [deg]                      }
+  beta     : sideslip angle [rad] or [deg]
+ {p        : roll-rate [rad/s] or [deg/s]                        }
+ {q        : pitch-rate [rad/s] or [deg/s]                       }
+ {r        : yaw-rate [rad/s] or [deg/s]                         }
+  psi      : yaw-angle [rad] or [deg]
+  theta    : pitch-angle [rad] or [deg]
+  phi      : roll-angle [rad] or [deg]
+ {xe       : X-coordinate in Earth-axes [m]                      }
+ {ye       : Y-coordinate in Earth-axes [m]                      }
+ {H        : altitude [m]                                        }
+
+  Vdot     : time-derivative of airspeed [m/s^2]
+  alphadot : time-derivative of alpha [rad/s] or [deg/s]
+  betadot  : time-derivative of beta [rad/s] or [deg/s]
+ {pdot     : time-derivative of p [rad/s^2] or [deg/s^2]         }
+ {qdot     : time-derivative of q [rad/s^2] or [deg/s^2]         }
+ {rdot     : time-derivative of r [rad/s^2] or [deg/s^2]         }
+ {psidot   : time-derivative of psi [rad/s] or [deg/s]           }
+ {thetadot : time-derivative of theta [rad/s] or [deg/s]         }
+ {phidot   : time-derivative of phi [rad/s] or [deg/s]           }
+ {xedot    : time-derivative of xe [m/s]                         }
+ {yedot    : time-derivative of ye [m/s]                         }
+  Hdot     : time-derivative of H [m/s]
+
+  Fx       : total external force along XB-axis [N]
+  Fy       : total external force along YB-axis [N]
+  Fz       : total external force along ZB-axis [N]
+
+  Xgr      : gravity force along XB-axis [N]
+  Ygr      : gravity force along YB-axis [N]
+  Zgr      : gravity force along ZB-axis [N]
+
+The variables which are not used by any of the masked subsystems
+within the subsystem 'Additional Outputs' have been bracketed be-
+tween accolades. Of the vector yhlp, only sin(alpha), cos(alpha),
+sin(beta), and cos(beta) are used within the subsystem 'Additional
+Outputs'.
+
+Outputs from the subsystem 'Additional Outputs':
+================================================
+  yfp  = [gamma fpa chi Phi]'             (flightpath parameters)
+
+  yuvw = [udot vdot wdot]'  (time-derivatives (!) of u, v, and w)
+
+  yacc = [Ax Ay Az axk ayk azk]'    (specific forces and accele-
+                                                         rations)
+
+where:
+
+  gamma    : flightpath angle [rad] or [deg]
+  fpa      : flightpath acceleration [m/s^2]
+  chi      : azimuth angle [rad] or [deg]
+  Phi      : bank angle [rad] or [deg]
+
+  udot     : time-derivative of u [m/s^2]
+  vdot     : time-derivative of v [m/s^2]
+  wdot     : time-derivative of w [m/s^2]
+
+  Ax       : specific force along XB-axis [g]
+  Ay       : specific force along YB-axis [g]
+  Az       : specific force along ZB-axis [g]
+  axk      : kinematic acceleration along XB-axis [g]
+  ayk      : kinematic acceleration along YB-axis [g]
+  azk      : kinematic acceleration along ZB-axis [g]
+
+Note: the time-derivatives of the body-axes velocity components,
+udot, vdot, and wdot, are not needed for solving the equations of
+motion, because the true airspeed V, angle of attack alpha, and
+sideslip angle beta have been used as state variables in stead of
+u, v, and w.
+
+Variables which must be set in Matlab workspace:
+================================================
+  GM1      : Vector which contains some basic geometrical pro-
+             perties of the aircraft, as well as its mass (which
+             is considered to be constant during the motions of
+             interest). Here, the value of the mass is needed
+             by the masked subsystem block ACCEL. GM1 can be loa-
+             ded to workspace from file by the routine LOADER.M.
+             Use MODBUILD.M first if the datafile does not yet
+             exist. Type HELP LOADER or HELP MODBUILD for more
+             info.
+
+  xinco    : Initial value of state vector. The block FLPATH ex-
+             tracts the initial value of the angle of attack from
+             xinco, in order to compute the bank angle. Type HELP
+             ACTRIM at the Matlab command line for more info
+             about the determination of steady-state trimmed
+             flight conditions. If datafiles with initial condi-
+             tions exist, uses INCOLOAD.M to retrieve them. Type
+             HELP INCOLOAD for more info.
+
+More info:
+==========
+See FLPATH.HLP, ACCEL.HLP, and UVWDOT.HLP for more info about the
+masked subsystem blocks, contained in 'Additional Outputs'. See
+HLPFCN.HLP, FMSORT.HLP, and GRAVITY.HLP for more info about the
+inputvectors to this subsystem.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

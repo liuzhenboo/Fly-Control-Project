@@ -1,0 +1,14 @@
+-----------------------------------------------------------------
+OLOOP1 is a Simulink system which demonstrates how the system
+BEAVER can be used in practice for nonlinear, off-line, open-loop
+simulations of the 'Beaver' responses to control inputs. The sys-
+tem has been included in the subdirectory EXAMPLES. Open the sys-
+tem by typing OLOOP1 at the Matlab command line.
+
+The construction of the system OLOOP1 itself has been outlined in
+the 'tutorial system' OLOOP1T which explains the meaning of each
+block in the system OLOOP1. Type OLOOP1T at the Matlab command
+line to open this tutorial.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

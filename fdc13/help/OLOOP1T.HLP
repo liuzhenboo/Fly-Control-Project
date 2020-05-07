@@ -1,0 +1,11 @@
+----------------------------------------------------------------
+OLOOP1T is a 'tutorial system', which contains a step-by-step
+explanaition of the construction of OLOOP1. The system OLOOP1
+demonstrates how the system BEAVER can be used in practice for
+nonlinear, off-line, open-loop simulations of the 'Beaver' res-
+ponses to control inputs. Both OLOOP1 and OLOOP1T have been in-
+cluded in the directory EXAMPLES. Type OLOOP1T, or OLOOP1 at
+the Matlab command line to open these systems.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

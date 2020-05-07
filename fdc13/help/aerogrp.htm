@@ -1,0 +1,79 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Aerodynamics Group (Beaver)</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Aerodynamics Group (Beaver)</FONT></I>
+</H2>
+
+The subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Aerodynamics Group (Beaver)</FONT></I> of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I> contains blocks that determine the aerodynamic forces and moments for the 'Beaver' aircraft. The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="dimless.htm">Dimless</A></FONT></I> first computes the non-dimensional rotational velocity components along the aircraft's body-axes. The dimensionless force and moment coefficients are then calculated in the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="aeromod.htm">Aeromod (Beaver)</A></FONT></I>, which contains the actual (aircraft-dependent) aerodynamic model, and finally, the real values of these forces and moments are determined by the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="fmdims.htm">FMdims</A></FONT></I>.
+<BR><BR>
+
+As implied by its name, the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Aerodynamics Group (Beaver)</FONT></I> is only valid for the De Havilland DHC-2 'Beaver', using the aerodynamic model from <A HREF="#References">ref.[1]</A>. The internal structure of similar models for other aircraft may look entirely different. For instance, in this case the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Dimless</FONT></I> is needed, because the dimensionless rotational velocities are used as helpvariables for the actual aerodynamic model in <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Aeromod</FONT></I>, whereas aerodynamic models for other aircraft may need different helpvariables.
+<BR><BR>
+
+For this reason, the internal structure of the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Aerodynamics Group</FONT></I> will <I>always</I> depend upon the aircraft model considered.
+
+<H3>Inputs: <I>x</I>, <I>uaero</I>, <I>yad1</I>
+</H3>
+<PRE>  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+  uaero= [deltae deltaa deltar deltaf]' (aerodyn. control-inputs)
+  yad1 = [a M qdyn]'                   (basic airdata variables,
+                                            coming from <A HREF="airdata1.htm">Airdata1</A>)
+
+  V     : true airspeed [m/s]
+  alpha : angle of attack [rad]
+  beta  : sideslip angle [rad]
+  p     : roll-rate [rad/s]
+  q     : pitch-rate [rad/s]
+  r     : yaw-rate [rad/s]
+ {psi   : yaw-angle [rad]                                       }
+ {theta : pitch-angle [rad]                                     }
+ {phi   : roll-angle [rad]                                      }
+ {xe    : X-coordinate, relative to Earth-axes [m]              }
+ {ye    : Y-coordinate, relative to Earth-axes [m]              }
+ {H     : altitude above sea level [m]                          }
+
+  deltae: deflection of elevator [rad]
+  deltaa: deflection of ailerons [rad]
+  deltar: deflection of rudder [rad]
+  deltaf: deflection of flaps [rad]
+
+ {a     : speed of sound [m/s]                                  }
+ {M     : Mach number [-]                                       }
+  qdyn  : dynamic pressure [N/m^2]
+</PRE>
+
+The variables which are not actually used by any of the masked subsystems <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Dimless</FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Aeromod (Beaver)</FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">FMdims</FONT></I> have been displayed between accolades.
+
+<H3>Outputs: <I>ydl</I>, <I>Caero</I>, <I>FMaero</I>
+</H3>
+<PRE>  ydl   = [pb/2V qc/V rb/2V]'              (outputs from <A HREF="dimless.htm">Dimless</A>)
+  Caero = [CXa CYa CZa Cla Cma Cna]'       (outputs from <A HREF="aeromod.htm">Aeromod</A>)
+  FMaero= [Xa Ya Za La Ma Na]'              (outputs from <A HREF="fmdims.htm">FMdims</A>)
+
+
+  CXa, CYa, CZa: dimensionless aerodynamic force coefficients
+  Cla, Cma, Cna: dimensionless aerodynamic moment coefficients
+  Xa, Ya, Za   : aerodynamic forces [N]
+  La, Ma, Na   : aerodynamic moments [Nm]
+</PRE>
+
+<H3>Parameters which must be defined in the M<SMALL>ATLAB</SMALL> Workspace
+</H3>
+
+<UL><LI><I>GM1</I>: vector with some important geometrical properties of the 'Beaver' aircraft, and the mass of the aircraft (which is assumed to be constant during the motions of interest). Here, it is needed by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Dimless</FONT></I> in order to extract geometrical data.
+<LI><I>AM</I>: matrix with stability and control derivatives of the 'Beaver' (valid only for the nonlinear aerodynamic model of the DHC-2 'Beaver', see <A HREF="#References">ref.[1]</A>). This matrix is needed by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Aeromod (Beaver)</FONT></I>.
+</UL>
+
+<I>AM</I> and <I>GM1</I> can be loaded into the workspace from datafile by running the utility <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I>. Run <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="modbuild.htm">MODBUILD</A></FONT></I> first if the datafile does not yet exist.
+
+<H3><A NAME= "References">References
+</A></H3>
+<OL>
+<LI>R.T.H. Tjee and J.A. Mulder. <I>Stability and Control Derivatives of the De Havilland DHC-2 "Beaver" aircraft</I>. Report LR-556, Delft University of Technology, 1988.
+</OL>
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,71 @@
+-----------------------------------------------------------------
+ENGMOD (Beaver) is a masked Simulink subsystem which computes the
+dimensionless force and moment coefficients due to operation of
+the powerplant, using the engine forces & moments model of the
+DHC-2 'Beaver' aircraft from ref.[1]. The block ENGMOD is con-
+tained in the subsystem 'Engine Group' of the system BEAVER. It
+uses the outputs from the block POWER.
+
+Inputvectors: x and ypow (the input variables which are not used
+by ENGMOD are displayed between brackets).
+================================================================
+  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+
+  ypow = [dpt P]'    (dimensionless pressure increase across the
+                       propeller and engine power, both computed
+                                              in the block POWER)
+where:
+
+ {V    : airspeed [m/s]                                         }
+  alpha: angle of attack [rad]
+ {beta : sideslip angle [rad]                                   }
+ {p    : roll rate [rad/s]                                      }
+ {q    : pitch rate [rad/s]                                     }
+ {r    : yaw rate [rad/s]                                       }
+ {psi  : yaw angle [rad]                                        }
+ {theta: pitch angle [rad]                                      }
+ {phi  : roll angle [rad]                                       }
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+
+  dpt  : dimensionless pressure increase across the propeller [-]
+ {P    : engine power [Nm/s]                                    }
+
+Outputvector: Cprop (prop = 'propulsive')
+=========================================
+  Cprop = [CXp CYp CZp Clp Cmp Cnp]'
+
+where:
+
+  CXp, CYp, CZp: force coefficients due to engine operation [-]
+  Clp, Cmp, Cnp: moment coefficients due to engine operation [-]
+
+Parameters, which must be set in the Matlab Workspace.
+======================================================
+  EM = matrix with stability and control derivatives of the
+       'Beaver', due to engine operation (valid only for engine
+       forces & moments model of the DHC-2 'Beaver', see ref.[1]).
+       The matrix EM can be loaded into the workspace from file
+       by applying the routine LOADER.M. Run MODBUILD.M first if
+       the datafile does not yet exist. Type HELP LOADER or HELP
+       MODBUILD for more info.
+
+References.
+===========
+[1]  R.T.H. Tjee and J.A. Mulder. Stability and Control Deriva-
+     tives of the De Havilland DHC-2 "Beaver" aircraft. Report
+     LR-556, Delft University of Technology, 1988.
+
+More info.
+==========
+See POWER.HLP for more info about the determination of the engine
+power and dimensionless pressure increase across the propeller.
+The forces in [N] and moments in [Nm] will be derived in the
+block FMDIMS which uses Ct as inputvector. See FMDIMS.HLP for more
+details.
+
+See ENGGRP.HLP for info about the subsystem 'Engine Group'.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

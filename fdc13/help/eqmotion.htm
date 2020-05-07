@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Aircraft Equations of Motion (Beaver)</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Aircraft Equations of Motion (Beaver)</FONT></I>
+</H2>
+
+The dynamics of a rigid aircraft can be expressed by twelve Ordinary Differential Equations (ODEs). The equations which determine the magnitude of the time-derivatives of the twelve state variables as a function of the external forces and moments, external disturbances, and the states themselves, have been gathered in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Aircraft Equations of Motion (Beaver)</FONT></I> of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>. This subsystem also contains the integrator which obtains the states from their time-derivatives.<BR><BR>
+
+The twelve ODEs themselves are independent of the aircraft considered. However, some of the aerodynamic forces or moments may depend upon the time-derivatives of the state variables, which make the differential equations implicit. It depends upon the resulting implicit expressions whether or not S<SMALL>IMULINK</SMALL> can cope with them. Often, it is not difficult to rewrite the implicit differential equation(s) in terms of a set generalized explicit ODEs and a separate aircraft-dependent correction term. For the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>, such an aircraft-dependent correction term proved to be necessary. It has been included in <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="xdotcorr.htm">xdotcorr</A></FONT></I> - one of the masked subsystem blocks from the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Aircraft Equations of Motion (Beaver)</FONT></I>. This explains why the extension <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">(Beaver)</FONT></I> has been included in the subsystem name.
+<BR><BR>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Aircraft Equations of Motion (Beaver)</FONT></I> contains the following blocks:
+
+<UL>
+<LI>The masked subsystem block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="xdotcorr.htm">xdotcorr (Beaver)</A></FONT></I> contains the aircraft-dependent corrections to the state equations for the DHC-2 'Beaver' aircraft, which were induced when converting the original implicit differential equations into a set of explicit ODEs.
+
+<LI>The masked subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="uvw.htm">uvw</A></FONT></I> contains the transformation equations which make it possible to obtain the components of the true airspeed along the body-axes of the aircraft, given the true airspeed, angle of attack, and sideslip angle.
+
+<LI>An <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Integrator</FONT></I> block is used to obtain the time-trajectories of the state variables themselves from their derivatives with respect to time.
+
+<LI>The <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Gain </FONT></I>block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="xfix.htm">XFIX</A></FONT></I> makes it possible to artificially fix states, by performing an element-by-element multiplication of the vector <I>xdot</I> with the vector <I>xfix</I>. All elements of <I>xfix</I> either equal one or zero, meaning that the corresponding states are either free to vary or artificially kept constant. The vector <I>xfix</I> can be set manually or defined by means of the utility <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="fixstate.htm">FIXSTATE</A></FONT></I>. Its default value will be set by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I>, if the vector <I>xfix</I> can not be found in the M<SMALL>atlab</SMALL> workspace.<BR>
+
+<LI>The subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="12odes.htm">12 ODEs</A></FONT></I> contains the twelve ODEs themselves.
+</UL>
+
+<H3>Computation order
+</H3>
+
+First, the velocity components <I>u</I>, <I>v</I>, and <I>w</I> are computed, using the current value of the state vector <I>x</I>, and the outputvector <I>yhlp</I> from the masked subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="hlpfcn.htm">Hlpfcn</A></FONT></I> (this vector contains frequently used sines and cosines of angular state variables). The velocity components <I>u</I>, <I>v</I>, and <I>w</I> are needed for solving the differential equations concerning the aircraft-coordinates <I>x<SUB>e</SUB></I> and <I>y<SUB>e</SUB></I>. In order to account for contributions of non-steady atmosphere, the velocity components due to wind and/or atmospheric turbulence, <I>u<SUB>w</SUB></I>, <I>v<SUB>w</SUB></I>, and <I>w<SUB>w</SUB></I>, are extracted from the vector <I>uwind</I>, and added to <I>u</I>, <I>v</I>, and <I>w</I>. Next, the time-derivatives of the states are computed in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="12odes.htm">12 ODEs</A></FONT></I>, which uses the current state vector <I>x</I>, the helpvector <I>yhlp</I>, the vectors <I>Ftot</I> and <I>Mtot</I> (containing the total forces and moments), and the vector [<I>u</I>+<I>u<SUB>w</SUB></I>, <I>v</I>+<I>v<SUB>w</SUB></I>, <I>w</I>+<I>w<SUB>w</SUB></I>]<SUP><I>T</I></SUP> as inputs.
+<BR><BR>
+
+The time-derivatives of the states are gathered in the vector <I>xdot</I> = <I>dx/dt</I>. As said before, the vector <I>xdot</I> that leaves the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">12 ODEs</FONT></I> needs to be corrected for aircraft-dependent terms. This is done in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="xdotcorr.htm">xdotcorr (Beaver)</A></FONT></I>, which needs the current state vector <I>x</I>, and, in the case of the 'Beaver' aircraft, the outputvector from the masked subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="atmosph.htm">Atmosph</A></FONT></I> in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="adgrp.htm">Airdata Group</A></FONT></I> (to be more specific: <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">xdotcorr</FONT></I> needs to know the air-density for the correction of the beta-dot equation). The outputvector from <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">xdotcorr</FONT></I>, the corrected version of <I>xdot</I>, is send to the gain <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="xfix.htm">XFIX</A></FONT></I>, which is used to artificially fix states if required by the user. Finally, the time-derivatives are sent to the <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Integrator</FONT></I> block, where they are integrated to obtain the updated value of the state vector <I>x</I>. Note: the <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Integrator</FONT></I> block uses the vector <I>xinco</I> as initial condition (see below).
+<BR><BR>
+
+The state vector <I>x</I> is fed back to the other subsystems in <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>, and also internally in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Aircraft Equations of Motion</FONT></I>, because the time-derivatives of the state variables depend upon the state variables themselves. The second level of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> contains a masked subsystem block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="hlpfcn.htm">Hlpfcn</A></FONT></I>, which computes the sines and cosines of the angles <I>alpha</I>, <I>beta</I>, <I>psi</I>, <I>theta</I>, and <I>phi</I>. These 'helpvariables' are also fed back to other subsystems in <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>, including <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Aircraft Equations of Motion</FONT></I>. The resulting feedback loops can be distinguished from the other signals by their magenta foreground color (see also the <A HREF="colors.htm">color definitions</A>).
+
+<H3>Inputs to the subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Aircraft Equations of Motion (Beaver)</FONT></I>
+</H3>
+
+<PRE>  Ftot  = [Fx Fy Fz]' (total forces along body-axes, coming from <A HREF="fmsort.htm">FMsort</A>)
+  Mtot  = [L M N]'   (total moments along body-axes, coming from <A HREF="fmsort.htm">FMsort</A>)
+  uwind = [uw vw ww uwdot vwdot wwdot]'       (atmospheric disturbances)
+  yatm  = [rho ps T mu g]'     (atmosphere variables, computed in the
+                                               masked subsystem <A HREF="atmosph.htm">Atmosph</A>)
+  yhlp  = [cos(alpha) sin(alpha) cos(beta) sin(beta) tan(beta) ...
+           ... sin(psi) cos(psi) sin(theta) cos(theta) sin(phi) ...
+           ... cos(phi) ]'         (sines & cosines, coming from <A HREF="hlpfcn.htm">Hlpfcn</A>)
+
+
+  Fx, Fy, Fz: total external forces along body-axes [N]
+  L, M, N   : total external moments along body-axes [Nm]
+  uw, vw, ww: body-axes components of velocity component due to
+              non-steady atmosphere (wind + turbulence) [m/s]
+ {uwdot     : d(uw)/dt [m/s^2]                                   }
+ {vwdot     : d(vw)/dt [m/s^2]                                   }
+ {wwdot     : d(ww)/dt [m/s^2]                                   }
+  rho       : air density [kg/m^3]
+ {ps        : static pressure [N/m^2]                            }
+ {T         : air temperature [K]                                }
+ {mu        : dynamic viscosity [kg/(m*s)]                       }
+ {g         : acceleration of gravity [m/s^2]                    }
+</PRE>
+
+The variables which are not used by any of the (masked) subsystem blocks from the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Aircraft Equations of Motion</FONT></I> have been put between accolades. In addition to these variables, all elements from <I>yhlp</I> are used.
+
+<H3>Outputs from the subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Aircraft Equations of Motion (Beaver)</FONT></I>
+</H3>
+
+<PRE>  x     = [V alpha beta p q r psi theta phi xe ye H]'    (states)
+  xdot  = dx/dt                      (time-derivatives of states)
+  ybvel = [u v w]'        (body-axes components of true airspeed)
+
+  V    : true airspeed [m/s]
+  alpha: angle of attack [rad]
+  beta : sideslip angle [rad]
+  p    : roll-rate [rad/s]
+  q    : pitch-rate [rad/s]
+  r    : yaw-rate [rad/s]
+  psi  : yaw-angle [rad]
+  theta: pitch-angle [rad]
+  phi  : roll-angle [rad]
+  xe   : X-coordinate, relative to Earth-axes [m]
+  ye   : Y-coordinate, relative to Earth-axes [m]
+  H    : altitude above sea level [m]
+  u    : component of V along XB-axis [m/s]
+  v    : component of V along YB-axis [m/s]
+  w    : component of V along ZB-axis [m/s]
+</PRE>
+
+<H3>Parameters which must be defined in the M<SMALL>ATLAB</SMALL> workspace
+</H3>
+
+<UL>
+<LI><I>xinco</I>: Initial value of the state vector <I>x</I>. Usually, a steady-state trimmed-flight condition is used as initial condition for the aircraft ('condition' = combination of input variables and state vector, so <I>xinco</I> does not specify a complete initial flight condition by itself!). Trimmed-flight conditions can be computed with the trim-routine <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="actrim.htm">ACTRIM</A></FONT></I>.
+Initial conditions can also be retrieved from file by means of the M<SMALL>ATLAB</SMALL> utility <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="incoload.htm">INCOLOAD</A></FONT></I>. <LI>The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Integrator</FONT></I> specifies <I>xinco</I> as initial value of the state vector.
+<BR><BR>
+
+<LI><I>xfix</I>: Vector with twelve elements (<I>length(xfix) = length(x)</I>) which are all equal to either one or zero. If the <I>n<SUP>th</SUP></I> element of <I>xfix</I> is equal to one, the corresponding element of <I>x</I> (= the corresponding state variable) may vary freely, according to the 'actual' solution of the state equations. If the <I>n<SUP>th</SUP></I> element of xfix is equal to zero, the corresponding state is <I>artificially</I> fixed to its initial value, no matter what its actual value should be. This may be useful for the analysis of some types of aircraft responses. The vector <I>xfix</I> can be defined manually, or by running <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="fixstate.htm">FIXSTATE</A></FONT></I> before starting a new simulation. Usually, <I>xfix = 1</I> or <I>xfix = ones(1,12)</I> will be used for simulations. This default value will be set automatically if you run <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I> before starting a new simulation.
+<BR><BR>
+
+<LI><I>GM1</I>: Matrix which contains some basic geometric properties of the aircraft, and its mass. <I>GM1</I> is needed by the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="12odes.htm">12 ODEs</A></FONT></I>.
+<BR><BR>
+
+<LI><I>GM2</I>: Matrix with inertia parameters of the aircraft. <I>GM2</I> is needed by the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="12odes.htm">12 ODEs</A></FONT></I>.
+</UL>
+
+</BODY>
+
+</HTML>

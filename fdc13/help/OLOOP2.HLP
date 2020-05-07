@@ -1,0 +1,14 @@
+-----------------------------------------------------------------
+OLOOP2 is a Simulink system which demonstrates how the system
+BEAVER can be used in practice for nonlinear, off-line, open-loop
+simulations of the 'Beaver' responses to atmospheric disturbances.
+The system has been included in the subdirectory EXAMPLES. Open
+the system by typing OLOOP2 at the Matlab command line.
+
+The construction of the system OLOOP2 itself has been outlined in
+the 'tutorial system' OLOOP2T which explains the meaning of each
+block in the system OLOOP2. Type OLOOP2T at the Matlab command
+line to open this tutorial.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

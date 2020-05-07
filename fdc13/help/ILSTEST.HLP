@@ -1,0 +1,46 @@
+-----------------------------------------------------------------
+The masked subsystem block ILSTEST, from the sublibrary ILS of
+the library NAVLIB, is called from within the masked Simulink
+block ILS, in order to check if the localizer and glideslope
+signals are valid at the position of the aircraft.
+
+Inputvector: utst.
+==================
+  utst = [Gamma_loc Gamma_gs Rloc Rgs]'.
+
+where:
+
+  Gamma_loc: 2D-angle between line from c.g. of aircraft to lo-
+             calizer antenna and runway center-line (as seen from
+             above), [rad]
+  Gamma_gs : 2D-angle between line from c.g. of aircraft to
+             glideslope antenna and runway center-line (as seen
+             from above), [rad]
+  Rloc     : 2D-distance from aircraft's c.g. to localizer antenna
+             (as seen from above), [m]
+  Rgs      : 2D-distance from aircraft's c.g. to glideslope anten-
+             na (as seen from above), [m]
+
+Outputvector: yils4.
+====================
+  yils4 = [LOCflag GSflag]'.
+
+  GSflag = 0 if aircraft is in area where glideslope signals can
+  be received with appropriate accuracy LOCflag = 0 if the air-
+  craft flies in area where the localizer signals are receivable.
+  If the aircraft is too far away, GSflag = 1 and/or LOCflag = 1!
+
+References.
+===========
+[1] Rauw, M.O. A Simulink environment for Flight Dynamics and
+    Control analysis - Application to the DHC-2 'Beaver', part I:
+    Implementation of a model library in Simulink. MSc-thesis,
+    Delft University of Technology, September 1993.
+
+More Info.
+==========
+See ILS.HLP for more details about the masked subsystem block ILS.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.
+

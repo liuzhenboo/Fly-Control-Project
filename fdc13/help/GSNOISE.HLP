@@ -1,0 +1,51 @@
+-----------------------------------------------------------------
+GLIDESLOPE NOISE.
+=================
+The sublibrary ILS of the library NAVLIB contains two different
+masked subsystem blocks which implement glideslope noise signals:
+GSnoise1 and GSnoise2. See refs.[1], [2], or [3], or the FDC 1.2
+manual for more details about the theoretical backgrounds.
+
+GSnoise1
+========
+GSnoise1 generates glideslope noise according to AGARD R-632 assu-
+ming a constant approach speed. The user must specify the scale
+length Lgs (typically 85 m), the standard deviation sigma_gs
+(usually <= 15 æA), and the approach speed V.
+
+  GSnoise1 doesn't have any inputs
+  Outputsignal: Glideslope-noise [æA]
+
+GSnoise2
+========
+GSnoise2 uses a glideslope noise filter according to NASA CR2022.
+The user doesn't have to specify any parameters.
+
+  GSnoise2 doesn't have any inputs
+  Outputsignal: Glideslope-noise [æA]
+
+References:
+===========
+[1] Approach and Landing Simulation. AGARD report 632, Ames, 1975
+
+[2] Johnson, W.A., McRuer, D.T. Development of a Category II
+    Approach System Model. NASA Contractor Report 2022, Washing-
+    ton D.C., USA, 1972
+
+[3] A Simulink environment for Flight Dynamics and Control
+    analysis - Application to the DHC-2 'Beaver', part I: Im-
+    plementation of a model library in Simulink. Delft Univer-
+    sity of Technology, September 1993
+
+More info:
+==========
+See ILS.HLP for details about the nominal ILS signals. See also
+LOCNOISE.HLP for more info about the determination of Localizer
+noise signals.
+
+See also the subsystem 'ILS example' and its help-text
+ILSXMPL.HLP, to find out how the noise-blocks can be connected
+to the masked subsystem block ILS.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

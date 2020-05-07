@@ -1,0 +1,101 @@
+-----------------------------------------------------------------
+Inputs to the system BEAVER.
+============================
+The system BEAVER contains the nonlinear dynamic model of the
+DHC-2 'Beaver' aircraft, which consists of twelve state equations,
+forces and moment equations, airdata equations, and many addi-
+tional output equations. BEAVER is a graphical Simulink block-
+diagram.
+
+The first level of BEAVER contains a number of input and output
+ports, which are needed to connect other subsystems (e.g. command
+generators, autopilots, sensor models, etc.) to the aircraft mo-
+del. For simulation purposes, aircraft linearization and the de-
+termination of steady-state trimmed flight conditions, the system
+BEAVER can be treated as a BLACK-BOX model, which can be accessed
+through this input and output ports only.
+
+S-function inputs of the system BEAVER:
+=======================================
+There are twelve (scalar) Inport blocks, which means that the
+system must be accessed with an input vector of length twelve.
+This input vector (THE inputvector to the system BEAVER) has been
+defined as:
+
+  u     = [uaero'  uprop'  uwind']'
+
+  uaero = [deltae deltaa deltar deltaf]'
+  uprop = [n pz]'
+  uwind = [uw vw ww uwdot vwdot wwdot]'
+
+where:
+
+  deltae: elevator deflection [rad]
+  deltaa: ailerons deflection [rad]
+  deltar: rudder deflection [rad]
+  delfaf: flap deflection [rad]
+
+  n     : engine speed [RPM]
+  pz    : manifold pressure ["Hg]
+
+  uw    : wind & turbulence velocity along XB-axis [m/s]
+  vw    : wind & turbulence velocity along YB-axis [m/s]
+  ww    : wind & turbulence velocity along ZB-axis [m/s]
+  uwdot : d(uw)/dt [m/s^2]
+  vwdot : d(vw)/dt [m/s^2]
+  wwdot : d(ww)/dt [m/s^2]
+
+Inputvariables which are send to the Matlab workspace:
+======================================================
+During simulations, the time-trajectories of these inputvariables
+are recorded in the matrix 'In' in the Matlab workspace. The matrix
+'In' contains twelve columns and N rows, where N is the number of
+time-steps taken during the simulation. The twelve columns cor-
+respond with the twelve elements of the inputvector u, so:
+
+  In == [  u'(t0)  ;  u'(t1)  ;  u'(t2)  ;  ...  ;  u'(tN)  ]
+
+The twelve columns of 'In' therefore correspond with the variables
+deltae, deltaa, deltar, deltaf, n, pz, uw, vw, ww, uwdot, vwdot,
+and wwdot (in this particular order), respectively. The outputs
+from the system BEAVER are send to the matrix 'Out', and a time-
+axis is send to the vector time. See OUTPUTS.HLP for more info.
+
+Using the Matlab-macro RESULTS.M
+================================
+Although the time-trajectories of the input variables are thus
+send to the matrix 'In' in the Matlab workspace, analyzing these
+results still may be difficult, because it is not easy to memo-
+rize the exact definition of this matrix. For this reason, the
+Matlab program RESULTS.M has been created. The file RESULTS.M
+can be found in the subdirectory TOOLS.
+     If you run RESULTS.M after a simulation, the time-trajec-
+tories of deltae, deltaa, deltar, deltaf, n, pz, uw, vw, ww,
+uwdot, vwdot, and wwdot will be extracted from the matrix 'In' as
+separate VECTORS. These vectors can be plotted against the vector
+time, which was created together with the matrices 'In' and 'Out'.
+The resulting plot commands look like:
+
+        plot(time,uwdot)
+        plot(time,deltae)
+
+        etc.
+
+The helpfiles AEROMOD.HLP, ENGMOD.HLP, FWIND.HLP, explain where
+the inputvariables from the inputvector u are used in the system
+BEAVER. See OUTPUTS.HLP for an exact definition of the outputvec-
+tor from the system BEAVER. See also LEVEL1.HLP to find out how
+the definition of the inputvector u is related to the graphical
+block-diagram structure of the first level of the system BEAVER.
+Type HELP RESULTS at the Matlab command line for more info about
+the program RESULTS.M.
+
+Note: if you want to adapt the system BEAVER for implementing a
+dynamic model of another aircraft, it may well be possible that
+you need other inputvariables than the twelve listed above. In
+that case, the first level of BEAVER needs to be changed accor-
+ding to your own wishes, see LEVEL1.HLP. Also, RESULTS.M needs to
+be edited.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

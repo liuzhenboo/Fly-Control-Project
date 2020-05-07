@@ -1,0 +1,39 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Airdata2</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Airdata2</FONT></I></H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata2</FONT></I> is a masked S<SMALL>IMULINK</SMALL> subsystem, used to compute the impact pressure <I>q<SUB>c</SUB></I>, equivalent airspeed <I>V<SUB>e</SUB></I>, and the calibrated airspeed <I>V<SUB>c</SUB></I>. The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata2</FONT></I> is contained in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="adgrp.htm">Airdata Group</A></FONT></I> of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>. Other airdata
+(-related) variables are computed in the blocks <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="atmosph.htm">Atmosph</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="airdata1.htm">Airdata1</A></FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="airdata3.htm">Airdata3</A></FONT></I>, which also contained in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata Group</FONT></I></FONT></I>.
+
+<H3>Inputvectors: <I>yatm</I> and <I>yad1</I></H3>
+<PRE>  yatm = [rho ps T mu g]'   (atmospheric properties, computed in
+                                               the block <A HREF="atmosph.htm">Atmosph</A>)
+  yad1 = [a M qdyn]',      (speed of sound, Mach number, dynamic
+                        pressure, computed in the block <A HREF="airdata1.htm">Airdata1</A>)
+
+ {rho  : airdensity [kg/m^3]                                    }
+  ps   : static pressure [N/m^2]
+ {T    : temperature [K]                                        }
+ {mu   : dynamic viscosity [kg/(m*s)]                           }
+ {g    : acceleration of gravity [m/s^2]                        }
+
+ {a    : speed of sound [m/s]                                   }
+  M    : Mach number [-]
+  qdyn : dynamic pressure [N/m^2]
+</PRE>
+The inputvariables which are not actually used by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Airdata2</FONT></I> have been displayed between accolades.
+
+<H3>Outputvector: <I>yad2</I></H3>
+<PRE>  yad2 = [qc Ve Vc]'
+
+  qc   : impact pressure [N/m^2]
+  Ve   : equivalent airspeed [m/s]
+  Vc   : calibrated airspeed [m/s]
+</PRE>
+
+</BODY>
+
+</HTML>

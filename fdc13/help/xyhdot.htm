@@ -1,0 +1,69 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: xyHdot</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">xyHdot</FONT></I></H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">xyHdot</FONT></I> is a masked S<SMALL>IMULINK</SMALL> subsystem which is contained in the sub-subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="12odes.htm">12 ODEs</A></FONT></I> of the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="eqmotion.htm">Aircraft Equations of Motion (Beaver)</A></FONT></I>, within the S-function <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>. It computes time-derivatives of the coordinates <I>x<SUB>e</SUB></I> and <I>y<SUB>e</SUB></I> and the altitude <I>H</I>, being the last three state variables of the nonlinear aircraft model. The remaining nine differential equations are stored in the subsystems <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vabdot.htm">Vabdot</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="pqrdot.htm">pqrdot</A></FONT></I>, and <FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><I><A HREF="eulerdot.htm">Eulerdot</A></I></FONT>, which are all contained in <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">12 ODEs</FONT></I>.
+
+<H3>Inputvector: <I>uxyh</I>
+</H3>
+<PRE>  uxyh = [x' Ftot' Mtot' yhlp'], and [u+uw  v+vw  w+ww]'.
+
+  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+
+  Ftot = [Fx Fy Fz]'           (total forces along the body-axes,
+                                    computed in the block <A HREF="fmsort.htm">FMsort</A>)
+
+  Mtot = [L M N]'             (total moments along the body-axes,
+                                    computed in the block <A HREF="fmsort.htm">FMsort</A>)
+
+  yhlp = [cos(alpha) sin(alpha) cos(beta) sin(beta) ...
+          ... tan(beta) sin(psi) cos(psi) sin(theta) ...
+          ... cos(theta) sin(phi) cos(phi)]'
+            (frequently used sines & cosines, computed in <A HREF="hlpfcn.htm">Hlpfcn</A>)
+
+  [u+uw v+vw w+ww]' = [u v w]' + [uw vw ww]' = ybvel + uwind(1:3);
+</PRE>
+
+<I>ybvel</I> is computed in the masked subsystem block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="uvw.htm">uvw</A></FONT></I>, <I>uwind</I> is an external inputvector with atmospheric disturbances.
+<PRE> {V    : airspeed [m/s]                                         }
+ {alpha: angle of attack [rad]                                  }
+ {beta : sideslip angle [rad]                                   }
+ {p    : roll rate [rad/s]                                      }
+ {q    : pitch rate [rad/s]                                     }
+ {r    : yaw rate [rad/s]                                       }
+  psi  : yaw angle [rad]
+  theta: pitch angle [rad]
+  phi  : roll angle [rad]
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+
+ {Fx, Fy, Fz: total forces along the aircraft's body-axes [N]   }
+ {L, M, N   : total moments along the aircraft's body-axes [Nm] }
+
+  u    : component of the airspeed V along the XB-axis [m/s]
+  v    : component of the airspeed V along the YB-axis [m/s]
+  w    : component of the airspeed V along the ZB-axis [m/s]
+  uw   : component of wind + turbulence along XB-axis [m/s]
+  vw   : component of wind + turbulence along YB-axis [m/s]
+  ww   : component of wind + turbulence along ZB-axis [m/s]
+</PRE>
+
+The inputvariables which are not actually used by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">xyHdot</FONT></I> have been displayed between accolades.
+
+<H3>Outputvector: <I>yxyh</I>
+</H3>
+<PRE>   yxyh = [xdot ydot Hdot]'
+
+   xdot = d(xe)/dt [m/s]
+   ydot = d(ye)/dt [m/s]
+   Hdot = dH/dt [m/s]
+</PRE>
+
+</BODY>
+
+</HTML>

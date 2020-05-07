@@ -1,0 +1,62 @@
+-----------------------------------------------------------------
+FMSORT is a Simulink subsystem, used to sort the different con-
+tributions to the external forces and moments which act upon the
+aircraft and to compute the total external forces and moments in
+the body-axes reference frame by summing the different contribu-
+tions. Note: the aerodynamic forces and moments for the DHC-2
+'Beaver' are expressed in the body-axes reference frame in stead
+of the more common wind or flight-path axes. If aerodynamic lift
+and drag are used in stead, it is necessary to implement the
+transformation equations in the equations for V dot, alpha dot,
+and beta dot and to make the proper changes to FMSORT!
+    Currently, only four contributions to the external forces and
+moments, acting upon the aircraft, are taken into account: the
+aerodynamic forces and moments, forces and moments which arise
+due to the operation of the powerplant (including slipstream ef-
+fects), forces due to the influence of gravity, and additional
+contributions due to a non-steady atmosphere. It is not difficult
+to add more contributions to this list: just unmask the block
+FMSORT to find out how it works.
+
+Inputvectors: FMaero, FMprop, Fgrav, Fwind.
+===========================================
+  FMaero = [Xa  Ya  Za  La  Ma  Na]'  (aerodynamic forces and mo-
+           ments, coming from the subsystem 'Aerodynamics Group')
+
+  FMprop = [Xp  Yp  Zp  Lp  Mp  Np]'  (engine forces and moments,
+                        coming from the subsystem 'Engine Group')
+
+  Fgrav  = [Xgr Ygr Zgr]'        (gravity forces, coming from the
+                                                   block GRAVITY)
+
+  Fwind = [Xw  Yw  Zw]'        (wind forces from the block FWIND)
+
+where:
+
+  Xa, Ya, Za   : aerodynamic forces in body-axes [N]
+  La, Ma, Na   : aerodynamic moments in body-axes [Nm]
+  Xp, Yp, Zp   : propulsive forces in body-axes [N]
+  Lp, Mp, Np   : propulsive moments in body-axes [Nm]
+  Xgr, Ygr, Zgr: gravity forces in body-axes [N]
+  Xw, Yw, Zw   : wind forces in body-axes [N] (correction terms
+                 for non-steady atmosphere, may also include the
+                 influence of atmospheric turbulence)
+
+Outputvectors: Ftot and Mtot.
+=============================
+  Ftot = [Fx Fy Fz]'                     (total body-axes forces)
+  Mtot = [L  M  N ]'                    (total body-axes moments)
+
+where:
+
+  Fx, Fy, Fz: total forces along the aircraft's body-axes [N]
+  L, M, N   : total moments along the aircraft's body-axes [Nm]
+
+More info:
+==========
+See AEROGRP.HLP, AEROMOD.HLP, ENGGRP.HLP, ENGMOD.HLP, GRAVITY.HLP
+and FWIND.HLP for more info about the different contributions to
+the external forces and moments.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

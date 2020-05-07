@@ -1,0 +1,98 @@
+-----------------------------------------------------------------
+VABDOT is a masked Simulink subsystem which is used to compute
+time-derivatives of the true airspeed, angle of attack, and side-
+slip angle. It is contained in the sub-subsystem '12 ODEs' of
+the subsystem 'Aircraft Equations of Motion' of the S-function
+BEAVER.
+
+Note: the time-derivative of the sideslip angle beta which leaves
+VABDOT does not yet take into account the influence of beta-dot
+itself upon the aerodynamic force along the YB-axis. This contri-
+bution was neglected in the block AEROMOD and has therefore not
+been included in the force Fy from the inputvector Ftot, used by
+VABDOT. The resulting error to the time-derivative of the state
+vector, xdot, is corrected later in the block XDOTCORR (see
+XDOTCORR.HLP and EQMOTION.HLP for more details).
+
+Inputvector: uvab (the inputvariables which are not used in
+VABDOT are displayed between brackets).
+===========================================================
+  uvab = [x' Ftot' Mtot' yhlp'],
+
+  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+
+  Ftot = [Fx Fy Fz]'           (total forces along the body-axes,
+                                    computed in the block FMDIMS)
+
+  Mtot = [L M N]'             (total moments along the body-axes,
+                                    computed in the block FMDIMS)
+
+  yhlp = [cos(alpha) sin(alpha) cos(beta) sin(beta) ...
+          ... tan(beta) sin(psi) cos(psi) sin(theta) ...
+          ... cos(theta) sin(phi) cos(phi)]'
+            (frequently used sines & cosines, coming from HLPFCN)
+
+where:
+
+  V    : airspeed [m/s]
+ {alpha: angle of attack [rad]                                  }
+ {beta : sideslip angle [rad]                                   }
+  p    : roll rate [rad/s]
+  q    : pitch rate [rad/s]
+  r    : yaw rate [rad/s]
+ {psi  : yaw angle [rad]                                        }
+ {theta: pitch angle [rad]                                      }
+ {phi  : roll angle [rad]                                       }
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+
+  Fx, Fy, Fz: total forces along the aircraft's body-axes [N]
+ {L, M, N   : total moments along the aircraft's body-axes [Nm] }
+
+  of the inputvector yhlp, cos(alpha), cos(beta), sin(alpha),
+  sin(beta), and tan(beta) are used.
+
+Outputvector: yvab.
+===================
+  yvab = [Vdot alphadot betadot]'
+
+where:
+
+  Vdot    : dV/dt [m/s^2]
+  alphadot: d(alpha)/dt [rad/s^2]
+  betadot : d(beta)/dt [rad/s^2]
+
+  Note: the beta-dot equation in VABDOT does not take into
+  account the contribution of beta-dot itself to the sideforce
+  Fy. Corrections are made in XDOTCORR.
+
+Parameters which must be loaded in the Matlab Workspace.
+========================================================
+  GM1 = vector with some important geometrical properties of the
+        'Beaver' aircraft, and the mass of the aircraft (which is
+        assumed to be constant during the motions of interest).
+        Here, the mass of the aircraft is extracted from GM1. GM1
+        can be loaded into the Matlab workspace by calling the
+        M-file LOADER.M, or, if the necessary datafile with
+        aircraft model parameters does not yet exist, MODBUILD.M.
+        Type HELP LOADER or HELP MODBUILD for more info.
+
+More info.
+==========
+See 12ODES.HLP, PQRDOT.HLP, EULERDOT.HLP, and XYHDOT.HLP for more
+info about the determination of the other state variables. See
+XDOTCORR.HLP for more details about the correction to beta-dot,
+which needs to be made afterwards to the output from VABDOT.
+
+VABDOT uses outputs from FMDIMS and HLPFCN as inputvectors; see
+FMDIMS.HLP and HLPFCN.HLP for more details.
+
+The helpfiles UVW.HLP and UVWDOT.HLP give some information about
+the body-axes velocities and their time-derivatives, which are
+closely related to (time-derivatives of) V, alpha, and beta.
+
+See also EQMOTION.HLP.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

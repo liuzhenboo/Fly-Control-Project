@@ -1,0 +1,58 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: VOR example</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>The radio-navigation system <I><FONT FACE="Arial","Helvetica","Sans Serif">VOR example</FONT></I></H2>
+
+The system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">VOR example</FONT></I> from the library <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="navlib.htm">NAVLIB</A></FONT></I> contains a demonstration of the practical use of the VOR blocks. First, the nominal signals are computed in the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vor.htm">VOR</A></FONT></I>. Then, the steady-state error in the VOR signal is taken into account in the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vorerr.htm">VORerr</A></FONT></I>. Double-click the subsystem block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">VOR example</FONT></I> to see its internal structure. The blocks <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">VOR</FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">VORerr</FONT></I> need to be double-clicked by the user in order to specify their parameters.
+
+<H3>Inputs</H3>
+<PRE>  uvor1 = [xe ye H]'
+  uvor2 = psi
+
+  xe : X-coordinate of aircraft in Earth-axes, [m]
+  ye : Y-coordinate of aircraft in Earth-axes, [m]
+  H  : altitude of aircraft above sea level, [m]
+  psi: heading of the aircraft (yaw angle), [rad]
+</PRE>
+When applied to an autopilot simulation model, these input variables are usually  <I>outputs</I> from a non-linear aircraft model. The block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="vor.htm">VOR</A></FONT></I> which computes the nominal values of the VOR signals does <I>not</I> give correct results if a small-deviations model is used for the aircraft dynamics! Open the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I> for an example of such a non-linear aircraft model.
+
+<H3>Output</H3>
+<PRE> yvor  = Gamma_VOR: Angle between chosen VOR-bearing and line
+                    from aircraft's c.g. to VOR antenna [rad]
+</PRE>
+During simulations, the time-trajectories of the VOR signals and some interim results from the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">VOR</FONT></I> are sent to the matrix <I>yvor</I> in the M<SMALL>ATLAB</SMALL> workspace. Each row from this matrix corresponds with the vector <I>yvor_workspace</I> at a certain time <I>t</I>, according the following definition:
+<PRE> yvor_workspace = [yvor1; yvor2; yvor3; yvor4]'
+
+ yvor1 = Gamma_VOR
+ yvor2 = R_VOR
+ yvor3 = [Cone-of-silence-flag, Range-flag]'.
+ yvor4 = ToFrom
+
+ Gamma_VOR : Angle between chosen VOR-bearing and line from
+             aircraft's c.g. to VOR antenna [rad]
+ R_VOR     : 2D-distance from origin of Earth-fixed reference
+             frame to VOR (as seen from above) [m]
+</PRE>
+The Cone-of-silence-flag is set to 1 if the aircraft enters the 'cone of silence'. The Range-flag is set to 1 if the aircraft flies outside the area where the VOR signals can be received with appropriate reliability. <BR><BR>
+
+The variable <I>ToFrom</I> is set to 1 if aircraft is flying towards the VOR antenna or 0 if the aircraft flies away from the antenna.<BR><BR>
+
+For more info about the definitions of the variables, consult the <A HREF="#References">references</A> given below.
+
+<H3>More information</H3>
+
+An example of the practical use of the ILS and VOR blocks can be found in the 'Beaver' autopilot simulation models <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#Apilot2">APILOT2</A></FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#Apilot3">APILOT3</A></FONT></I>.
+
+<H3><A NAME= "References">References</A></H3>
+
+For more information about the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">VOR</FONT></I>, consult the following references:
+<OL>
+<LI>M.O. Rauw: <I>FDC 1.2 - A S<SMALL>IMULINK</SMALL> Environment for Flight Dynamics and Control Analysis</I>. Zeist, The Netherlands, March 1997.
+<LI>M.O. Rauw: <I>A S<SMALL>IMULINK</SMALL> environment for Flight Dynamics and Control analysis - Application to the DHC-2 'Beaver'</I>. MSc-thesis, Delft University of Technology, Faculty of Aerospace Engineering, Delft, The Netherlands, 1993.
+</OL>
+
+</BODY>
+
+</HTML>

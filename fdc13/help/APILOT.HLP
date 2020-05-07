@@ -1,0 +1,104 @@
+-----------------------------------------------------------------
+ Beaver autopilot
+ ================
+ The S-functions APILOT1, APILOT2, and APILOT3 contain the simu-
+ lation models of the 'Beaver' autopilot, coupled to the non-
+ linear model of the 'Beaver' itself (S-function BEAVER). The
+ three versions of the autopilot simulation systems differ in
+ their complexity and computation speed.
+
+ APILOT1
+ =======
+ This S-function contains the basic autopilot modes:
+
+ *  Pitch Attitude Hold
+ *  Altitude Hold
+ *  Altitude Select
+ *  Roll Attitude Hold
+ *  Heading Hold / Heading select
+
+ For reasons of computing speed, it does NOT contain:
+
+ * approach and navigation modes
+ * mode-switching loops for approach and navigation modes
+ * ILS and VOR blocks
+ * any noisy disturbances (sensors, atmospheric turbulence)
+ * Moving Average filter for Altitude Hold mode
+
+ APILOT1 can be used for fast evaluation of the basic autopilot
+ results, using the integrators ADAMS/GEAR, which are quite
+ efficient for systems with relatively smooth signals (i.e.,
+ without MANY discontinuities). In that case, the simulations
+ will be very fast, and the number of timesteps will be limited.
+
+ APILOT2
+ =======
+ This S-function contains all control laws:
+
+ *  Pitch Attitude Hold
+ *  Altitude Hold
+ *  Altitude Select
+ *  Roll Attitude Hold
+ *  Heading Hold / Heading Select
+ *  longitudinal and lateral approach modes
+ *  VOR-navigation mode
+
+ Due to the inclusion of the approach and navigation modes, it
+ also contains:
+
+ *  mode-switching loops for approach and NAV (call M-files with
+    mode-switching criteria, which slows down simulations)
+ *  ILS and VOR blocks
+
+ However, for reasons of computing speed, APILOT2 does NOT con-
+ tain:
+
+ *  any noisy disturbances (sensors, ILS noise, turbulence)
+ *  Moving Average filter for Altitude Hold mode
+
+ In order to cope with the additional blocks, the integrator
+ RK45 had to be applied in stead of ADAMS/GEAR. Therefore, the
+ number of time-steps is larger than for APILOT1, and simula-
+ tions will be slower!
+
+ APILOT3
+ =======
+ This S-function is equal to APILOT2, but it also inserts:
+
+ *  ILS noise in the block ILS
+ *  a Moving Average filter for Altitude Hold
+ *  atmospheric turbulence
+
+ Due to the noisy signals, the time steps are all equal to their
+ minimum value, which means very slow simulations (unless you
+ have a very fast PC or workstation).
+
+ More info
+ =========
+ See the .HLP files ACTUATR, AP_SYMM, AP_ASYMM, and MODECTRL for
+ more information about the blocks Actuator and cable dynamics,
+ Symmetrical Autopilot modes, Asymmetrical Autopilot modes, and
+ Mode Controller. See ILS.HLP and VOR.HLP for information about
+ the radio-navigation blocks.
+
+ See also COLORS.HLP for info on color definitions.
+
+ References
+ ==========
+ For a detailed description of the 'Beaver' autopilot, the fol-
+ lowing references should be consulted:
+
+ [1]  M.O. Rauw, A SIMULINK environment for Flight Dynamics and
+      Control analysis - Application to the DHC-2 'Beaver',
+      PART II! Graduate's thesis, Delft University of Technology,
+      Faculty of Aerospace Engineering, Delft, 1993.
+
+ [2]  P.N.H. Wever, Ontwerp en implementatie van de regelwetten
+      van de De Havilland DHC-2 'Beaver' (in Dutch). Graduate's
+      thesis, Delft University of Technology, Faculty of Aero-
+      space Engineering, Delft, 1993.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.
+
+

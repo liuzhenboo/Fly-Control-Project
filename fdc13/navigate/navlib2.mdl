@@ -1,0 +1,700 @@
+Library {
+  Name			  "navlib2"
+  Version		  2.09
+  PaperOrientation	  landscape
+  PaperType		  usletter
+  PaperUnits		  inches
+  BlockDefaults {
+    Orientation		    right
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    NamePlacement	    normal
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+    ShowName		    on
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    center
+    VerticalAlignment	    middle
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  System {
+    Name		    "navlib2"
+    Location		    [13, 47, 301, 218]
+    Open		    on
+    ScreenColor		    white
+    Block {
+      BlockType		      SubSystem
+      Name		      "VOR"
+      Ports		      [2, 4, 0, 0, 0]
+      Position		      [160, 40, 240, 95]
+      FontName		      "Arial"
+      ShowPortLabels	      off
+      MaskType		      "VOR"
+      MaskDescription	      "Calculation of nominal\nVOR signals"
+      MaskHelp		      "eval('fdchelp vor')"
+      MaskPromptString	      "x-position VOR relative to aircraft at t=0 "
+			      "sec. [m]:|y-position VOR relative to aircraft "
+			      "at t=0 sec. [m]:|Altitude of VOR in [m] above "
+			      "sea level:|Course Datum [deg] (0 = north):"
+      MaskStyleString	      "edit,edit,edit,edit"
+      MaskVariables	      "xVOR=@1;yVOR=@2;HVOR=@3;"
+      MaskInitialization      " CD=@4*pi/180;"
+      MaskDisplay	      "disp('Nominal\\nVOR\\nsignals')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      MaskValueString	      "xVOR|yVOR|HVOR|CD"
+      System {
+	Name			"VOR"
+	Location		[4, 42, 622, 440]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  Inport
+	  Name			  "uVOR=\n[xe ye H]'"
+	  Position		  [20, 95, 40, 115]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "psi"
+	  Position		  [240, 40, 260, 60]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "2"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Saturate
+	  Name			  "+/- 10 deg"
+	  Position		  [430, 100, 455, 120]
+	  FontName		  "Arial"
+	  UpperLimit		  "10*pi/180"
+	  LowerLimit		  "-10*pi/180"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "1 = to, 0 = from"
+	  Position		  [380, 45, 495, 65]
+	  FontName		  "Arial"
+	  Expr			  "abs(u[1]) > (pi/2)"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "CD (const.)"
+	  Position		  [240, 129, 270, 151]
+	  FontName		  "Arial"
+	  Value			  "CD"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "Cone of silence flag"
+	  Position		  [200, 245, 400, 265]
+	  FontName		  "Arial"
+	  Expr			  "atan((u[3]-HVOR)/u[4])>40*pi/180"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [95, 244, 100, 266]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "[3 1]"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [95, 349, 100, 371]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux2"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [560, 344, 565, 366]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "QDR"
+	  Position		  [85, 95, 270, 115]
+	  FontName		  "Arial"
+	  Expr			  "atan((u[2]-yVOR)/(u[1]-xVOR))"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "R_VOR"
+	  Position		  [85, 190, 275, 210]
+	  FontName		  "Arial"
+	  Expr			  "sqrt((u[1]-xVOR)^2+(u[2]-yVOR)^2)"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "Range-flag"
+	  Position		  [240, 350, 355, 370]
+	  FontName		  "Arial"
+	  Expr			  "u[2]>u[1]"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [305, 100, 320, 120]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "-+"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum1"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [305, 45, 320, 65]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "+-"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "VOR-Range approximation"
+	  Position		  [85, 285, 525, 305]
+	  FontName		  "Arial"
+	  Expr			  "1000*(-2.3570*10^(-6)*(u[3]-HVOR)^2 + "
+				  "5.7087*10^(-2)*(u[3]-HVOR) + 80.8612)"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "t"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [15, 5, 110, 50]
+	  ForegroundColor	  blue
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  ShowName		  off
+	  OpenFcn		  "fdchelp vor"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('VOR signals\\nMarc Rauw\\nOctober "
+				  "1997')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "t"
+	    Location		    [22, 190, 132, 275]
+	    Open		    off
+	    ScreenColor		    white
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "yVOR1"
+	  Position		  [580, 100, 600, 120]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "yVOR2"
+	  Position		  [580, 190, 600, 210]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "2"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "yVOR3"
+	  Position		  [580, 345, 600, 365]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "3"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "yVOR4"
+	  Position		  [580, 45, 600, 65]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "4"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "uVOR=\n[xe ye H]'"
+	  SrcPort		  1
+	  Points		  [15, 0]
+	  Branch {
+	    DstBlock		    "QDR"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 95]
+	    Branch {
+	      DstBlock		      "R_VOR"
+	      DstPort		      1
+	    }
+	    Branch {
+	      Points		      [0, 50]
+	      Branch {
+		DstBlock		"Mux"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, 45]
+		DstBlock		"VOR-Range approximation"
+		DstPort			1
+	      }
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "1 = to, 0 = from"
+	  SrcPort		  1
+	  DstBlock		  "yVOR4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "CD (const.)"
+	  SrcPort		  1
+	  Points		  [10, 0; 0, -25]
+	  DstBlock		  "Sum"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  DstBlock		  "Cone of silence flag"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "R_VOR"
+	  SrcBlock		  "R_VOR"
+	  SrcPort		  1
+	  Points		  [15, 0]
+	  Branch {
+	    Labels		    [1, 0]
+	    DstBlock		    "yVOR2"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 30; -225, 0; 0, 30]
+	    Branch {
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	    Branch {
+	      Points		      [0, 105]
+	      DstBlock		      "Mux1"
+	      DstPort		      2
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  DstBlock		  "Range-flag"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Range-flag"
+	  SrcPort		  1
+	  DstBlock		  "Mux2"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "VOR-Range approximation"
+	  SrcPort		  1
+	  Points		  [5, 0; 0, 40; -455, 0]
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Mux2"
+	  SrcPort		  1
+	  DstBlock		  "yVOR3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "QDR"
+	  SrcPort		  1
+	  Points		  [10, 0]
+	  Branch {
+	    DstBlock		    "Sum"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -45]
+	    DstBlock		    "Sum1"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  SrcBlock		  "psi"
+	  SrcPort		  1
+	  DstBlock		  "Sum1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Sum1"
+	  SrcPort		  1
+	  DstBlock		  "1 = to, 0 = from"
+	  DstPort		  1
+	}
+	Line {
+	  Name			  "Gamma_VOR"
+	  Labels		  [1, 0]
+	  SrcBlock		  "+/- 10 deg"
+	  SrcPort		  1
+	  DstBlock		  "yVOR1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Sum"
+	  SrcPort		  1
+	  DstBlock		  "+/- 10 deg"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Cone of silence flag"
+	  SrcPort		  1
+	  Points		  [140, 0]
+	  DstBlock		  "Mux2"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "VORERR"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [160, 115, 240, 145]
+      FontName		      "Arial"
+      ShowPortLabels	      off
+      MaskType		      "VOR error"
+      MaskDescription	      "Steady-state error VOR"
+      MaskHelp		      "eval('fdchelp vorerr')"
+      MaskPromptString	      "Overall VOR system error [%]:"
+      MaskStyleString	      "edit"
+      MaskInitialization      "KVORerr = 1 + (@1/100);"
+      MaskDisplay	      "disp('VOR Steady-\\nstate error')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      MaskValueString	      "5"
+      System {
+	Name			"VORERR"
+	Location		[124, 154, 444, 309]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  Inport
+	  Name			  "Gamma_VOR\n(nominal value)"
+	  Position		  [40, 75, 60, 95]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "KVORerr"
+	  Position		  [120, 58, 205, 112]
+	  FontName		  "Arial"
+	  Gain			  "KVORerr"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "t"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [5, 5, 150, 40]
+	  ForegroundColor	  blue
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  ShowName		  off
+	  OpenFcn		  "fdchelp vorerr"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('VOR steady-state error\\nMarc Rauw, "
+				  "October 1997')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "t"
+	    Location		    [-14, 88, 81, 173]
+	    Open		    off
+	    ScreenColor		    white
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Gamma_VOR\n(actual value)"
+	  Position		  [250, 75, 270, 95]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "Gamma_VOR\n(nominal value)"
+	  SrcPort		  1
+	  DstBlock		  "KVORerr"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "KVORerr"
+	  SrcPort		  1
+	  DstBlock		  "Gamma_VOR\n(actual value)"
+	  DstPort		  1
+	}
+	Annotation {
+	  Position		  [491, 32]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  Text			  "`"
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "VORxmpl"
+      Ports		      [2, 1, 0, 0, 0]
+      Position		      [45, 104, 105, 146]
+      FontName		      "Arial"
+      ShowPortLabels	      off
+      MaskDisplay	      "plot(0,0,100,100,[86,85,90,86,80,85,0],[16,80,20"
+			      ",16,20,80,62],[22,18,25,28,22,19],[36,32,29,33,3"
+			      "6,45],[17,15,12,18,16,19],[37,37,34,32,44,46],[2"
+			      "2,31,47,52,19,15,28,22],[36,44,39,44,55,50,45,38"
+			      "],[31,28],[44,45],[20,18,17],[31,30,32],[36,35,3"
+			      "6,37,36,35,35,35,33,31,25],[41,38,33,32,30,30,32"
+			      ",33,37,35,34],[85,42],[80,50],[86,87,87,86,84,83"
+			      ",84,85],[83,81,78,76,76,79,82,83])"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"VORxmpl"
+	Location		[6, 42, 415, 217]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  Inport
+	  Name			  "uVOR=\n[xe,ye,H]'"
+	  Position		  [25, 50, 45, 70]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "psi"
+	  Position		  [25, 110, 45, 130]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "2"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  Ports			  [4, 1, 0, 0, 0]
+	  Position		  [305, 98, 310, 157]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "[1 1 2 1]"
+	}
+	Block {
+	  BlockType		  ToWorkspace
+	  Name			  "To Workspace"
+	  Position		  [335, 120, 385, 140]
+	  BackgroundColor	  yellow
+	  FontName		  "Arial"
+	  VariableName		  "yvor"
+	  Buffer		  "5000"
+	  Decimation		  "1"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "VOR"
+	  Ports			  [2, 4, 0, 0, 0]
+	  Position		  [85, 51, 135, 129]
+	  FontName		  "Arial"
+	  SourceBlock		  "navlib2/VOR"
+	  SourceType		  "VOR"
+	  xVOR			  "xVOR"
+	  yVOR			  "yVOR"
+	  HVOR			  "HVOR"
+	  MaskParam4		  "CD"
+	}
+	Block {
+	  BlockType		  Reference
+	  Name			  "VORERR"
+	  Ports			  [1, 1, 0, 0, 0]
+	  Position		  [185, 45, 265, 75]
+	  FontName		  "Arial"
+	  SourceBlock		  "navlib2/VORERR"
+	  SourceType		  "VOR error"
+	  MaskParam1		  "5"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "t"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [10, 5, 175, 36]
+	  ForegroundColor	  blue
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  ShowName		  off
+	  OpenFcn		  "fdchelp vorxmpl"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('VOR example\\nMarc Rauw, January "
+				  "1998')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "t"
+	    Location		    [22, 190, 132, 275]
+	    Open		    off
+	    ScreenColor		    white
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Gamma_VOR"
+	  Position		  [350, 50, 370, 70]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "VOR"
+	  SrcPort		  1
+	  DstBlock		  "VORERR"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  DstBlock		  "To Workspace"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "VOR"
+	  SrcPort		  2
+	  Points		  [30, 0; 0, 40]
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "VOR"
+	  SrcPort		  3
+	  Points		  [20, 0; 0, 35]
+	  DstBlock		  "Mux1"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "VOR"
+	  SrcPort		  4
+	  Points		  [10, 0; 0, 30]
+	  DstBlock		  "Mux1"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "psi"
+	  SrcPort		  1
+	  Points		  [10, 0; 0, -10]
+	  DstBlock		  "VOR"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "uVOR=\n[xe,ye,H]'"
+	  SrcPort		  1
+	  Points		  [10, 0; 0, 10]
+	  DstBlock		  "VOR"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "VORERR"
+	  SrcPort		  1
+	  Points		  [15, 0]
+	  Branch {
+	    DstBlock		    "Gamma_VOR"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 45]
+	    DstBlock		    "Mux1"
+	    DstPort		    1
+	  }
+	}
+      }
+    }
+    Annotation {
+      Position		      [146, 7]
+      VerticalAlignment	      top
+      ForegroundColor	      blue
+      FontName		      "Times New Roman"
+      FontSize		      14
+      FontWeight	      bold
+      Text		      "FDC Toolbox - VOR sublibrary of NAVLIB"
+    }
+    Annotation {
+      Position		      [77, 137]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      FontSize		      9
+      Text		      "VOR example"
+    }
+  }
+}

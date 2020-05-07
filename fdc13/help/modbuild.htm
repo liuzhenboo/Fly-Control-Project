@@ -1,0 +1,21 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Utility MODBUILD</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Model-parameter definition utility <I><FONT FACE="Arial","Helvetica","Sans Serif">MODBUILD</FONT></I>
+</H2>
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">MODBUILD </FONT></I>is a M<SMALL>ATLAB</SMALL> program which is used to build a datafile with  parameters for the aircraft model. Although the current version of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">MODBUILD </FONT></I>is only valid for the DHC-2 'Beaver' model (the S<SMALL>IMULINK</SMALL> system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>), some of its subroutines are of a more generic nature. See the comment lines in the source-file <SMALL>MODBUILD.M</SMALL> for more details.
+<BR><BR>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">MODBUILD </FONT></I>must be used <I>only </I>if you want to change the parameters of the aircraft model. Currently, this includes changes in mass properties, because those properties are considered to be constant during the short time-intervals over which the aircraft responses are considered. <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">MODBUILD </FONT></I>lets you save the parameters to a datafile (by default: <SMALL>AIRCRAFT.DAT</SMALL>), which can be loaded for future sessions by the <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I> utility).
+<BR><BR>
+
+The current version of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">MODBUILD </FONT></I>knows only one way to change the model parameters, that is: by editing the source-file of the program! In practice, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">MODBUILD </FONT></I>won't be applied very often, so this is not really as inconvenient as it may seem. Moreover, it is straightforward to add user-input within the code if required. Currently, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">MODBUILD </FONT></I>functions as a simple batch-file. The user is informed about the construction of the datafile by means of cleverly placed <I>echo on </I> and <I>echo off</I> commands.
+<BR><BR>
+
+Change the aircraft-dependent parts of the program if you want to implement model-parameters for different types of aircraft. Change the generic pieces of code if you want to alter the mass, geometry, or inertia parameters of the aircraft model.
+
+</BODY>
+
+</HTML>

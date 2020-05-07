@@ -1,0 +1,772 @@
+Library {
+  Name			  "fdclib"
+  Version		  2.09
+  PaperOrientation	  landscape
+  PaperType		  usletter
+  PaperUnits		  inches
+  BlockDefaults {
+    Orientation		    right
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    NamePlacement	    normal
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+    ShowName		    on
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    center
+    VerticalAlignment	    middle
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  System {
+    Name		    "fdclib"
+    Location		    [9, 44, 625, 421]
+    Open		    on
+    ScreenColor		    white
+    Block {
+      BlockType		      SubSystem
+      Name		      "1"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [15, 165, 80, 215]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "fdclib1"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Airdata,\\natmos-\\nphere')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"1"
+	Location		[0, 0, 78, 53]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "2"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [85, 165, 150, 215]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "fdclib2"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Aerody-\\nnamics')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"2"
+	Location		[0, 0, 79, 53]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "3"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [155, 165, 220, 215]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "fdclib3"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Engine\\nforces and\\nmoments')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"3"
+	Location		[0, 0, 80, 54]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "4"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [225, 165, 290, 215]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "fdclib4"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Gravity and\\n wind forces')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"4"
+	Location		[0, 0, 80, 54]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "5"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [295, 165, 360, 215]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "fdclib5"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Equations\\nof motion')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"5"
+	Location		[0, 0, 78, 53]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "6"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [365, 165, 430, 215]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "fdclib6"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Other\\n(output-)\\nequations')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"6"
+	Location		[0, 0, 79, 54]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "7"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [15, 220, 80, 270]
+      ForegroundColor	      blue
+      BackgroundColor	      cyan
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "fdclib7"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Initiali-\\nzation\\nblocks')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"7"
+	Location		[0, 0, 80, 55]
+	Open			off
+	ScreenColor		cyan
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "8"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [85, 220, 150, 270]
+      ForegroundColor	      blue
+      BackgroundColor	      cyan
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "fdclib8"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Aircraft trim\\n+ lineariza-\\ntion "
+			      "blocks')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"8"
+	Location		[0, 0, 80, 56]
+	Open			off
+	ScreenColor		cyan
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "9"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [155, 220, 220, 270]
+      ForegroundColor	      blue
+      BackgroundColor	      cyan
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "fdclib9"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Processing\\nsimulation\\nresults')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"9"
+	Location		[0, 0, 80, 56]
+	Open			off
+	ScreenColor		cyan
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Beaver"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [450, 15, 520, 75]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "beaver"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Complete\\nsystem\\nBEAVER')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"Beaver"
+	Location		[1, 238, 126, 333]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Buttons1"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [525, 300, 595, 350]
+      ForegroundColor	      blue
+      BackgroundColor	      cyan
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "fbuttons"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Collection\\nof Button\\nblocks')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"Buttons1"
+	Location		[1, 238, 126, 333]
+	Open			off
+	ScreenColor		cyan
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "i"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [15, 20, 173, 96]
+      ForegroundColor	      red
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      11
+      FontWeight	      bold
+      ShowName		      off
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('FDCLIB\\nM.O. Rauw, February 1998\\n\\nDou"
+			      "ble-click for\\nmore info!')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"i"
+	Location		[4, 42, 488, 295]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "more info"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [15, 110, 60, 152]
+	  ForegroundColor	  red
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  FontSize		  11
+	  ShowName		  off
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('More\\nInfo')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "more info"
+	    Location		    [4, 42, 398, 235]
+	    Open		    off
+	    ScreenColor		    white
+	    Annotation {
+	      Position		      [194, 12]
+	      VerticalAlignment	      top
+	      FontName		      "Arial"
+	      FontSize		      11
+	      Text		      "FDCLIB is the main blocklibrary of "
+				      "the FDC package. It contains\nfields "
+				      "which, when double-clicked, will "
+				      "open block-libraries of the aircraft\nmo"
+				      "del or complete systems from the "
+				      "FDC toolbox. For more info, see the "
+				      "file\nFDCLIB.HLP in the subdirectory "
+				      "HELP (enter FDCHELP FDCLIB or\nTYPE "
+				      "FDCLIB.HLP at the Matlab command-line "
+				      "to examine this \nhelp text, or double-c"
+				      "lick the title-block FDCLIB)."
+	    }
+	    Annotation {
+	      Position		      [200, 102]
+	      VerticalAlignment	      top
+	      ForegroundColor	      red
+	      FontName		      "Arial"
+	      FontSize		      11
+	      Text		      "Note: 'More Info'-blocks usually "
+				      "contain help-texts in graphical Simulink"
+				      "\nformat, while title-blocks usually "
+				      "refer to help texts contained in "
+				      ".HLP files\nin the subdirectory HELP. "
+				      "The latter HELP-solution is recommended,"
+				      " because\nit yields much smaller "
+				      "M-files for the graphical Simulink "
+				      "systems. See\nfor instance the source "
+				      "code of the file FDCLIB.M, and search "
+				      "for\n'more info' to see the effect "
+				      "of this help-text you're currently "
+				      "reading!"
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "more info1"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [15, 175, 60, 217]
+	  ForegroundColor	  blue
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  FontSize		  11
+	  ShowName		  off
+	  OpenFcn		  "fdchelp fdclib"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('More\\nInfo')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "more info1"
+	    Location		    [4, 114, 108, 114]
+	    Open		    off
+	    ScreenColor		    white
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "title"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [15, 60, 70, 87]
+	  ForegroundColor	  blue
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  FontSize		  11
+	  ShowName		  off
+	  OpenFcn		  "fdchelp fdclib"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('TITLE')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "title"
+	    Location		    [44, 82, 194, 227]
+	    Open		    off
+	    ScreenColor		    white
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "title1"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [15, 10, 70, 37]
+	  ForegroundColor	  blue
+	  FontName		  "Arial"
+	  FontSize		  11
+	  ShowName		  off
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('TITLE')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "title1"
+	    Location		    [4, 115, 142, 115]
+	    Open		    off
+	    ScreenColor		    white
+	  }
+	}
+	Annotation {
+	  Position		  [114, 17]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "<----"
+	}
+	Annotation {
+	  Position		  [116, 67]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "<---- "
+	}
+	Annotation {
+	  Position		  [112, 122]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  " <----"
+	}
+	Annotation {
+	  Position		  [284, 17]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "This is a title-block (blue foreground, "
+				  "white background), \nwhich won't display "
+				  "a help text when double-clicked (no \nshadow"
+				  " border!)"
+	}
+	Annotation {
+	  Position		  [302, 67]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "This is a title-block (blue foreground, "
+				  "white background), which \nwill display "
+				  "a help text in the Matlab Workspace when "
+				  "double-\nclicked (shadow border!). This "
+				  "one displays help about FDCLIB."
+	}
+	Annotation {
+	  Position		  [294, 122]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "This is a More Info block (red foreground, "
+				  "white background),\nwhich will display "
+				  "a help text when double-clicked (shadow "
+				  "\nborder). This one displays help about "
+				  "FDCLIB."
+	}
+	Annotation {
+	  Position		  [294, 177]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "This is also a More Info block, but now "
+				  "with a blue foreground\nand white background"
+				  ". Such a block (and any other blue-on-\nwhit"
+				  "e block with shadow borders) behaves "
+				  "as if it was a title-\nblock, i.e. it "
+				  "will display a help text in the Matlab "
+				  "command"
+	}
+	Annotation {
+	  Position		  [112, 177]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  " <---- "
+	}
+	Annotation {
+	  Position		  [222, 232]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  11
+	  Text			  "window when double-clicked."
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "oloop1"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [450, 135, 520, 185]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "oloop1"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Example\\nsystem\\nOLOOP1')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"oloop1"
+	Location		[1, 238, 126, 333]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "oloop1t"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [525, 135, 595, 185]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "oloop1t"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Tutorial\\nsystem\\nOLOOP1T')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"oloop1t"
+	Location		[1, 238, 126, 333]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "oloop2"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [450, 190, 520, 240]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "oloop2"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Example\\nsystem\\nOLOOP2')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"oloop2"
+	Location		[1, 238, 126, 333]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "oloop2t"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [525, 190, 595, 240]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "oloop2t"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Tutorial\\nsystem\\nOLOOP2T')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"oloop2t"
+	Location		[1, 238, 126, 333]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "oloop3"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [450, 245, 520, 295]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "oloop3"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Example\\nsystem\\nOLOOP3')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"oloop3"
+	Location		[1, 238, 126, 333]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "oloop3t"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [525, 245, 595, 295]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "oloop3t"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Tutorial\\nsystem\\nOLOOP3T')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"oloop3t"
+	Location		[1, 238, 126, 333]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "oloop4"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [450, 300, 520, 350]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "apmenu"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Autopilot\\nsimulation\\nmodels')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"oloop4"
+	Location		[1, 238, 126, 333]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "oloop5"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [525, 15, 594, 75]
+      BackgroundColor	      lightBlue
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "fdclib10"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Subsystem\\nequivalents\\nof the model\\nB"
+			      "EAVER')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"oloop5"
+	Location		[1, 238, 126, 333]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "windlib"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [450, 80, 520, 130]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "windlib"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('Wind and\\nturbulence\\nlibrary')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"windlib"
+	Location		[1, 238, 126, 333]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "windlib1"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [525, 80, 595, 130]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      OpenFcn		      "navlib"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('ILS / VOR\\nradio-NAV\\nlibrary')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"windlib1"
+	Location		[1, 238, 126, 333]
+	Open			off
+	ScreenColor		white
+      }
+    }
+    Annotation {
+      Position		      [209, 137]
+      VerticalAlignment	      top
+      ForegroundColor	      blue
+      FontName		      "Times New Roman"
+      FontSize		      14
+      FontWeight	      bold
+      Text		      "FDC Toolbox - Aircraft model block library:"
+    }
+    Annotation {
+      Position		      [209, 331]
+      ForegroundColor	      red
+      FontWeight	      bold
+      Text		      "Warning: the library function has not been "
+			      "fully incorporated \nin FDC 1.3 yet! If you "
+			      "edit the library blocks, always verify the "
+			      "\nsystems in which those blocks are applied. "
+			      "In some cases they \nwill be altered automatical"
+			      "ly, but this can't be guaranteed yet,\nsince "
+			      "not all blocks have been properly linked "
+			      "to the libraries."
+    }
+  }
+}

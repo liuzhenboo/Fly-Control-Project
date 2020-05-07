@@ -1,0 +1,88 @@
+-----------------------------------------------------------------
+FDC 1.2 - VOR example.
+======================
+The subsystem 'VOR example' from the library NAVLIB contains a
+demonstration of the practical use of the VOR blocks. First, the
+nominal signals are computed in the block VOR (see VOR.HLP).
+Then, the steady-state error in the VOR signal is taken into
+account (block VORERR, see corresponding help text).
+
+Double-click the subsystem block 'VOR example' to see its inter-
+nal structure. Double-click the block VOR and the error block
+to specify the parameters for those blocks.
+
+Inputs:
+=======
+  uvor1 = [xe ye H]'
+  uvor2 = psi
+
+where:
+
+  xe : X-coordinate of aircraft in Earth-axes, [m]
+  ye : Y-coordinate of aircraft in Earth-axes, [m]
+  H  : altitude of aircraft above sea level, [m]
+  psi: heading of the aircraft (yaw angle), [rad]
+
+When applied in an autopilot simulation model, these input-
+variables usually are OUTPUTS from a NON-LINEAR aircraft model.
+The block VOR which computes the nominal values of the VOR sig-
+nals does not give correct results if a small-deviations model
+is used for the aircraft dynamics! Open the system BEAVER for
+an example of such a non-linear aircraft model.
+
+Output:
+=======
+ yvor  = Gamma_VOR: Angle between chosen VOR-bearing and line
+                    from aircraft's c.g. to VOR antenna [rad]
+
+During simulations, the time-trajectories of the VOR signals
+and some interim results from the block VOR are sent to the
+matrix yvor in the Matlab workspace. Each row from this matrix
+corresponds with the vector yvor_workspace at a certain time t,
+according to the following definition:
+
+ yvor_workspace = [yvor1; yvor2; yvor3; yvor4]'
+
+ yvor1 = Gamma_VOR
+ yvor2 = R_VOR
+ yvor3 = [Cone-of-silence-flag, Range-flag]'.
+ yvor4 = ToFrom
+
+where:
+
+ Gamma_VOR : Angle between chosen VOR-bearing and line from
+             aircraft's c.g. to VOR antenna [rad]
+ R_VOR     : 2D-distance from origin of Earth-fixed reference
+             frame to VOR (as seen from above) [m]
+
+ The Cone-of-silence-flag is set to 1 if the aircraft enters the
+ 'cone of silence'. The Range-flag is set to 1 if the aircraft
+ flies outside the area where the VOR signals can be received
+ with appropriate reliability.
+
+ The variable ToFrom is set to 1 if aircraft is flying towards
+ the VOR antenna or 0 if the aircraft flies away from the antenna.
+
+For more info about the definitions of the variables, consult
+ref.[1] or the FDC 1.2 user-manual.
+
+References:
+===========
+[1]. Rauw, M.O. A Simulink environment for Flight Dynamics and
+     Control analysis - Application to the DHC-2 'Beaver'
+     (2 parts). Graduate's thesis, Delft University of Technology
+     (Aerospace Engineering), Delft, September 1993.
+
+More info.
+==========
+See the helptext VOR.HLP for more info on nominal VOR signals.
+See VORERR.HLP for more info on steady-state errors in the VOR
+signal.
+
+An example of the practical use of the ILS and VOR blocks can be
+found in the 'Beaver' autopilot simulation models APILOT2 and
+APILOT3 (in those systems, slightly modified versions of these
+models are applied). See also APILOT.HLP.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

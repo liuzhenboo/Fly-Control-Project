@@ -1,0 +1,38 @@
+-----------------------------------------------------------------
+ Actuator and cable dynamics
+ ===========================
+ Subsystem of APILOT1, APILOT2, and APILOT3.
+
+ This subsystem contains the dynamics of the actuators and cables
+ for ailerons, elevator, and rudder channels. In the case of the
+ 'Beaver' aircraft, these dynamics are modelled as linear state-
+ space blocks. Before starting a new simulation, the state matri-
+ ces Aail, Bail, Cail, Dail, Aelv, Belv, Celv, Delv, and Arud,
+ Brud, Crud, and Drud must be loaded into the MATLAB workspace.
+ These matrices can be obtained from the files FCS35.DAT,
+ FCS45.DAT, or FCS55.DAT, which contain the state matrices for
+ V = 35 m/s, V = 45 m/s, and V = 55 m/s, respectively. Choose
+ the set which best fits your desired airspeed; in general
+ FCS45.DAT gives good results.
+
+
+ More info
+ =========
+ See APILOT.HLP for more general information about the 'Beaver'
+ autopilot simulation system.
+
+
+ References
+ ==========
+ [1]  M.O. Rauw, A SIMULINK environment for Flight Dynamics and
+      Control analysis - Application to the DHC-2 'Beaver',
+      PART II! Graduate's thesis, Delft University of Technology,
+      Faculty of Aerospace Engineering, Delft, 1993.
+
+ [2]  P.N.H. Wever, Ontwerp en implementatie van de regelwetten
+      van de De Havilland DHC-2 'Beaver' (in Dutch). Graduate's
+      thesis, Delft University of Technology, Faculty of Aero-
+      space Engineering, Delft, 1993.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

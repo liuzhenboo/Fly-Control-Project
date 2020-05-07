@@ -1,0 +1,1244 @@
+Model {
+  Name			  "fdctools"
+  Version		  2.09
+  SimParamPage		  Solver
+  SampleTimeColors	  off
+  InvariantConstants	  off
+  WideVectorLines	  off
+  ShowLineWidths	  off
+  PaperOrientation	  landscape
+  PaperType		  usletter
+  PaperUnits		  inches
+  StartTime		  "0.0"
+  StopTime		  "999999"
+  Solver		  ode45
+  RelTol		  "1e-3"
+  AbsTol		  "1e-3"
+  Refine		  "1"
+  MaxStep		  "10"
+  InitialStep		  "auto"
+  FixedStep		  "auto"
+  MaxOrder		  5
+  OutputOption		  RefineOutputTimes
+  OutputTimes		  "[]"
+  LoadExternalInput	  off
+  ExternalInput		  "[t, u]"
+  SaveTime		  off
+  TimeSaveName		  "tout"
+  SaveState		  off
+  StateSaveName		  "xout"
+  SaveOutput		  off
+  OutputSaveName	  "yout"
+  LoadInitialState	  off
+  InitialState		  "xInitial"
+  SaveFinalState	  off
+  FinalStateName	  "xFinal"
+  LimitMaxRows		  off
+  MaxRows		  "1000"
+  Decimation		  "1"
+  AlgebraicLoopMsg	  warning
+  MinStepSizeMsg	  warning
+  UnconnectedInputMsg	  warning
+  UnconnectedOutputMsg	  warning
+  UnconnectedLineMsg	  warning
+  ConsistencyChecking	  off
+  ZeroCross		  on
+  SimulationMode	  normal
+  RTWSystemTargetFile	  "grt.tlc"
+  RTWInlineParameters	  off
+  RTWRetainRTWFile	  off
+  RTWTemplateMakefile	  "grt_vc.tmf"
+  RTWMakeCommand	  "make_rtw"
+  RTWGenerateCodeOnly	  off
+  ExtModeMexFile	  "ext_comm"
+  ExtModeBatchMode	  off
+  BlockDefaults {
+    Orientation		    right
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    NamePlacement	    normal
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+    ShowName		    on
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    center
+    VerticalAlignment	    middle
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  System {
+    Name		    "fdctools"
+    Location		    [8, 44, 517, 307]
+    Open		    on
+    ScreenColor		    white
+    Block {
+      BlockType		      SubSystem
+      Name		      "6-switch"
+      Ports		      [7, 1, 0, 0, 0]
+      Position		      [210, 86, 280, 154]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('6 switch:\\ny=u(u[1]+1)')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"6-switch"
+	Location		[4, 42, 443, 419]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  Inport
+	  Name			  "Which\ninput?"
+	  Position		  [30, 65, 50, 85]
+	  ForegroundColor	  red
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "u1"
+	  Position		  [195, 85, 215, 105]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "2"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "u2"
+	  Position		  [195, 135, 215, 155]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "3"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "u3"
+	  Position		  [195, 185, 215, 205]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "4"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "u4"
+	  Position		  [195, 235, 215, 255]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "5"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "u5"
+	  Position		  [195, 285, 215, 305]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "6"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "u6"
+	  Position		  [195, 335, 215, 355]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "7"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "1"
+	  Position		  [95, 65, 150, 85]
+	  ForegroundColor	  red
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Expr			  "u[1]==1"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "2"
+	  Position		  [95, 115, 150, 135]
+	  ForegroundColor	  red
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Expr			  "u[1]==2"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "3"
+	  Position		  [95, 165, 150, 185]
+	  ForegroundColor	  red
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Expr			  "u[1]==3"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "4"
+	  Position		  [95, 215, 150, 235]
+	  ForegroundColor	  red
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Expr			  "u[1]==4"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "5"
+	  Position		  [95, 265, 150, 285]
+	  ForegroundColor	  red
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Expr			  "u[1]==5"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "6"
+	  Position		  [95, 315, 150, 335]
+	  ForegroundColor	  red
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Expr			  "u[1]==6"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum"
+	  Ports			  [6, 1, 0, 0, 0]
+	  Position		  [340, 59, 355, 351]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "++++++"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "prod1"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [250, 70, 270, 90]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "prod2"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [250, 120, 270, 140]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "prod3"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [250, 170, 270, 190]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "prod4"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [250, 220, 270, 240]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "prod5"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [250, 270, 270, 290]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "prod6"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [250, 320, 270, 340]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "y"
+	  Position		  [390, 195, 410, 215]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "Which\ninput?"
+	  SrcPort		  1
+	  Points		  [20, 0]
+	  Branch {
+	    DstBlock		    "1"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 50]
+	    Branch {
+	      DstBlock		      "2"
+	      DstPort		      1
+	    }
+	    Branch {
+	      Points		      [0, 50]
+	      Branch {
+		DstBlock		"3"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, 50]
+		Branch {
+		  DstBlock		  "4"
+		  DstPort		  1
+		}
+		Branch {
+		  Points		  [0, 50]
+		  Branch {
+		    DstBlock		    "5"
+		    DstPort		    1
+		  }
+		  Branch {
+		    Points		    [0, 50]
+		    DstBlock		    "6"
+		    DstPort		    1
+		  }
+		}
+	      }
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "u1"
+	  SrcPort		  1
+	  DstBlock		  "prod1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "prod1"
+	  SrcPort		  1
+	  DstBlock		  "Sum"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "1"
+	  SrcPort		  1
+	  DstBlock		  "prod1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "u2"
+	  SrcPort		  1
+	  DstBlock		  "prod2"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "prod2"
+	  SrcPort		  1
+	  DstBlock		  "Sum"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "2"
+	  SrcPort		  1
+	  DstBlock		  "prod2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "u3"
+	  SrcPort		  1
+	  DstBlock		  "prod3"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "prod3"
+	  SrcPort		  1
+	  DstBlock		  "Sum"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "3"
+	  SrcPort		  1
+	  DstBlock		  "prod3"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "u4"
+	  SrcPort		  1
+	  DstBlock		  "prod4"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "prod4"
+	  SrcPort		  1
+	  DstBlock		  "Sum"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "4"
+	  SrcPort		  1
+	  DstBlock		  "prod4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "u5"
+	  SrcPort		  1
+	  DstBlock		  "prod5"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "prod5"
+	  SrcPort		  1
+	  DstBlock		  "Sum"
+	  DstPort		  5
+	}
+	Line {
+	  SrcBlock		  "5"
+	  SrcPort		  1
+	  DstBlock		  "prod5"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "u6"
+	  SrcPort		  1
+	  DstBlock		  "prod6"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "prod6"
+	  SrcPort		  1
+	  DstBlock		  "Sum"
+	  DstPort		  6
+	}
+	Line {
+	  SrcBlock		  "6"
+	  SrcPort		  1
+	  DstBlock		  "prod6"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Sum"
+	  SrcPort		  1
+	  DstBlock		  "y"
+	  DstPort		  1
+	}
+	Annotation {
+	  Position		  [222, 12]
+	  VerticalAlignment	  top
+	  ForegroundColor	  red
+	  FontName		  "Times New Roman"
+	  FontSize		  12
+	  Text			  "This 6-switch was generated with the "
+				  "Matlab program NSWITCH.M.\nTry running "
+				  "this program yourself for any number "
+				  "of input signals!"
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Block Fcn"
+      Ports		      [0, 1, 0, 0, 0]
+      Position		      [25, 31, 55, 59]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowPortLabels	      off
+      MaskType		      "Block Fcn"
+      MaskDescription	      "Block Function"
+      MaskHelp		      "This block implements a block signal.\\nDefine "
+			      "the initial (=final) value, the\\namplitude "
+			      "of the block (positive\\n= upwards, negative=dow"
+			      "nwards),\\nthe start time, and the stop time "
+			      "(must\\nbe smaller than the start time)."
+      MaskPromptString	      "Initial value (=final value):|Amplitude of "
+			      "block (+ = step up, - = step down):|Start "
+			      "time of block:|Stop time of block:"
+      MaskStyleString	      "edit,edit,edit,edit"
+      MaskInitialization      "yinit=@1; yblock=@2; tstart=@3; tstop=@4;"
+      MaskDisplay	      "plot(0,0,100,100,[100,60,60,20,20,0],[50,50,89,8"
+			      "9,50,50])"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      MaskValueString	      "-1|2|1|4"
+      System {
+	Name			"Block Fcn"
+	Location		[4, 60, 241, 187]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  Step
+	  Name			  "End block"
+	  Position		  [40, 45, 60, 65]
+	  FontName		  "Arial"
+	  FontSize		  9
+	  Time			  "tstop"
+	  Before		  "0"
+	  After			  "-yblock"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Initial value"
+	  Position		  [40, 85, 80, 105]
+	  FontName		  "Arial"
+	  FontSize		  9
+	  Value			  "yinit"
+	}
+	Block {
+	  BlockType		  Step
+	  Name			  "Start block"
+	  Position		  [40, 5, 60, 25]
+	  FontName		  "Arial"
+	  FontSize		  9
+	  Time			  "tstart"
+	  Before		  "0"
+	  After			  "yblock"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum"
+	  Ports			  [3, 1, 0, 0, 0]
+	  Position		  [115, 36, 130, 74]
+	  FontName		  "Arial"
+	  FontSize		  9
+	  ShowName		  off
+	  Inputs		  "+++"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "block"
+	  Position		  [165, 45, 185, 65]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  FontSize		  9
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "Sum"
+	  SrcPort		  1
+	  DstBlock		  "block"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Initial value"
+	  SrcPort		  1
+	  Points		  [10, 0; 0, -30]
+	  DstBlock		  "Sum"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Start block"
+	  SrcPort		  1
+	  Points		  [30, 0; 0, 30]
+	  DstBlock		  "Sum"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "End block"
+	  SrcPort		  1
+	  DstBlock		  "Sum"
+	  DstPort		  2
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Doublet"
+      Ports		      [0, 1, 0, 0, 0]
+      Position		      [20, 81, 60, 119]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowPortLabels	      off
+      MaskType		      "Doublet"
+      MaskDescription	      "Doublet signal."
+      MaskHelp		      "This block implements a \\ndoublet signal "
+			      "according to: \\ny = y1 if \\n   tstart <= "
+			      "t < tstart+dt1 \\ny = y2 if \\n   tstart+dt1 "
+			      "<= t < tstart+dt1+dt2 \\ny = y start = y "
+			      "final if \\n   t < tstart or t > tstart+dt1+dt2."
+      MaskPromptString	      "Start time [sec]:|Length of time interval "
+			      "1 [sec]:|Length of time interval 2 [sec]:|y1:|y2"
+			      ":|y start (= y final):"
+      MaskStyleString	      "edit,edit,edit,edit,edit,edit"
+      MaskInitialization      "ts1=@1; dt1=@2; dt2=@3; y1=@4; y2=@5; cnst=@6;"
+      MaskDisplay	      "plot([0 1 1 2.5 2.5 4 4 5],[0 0 1 1 -1.5 "
+			      "-1.5 0 0])"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      MaskValueString	      "1|1|1|1|-1|0"
+      System {
+	Name			"Doublet"
+	Location		[4, 60, 241, 231]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  Constant
+	  Name			  "Const."
+	  Position		  [25, 125, 55, 145]
+	  FontName		  "Arial"
+	  FontSize		  9
+	  Value			  "cnst"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum"
+	  Ports			  [4, 1, 0, 0, 0]
+	  Position		  [120, 35, 135, 90]
+	  FontName		  "Arial"
+	  FontSize		  9
+	  ShowName		  off
+	  Inputs		  "++++"
+	}
+	Block {
+	  BlockType		  Step
+	  Name			  "step1"
+	  Position		  [30, 5, 50, 25]
+	  FontName		  "Arial"
+	  FontSize		  9
+	  Time			  "ts1"
+	  Before		  "0"
+	  After			  "y1-cnst"
+	}
+	Block {
+	  BlockType		  Step
+	  Name			  "step2"
+	  Position		  [30, 45, 50, 65]
+	  FontName		  "Arial"
+	  FontSize		  9
+	  Time			  "ts1+dt1"
+	  Before		  "0"
+	  After			  "-y1+y2"
+	}
+	Block {
+	  BlockType		  Step
+	  Name			  "step3"
+	  Position		  [30, 85, 50, 105]
+	  FontName		  "Arial"
+	  FontSize		  9
+	  Time			  "ts1+dt1+dt2"
+	  Before		  "0"
+	  After			  "-y2+cnst"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "doublet"
+	  Position		  [180, 55, 200, 75]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  FontSize		  9
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "Const."
+	  SrcPort		  1
+	  Points		  [40, 0; 0, -50]
+	  DstBlock		  "Sum"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Sum"
+	  SrcPort		  1
+	  DstBlock		  "doublet"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "step1"
+	  SrcPort		  1
+	  Points		  [25, 0; 0, 25]
+	  DstBlock		  "Sum"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "step2"
+	  SrcPort		  1
+	  DstBlock		  "Sum"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "step3"
+	  SrcPort		  1
+	  Points		  [25, 0; 0, -25]
+	  DstBlock		  "Sum"
+	  DstPort		  3
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "MA"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [315, 90, 395, 165]
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      11
+      ShowName		      off
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('MA filter\\nwith better\\nicon\\n\\n(doubl"
+			      "e click)')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"MA"
+	Location		[4, 60, 176, 191]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  DiscreteStateSpace
+	  Name			  "MA-filter"
+	  Position		  [60, 66, 110, 104]
+	  FontName		  "Arial"
+	  FontSize		  9
+	  A			  "Ama"
+	  B			  "Bma"
+	  C			  "Cma"
+	  D			  "Dma"
+	  X0			  "xinit"
+	  SampleTime		  "Ts"
+	  MaskType		  "MA-filter"
+	  MaskDescription	  "Digital Moving Average filter"
+	  MaskHelp		  "Digital Moving Average filter. \\ny(k) "
+				  "= 1/n * (u(k) + u(k-1) + ... + u(k-ns)) "
+				  "\\nwhere ns is the number of samples "
+				  "\\nfor averaging (to be specified by "
+				  "\\nthe user). "
+	  MaskPromptString	  "Number of samples for averaging:|Sample "
+				  "time:|Initial value of input signal:"
+	  MaskStyleString	  "edit,edit,edit"
+	  MaskVariables		  "ns=@1;Ts=@2;uinit=@3;"
+	  MaskInitialization	  " Ama=[zeros(1,ns);[eye(ns-1) zeros(ns-1,1)]]"
+				  "; Bma=[1; zeros(ns-1,1)]; Cma=1/ns*ones(1,ns"
+				  "); Dma=0; xinit=uinit*ones(ns,1);  y=dstep(A"
+				  "ma,Bma,Cma,Dma,1,ns*1.5); yy=[]; for "
+				  "i = 1:length(y)-1; yy=[yy y(i) y(i+1)]; "
+				  "tt=[tt i i]; end; ly=length(y);"
+	  MaskDisplay		  "plot(tt,yy,[-0.3*ly 0 0 ly],[0 0 1 1],[0 "
+				  "1],[0 0],-0.3*ly-1,-0.25,ly+1,1.25)"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  MaskValueString	  "5|0.1|0"
+	}
+	Annotation {
+	  Position		  [87, 17]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  FontSize		  9
+	  Text			  "Drawing the icon of this\nblock requires "
+				  "Control\nSystems Toolbox!"
+	}
+      }
+    }
+    Block {
+      BlockType		      DiscreteStateSpace
+      Name		      "MA-filter"
+      Position		      [330, 31, 380, 69]
+      FontName		      "Arial"
+      FontSize		      11
+      A			      "Ama"
+      B			      "Bma"
+      C			      "Cma"
+      D			      "Dma"
+      X0		      "xinit"
+      SampleTime	      "Ts"
+      MaskType		      "MA-filter"
+      MaskDescription	      "Digital Moving Average filter"
+      MaskHelp		      "Digital Moving Average filter. \\ny(k) = "
+			      "1/n * (u(k) + u(k-1) + ... + u(k-ns)) \\nwhere "
+			      "ns is the number of samples \\nfor averaging "
+			      "(to be specified by \\nthe user). "
+      MaskPromptString	      "Number of samples for averaging:|Sample time:|In"
+			      "itial value of input signal:"
+      MaskStyleString	      "edit,edit,edit"
+      MaskInitialization      "ns=@1; Ama=[zeros(1,ns);[eye(ns-1) zeros(ns-1,1)"
+			      "]]; Bma=[1; zeros(ns-1,1)]; Cma=1/ns*ones(1,ns);"
+			      " Dma=0; Ts=@2; uinit=@3; xinit=uinit*ones(ns,1);"
+      MaskDisplay	      "disp('MA')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      MaskValueString	      "5|0.1|0"
+    }
+    Block {
+      BlockType		      StateSpace
+      Name		      "Matrix Gain"
+      Position		      [105, 30, 165, 60]
+      FontName		      "Arial"
+      FontSize		      11
+      A			      "A"
+      B			      "B"
+      C			      "C"
+      D			      "D"
+      X0		      "0"
+      MaskType		      "Matrix Gain"
+      MaskDescription	      "Matrix Gain"
+      MaskHelp		      "This block implements an matrix gain.\\nThe "
+			      "matrix dimensions must be in accordance\\nwith "
+			      "the dimension of the inputvector."
+      MaskPromptString	      "Gain matrix:"
+      MaskStyleString	      "edit"
+      MaskInitialization      "A=[]; B=[]; C=[]; D=@1;"
+      MaskDisplay	      "disp('y = M*u')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      MaskValueString	      "eye(3)"
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "On/off switch"
+      Ports		      [2, 1, 0, 0, 0]
+      Position		      [225, 30, 260, 65]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowPortLabels	      off
+      MaskType		      "On/off switch"
+      MaskDescription	      " If input(1) = 1 \n     output = input(2) "
+			      "\n else if input(1) = 0\n     output = 0"
+      MaskHelp		      "On/off switch."
+      MaskDisplay	      "plot(0,0,100,100,[31,31,32,34,34,32,31,31,0],[50"
+			      ",48,47,48,51,53,51,50,50],[100,75,51],[50,50,97]"
+			      ");disp('?')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"On/off switch"
+	Location		[4, 60, 251, 263]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  Inport
+	  Name			  "crit"
+	  Position		  [20, 70, 40, 90]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  FontSize		  9
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "in"
+	  Position		  [20, 30, 40, 50]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  FontSize		  9
+	  Port			  "2"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [85, 95, 100, 115]
+	  FontName		  "Arial"
+	  FontSize		  9
+	  ShowName		  off
+	  Inputs		  "+-"
+	}
+	Block {
+	  BlockType		  Switch
+	  Name			  "Switch"
+	  Position		  [165, 89, 190, 121]
+	  FontName		  "Arial"
+	  FontSize		  9
+	  Threshold		  "0"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "const."
+	  Position		  [20, 120, 40, 140]
+	  FontName		  "Arial"
+	  FontSize		  9
+	  Value			  "0.5"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "const.1"
+	  Position		  [20, 159, 40, 181]
+	  FontName		  "Arial"
+	  FontSize		  9
+	  Value			  "0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "out"
+	  Position		  [210, 95, 230, 115]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  FontSize		  9
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "crit"
+	  SrcPort		  1
+	  Points		  [20, 0; 0, 20]
+	  DstBlock		  "Sum"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "const.1"
+	  SrcPort		  1
+	  Points		  [80, 0; 0, -55]
+	  DstBlock		  "Switch"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Sum"
+	  SrcPort		  1
+	  DstBlock		  "Switch"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Switch"
+	  SrcPort		  1
+	  DstBlock		  "out"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "in"
+	  SrcPort		  1
+	  Points		  [80, 0; 0, 55]
+	  DstBlock		  "Switch"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "const."
+	  SrcPort		  1
+	  Points		  [20, 0; 0, -20]
+	  DstBlock		  "Sum"
+	  DstPort		  2
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "Scheduled Gain"
+      Ports		      [2, 1, 0, 0, 0]
+      Position		      [110, 80, 165, 115]
+      FontName		      "Arial"
+      FontSize		      11
+      ShowPortLabels	      off
+      MaskDisplay	      "plot(0,0,100,100,[0,100,0],[0,50,100]);disp('K(u"
+			      "1)      ')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"Scheduled Gain"
+	Location		[4, 42, 455, 207]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  Inport
+	  Name			  "schedule \nvector v"
+	  Position		  [30, 65, 50, 85]
+	  ForegroundColor	  magenta
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "input u"
+	  Position		  [30, 120, 50, 140]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "2"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "Gain Fcn"
+	  Position		  [85, 66, 335, 84]
+	  ForegroundColor	  magenta
+	  FontName		  "Arial"
+	  Expr			  "sin(u[1])"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "More Info"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [177, 5, 210, 35]
+	  ForegroundColor	  red
+	  DropShadow		  on
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('???')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "More Info"
+	    Location		    [4, 29, 355, 106]
+	    Open		    off
+	    ScreenColor		    white
+	    Annotation {
+	      Position		      [169, 17]
+	      VerticalAlignment	      top
+	      ForegroundColor	      red
+	      FontName		      "Times New Roman"
+	      FontSize		      12
+	      Text		      "The first input is the schedule signal. "
+				      "Change the \nGain Function to the "
+				      "required gain scheduling function."
+	    }
+	    Annotation {
+	      Position		      [24456, 7491]
+	      VerticalAlignment	      top
+	      FontName		      "Times New Roman"
+	      FontSize		      12
+	      Text		      "Scheduled Gain.\n\nInput 2 is multiplied"
+				      " with a gain which is a function\nof "
+				      "input(-vector) 1. The schedule function "
+				      "should be\nspecified in the block "
+				      "'Gain Fcn'."
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "Product"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [380, 95, 395, 115]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "t"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [5, 5, 135, 50]
+	  ForegroundColor	  blue
+	  ShowName		  off
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('Scheduled Gain\\nMarc Rauw\\nAugust "
+				  "1996')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "t"
+	    Location		    [181, 125, 272, 215]
+	    Open		    off
+	    ScreenColor		    white
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "y = K*u"
+	  Position		  [415, 95, 435, 115]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "schedule \nvector v"
+	  SrcPort		  1
+	  DstBlock		  "Gain Fcn"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Product"
+	  SrcPort		  1
+	  DstBlock		  "y = K*u"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "input u"
+	  SrcPort		  1
+	  Points		  [305, 0; 0, -20]
+	  DstBlock		  "Product"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Gain Fcn"
+	  SrcPort		  1
+	  Points		  [20, 0; 0, 25]
+	  DstBlock		  "Product"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      S-Function
+      Name		      "Soft limiter"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [425, 30, 480, 70]
+      FontName		      "Arial"
+      FontSize		      11
+      FunctionName	      "softlim"
+      Parameters	      "max_u, lin_u"
+      MaskType		      "Soft limiter"
+      MaskDescription	      "Soft limiter with partly linear throughput"
+      MaskHelp		      "See source-code of SOFTLIM.M or type HELP "
+			      "SOFTLIM at the command-line."
+      MaskPromptString	      "Limiter range= max. output value= --(min. "
+			      "output value):|% of linear range where y=u "
+			      "(linear throughput):"
+      MaskStyleString	      "edit,edit"
+      MaskInitialization      "max_u=max(@1,1e-16); lin_u=min(0.9999,(max(@2,0)"
+			      "/100))*max_u; uplot=[-5*max_u:0.25*max_u:5*max_u"
+			      "]; for i = 1:length(uplot); yplot(i)=softlim([],"
+			      "[],uplot(i),3,max_u,lin_u); end;"
+      MaskDisplay	      "plot(uplot, yplot, max_u*[-5,-1,1,5], max_u*[-1,"
+			      "-1,1,1], 0, -1.3*max_u, 0, 1.2*max_u, max_u*[-5,"
+			      "5], [0,0]);"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      MaskValueString	      "10|10"
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "i"
+      Ports		      [0, 0, 0, 0, 0]
+      Position		      [205, 175, 285, 211]
+      ForegroundColor	      red
+      DropShadow	      on
+      FontName		      "Arial"
+      FontSize		      11
+      FontWeight	      bold
+      ShowName		      off
+      OpenFcn		      "fdchelp('nswitch')"
+      ShowPortLabels	      off
+      MaskDisplay	      "disp('More info\\nfor n-switch')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"i"
+	Location		[160, 288, 522, 361]
+	Open			off
+	ScreenColor		white
+	Annotation {
+	  Position		  [182, 12]
+	  VerticalAlignment	  top
+	  ForegroundColor	  red
+	  FontName		  "Times New Roman"
+	  FontSize		  12
+	  Text			  "Run NSWITCH.M to generate an n-switch "
+				  "with a \ndifferent number of inputs. "
+				  "Type HELP NSWITCH\nat the Matlab command "
+				  "line for more info."
+	}
+      }
+    }
+    Annotation {
+      Position		      [254, 237]
+      VerticalAlignment	      top
+      ForegroundColor	      red
+      FontName		      "Times New Roman"
+      FontSize		      14
+      Text		      "The FDC toolbox. Copyright Marc Rauw, 1994-1997"
+    }
+    Annotation {
+      Position		      [136, 12]
+      VerticalAlignment	      top
+      ForegroundColor	      blue
+      FontName		      "Arial"
+      FontSize		      11
+      FontWeight	      bold
+      Text		      "GAINS"
+    }
+    Annotation {
+      Position		      [243, 12]
+      VerticalAlignment	      top
+      ForegroundColor	      blue
+      FontName		      "Arial"
+      FontSize		      11
+      FontWeight	      bold
+      Text		      "SWITCHES"
+    }
+    Annotation {
+      Position		      [357, 12]
+      VerticalAlignment	      top
+      ForegroundColor	      blue
+      FontName		      "Arial"
+      FontSize		      11
+      FontWeight	      bold
+      Text		      "DISCRETE"
+    }
+    Annotation {
+      Position		      [455, 12]
+      VerticalAlignment	      top
+      ForegroundColor	      blue
+      FontName		      "Arial"
+      FontSize		      11
+      FontWeight	      bold
+      Text		      "NONLINEAR"
+    }
+    Annotation {
+      Position		      [40, 12]
+      VerticalAlignment	      top
+      ForegroundColor	      blue
+      FontName		      "Arial"
+      FontSize		      11
+      FontWeight	      bold
+      Text		      "INPUTS"
+    }
+  }
+}

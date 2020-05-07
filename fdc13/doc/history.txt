@@ -1,0 +1,211 @@
+Small history of the FDC toolbox up till version 1.3
+====================================================
+The origin of this package lies in 1992, when Simulink tools were
+developed for the design and analysis of a digital autopilot for the
+DHC-2 'Beaver' aircraft of Delft University of Technology (Faculty
+of Aerospace Engineering, Section Stability and Control). In
+september 1993, a version of this Simulink 'Toolbox' was released as
+a part of the MSc-thesis of the author (ref.[2]). Although this toolbox
+was at that time still nameless, it will be referred to as FDC 1.0 in
+this README-textfile.
+
+In 1994, an improved version of this toolbox was developed. This
+version (1.1) contained some significant improvements with regard to
+the model structure and user-friendlyness of the tools. Although a
+'beta-test version' was distributed in the Disciplinary Group for
+Stability and Control, it was never released officially since the
+report which described the new version was delayed several times.
+This beta-version was called 'BEAST 1.1 beta', where BEAST was used
+as an acronym for 'Beaver Simulation Toolbox'.
+
+Since version 1.2 this package has been renamed FDC-toolbox, which
+emphasizes the shift from a package that was mainly used for the design
+and analysis of the 'Beaver' autopilot to a far more general toolbox for
+Flight Dynamics analysis and Flight Control System design (FDC stands for
+'Flight Dynamics and Control'). The old name was actually too limited to
+fully account for the contents of the package. Versions 1.0 and 1.1 were
+designed for Matlab 3.5 / Simulink 1.2, FDC 1.2 was designed for
+Matlab 4.0 / Simulink 1.2c and Matlab 4.2 / Simulink 1.3.
+
+Version 1.3 has been designed for Matlab 4.2 / Simulink 1.3 only. It also
+requires a World Wide Web browser to view the new on-line help texts.
+Two 'Service Releases' (SR1 and SR2) were created to solve some problems.
+In particular, the support for non-Windows platforms has been improved.
+
+
+Version 1.0
+-----------
+The first usable version of FDC that was actually presented in public. At
+the time of publishing it was still nameless. See ref.[2] for a full
+description of this toolbox.
+
+
+Version 1.1 (beta)
+------------------
+This version was called BEAST 1.1 (beta), which meant 'Beaver Simulation
+Toolbox' version 1.1. It was never 'officially' released. Compared to
+version 1.0 it contained the following new and/ofimproved features:
+
+*  Better on-line help texts for the graphical Simulink systems. These texts
+   now contained complete lists of variables and units of measurements. The
+   number of help texts was increased considerably. Moreover, the file-exten-
+   sion for these help texts was changed from .M to .HLP.
+
+*  Double-clicking title-blocks in graphical Simulink systems now listed
+   the accompagnying help-texts in the Matlab command-window.
+
+*  New file-extensions were introduced: .DAT (parameter files),
+   .HLP (helpfiles), .LIN (linearized models), and .TRI (trimmed-flight
+   conditions). This clarified the file-structure of the toolbox.
+
+*  The user-interface of ACTRIM and ACLIN was considerably improved.
+
+*  The trim-routine was enhanced with the option to specify the
+   manifold pressure in stead of the flight path angle.
+
+*  The old model library ACLIB was replaced by the new model library
+   BEASTLIB and enhanced with many explanatory systems. All examples were
+   now accessible through the main library.
+
+*  New versions of the open-loop example systems from version 1.0 were
+   created, plus 'tutorial' systems which gave a step-by-step explanation
+   about the meaning of all blocks from these examples.
+
+*  The 'button'-blocks were changed in order to show which M-file they
+   would start when being double-clicked.
+
+*  The structure of the aircraft model BEAVER was improved by adding a
+   new subsystem 'Additional Outputs' to group the output blocks which
+   could not logically be placed elsewhere, and by putting the help sines
+   and cosines in a feedback-loop to make them available for ALL other
+   blocks within the system. Also, the subsystem 'Aircraft Equations
+   of Motion' was restructured in a more logical way. Feedback-loops in
+   the system BEAVER were highlighted by a magenta color.
+
+*  Some signal names which could have led to confusion in version 1.0
+   were changed (e.g. FMa in stead of Fa, to denote Forces AND Moments).
+
+*  Some bugs in the blocks ACCEL, FLPATH, and XDOTCORR of the old version
+   of the system BEAVER were fixed in BEAST 1.1 (bugs reported by Zainal
+   Abidin, Delft University of Technology).
+
+
+Version 1.2
+-----------
+This version was renamed to FDC 1.2. It has been described in ref.[1].
+It contained the following new features:
+
+*  FDC 1.2 was designed for Matlab 4.0 / Simulink 1.2c (or newer) in stead
+   of Matlab 3.5k / Simulink 1.2.
+
+*  The masked blocks did not use 'hidden' parameters, read from global
+   variables in the workspace, contrary to the previous versions.
+
+*  The help texts were improved once again. Toolbox-help in 'Matlab 4.0'-
+   style (contents.m files) and new help-files for the autopilot simulation
+   models were included.
+
+*  The autopilot simulation models were improved in order to make them
+   better accessible by the users. The autopilot-parameter definition
+   routines were made more user-friendly than before and the on-line help
+   texts for these models were improved.
+
+*  Three new examples of control-law simulations were added. These systems
+   (PAH.M, RAH.M, and PAHRAH.M) represented an interim step between linear
+   autopilot design and the full-featured non-linear autopilot models from
+   the systems APILOT1 to APILOT3. The routine PRAHINIT.M was included to
+   help definining the parameters for these example systems.
+
+*  The Mode-controller blocks from the autopilot simulation models was
+   renewed completely, together with the Matlab functions GSSWITCH.M,
+   NAVSWTCH.M, and LOCSWTCH.M, which are called by S-function blocks in the
+   Mode Controller subsystem. Some of the mode-definition vectors were
+   re-defined in the new mode-controller and the old initialization routine
+   APSTART.M was replaced by APMODE.M.
+
+*  A user-menu APMENU.M was included in order to help the user in selecting
+   the appropriate autopilot model.
+
+*  New Matlab macros RESULTS.M and RESPLOT.M were included to facilitate the
+   post-processing of simulation results.
+
+*  The screen-formatting of the routines ACLIN and ACTRIM was improved by
+   applying a slightly changed version of the Matlab function NUM2STR, called
+   NUM2STR2.
+
+*  Complete lists of variables were added to the source codes of ACLIN and
+   ACTRIM. The source-codes themselves were better documented.
+
+*  Several blocks from the library FDCTOOLS (previously called TOOLS)
+   were improved. This library was equipped with a user-friendly n-switch
+   generator which automatically created graphical switch-blocks with n
+   inputs, where n could be specified by the user during the block-generation
+   process.
+
+*  Several minor and some major bugs in the Matlab programs from the FDC
+   toolbox were fixed. The package was made more 'fool-proof'.
+
+*  The program documentation files (*.TXT) was gathered in a new
+   subdirectory DOC, leaving only the FDC initialization and installation
+   routines in the root directory of the toolbox.
+
+*  The installation routine was improved, allowing installation into a
+   different destination directory than C:\FDC12. The self-extracting
+   ZIP-file that contained the FDC toolbox distribution files was hidden
+   from the user to prevent the files from being installed to a wrong
+   directory.
+
+*  A small routine RECOVER.M was created to recover simulation results that
+   were not properly sent to the Workspace by Simulink.
+
+*  The initialization routine now added the root-directory of the FDC
+   toolbox to the Matlab path in order to allow several routines from FDC 1.2
+   to find the default directory settings in the file MODINIT.INI, thus
+   reducing the number of 'File not found' errors.
+
+*  A start was made to create an object-oriented implementation of the FDC
+   toolbox by putting some often-used parts of programs into general-purpose
+   subroutines, but further improvements are still necessary.
+
+*  Slightly modified Simulink models were created for Matlab 4.2/Simulink 1.3.
+
+
+Version 1.3
+-----------
+The new version. See WHATSNEW.TXT for more info.
+
+
+Version 1.4
+-----------
+Probably the next version. See WHATSNEX.TXT for more info.
+
+
+
+References
+==========
+The main source of information about the FDC 1.2 toolbox is the report:
+
+
+[1] FDC 1.2 - A Simulink Toolbox for Flight Dynamics and Control
+    Analysis. M.O. Rauw, Zeist, The Netherlands, 1996.
+
+
+In addition, you may still find some useful information in the following
+references (although they describe earlier versions of the toolbox):
+
+
+[2] M.O. Rauw. A Simulink environment for Flight Dynamics and Con-
+    trol analysis - application to the DHC-2 'Beaver' (2 parts).
+    Faculty of Aerospace Engineering, Delft University of Technology,
+    Delft, September 1993. (Also contained in the NASA STAR database
+    with report number NONP-NASA-SUPPL-DK-94-28027).
+
+[3] Marc Rauw, Samir Bennani, Hans van der Vaart. An Integrated
+    Approach to the Design of Flight Control Systems using CAD Tools.
+    Conference proceedings 2AO-94, Paris, November 1994.
+
+---------------------------------------------------------------------
+The FDC toolbox. Copyright M.O. Rauw, 1994-2002. All rights reserved.
+This software is licensed under the Dutchroll Open Source Software
+License (DOSSL), version 1.0. See LICENSE.TXT in the DOC subdirectory
+for detailed information.

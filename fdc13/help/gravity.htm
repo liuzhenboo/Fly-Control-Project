@@ -1,0 +1,50 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Gravity</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Gravity</FONT></I></H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Gravity</FONT></I> is a masked S<SMALL>IMULINK</SMALL> subsystem, contained in the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="gravity.htm">Beaver</A></FONT></I>. It is used to compute the forces along the aircraft's body axes, which arise due to gravity. The acceleration of gravity, <I>g</I>,is extracted from the outputvector of the masked subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="atmosph.htm">Atmosph</A></FONT></I>. The outputs from <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Gravity</FONT></I> are sent to the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="fmsort.htm">FMsort</A></FONT></I>.
+
+<H3>Inputvectors: <I>x</I> and <I>yatm</I></H3>
+<PRE>  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+  yatm = [rho ps T mu g]'   (atmospheric properties, computed in
+                                               the block <A HREF="atmosph.htm">Atmosph</A>)
+
+ {V    : airspeed [m/s]                                         }
+ {alpha: angle of attack [rad]                                  }
+ {beta : sideslip angle [rad]                                   }
+ {p    : roll rate [rad/s]                                      }
+ {q    : pitch rate [rad/s]                                     }
+ {r    : yaw rate [rad/s]                                       }
+ {psi  : yaw angle [rad]                                        }
+  theta: pitch angle [rad]
+  phi  : roll angle [rad]
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+
+ {rho  : airdensity [kg/m^3]                                    }
+ {ps   : static pressure [N/m^2]                                }
+ {T    : temperature [K]                                        }
+ {mu   : dynamic viscosity [kg/(m*s)]                           }
+  g    : acceleration of gravity [m/s^2]
+</PRE>
+The inputsignals which are not actually used by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Gravity</FONT></I> have been put between accolades.
+
+<H3>Outputvector: <I>Fgrav</I></H3>
+<PRE>
+  Fgrav = [Xgr Ygr Zgr]'.
+
+  Xgr, Ygr, Zgr: gravity force components along the aircraft's
+                 body-axes [N].
+</PRE>
+
+<H3>Parameters to be defined in the M<SMALL>ATLAB</SMALL> Workspace.</H3>
+
+<I>GM1</I>: vector with some important geometrical properties of the 'Beaver' aircraft, and its mass (which is assumed to be constant during the motions of interest). Here, the mass <I>m</I> is extracted from <I>GM1</I>. The vector <I>GM1</I> can be loaded into the workspace from file by running the utility <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I>. Run <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="modbuild.htm">MODBUILD</A></FONT></I> first if the datafile does not yet exist.
+
+</BODY>
+
+</HTML>

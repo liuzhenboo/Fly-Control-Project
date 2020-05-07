@@ -1,0 +1,36 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: FDC intro</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Introduction to the FDC toolbox</H2>
+
+The FDC toolbox is a M<SMALL>ATLAB</SMALL>/S<SMALL>IMULINK</SMALL> toolbox for Flight Dynamics and Control analysis, which has been applied to the De Havilland DHC-2 'Beaver' aircraft. The FDC package includes a full-featured <A HREF="beaver.htm">non-linear dynamic model of the 'Beaver'</A>, implemented in a modular S<SMALL>IMULINK</SMALL> block-diagram structure. It also contains some M<SMALL>ATLAB</SMALL> programs, which access this S<SMALL>IMULINK</SMALL> system for the determination of <A HREF="actrim.htm">steady-state trimmed flight</A> conditions and <A HREF="aclin.htm">linearization of the aircraft model</A>.
+<BR>
+&#160;&#160;&#160&#160;&#160;&#160;FDC also contains additional S<SMALL>IMULINK</SMALL> systems which can be coupled to the input or output side of the nonlinear aircraft model. These systems include <A HREF="windlib.htm">wind and turbulence generators</A> for assessing aircraft responses to wind and/or atmospheric turbulence, and <A HREF="navlib.htm">radio navigation signal generators</A>, to simulate ILS or VOR radio-navigation.
+<BR>
+&#160;&#160;&#160&#160;&#160;&#160;Although the FDC toolbox has been built around a model of the DHC-2 'Beaver' aircraft, it can easily be adapted for analyzing <I>any</I> kind of aircraft within the same graphical user environment within S<SMALL>IMULINK</SMALL> and M<BLINK>ATLAB</BLINK>.
+<BR><BR>
+
+The heart of the FDC package is formed by the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>, which has been contained in the FDC-directory <SMALL>AIRCRAFT</SMALL>. This system contains the nonlinear state equations which determine the motions of the aircraft, as well as a large number of additional output equations. Input and output ports make it possible to
+connect this system to other S<SMALL>IMULINK</SMALL> systems, such as control laws of autopilot modes, input generators, sensor models, etc. The system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> can be opened by typing <CODE>beaver</CODE> at the M<SMALL>ATLAB</SMALL> command line.
+The FDC-directory <SMALL>AIRCRAFT</SMALL> also contains the blocklibrary <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="fdclib.htm">FDCLIB</A></FONT></I> with the sublibraries <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">FDCLIB1</FONT></I> to <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">FDCLIB8</FONT></I>. These libraries together contain all blocks from the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>. Help texts which briefly explain the functions of all blocks have been included in the subdirectory <SMALL>HELP</SMALL>.
+<BR><BR>
+
+Examples of the practical use of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> for nonlinear, off-line, open-loop simulations can be found in the systems <I><A HREF="oloop.htm"><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP&#42;</FONT></A></I>, which are contained in the subdirectory <SMALL>EXAMPLES</SMALL>. The system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP1</FONT></I> can be used to simulate open-loop responses to control inputs. <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP1T</FONT></I> is a 'tutorial system' which gives a detailed explanation about the meaning of each block in <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP1</FONT></I>. <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP2</FONT></I> gives an example of open-loop simulations of the 'Beaver' encountering atmospheric turbulence; <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP2T</FONT></I> is the accompanying 'tutorial'. <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP3</FONT></I> is used for creating open-loop responses of a linearized aircraft model; <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP3T</FONT></I> is its 'tutorial'. It is recommended to closesly examine the examples from this subdirectory, because they demonstrate how the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> can be used in practice. Once you know the basics, it is quite easy to build your own open or closed-loop simulation systems of the 'Beaver' aircraft. Next, you only have to zoom in to the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>, to find out how the aircraft equations of motion themselves are structured, and eventually, to adapt the structure of this model for your own purposes.
+<BR>
+&#160;&#160;&#160&#160;&#160;&#160;The subdirectory <SMALL>APILOT</SMALL> contains a very detailed example of a closed-loop simulation model, which again uses the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> as most important element. This system is called <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT3">APILOT3</A></FONT></I> (<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT1">APILOT1</A></FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT2">APILOT2</A></FONT></I> are simplified versions of this system). Since these systems may seem quite complicated at first sight, it is certainly not recommended to examine them if you haven't worked with the aircraft model <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> and the example systems <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP&#42;</FONT></I> yet, because the autopilot logic itself is rather complicated. But the autopilot simulation systems do gives you an idea about the power of the S<SMALL>IMULINK</SMALL> simulation structure, used in the FDC package, once you know more about its basics.
+
+<H2>References</H2>
+
+The toolbox has been described in detail in the following report:
+
+<UL>
+<LI>Rauw, M.O.: <I>FDC 1.2 - A S<SMALL>IMULINK</SMALL> Environment for Flight Dynamics and Control Analysis</I>. Zeist, The Netherlands, March 1997.
+</UL>
+
+<B>Note:</B> although the latest release of the FDC toolbox has some new features, the FDC 1.2 report listed above is still valid, except for some differences with respect to the user-interface and the on-line help-texts you are currently reading. All differences have been described in the <SMALL>README</SMALL> and <SMALL>WHATSNEW</SMALL>-files from the <SMALL>DOC</SMALL> directory.
+
+</BODY>
+
+</HTML>

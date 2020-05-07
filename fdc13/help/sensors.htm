@@ -1,0 +1,15 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Sensors</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Autopilot model, subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Sensors / Subtract initial inputs</FONT></I></H2>
+
+The autopilot subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Sensors / Subtract initial inputs</FONT></I> contains the dynamics of the sensor models for the output signals from the non-linear aircraft model <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>. It is used by the systems <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT2">APILOT2</A></FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT3">APILOT3</A></FONT></I> (<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="apilot.htm#APILOT1">APILOT1</A></FONT></I> only contains the subtraction of the initial conditions). Since the control laws often require deviations from the nominal values of the outputs in stead of the output signals themselves, this block also determines the differences between the measured signals and their initial values. The outputs from this block are sent to the subsystems <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="ap_symm.htm">Symmetrical autopilot modes</A></FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="ap_asymm.htm">Asymmetrical autopilot modes</A></FONT></I>.<BR><BR>
+
+The current implementation is actually only intended to provide a <I>framework</I> for future enhancements of the autopilot models: only a few airdata-sensor models have actually been implemented! The most important is a quantization effect in the altitude measurement due to a relatively large least-significant bit used in the
+ airdata computer. Sensormodels for the other signals (including similar sampling or quantization effects) can easily be implemented in the framework from this subsystem.
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,452 @@
+Library {
+  Name			  "fdclib4"
+  Version		  2.09
+  PaperOrientation	  landscape
+  PaperType		  usletter
+  PaperUnits		  inches
+  BlockDefaults {
+    Orientation		    right
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    NamePlacement	    normal
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+    ShowName		    on
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    center
+    VerticalAlignment	    middle
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  System {
+    Name		    "fdclib4"
+    Location		    [10, 46, 353, 249]
+    Open		    on
+    ScreenColor		    white
+    Block {
+      BlockType		      SubSystem
+      Name		      "fw"
+      Ports		      [2, 1, 0, 0, 0]
+      Position		      [40, 84, 95, 111]
+      FontName		      "Arial"
+      ShowName		      off
+      ShowPortLabels	      off
+      MaskType		      "fwind"
+      MaskDescription	      "Forces due to non-steady atmosphere."
+      MaskHelp		      "eval('fdchelp fwind')"
+      MaskPromptString	      "Mass of the aircraft [kg]:"
+      MaskStyleString	      "edit"
+      MaskVariables	      "m=@1;"
+      MaskDisplay	      "disp('Fwind')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      MaskValueString	      "GM1(10)"
+      System {
+	Name			"fw"
+	Location		[4, 42, 506, 201]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  Inport
+	  Name			  "x"
+	  Position		  [25, 60, 45, 80]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "uwind"
+	  Position		  [25, 105, 45, 125]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "2"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "-Xw/m"
+	  Position		  [140, 50, 335, 70]
+	  FontName		  "Arial"
+	  Expr			  "u[16] + u[5]*u[15] - u[6]*u[14]"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "-Yw/m"
+	  Position		  [140, 85, 335, 105]
+	  FontName		  "Arial"
+	  Expr			  "u[17] - u[4]*u[15] + u[6]*u[13]"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "-Zw/m"
+	  Position		  [140, 120, 335, 140]
+	  FontName		  "Arial"
+	  Expr			  "u[18] + u[4]*u[14] - u[5]*u[13]"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "0"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [10, 5, 155, 35]
+	  ForegroundColor	  blue
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  ShowName		  off
+	  OpenFcn		  "fdchelp fwind"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('FWIND\\nM.O. Rauw, Dec. 1996')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "0"
+	    Location		    [99, 72, 274, 227]
+	    Open		    off
+	    ScreenColor		    white
+	  }
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  Ports			  [3, 1, 0, 0, 0]
+	  Position		  [375, 71, 380, 119]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "3"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [85, 76, 90, 109]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "[12 6]"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "gain"
+	  Position		  [410, 80, 445, 110]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Gain			  "-m"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Fwind"
+	  Position		  [465, 85, 485, 105]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "-Zw/m"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, -20]
+	  DstBlock		  "Mux"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "-Xw/m"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, 20]
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "-Yw/m"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  Points		  [20, 0]
+	  Branch {
+	    Points		    [0, -35]
+	    DstBlock		    "-Xw/m"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 35]
+	    DstBlock		    "-Zw/m"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "-Yw/m"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  DstBlock		  "gain"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "gain"
+	  SrcPort		  1
+	  DstBlock		  "Fwind"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "x"
+	  SrcPort		  1
+	  Points		  [10, 0; 0, 15]
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "uwind"
+	  SrcPort		  1
+	  Points		  [10, 0; 0, -15]
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "gr"
+      Ports		      [2, 1, 0, 0, 0]
+      Position		      [40, 39, 95, 66]
+      FontName		      "Arial"
+      ShowName		      off
+      ShowPortLabels	      off
+      MaskType		      "Gravity"
+      MaskDescription	      "Gravity forces."
+      MaskHelp		      "eval('fdchelp gravity')"
+      MaskPromptString	      "Mass of the aircraft [kg]:"
+      MaskStyleString	      "edit"
+      MaskVariables	      "m=@1;"
+      MaskDisplay	      "disp('Gravity')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      MaskValueString	      "GM1(10)"
+      System {
+	Name			"gr"
+	Location		[4, 42, 454, 213]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  Inport
+	  Name			  "x"
+	  Position		  [10, 65, 30, 85]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "yatm"
+	  Position		  [10, 115, 30, 135]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "2"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "0"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [5, 5, 150, 35]
+	  ForegroundColor	  blue
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  ShowName		  off
+	  OpenFcn		  "fdchelp gravity"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('GRAVITY\\nM.O. Rauw, October 1997')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "0"
+	    Location		    [99, 72, 274, 227]
+	    Open		    off
+	    ScreenColor		    white
+	  }
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  Ports			  [3, 1, 0, 0, 0]
+	  Position		  [370, 78, 375, 122]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "3"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [75, 79, 80, 121]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "[12 5]"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "Xgr"
+	  Position		  [140, 50, 325, 70]
+	  FontName		  "Arial"
+	  Expr			  "-m*u[17]*sin(u[8])"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "Ygr"
+	  Position		  [140, 90, 325, 110]
+	  FontName		  "Arial"
+	  Expr			  "m*u[17]*cos(u[8])*sin(u[9])"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "Zgr"
+	  Position		  [140, 130, 325, 150]
+	  FontName		  "Arial"
+	  Expr			  "m*u[17]*cos(u[8])*cos(u[9])"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Fgrav"
+	  Position		  [415, 90, 435, 110]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "yatm"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, -15]
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "x"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, 15]
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Zgr"
+	  SrcPort		  1
+	  Points		  [20, 0; 0, -25]
+	  DstBlock		  "Mux"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  Points		  [25, 0]
+	  Branch {
+	    Points		    [0, 40]
+	    DstBlock		    "Zgr"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -40]
+	    DstBlock		    "Xgr"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Ygr"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  DstBlock		  "Fgrav"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Ygr"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Xgr"
+	  SrcPort		  1
+	  Points		  [20, 0; 0, 25]
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+      }
+    }
+    Annotation {
+      Position		      [166, 7]
+      VerticalAlignment	      top
+      ForegroundColor	      blue
+      FontName		      "Times New Roman"
+      FontSize		      14
+      FontWeight	      bold
+      Text		      "FDC Toolbox - Gravity and wind forces library"
+    }
+    Annotation {
+      Position		      [169, 142]
+      VerticalAlignment	      top
+      ForegroundColor	      red
+      FontName		      "Arial"
+      FontSize		      11
+      Text		      "The gravity block is always needed to solve "
+			      "equations of motion,\nthe wind block may "
+			      "be deleted if no atmospheric disturbances\nare "
+			      "considered. Unmask the blocks to see how "
+			      "they work, or\nclick help buttons."
+    }
+    Annotation {
+      Position		      [200, 47]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      Text		      "<--- block which computes forces in\naircraft's "
+			      "body-axes due to gravity"
+    }
+    Annotation {
+      Position		      [199, 92]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      Text		      "<--- block which computes forces in\naircraft's "
+			      "body-axes due to nonsteady\natmosphere (wind "
+			      "and turbulence)"
+    }
+  }
+}

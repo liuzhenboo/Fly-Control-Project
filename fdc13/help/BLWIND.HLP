@@ -1,0 +1,57 @@
+-----------------------------------------------------------------
+BLWIND is a masked subsystem block, contained in the FDC libra-
+ry WINDLIB. It calculates velocity components of a horizontal
+wind along the body-axes of the aircraft, where the wind velocity
+and direction may change along the flight path as a function of
+altitude. The 'BL' in BLWIND denotes that the wind profile is
+valid in the Boundary Layer of the Earth. However, BLWIND can be
+used too for implementing wind shears at other altitudes.
+
+The user must specify the wind profile by changing two functions:
+
+  wind velocity function; expresses Vw as a function of H,
+  wind direction function; expresses psi_w as a function of H.
+
+where:
+
+  Vw   : wind velocity [m/s]
+  psi_w: wind direction [rad]
+
+Note: if the wind is blowing to the north, psi_w should be ã rad!
+
+In the default setting, the following expressions, taken from
+ref.[1] have been used:
+
+  Vw(H) = (H^0.2545 - 0.4097)/1.3470     0 <= H <= 300 m
+
+  Vw(H) = 2.8658 m/s                     H > 300 m
+
+  psi_w = 0 rad for all H
+
+
+Inputsignals (scalars):
+=======================
+  H    : altitude of aircraft above sea level [m]
+  psi  : heading of aircraft [rad]
+
+
+Outputvector:
+=============
+  ywind = [uw vw ww]'
+
+where:
+
+  uw   : wind velocity component along XB-axis [m/s]
+  vw   : wind velocity component along YB-axis [m/s]
+  ww   : wind velocity component along ZB-axis [m/s] (by default:
+                                                          ww = 0)
+References:
+===========
+[1] Approach and Landing Simulation, AGARD report 632, Ames, 1975.
+
+More info:
+==========
+See also CWIND.HLP.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

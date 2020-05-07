@@ -1,0 +1,120 @@
+-----------------------------------------------------------------
+Level 2 of the system BEAVER - Main level
+=========================================
+The actual model of the 'Beaver' dynamics, consisting of twelve
+state and many output equations, is contained in level 2 of the
+system BEAVER. This is therefore the main level of the system,
+which clearly visualizes the modular structure of the aircraft
+model. Unfortunately, Simulink does not accept vector signals to
+be send through Inport and Outport blocks within the FIRST levels
+of graphical systems, otherwise, the additional Mux, Demux,
+Inport, and Outport blocks from the first level wouldn't have
+been necessary. This is a serious limitation of Simulink, and it
+is hoped that this problem will be solved in future versions of
+Simulink. See also LEVEL1.HLP.
+
+Subsystems in Level 2
+=====================
+Level 2 contains the following subsystems (masked subsystems
+are denoted by {M}):
+
+  Airdata Group
+  Aerodynamics Group (Beaver)
+  Engine Group (Beaver)
+  Gravity                                  {M}
+  Fwind                                    {M}
+  FMsort                                   {M}
+  Aircraft Equations of Motion (Beaver)
+  Additional Outputs
+  Hlpfcn                                   {M}
+
+In those cases where the name of a subsystem has been enhanced
+with the extension '(Beaver)', the subsystem contains aircraft-
+dependent elements (currently configured for the 'Beaver' air-
+craft). The masked subsystem blocks only contain a small set of
+equations, whereas the other subsystem blocks contain more masked
+or unmasked subsystems. In order to review the internal structure
+of the masked subsystems, it is necessary to unmask these systems
+first. Help-texts are available for all masked subsystem blocks.
+
+Structure of Level 2
+====================
+The system should be 'read' from top to bottom and from left to
+right. The upper-left subsystem is the block 'Airdata Group'.
+Some of the results of this block are needed by others, for com-
+puting forces and moments, which is why those blocks have been
+shifted further rightwards and downwards. The different contribu-
+tions to the external forces and moments are added and sorted in
+the block FMsort, so this block is located on the lower right
+side of the forces & moments blocks. One step further right and
+downwards are the subsystems 'Aircraft Equations of Motion' and
+'Additional Outputs', which use the main results from the other
+blocks.
+
+Since the subsystem 'Additional Outputs' also needs time-deriva-
+tives of the state variables, a feedback loop of xdot has been
+included in the blockdiagram. This does not result in an alge-
+braic loop, because the Ordinary Differential Equations for the
+twelve states of the aircraft are in no way involved in this loop
+(the outputs are called 'additional' because they don't represent
+interim results for the solution of the state equations them-
+selves).
+
+In general, all (masked) subsystems use results from other blocks
+which are located on their left side, and the outputs of all sub-
+systems are send to other blocks, located on their right side, if
+necessary. The different subsystems also have different vertical
+positions, in order to be able to connect their outputs to the
+Outport blocks on the far right side in this second level of
+BEAVER.
+      The only exceptions to this 'rule' are the ('artificial')
+feedback loops of the state vector x, its time-derivative xdot,
+and the outputvector yhlp from the block Hlpfcn, which contains a
+number of frequently used sines and cosines. The block Hlpfcn is
+the only one which uses an input vector that enters the block on
+the right side and an output vector which leaves the block on the
+left side.
+
+Inputs to Level 2
+=================
+   uaero = [deltae deltaa deltar deltaf]'    (aerodynamic inputs)
+   uprop = [n pz]'                                (engine inputs)
+   uwind = [uw vw ww uwdot vwdot wwdot]' (atmospheric disturban-
+                                          ces; wind & turbulence)
+Outputs from Level 2
+====================
+   x     = [V alpha beta p q r psi theta phi xe ye H]'   (states)
+   xdot  = dx/dt                     (time-derivatives of states)
+   ybvel = [u v w]'               (body-axes velocity components)
+   yuvw  = [udot vdot wdot]'    (time-derivatives of u, v, and w)
+   ydl   = [pb/2V qc/V rb/2V]' (dimensionless rotational veloci-
+                                 ties along aircraft's body-axes)
+   yfp   = [gamma fpa chi Phi]'            (flightpath variables)
+   ypow  = [dpt P]'             (engine power (-related) outputs)
+   yacc  = [Ax Ay Az axk ayk azk]'   (accelerations and specific
+                                       forces in aircraft's c.g.)
+   Caero = [CXa CYa CZa Cla Cma Cna]'   (aerodyn. force & moment
+                                                    coefficients)
+   Cprop = [CXp CYp CZp Clp Cmp Cnp]'     (engine force & moment
+                                                    coefficients)
+   FMaero= [Xa Ya Za La Ma Na]'       (aerodyn. forces & moments)
+   FMprop= [Xp Yp Zp Lp Mp Np]'         (engine forces & moments)
+   Fgrav = [Xgr Ygr Zgr]'                        (gravity forces)
+   Fwind = [Xw Yw Zw]'          (forces due to wind & turbulence)
+   yatm  = [rho ps T mu g]'                (atmosphere variables)
+   yad1  = [a M qdyn]'                        (airdata variables)
+   yad2  = [qc Ve Vc]'                   (more airdata variables)
+   yad3  = [Tt Re Rc]'                   (more airdata variables)
+
+See INPUTS.HLP for the exact definitions of all inputvariables,
+see OUTPUTS.HLP for the definitions of the outputvariables, men-
+tioned above.
+
+For more info, consult the following helptexts in the subdirec-
+tory HELP: LEVEL1.HLP, ADGRP.HLP, AEROGRP.HLP, ENGGRP.HLP,
+GRAVITY.HLP, FWIND.HLP, FMSORT.HLP, EQMOTION.HLP, MOREOUTS.HLP,
+and HLPFCN.HLP. See also COLORS.HLP for the color-conventions,
+used in the blockdiagrams of FDC 1.2.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

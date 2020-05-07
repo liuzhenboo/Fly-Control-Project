@@ -1,0 +1,51 @@
+-----------------------------------------------------------------
+AIRDATA1 is a masked Simulink subsystem, used to compute the
+speed of sound a, the Mach number M, and the dynamic pressure
+qdyn. The block AIRDATA1 is contained in the subsystem 'Airdata
+Group' of the system BEAVER.
+
+Inputvectors: x and yatm (the inputvariables which are not used
+in AIRDATA1 are displayed between accolades).
+==============================================================
+  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+  yatm = [rho ps T mu g]'   (atmospheric properties, computed in
+                                               the block ATMOSPH)
+
+where:
+
+  V    : airspeed [m/s]
+ {alpha: angle of attack [rad]                                  }
+ {beta : sideslip angle [rad]                                   }
+ {p    : roll rate [rad/s]                                      }
+ {q    : pitch rate [rad/s]                                     }
+ {r    : yaw rate [rad/s]                                       }
+ {psi  : yaw angle [rad]                                        }
+ {theta: pitch angle [rad]                                      }
+ {phi  : roll angle [rad]                                       }
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+
+  rho  : airdensity [kg/m^3]
+ {ps   : static pressure [N/m^2]                                }
+  T    : temperature [K]
+ {mu   : dynamic viscosity [kg/(m*s)]                           }
+ {g    : acceleration of gravity [m/s^2]                        }
+
+Outputvector: yad1.
+===================
+  yad1 = [a M qdyn]'
+
+where:
+
+  a    : speed of sound [m/s]
+  M    : Mach number [-]
+  qdyn : dynamic pressure [N/m^2]
+
+More info:
+==========
+See also ATMOSPH.HLP, AIRDATA2.HLP, AIRDATA3.HLP, and ADGRP.HLP
+(ADGRP = 'Airdata Group').
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

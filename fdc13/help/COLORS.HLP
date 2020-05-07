@@ -1,0 +1,81 @@
+-----------------------------------------------------------------
+COLOR conventions, used in the blockdiagrams from FDC
+=====================================================
+In the blockdiagrams from FDC, all 'normal' function blocks
+have standard colors: black foreground on white background, no
+shadows. Shadows have been used for Inports and Outports (to dis-
+tinguish them from Constant blocks) and for 'Button'-blocks,
+which start up Matlab programs or commands when they are being
+clicked twice. The artificial feedback loops from the system
+BEAVER, including the masked subsystem Hlpfcn, are magenta, to
+distinguish these signals from the external inputs and outputs,
+which enter the system BEAVER by means of Inport blocks. Title
+blocks on the upper left side of the (sub-)systems use a blue
+foreground on a white background, and have shadows because they
+will display help texts when double-clicked.
+
+A complete list of color schemes is given below.
+
+_________________________________________________________________
+
+
+Blocktype:                           Color scheme:
+==========                           =============
+
+Standard Simulink blocks except      Black on white, no shadows
+Inports and Outports; subsystems;
+masked subsystems except 'button'
+blocks, artificial feedback block
+Hlpfcn, and title blocks
+
+Inport and Outport blocks            Black on white, with shadows
+
+Title blocks; 'button' blocks        Blue on white; shadows only
+which display help texts in          if they display help-texts
+Matlab command window
+
+'More-info' blocks which display     Red on white, with shadows
+help text in Simulink window
+
+'Button' blocks which start up       Blue on cyan, with shadows
+Matlab programs/functions
+
+To Workspace blocks                  Black on yellow, no shadows
+
+Scope blocks                         Black on gray, no shadows
+
+Artificial feedback loops and        Magenta on white, no shadows
+blocks involved in such loops
+(e.g. Hlpfcn in system BEAVER)
+
+S-function blocks and subsystems     Black on light blue, no
+that can also be used as stand-      shadows
+alone systems
+
+_________________________________________________________________
+
+In the autopilot simulation systems APILOT1 to APILOT3, the fol-
+lowing color schemes have been used:
+
+Signals, used for gain-sche-         Magenta on white with sha-
+duling (notably V and H)             dows for Inport/Outport
+                                     blocks of these signals
+
+Reference signals, issued            Red on white with shadows
+directly by the subsystem            for Inport/Outport blocks
+block 'Reference signals'            of these signals
+and switch-settings from
+the mode-controller
+
+Reference signals, issued by         Black on orange with shadows
+outer-loops to inner-loops           for Inport/Outport blocks
+                                     of these signals
+
+To Workspace blocks                  Black on yellow, no shadows
+
+S-function blocks and subsystems     Black on light blue, no
+that can also be used as stand-      shadows
+alone systems (notably call to
+non-linear aircraft model)
+
+_________________________________________________________________

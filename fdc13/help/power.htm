@@ -1,0 +1,57 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Power (Beaver)</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Power (Beaver)</FONT></I></H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Power (Beaver)</FONT></I> is a masked S<SMALL>IMULINK</SMALL> subsystem which is used to compute the engine power and non-dimensional pressure increase across the propeller for the DHC-2 'Beaver' aircraft, using the engine power model from <A HREF="#References">ref.[1]</A>. Power is contained in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="enggrp.htm">Engine Group</A></FONT></I> of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>. This subsystem also contains the blocks <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="engmod.htm">Engmod (Beaver)</A></FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="fmdims.htm">FMdims</A></FONT></I>.
+
+<H3>Inputvectors: <I>x</I>, <I>uprop</I>, <I>yatm</I></H3>
+<PRE>  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+  uprop= [n pz]'                                  (engine inputs)
+  yatm = [rho ps T mu g]'   (atmospheric properties, computed in
+                                               the block <A HREF="atmosph.htm">Atmosph</A>)
+
+  V    : airspeed [m/s]
+ {alpha: angle of attack [rad]                                  }
+ { beta : sideslip angle [rad]                                  }
+ {p    : roll rate [rad/s]                                      }
+ {q    : pitch rate [rad/s]                                     }
+ {r    : yaw rate [rad/s]                                       }
+ {psi  : yaw angle [rad]                                        }
+ {theta: pitch angle [rad]                                      }
+ {phi  : roll angle [rad]                                       }
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+
+  n    : engine speed [RPM]
+  pz   : manifold pressure ["Hg]
+
+  rho  : air density [kg/m^3]
+ {ps   : static pressure [N/m^2]                                }
+ {T    : air temperature [K]                                    }
+ {mu   : dynamic viscosity [kg/(m*s)]                           }
+ {g    : acceleration of gravity [m/s^2]                        }
+</PRE>
+
+Variables which are not actually used by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Power (Beaver)</FONT></I> have been displayed between accolades.
+
+<H3>Outputvector: <I>ypow</I></H3>
+<PRE>  ypow = [dpt P]'
+
+  dpt  : dimensionless pressure increase across the propeller [-]
+  P    : engine power [Nm/s]
+</PRE>
+
+<H3><A NAME= "References">References</A></H3>
+<OL>
+<LI>R.T.H. Tjee and J.A. Mulder. <I>Stability and Control Derivatives of the De Havilland DHC-2 "Beaver" aircraft</I>. Report LR-556, Delft University of Technology, 1988.
+</OL>
+
+
+</BODY>
+
+</HTML>

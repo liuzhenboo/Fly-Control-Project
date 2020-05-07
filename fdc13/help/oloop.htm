@@ -1,0 +1,21 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Example systems OLOOP1/2/3</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Open-loop example systems <I><FONT FACE="Arial","Helvetica","Sans Serif">OLOOP1</FONT></I>, <I><FONT FACE="Arial","Helvetica","Sans Serif">OLOOP2</FONT></I>, and <I><FONT FACE="Arial","Helvetica","Sans Serif">OLOOP3</FONT></I></H2>
+
+The FDC toolbox contains three open-loop example systems, which demonstrate how the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I> can be used in practice.
+<BR><BR>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP1</FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP2</FONT></I> demonstrate how the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> can be used in practice for non-linear, off-line, open-loop simulations of the 'Beaver' aircraft. <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP1</FONT></I> determines responses to control inputs to the elevator, ailerons, rudder, engine <I>RPM</I>, or manifold pressure of the engine, while <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP2</FONT></I> determines non-linear aircraft responses to atmospheric disturbances.
+<BR><BR>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP3</FONT></I> demonstrates how to create open-loop simulations of aircraft responses to control inputs using a linearized aircraft model which is derived from the non-linear model <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>. The system matrices of the linear state-space model must be defined in the M<SMALL>ATLAB</SMALL> workspace before it is possible to start a simulation. These matrices can be determined for a user-specified operating point with the linearization routine <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="aclin.htm">ACLIN</A></FONT></I> (double-click the appropriate button-block in the block-diagram of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP3</FONT></I> to start this program). They can also be loaded from file (for instance a <SMALL>&#42;.LIN</SMALL> file, created by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">ACLIN</FONT></I>), which can be done conveniently with the utility <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="incoload.htm">INCOLOAD</A></FONT></I>.
+<BR><BR>
+
+These systems have been included in the FDC directory <SMALL>EXAMPLES</SMALL>; they can be opened by typing <CODE>oloop1</CODE>, <CODE>oloop2</CODE>, or <CODE>oloop3</CODE> at the M<SMALL>ATLAB</SMALL> command line. How these systems were constructed has been outlined in three tutorial systems: <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP1T</FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP2T</FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP3T</FONT></I>. These systems explain the meaning of each block in <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP1</FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP2</FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">OLOOP3</FONT></I>, respectively. It may be helpful to review these tuturial systems before creating your own S<SMALL>IMULINK</SMALL> systems that call the non-linear aircraft model <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>.
+
+</BODY>
+
+</HTML>

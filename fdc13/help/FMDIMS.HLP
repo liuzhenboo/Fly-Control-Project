@@ -1,0 +1,91 @@
+-----------------------------------------------------------------
+FMDIMS is a masked  Simulink subsystem, used to compute forces
+(in [N]) and moments (in [Nm]) from dimensionless force and mo-
+ment coefficients, using the dynamic pressure and some geometric
+properties of the aircraft. In the 'Beaver' model, FMDIMS is used
+in the subsystem blocks 'Aerodynamics Group' and 'Engine Group',
+in order to be applied to aerodynamic forces and moments, and
+forces and moments due to operation of the engine, respectively.
+
+Inputvectors: yad1 and Caero or Cprop (the inputvariables which
+are not actually used by FMDIMS are displayed between brackets).
+=================================================================
+  yad1 = [a M qdyn]'                (airdata variables which are
+                                  computed in the block AIRDATA1)
+
+  Caero= [CXa CYa CZa Clt Cma Cna]'   (dimensionless aerodynamic
+                                   force and moment coefficients,
+                                             computed in AEROMOD)
+
+  Cprop= [CXp CYp CZp Clp Cmp Cnp]'    (dimensionless propulsive
+                                        force and moment coeffi-
+                                      cients, computed in ENGMOD)
+where:
+
+ {a    : speed of sound [m/s]                                   }
+ {M    : Mach number [-]                                        }
+  qdyn : dynamic pressure [N/m^2]
+
+  CXa, CYa, CZa: aerodynamic force coefficients along the air-
+                 craft's body-axes
+  Cla, Cma, Cna: aerodynamic moment coefficients along the air-
+                 craft's body-axes
+  CXp, CYp, CZp: engine force coefficients along the aircraft's
+                 body-axes
+  Clp, Cmp, Cnp: engine moment coefficients along the aircraft's
+                 body-axes
+
+Outputvector: FMaero or FMprop.
+===============================
+  FMaero= [Xa Ya Za La Ma Na]'   (vector with aerodynamic forces
+                                                     and moments)
+  FMprop= [Xp Yp Zp Lp Mp Np]'   (vector with engine forces and
+                                                         moments)
+where:
+
+  Xa, Ya, Za: aerodynamic forces along aircraft's body-axes [N]
+  La, Ma, Na: aerodynamic moments along aircraft's body-axes [Nm]
+
+  Xp, Yp, Zp: propulsive forces along aircraft's body-axes [N]
+  Lp, Mp, Np: propulsive moments along aircraft's body-axes [Nm]
+
+Equations.
+==========
+The following expressions are used:
+
+  X = CX*qdyn*S,   Y = CY*qdyn*S,   Z = CZ*qdyn*S
+  L = Cl*qdyn*S*b, M = Cm*qdyn*S*c, N = Cn*qdyn*S*b
+
+where:
+
+  S       : wing area [m^2]
+  c = cbar: mean aerodynamic chord [m]
+  b       : wing span [m]
+
+  CX, CY, ... , Cn may equal CXa, ... Cna, CXp, ... Cnp, or any
+  other sequence of force and moment coefficients which have been
+  made dimensionless in the same way.
+
+Parameters which must be loaded in the Matlab Workspace.
+========================================================
+  GM1 = vector with some important geometrical properties of the
+        'Beaver' aircraft, and the mass of the aircraft (which is
+        assumed to be constant during the motions of interest).
+        Here, the wing span b, mean aerodynamic chord cbar, and
+        wing area S are extracted from GM1. GM1 can be loaded in-
+        to the workspace from file by applying LOADER.M. Run
+        MODBUILD.M first if the datafile does not exist. Type
+        HELP LOADER or HELP MODBUILD for more details.
+
+More info:
+==========
+See the helpfiles AEROMOD.HLP and/or ENGMOD.HLP, which refer to
+the blocks in which the dimensionless force and moment coeffi-
+cients are calculated. See AIRDATA1.HLP for more details about
+the meaning of the vector yad1 (from which qdyn is extracted).
+
+See AEROGRP.HLP and ENGGRP.HLP for more details about the subsys-
+tems 'Aerodynamics Group' and 'Engine Group', respectively.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

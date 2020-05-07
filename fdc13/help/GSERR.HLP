@@ -1,0 +1,55 @@
+-----------------------------------------------------------------
+The masked subsystem block GLIDESLOPE STEADY-STATE ERROR, which
+is contained in the library NAVLIB, sublibrary ILS, can be used
+to simulate a steady-state error in the glideslope signals,
+caused by the ground equipment. The magnitude of the error is
+computed according to ICAO guidelines. Both glideslope misalign-
+ment and steady-state errors in the glideslope sensitivity can be
+taken into account. See refs.[1] or [2], or FDC 1.2 manual, for
+more info about the theoretical backgrounds.
+
+Inputsignal:
+============
+  nominal value of glideslope current igs, [ÊA]
+
+Outputsignal:
+=============
+  glideslope current igs, including steady-state errors, [ÊA]
+
+Block-parameters:
+=================
+* performance category (1, 2, or 3, see ref.[2] or FDC 1.2
+  manual for more info)
+* percentage of maximum allowable error in glideslope sensitivity
+  (igs = Sgs * epsilon_gs, where igs is glideslope current
+  through cockpit instrument, epsilon_gs is the angle between the
+  line from aircraft's c.g. to glideslope antenna and nominal
+  glide path, Sgs is the glideslope sensitivity)
+* percentage of maximum allowable glideslope misalignment
+* nominal glideslope elevation angle
+
+The block-parameters can be specified in dialog-boxes which
+appear after double-clicking the block GSerr.
+
+References:
+===========
+[1] Approach and Landing Simulation. AGARD report 632, Ames, 1975
+
+[2] A Simulink environment for Flight Dynamics and Control
+    analysis - Application to the DHC-2 'Beaver', part I: Im-
+    plementation of a model library in Simulink. Delft Univer-
+    sity of Technology, September 1993
+
+More info:
+==========
+See ILS.HLP for details about the nominal ILS signals. See also
+LOCERR.HLP for more info about steady-state errors in the loca-
+lizer signal.
+
+See also the subsystem 'ILS example' and its help-text
+ILSXMPL.HLP, to find out how the noise-blocks can be connected
+to the masked subsystem block ILS.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.
+

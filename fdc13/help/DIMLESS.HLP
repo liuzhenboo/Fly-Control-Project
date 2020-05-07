@@ -1,0 +1,58 @@
+-----------------------------------------------------------------
+DIMLESS is a masked Simulink subsystem, which computes dimension-
+less rotational velocities pb/2V, qc/V, and rb/2V. Of course, the
+computation itself is trivial if the elements of the state vector
+x are known, but these variables may be needed more than once.
+The block DIMLESS is contained in the subsystem 'Aerodynamics
+Group' of the system BEAVER.
+
+Inputvector: x (the inputvariables which are not needed by
+DIMLESS are displayed between accolades).
+=============================================================
+  x = [V alpha beta p q r psi theta phi xe ye H]'        (states)
+
+where:
+
+  V    : airspeed [m/s]
+ {alpha: angle of attack [rad]                                  }
+ {beta : sideslip angle [rad]                                   }
+  p    : roll rate [rad/s]
+  q    : pitch rate [rad/s]
+  r    : yaw rate [rad/s]
+ {psi  : yaw angle [rad]                                        }
+ {theta: pitch angle [rad]                                      }
+ {phi  : roll angle [rad]                                       }
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+
+Outputvector: ydl.
+==================
+  ydl = [pb/2V qc/V rb/2V]' (dimensionless rotational velocities).
+
+where:
+
+  pb/2V: dimensionless roll-rate  (b = wing span)
+  qc/V : dimensionless pitch-rate (c = cbar = mean aerodynamic
+                                   chord)
+  rb/2V: dimensionless yaw-rate   (b = wing span)
+
+Parameters which must be loaded in the Matlab Workspace.
+========================================================
+  GM1 = vector with some important geometrical properties of the
+        'Beaver' aircraft, and the mass of the aircraft (which is
+        assumed to be constant during the motions of interest).
+        Here, the wing span b and the mean aerodynamic chord cbar
+        are extracted from GM1. GM1 can be loaded into the work-
+        space from file by calling the M-file LOADER.M. Run
+        MODBUILD.M first if the datafile does not yet exist. Type
+        HELP LOADER or HELP MODBUILD for more details.
+
+More info.
+==========
+The dimensionless rotational velocities are used by the aerodyna-
+mic model of the 'Beaver', see AEROMOD.HLP. See also AEROGRP.HLP
+for info about the subsystem 'Aerodynamics Group (Beaver)'.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

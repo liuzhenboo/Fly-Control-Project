@@ -1,0 +1,65 @@
+Blocklibrary FDCLIB
+===================
+The block library FDCLIB contains fields, which, after
+double-clicking show block-libraries or open complete systems
+from the FDC package.
+
+Some important hints:
+=====================
+1. The block-libraries with elements from the nonlinear aircraft
+   model (system BEAVER) are stored in the files FDCLIB1 to
+   FDCLIB9 in order to keep the file-size of FDCLIB.M itself
+   within reasonable limits. Since it takes quite some time to open
+   these sublibraries, it is recommended not to close them until
+   your are sure you don't need them anymore. If you want to clean
+   up your windows, but still plan to use the opened block-libra-
+   ries, you better minimize these libraries in stead of closing
+   them.
+
+2. The cyan-coloured blocks contain 'buttons' which can be inser-
+   ted in your systems to start up Matlab subroutines such as the
+   trim and linearization tools. Note that the three libraries
+   'Initialization blocks', 'Aircraft trim and linearization blocks',
+   and 'Simulation data processing blocks' together contain the
+   same elements as the library 'Collection of Button blocks'
+   (BUTTONS.M), although in the latter library, the button blocks
+   have been numbered and changed somewhat in size. Try unmasking
+   such a 'button-block' to see how they work (it's really simple!).
+
+3. In the aircraft model, many systems have been masked. Due to
+   the quite inefficient way in which SIMULINK stores graphical
+   systems, the following trick has been used in order to keep the
+   file-size of all graphical systems within reasonable limits:
+   subsystems have very short titles (e.g. 'ad' in stead of 'Air-
+   data Group'), which have been hidden and overwritten by a Note-
+   block containing the full title (here: 'Airdata Group'). Open-
+   up a source-code of an M-file containing a graphical system
+   description, and search for 'subsystem' to see why this trick
+   isn't as silly as it may look to you now.
+
+   Of course, if a blockname is contained in the Masked area of
+   the block itself, it is not necessary to use an additional
+   Note block for displaying the title. See the system BEAVER to
+   see how this works in practice.
+
+4. In blocklibraries, many help-texts have been included. If you
+   want to know more about the blocks, simply double-click them
+   and look for HELP buttons, title-blocks with shadow-borders,
+   or More Info blocks. These will show you how to get more help.
+
+5. If this 'help' text brings more confusion than real help, just
+   forget it for the time being. Start double-clicking some
+   fields in this system FDCLIB, and you'll see for yourself what
+   happens. It is not a bad idea to create a backup directory if
+   you want to be sure you won't destroy anything (don't throw
+   away your install-disk).
+
+   However, if you don't know anything about M-files, S-functions,
+   subsystems, the Mask option, shadow borders, or double-click-
+   ing, but still have managed to come this far: please read your
+   Simulink manual first (otherwise you will be disappointed by
+   an apparant complexity which really isn't as frightening as it
+   seems...).
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

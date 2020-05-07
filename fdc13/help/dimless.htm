@@ -1,0 +1,48 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: Dimless</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">Dimless</FONT></I></H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Dimless</FONT></I> is a masked S<SMALL>IMULINK</SMALL> subsystem, which computes dimensionless rotational velocities <I>pb/2V</I>, <I>qc/V</I>, and <I>rb/2V</I>. Of course, the computation itself is trivial if the elements of the state vector <I>x</I> are known, but since these variables may be needed more than once it is still useful to compute them in a separate block.  <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Dimless</FONT></I> is contained in the subsystem <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="aerogrp.htm">Aerodynamics Group (Beaver)</A></FONT></I> of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>. Other blocks in that subsystem are: <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="aeromod.htm">Aeromod (Beaver)</A></FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="fmdims.htm">FMdims</A></FONT></I>.
+
+<H3>Inputvector: <I>x</I>
+</H3>
+<PRE>  x = [V alpha beta p q r psi theta phi xe ye H]'        (states)
+
+  V    : airspeed [m/s]
+ {alpha: angle of attack [rad]                                  }
+ {beta : sideslip angle [rad]                                   }
+  p    : roll rate [rad/s]
+  q    : pitch rate [rad/s]
+  r    : yaw rate [rad/s]
+ {psi  : yaw angle [rad]                                        }
+ {theta: pitch angle [rad]                                      }
+ {phi  : roll angle [rad]                                       }
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+</PRE>
+
+The state variables which are not actually needed by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Dimless</FONT></I> have been displayed between accolades.
+
+<H3>Outputvector: <I>ydl</I>
+</H3>
+<PRE>  ydl = [pb/2V qc/V rb/2V]' (dimensionless rotational velocities).
+
+  pb/2V: dimensionless roll-rate  (b = wing span)
+  qc/V : dimensionless pitch-rate (c = cbar = mean aerodynamic chord)
+  rb/2V: dimensionless yaw-rate   (b = wing span)
+</PRE>
+
+<H3>Parameters which must be defined in the M<SMALL>ATLAB</SMALL> Workspace
+</H3>
+
+<UL><LI><I>GM1</I>: vector with some important geometrical properties of the 'Beaver' aircraft, and the mass of the aircraft (which is assumed to be constant during the motions of interest). Here, the wing span <I>b</I> and the mean aerodynamic chord <I>cbar</I> are extracted from <I>GM1</I>.
+<I>GM1</I> can be loaded into the workspace from file by running the utility <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I>. Run <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="modbuild.htm">MODBUILD</A></FONT></I> first if the datafile does not yet exist.
+</UL>
+
+</BODY>
+
+</HTML>

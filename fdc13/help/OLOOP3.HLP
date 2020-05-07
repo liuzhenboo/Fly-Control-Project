@@ -1,0 +1,21 @@
+-----------------------------------------------------------------
+OLOOP3 is a Simulink system which demonstrates how to create
+open-loop simulations of aircraft responses to control inputs
+using a linearized aircraft model. The matrices of the linear
+state-space model must first be computed by calling the lineari-
+zation routine ACLIN (double-click the appropriate button-block
+in the block-diagram of the system), or loaded from file, before
+starting the actual simulation.
+
+The system OLOOP3 has been included in the subdirectory EXAMPLES.
+Open the system by typing OLOOP3 at the Matlab command line.
+
+The construction of the system OLOOP3 itself has been outlined in
+the 'tutorial system' OLOOP3T which explains the meaning of each
+block in the system OLOOP3. Type OLOOP3T at the Matlab command
+line to open this tutorial.
+
+Type HELP ACLIN for more details about the linearization program.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

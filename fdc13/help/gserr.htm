@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: GSerr</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>The radio-navigation subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">GSerr</FONT></I></H2>
+
+The masked subsystem block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">GSerr</FONT></I> (<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Glideslope steady-state errors</FONT></I>) is contained in the sublibrary <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">ILS</FONT></I> of the blocklibrary <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="navlib.htm">NAVLIB</A></FONT></I>. It computes the steady-state error in the glideslope signal, caused by the ground equipment. The magnitude of the error is computed according to ICAO guidelines. Both glideslope misalignment and steady-state errors in the glideslope sensitivity can be taken into account. See the <A HREF="#References">references</A> below for more info about the theoretical backgrounds.
+<BR><BR>
+
+Other blocks in the <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">ILS</FONT></I> sublibrary of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">NAVLIB</FONT></I> are: <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="ils.htm">Nominal ILS signals</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="gsnoise.htm">GSnoise</A></FONT></I>, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="locerr.htm">LOCerr</A></FONT></I>, and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="locnoise.htm">LOCnoise</A></FONT></I>, and the example system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="ilsxmpl.htm">ILS example</A></FONT></I>.
+
+<H3>Inputsignal</H3>
+
+Nominal value of the glideslope current <I>i<SUB>gs</SUB></I>, [micro-Ampere]
+
+<H3>Outputsignal</H3>
+
+Glideslope current <I>i<SUB>gs</SUB></I>, including steady-state errors, [micro-Ampere]
+
+<H3>Block-parameters</H3>
+<UL>
+<LI>performance category (1, 2, or 3, see <A HREF="#References">ref.[1] or [2]</A> for more info)
+<LI>percentage of maximum allowable error in glideslope sensitivity (<I>i<SUB>gs</SUB> = S<SUB>gs</SUB> * epsilon_gs</I>, where <I>i<SUB>gs</SUB></I> is the glideslope current through the cockpit instrument, <I>epsilon_gs</I> is the angle between the line from aircraft's c.g. to glideslope antenna and nominal glide path, and <I>S<SUB>gs</SUB></I> is the glideslope sensitivity)
+<LI>percentage of maximum allowable glideslope misalignment
+<LI>nominal glideslope elevation angle
+</UL>
+
+The block-parameters can be specified in dialog-boxes which appear after double-clicking the block <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">GSerr</FONT></I>.
+
+<H3><A NAME= "References">References</A></H3>
+
+<OL>
+<LI>M.O. Rauw: <I>FDC 1.2 - A S<SMALL>IMULINK</SMALL> Environment for Flight Dynamics and Control Analysis</I>. Zeist, March 1997
+<LI>M.O. Rauw: <I>A S<SMALL>IMULINK</SMALL> environment for Flight Dynamics and Control analysis - Application to the DHC-2 'Beaver'</I>, part I: <I>Implementation of a model library in S<SMALL>IMULINK</SMALL></I>. Delft University of Technology, September 1993 (also contained in the STAR database of NASA, report number NONP-NASA-SUPPL-DK-94-28027)
+<LI>Anon.: <I>Approach and Landing Simulation</I>. AGARD report 632, Ames, 1975
+</OL>
+
+</BODY>
+
+</HTML>

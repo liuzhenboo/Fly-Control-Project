@@ -1,0 +1,177 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: output-list</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>List of output signals from the system <I><FONT FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I></H2>
+
+The system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I> contains the non-linear dynamic model of the DHC-2 'Beaver' aircraft, which consists of twelve state equations, forces and moment equations, airdata equations, and many additional output equations. <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> is a graphical S<SMALL>IMULINK</SMALL> block-diagram.
+
+<H2>S-function in/outputs vs. in/outputs sent to the M<SMALL>ATLAB</SMALL> workspace</H2>
+
+It is important to notice that the number of outputs which are sent to the M<SMALL>ATLAB</SMALL> workspace by means of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">To Workspace</FONT></I> blocks is considerably larger than the number of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks, representing 'S-function outputs' of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>. The <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks are needed for connecting other systems to the output-side of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>, e.g., systems with models of sensor dynamics, controllers, etc. Unfortunately, S<SMALL>IMULINK</SMALL> does not accept vector outputs to be connected to <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks within the first level of a graphical system; therefore, only a small subset of the output variables from <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> have actually been connected to the <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks.<BR><BR>
+
+By default, the sixteen outputs which were needed to simulate the 'Beaver' autopilot are connected to <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks. If other output signals are needed by systems which ought to be connected to <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>, it is necessary to add more <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks to this list of 'S-function outputs'. For instance: if you want to examine control laws which use accelerations as reference signals, these signals must be connected to new <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks in the first level of <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>. Currently, the accelerations are send to the M<SMALL>ATLAB</SMALL> workspace only, but they cannot yet be used as inputs to other S<SMALL>IMULINK</SMALL> systems, connected to the output side of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>.<BR><BR>
+
+Currently, it is not possible to send complete vectors through individual <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Inport</FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks in the first level of a graphical system (where they serve to connect the graphical system to other S<SMALL>IMULINK</SMALL> systems, or to provide access to the system for analytical tools such as trim and linearization routines). <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Inport</FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks in the first level of graphical S<SMALL>IMULINK</SMALL> systems only accept <I>scalar</I> signals, which is really a serious limitation of S<SMALL>IMULINK</SMALL>! Hopefully, this problem will be solved in future S<SMALL>IMULINK</SMALL> versions!
+
+<H3>S-function outputs
+</H3>
+The system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> can be treated as a <I>black-box</I> model, which needs to be accessed through its input and output ports only. <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> currently contains sixteen <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Outport</FONT></I> blocks in the first level of its graphical block-diagram. These sixteen 'S-function outputs' form a subset of the 89 outputs which are sent to the M<SMALL>ATLAB</SMALL> workspace (<A HREF="#outputlist">see below</A>). By default, these sixteen outputs are:
+<PRE>  V, alpha, beta, p, q, r, psi, theta, phi, xe, ye, H
+  Hdot
+  pb/2V, qc/V, rb/2V
+</PRE>
+i.e., the states, rate of climb, and the dimensionless rotational speeds, in that particular order. These variables are needed for simulations of the 'Beaver' autopilot, including the linear state-space models of the dynamics of the control surfaces, steering column/wheel, cables, and actuators. Other sets of 'S-function outputs' can be implemented only by editing the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I> according to your own wishes. <BR><BR>
+
+See the description of the first level in the block-diagram of the system Beaver (here denoted as <A HREF="level1.htm">Level 1</A>) for more information about the I/O structure of this system.
+
+<A NAME= "outputlist"><H3>Outputs which are stored in the M<SMALL>ATLAB</SMALL> workspace</H3>
+</A>
+During simulations, the time-trajectories of <I>all</I> available output signals are sent to the matrix <I>Out</I> in the M<SMALL>ATLAB</SMALL> workspace. The columns of this matrix contain the time-trajectories of these outputs, numbered as follows:
+<PRE>
+Out = [x' xdot' ybvel' yuvw' ydl' ypow' yacc' Caero' Cprop' ...
+       FMaero' FMprop' Fgrav' Fwind' yatm' yad1' yad2' yad3']'
+
+x     = [V alpha beta p q r psi theta phi xe ye H]'      (1...12)
+xdot  = dx/dt,       {<A HREF="vabdot.htm">Vabdot</A>, <A HREF="pqrdot.htm">pqrdot</A>, <A HREF="eulerdot.htm">Eulerdot</A>, <A HREF="xyhdot.htm">xyHdot</A>} (13...24)
+ybvel = [u v w]'                                  {<A HREF="uvw.htm">uvw</A>} (25...27)
+yuvw  = [udot vdot wdot]'                      {<A HREF="uvwdot.htm">uvwdot</A>} (28...30)
+ydl   = [pb/2V qc/V rb/2V]'                   {<A HREF="dimless.htm">Dimless</A>} (31...33)
+yfp   = [gamma fpa chi Phi]'                   {<A HREF="flpath.htm">Flpath</A>} (34...37)
+ypow  = [dpt P]'                                {<A HREF="power.htm">Power</A>}  (38, 39)
+yacc  = [Ax Ay Az axk ayk azk]'                 {<A HREF="accel.htm">Accel</A>} (40...45)
+Caero = [CXa CYa CZa Cla Cma Cna]'            {<A HREF="aeromod.htm">Aeromod</A>} (46...51)
+Cprop = [CXp CYp CZp Clp Cmp Cnp]'             {<A HREF="engmod.htm">Engmod</A>} (52...57)
+FMaero= [Xa Ya Za La Ma Na]'                   {<A HREF="fmdims.htm">FMdims</A>} (58...63)
+FMprop= [Xp Yp Zp Lp Mp Np]'                   {<A HREF="fmdims.htm">FMdims</A>} (64...69)
+Fgrav = [Xgr Ygr Zgr]'                        {<A HREF="gravity.htm">Gravity</A>} (70...72)
+Fwind = [Xw Yw Zw]'                             {<A HREF="fwind.htm">Fwind</A>} (73...75)
+yatm  = [rho ps T mu g]'                      {<A HREF="atmosph.htm">Atmosph</A>} (76...80)
+yad1  = [a M qdyn]'                          {<A HREF="airdata1.htm">Airdata1</A>} (81...83)
+yad2  = [qc Ve Vc]'                          {<A HREF="airdata2.htm">Airdata2</A>} (84...86)
+yad3  = [Tt Re Rc]'                          {<A HREF="airdata3.htm">Airdata3</A>} (87...89)
+</PRE>
+The names of the masked subsystem blocks in which these outputs are calculated have been put between accolades. The numbers of the corresponding columns in the outputmatrix <I>Out</I> have been put between round brackets. After finishing a simulation, the time-trajectories, stored in the matrix <I>Out</I> can be plotted against the time-axis which is stored in the vector <I>time</I>. For instance, if you want to plot the <I>n</I><SUP>th</SUP> column of <I>Out</I>, the plot-command looks like:
+<PRE>   plot(time,Out(:,n))
+</PRE>
+where 1 &#60;&#61; <I>n</I> &#60;&#61; 89. The appropriate value of <I>n</I> can be retrieved from the list above. It is important to notice that this list represents the default definition of <I>Out</I>, used in the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>. You may wish to add more outputs, or delete unwanted outputs from this list, by adding and/or deleting blocks to/from the system. In that case, this list is not valid anymore.
+
+<H3>Using the Matlab-macro <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">RESULTS</FONT></I></H3>
+
+If you want to plot simulation results by directly using the matrix <I>Out</I>, as demonstrated above, you need to know the column numbers of the different outputs. However, if your system uses the same definitions of the matrices <I>In</I> (see the list of <A HREF="inputs.htm">inputsignals</A>) and <I>Out</I> as the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">Beaver</FONT></I>, it is also possible to run <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="results.htm">RESULTS</A></FONT></I> before plotting the results, in order to get separate time-trajectories of all input and output variables with self-explaining variable names. If you run <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">RESULTS</FONT></I>, the following <I>output</I>variables will be created in the M<SMALL>ATLAB</SMALL> workspace:
+<PRE>V        : airspeed [m/s]
+alpha    : angle of attack [rad] or [deg]
+beta     : sideslip angle [rad] or [deg]
+p        : roll-rate [rad/s] or [deg/s]
+q        : pitch-rate [rad/s] or [deg/s]
+r        : yaw-rate [rad/s] or [deg/s]
+psi      : yaw-angle [rad] or [deg]
+theta    : pitch-angle [rad] or [deg]
+phi      : roll-angle [rad] or [deg]
+xe       : X-coordinate in Earth-axes [m]
+ye       : Y-coordinate in Earth-axes [m]
+H        : altitude [m]
+
+Vdot     : time-derivative of airspeed [m/s^2]
+alphadot : time-derivative of alpha [rad/s] or [deg/s]
+betadot  : time-derivative of beta [rad/s] or [deg/s]
+pdot     : time-derivative of p [rad/s^2] or [deg/s^2]
+qdot     : time-derivative of q [rad/s^2] or [deg/s^2]
+rdot     : time-derivative of r [rad/s^2] or [deg/s^2]
+psidot   : time-derivative of psi [rad/s] or [deg/s]
+thetadot : time-derivative of theta [rad/s] or [deg/s]
+phidot   : time-derivative of phi [rad/s] or [deg/s]
+xedot    : time-derivative of xe [m/s]
+yedot    : time-derivative of ye [m/s]
+Hdot     : time-derivative of H [m/s]
+
+u        : component of V along XB-axis [m/s]
+v        : component of V along YB-axis [m/s]
+w        : component of V along ZB-axis [m/s]
+
+udot     : time-derivative of u [m/s^2]
+vdot     : time-derivative of v [m/s^2]
+wdot     : time-derivative of w [m/s^2]
+
+pb/2V    : dimensionless roll-rate; b is the wingspan [m]
+qc/V     : dimensionless pitch-rate; c is the mean aerodynamic chord [m]
+rb/2V    : dimensionless yaw-rate; where b is the wingspan [m]
+
+gamma    : flightpath angle [rad] or [deg]
+fpa      : flightpath acceleration [m/s^2]
+chi      : azimuth angle [rad] or [deg]
+Phi      : bank angle [rad] or [deg]
+
+dpt      : dimensionless pressure increase across propeller [-]
+P        : engine power [Nm/s]
+
+Ax       : specific force along XB-axis [g]
+Ay       : specific force along YB-axis [g]
+Az       : specific force along ZB-axis [g]
+axk      : kinematic acceleration along XB-axis [g]
+ayk      : kinematic acceleration along YB-axis [g]
+azk      : kinematic acceleration along ZB-axis [g]
+
+CXa      : coefficient of aerodynamic force along XB-axis [-]
+CYa      : coefficient of aerodynamic force along YB-axis [-]
+CZa      : coefficient of aerodynamic force along ZB-axis [-]
+Cla      : coefficient of aerodynamic moment around XB-axis [-]
+Cma      : coefficient of aerodynamic moment around YB-axis [-]
+Cna      : coefficient of aerodynamic moment around ZB-axis [-]
+
+CXp      : coefficient of engine force along XB-axis [-]
+CYp      : coefficient of engine force along YB-axis [-]
+CZp      : coefficient of engine force along ZB-axis [-]
+Clp      : coefficient of engine moment around XB-axis [-]
+Cmp      : coefficient of engine moment around YB-axis [-]
+Cnp      : coefficient of engine moment around ZB-axis [-]
+
+Xa       : aerodynamic force along XB-axis [N]
+Ya       : aerodynamic force along YB-axis [N]
+Za       : aerodynamic force along ZB-axis [N]
+La       : aerodynamic moment around XB-axis [Nm]
+Ma       : aerodynamic moment around YB-axis [Nm]
+Na       : aerodynamic moment around ZB-axis [Nm]
+
+Xp       : engine force along XB-axis [N]
+Yp       : engine force along YB-axis [N]
+Zp       : engine force along ZB-axis [N]
+Lp       : engine moment around XB-axis [Nm]
+Mp       : engine moment around YB-axis [Nm]
+Np       : engine moment around ZB-axis [Nm]
+
+Xgr      : gravity force along XB-axis [N]
+Ygr      : gravity force along YB-axis [N]
+Zgr      : gravity force along ZB-axis [N]
+
+Xw       : wind force along XB-axis [N]
+Yw       : wind force along YB-axis [N]
+Zw       : wind force along ZB-axis [N]
+
+rho      : airdensity [kg/m^3]
+ps       : static pressure [N/m^2]
+T        : temperature [K]
+mu       : dynamic viscosity [kg/(m*s)]
+g        : acceleration of gravity [m/s^2]
+
+a        : speed of sound [m/s]
+M        : Mach number [-]
+qdyn     : dynamic pressure [N/m^2]
+
+qc       : impact pressure [N/m^2]
+Ve       : equivelent airspeed [m/s]
+Vc       : calibrated airspeed [m/s]
+
+Tt       : total temperature [K]
+Re       : Reynolds number per unit length [1/m]
+Rc       : Reynolds number with respect to mean aerodyn. chord [-]
+</PRE>
+The results can now be plotted with commands such as:
+<PRE>        plot(time,alpha)
+</PRE>
+where the variable <I>time</I> contains the time-axis, created during the last simulation.
+
+</BODY>
+
+</HTML>

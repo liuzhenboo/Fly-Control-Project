@@ -1,0 +1,43 @@
+-----------------------------------------------------------------
+AIRDATA2 is a masked Simulink subsystem, used to compute the im-
+pact pressure qc, equivalent airspeed Ve, and the calibrated air-
+speed Vc. The block AIRDATA2 is contained in the subsystem 'Air-
+data Group' of the system BEAVER.
+
+Inputvectors: yatm and yad1 (the inputvariables which are not
+used in AIRDATA2 are displayed between accolades).
+============================================================
+  yatm = [rho ps T mu g]'   (atmospheric properties, computed in
+                                               the block ATMOSPH)
+  yad1 = [a M qdyn]',      (speed of sound, Mach number, dynamic
+                        pressure, computed in the block AIRDATA1)
+
+where:
+
+ {rho  : airdensity [kg/m^3]                                    }
+  ps   : static pressure [N/m^2]
+ {T    : temperature [K]                                        }
+ {mu   : dynamic viscosity [kg/(m*s)]                           }
+ {g    : acceleration of gravity [m/s^2]                        }
+
+ {a    : speed of sound [m/s]                                   }
+  M    : Mach number [-]
+  qdyn : dynamic pressure [N/m^2]
+
+Outputvector: yad2.
+===================
+  yad2 = [qc Ve Vc]'
+
+where:
+
+  qc   : impact pressure [N/m^2]
+  Ve   : equivalent airspeed [m/s]
+  Vc   : calibrated airspeed [m/s]
+
+More info:
+==========
+See also ATMOSPH.HLP, AIRDATA1.HLP, AIRDATA3.HLP, and ADGRP.HLP
+(ADGRP = 'Airdata Group').
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

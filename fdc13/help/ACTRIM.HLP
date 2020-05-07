@@ -1,0 +1,20 @@
+-----------------------------------------------------------------
+ACTRIM.M is a Matlab program, which can be applied to Simulink
+implementations of non-linear aircraft models in order to deter-
+mine steady-state trimmed-flight conditions. ACTRIM has been
+written for the Simulink system BEAVER, which can be opened by
+typing BEAVER at the Matlab command line. The trim routine can be
+applied to other aircraft models in Simulink if they use exactly
+the same definitions of the input and state vectors as the system
+BEAVER. However, if this is not the case, it is relatively easy
+to adapt the program ACTRIM.M for the new situation.
+
+It is planned to further standardize the representation of non-
+linear aircraft models in Simulink in future versions of FDC.
+The same can be said for future versions of ACTRIM.
+
+Type HELP ACTRIM for more info! See also the source code of the
+Matlab program ACTRIM.M itself.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.

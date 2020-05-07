@@ -1,0 +1,71 @@
+<HTML>
+<HEAD>
+<TITLE>FDC help: FMdims</TITLE>
+</HEAD>
+<BODY BGCOLOR="#DED6D3" TEXT="#000000" LINK="#660033" VLINK="#660033" ALINK="#000080">
+<H2>Subsystem <I><FONT FACE="Arial","Helvetica","Sans Serif">FMdims</FONT></I></H2>
+
+<I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">FMdims</FONT></I> is a masked S<SMALL>IMULINK</SMALL> subsystem, used to compute forces in [<I>N</I>] and moments in [<I>Nm</I>] from dimensionless force and moment coefficients, using the dynamic pressure and some geometric properties of the aircraft, see the <A HREF="#Equations">equations</A> below. In the 'Beaver' model, <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">FMdims</FONT></I> is used in the subsystem blocks <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="aerogrp.htm">Aerodynamics Group (Beaver)</A></FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="enggrp.htm">Engine Group (Beaver)</A></FONT></I> of the system <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="beaver.htm">Beaver</A></FONT></I>, where it is being applied to aerodynamic forces and moments and propulsive forces and moments, respectively. (In those subsystems, the non-dimensional coefficients are computed within the blocks <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="aeromod.htm">Aeromod</A></FONT></I> and <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="engmod.htm">Engmod</A></FONT></I>.)
+
+<H3>Inputvectors: <I>yad1</I> and <I>Caero</I> or <I>Cprop</I></H3>
+<PRE>  yad1 = [a M qdyn]'                (airdata variables which are
+                                  computed in the block <A HREF="airdata1.htm">Airdata1</A>)
+
+  Caero= [CXa CYa CZa Clt Cma Cna]'   (dimensionless aerodynamic
+                                   force and moment coefficients,
+                                    computed in <A HREF="aeromod.htm">Aeromod (Beaver)</A>)
+
+  Cprop= [CXp CYp CZp Clp Cmp Cnp]'    (dimensionless propulsive
+                                   force and moment coefficients,
+                                     computed in <A HREF="engmod.htm">Engmod (Beaver)</A>)
+
+ {a    : speed of sound [m/s]                                   }
+ {M    : Mach number [-]                                        }
+  qdyn : dynamic pressure [N/m^2]
+
+  CXa, CYa, CZa: aerodynamic force coefficients along the aircraft's
+                 body-axes
+  Cla, Cma, Cna: aerodynamic moment coefficients along the aircraft's
+                 body-axes
+  CXp, CYp, CZp: engine force coefficients along the aircraft's
+                 body-axes
+  Clp, Cmp, Cnp: engine moment coefficients along the aircraft's
+                 body-axes
+</PRE>
+
+The inputvariables which are not actually used by <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif">FMdims</FONT></I> have been displayed between brackets.
+
+<H3>Outputvector: <I>FMaero</I> or <I>FMprop</I></H3>
+<PRE>  FMaero= [Xa Ya Za La Ma Na]' (vector with aerodynamic forces & moments)
+  FMprop= [Xp Yp Zp Lp Mp Np]' (vector with engine forces & moments)
+
+  Xa, Ya, Za: aerodynamic forces along aircraft's body-axes [N]
+  La, Ma, Na: aerodynamic moments along aircraft's body-axes [Nm]
+
+  Xp, Yp, Zp: propulsive forces along aircraft's body-axes [N]
+  Lp, Mp, Np: propulsive moments along aircraft's body-axes [Nm]
+</PRE>
+
+<H3><A NAME= "Equations">Equations</A></H3>
+
+The following expressions are used:
+
+<PRE>  X = CX*qdyn*S,   Y = CY*qdyn*S,   Z = CZ*qdyn*S
+  L = Cl*qdyn*S*b, M = Cm*qdyn*S*c, N = Cn*qdyn*S*b
+</PRE>
+where:
+<PRE>  S        = wing area [m^2]
+  c = cbar = mean aerodynamic chord [m]
+  b        = wing span [m]
+</PRE>
+C<SUB>X</SUB>, C<SUB>Y</SUB>, ... , C<SUB>n</SUB> may equal C<SUB>X<SUB>a</SUB></SUB>, ... C<SUB>n<SUB>a</SUB></SUB>, C<SUB>X<SUB>p</SUB></SUB>, ... C<SUB>n<SUB>p</SUB></SUB>, or any other sequence of force and moment coefficients which have been made dimensionless in the same way as the aerodynamic and propulsive forces and moments.
+
+<H3>Parameters which must be loaded in the M<SMALL>ATLAB</SMALL> Workspace</H3>
+
+<UL>
+<LI><I>GM1</I>: vector with some important geometrical properties of the 'Beaver' aircraft, and the mass of the aircraft (which is assumed to be constant during the motions of interest). Here, the wing span <I>b</I>, mean aerodynamic chord <I>cbar</I>, and wing area <I>S</I> are extracted from <I>GM1</I>. <I>GM1</I> can be loaded into the workspace from file by running the utility <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="loader.htm">LOADER</A></FONT></I>. Run <I><FONT SIZE=2 FACE="Arial","Helvetica","Sans Serif"><A HREF="modbuild.htm">MODBUILD</A></FONT></I> first if the datafile does not exist.
+</UL>
+
+</BODY>
+
+</HTML>

@@ -1,0 +1,2245 @@
+Library {
+  Name			  "fdclib2"
+  Version		  2.09
+  PaperOrientation	  landscape
+  PaperType		  usletter
+  PaperUnits		  inches
+  BlockDefaults {
+    Orientation		    right
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    NamePlacement	    normal
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+    ShowName		    on
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    center
+    VerticalAlignment	    middle
+    ForegroundColor	    black
+    BackgroundColor	    white
+    DropShadow		    off
+    FontName		    "Helvetica"
+    FontSize		    10
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  LineDefaults {
+    FontName		    "Helvetica"
+    FontSize		    9
+    FontWeight		    normal
+    FontAngle		    normal
+  }
+  System {
+    Name		    "fdclib2"
+    Location		    [9, 45, 570, 315]
+    Open		    on
+    ScreenColor		    white
+    Block {
+      BlockType		      SubSystem
+      Name		      "ae"
+      Ports		      [3, 3, 0, 0, 0]
+      Position		      [410, 110, 465, 150]
+      FontName		      "Arial"
+      ShowName		      off
+      ShowPortLabels	      off
+      System {
+	Name			"ae"
+	Location		[4, 42, 410, 244]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  Inport
+	  Name			  "x"
+	  Position		  [15, 65, 35, 85]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "uaero"
+	  Position		  [15, 110, 35, 130]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "2"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "yad1"
+	  Position		  [15, 150, 35, 170]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "3"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "0"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [10, 10, 210, 46]
+	  ForegroundColor	  blue
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  ShowName		  off
+	  OpenFcn		  "fdchelp aerogrp"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('AERODYNAMICS GROUP (level 3)\\nM.O. "
+				  "Rauw')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "0"
+	    Location		    [99, 72, 274, 227]
+	    Open		    off
+	    ScreenColor		    white
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "aero"
+	  Ports			  [3, 1, 0, 0, 0]
+	  Position		  [180, 97, 240, 143]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  ShowPortLabels	  off
+	  MaskType		  "Aeromod"
+	  MaskDescription	  "Aerodynamic model of the DHC-2 'Beaver'."
+	  MaskHelp		  "eval('fdchelp aeromod')"
+	  MaskDisplay		  "disp('Aeromod\\n(Beaver)')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "aero"
+	    Location		    [4, 42, 620, 554]
+	    Open		    off
+	    ScreenColor		    white
+	    Block {
+	      BlockType		      Inport
+	      Name		      "x"
+	      Position		      [15, 105, 35, 125]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      Port		      "1"
+	      PortWidth		      "-1"
+	      SampleTime	      "-1"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "uaero"
+	      Position		      [15, 285, 35, 305]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      Port		      "2"
+	      PortWidth		      "-1"
+	      SampleTime	      "-1"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "ydl"
+	      Position		      [15, 195, 35, 215]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      Port		      "3"
+	      PortWidth		      "-1"
+	      SampleTime	      "-1"
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "0"
+	      Ports		      [0, 0, 0, 0, 0]
+	      Position		      [15, 15, 160, 45]
+	      ForegroundColor	      blue
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      ShowName		      off
+	      OpenFcn		      "fdchelp aeromod"
+	      ShowPortLabels	      off
+	      MaskDisplay	      "disp('AEROMOD\\nM.O. Rauw, October "
+				      "1997')"
+	      MaskIconFrame	      on
+	      MaskIconOpaque	      on
+	      MaskIconRotate	      none
+	      MaskIconUnits	      autoscale
+	      System {
+		Name			"0"
+		Location		[99, 72, 274, 227]
+		Open			off
+		ScreenColor		white
+	      }
+	    }
+	    Block {
+	      BlockType		      Demux
+	      Name		      "Demux"
+	      Ports		      [1, 4, 0, 0, 0]
+	      Position		      [70, 77, 75, 148]
+	      BackgroundColor	      black
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Outputs		      "[1 1 1 9]"
+	    }
+	    Block {
+	      BlockType		      Demux
+	      Name		      "Demux1"
+	      Ports		      [1, 4, 0, 0, 0]
+	      Position		      [70, 263, 75, 322]
+	      BackgroundColor	      black
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Outputs		      "4"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "Fcn"
+	      Position		      [210, 95, 250, 115]
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Expr		      "u[1]^2"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "Fcn1"
+	      Position		      [210, 115, 250, 135]
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Expr		      "u[1]^3"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "Fcn2"
+	      Position		      [210, 155, 250, 175]
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Expr		      "u[1]^2"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "Fcn3"
+	      Position		      [210, 175, 250, 195]
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Expr		      "u[1]^3"
+	    }
+	    Block {
+	      BlockType		      StateSpace
+	      Name		      "Matrix Gain"
+	      Position		      [480, 210, 540, 240]
+	      FontName		      "Arial"
+	      A			      "A"
+	      B			      "B"
+	      C			      "C"
+	      D			      "D"
+	      X0		      "0"
+	      MaskType		      "Matrix Gain"
+	      MaskDescription	      "Matrix Gain"
+	      MaskHelp		      "This block implements an matrix gain.\\n"
+				      "The matrix dimensions must be in "
+				      "accordance\\nwith the dimension of "
+				      "the inputvector."
+	      MaskPromptString	      "Gain matrix:"
+	      MaskStyleString	      "edit"
+	      MaskInitialization      "A = []; B = []; C = []; D = @1;"
+	      MaskDisplay	      "disp('y = A*u')"
+	      MaskIconFrame	      on
+	      MaskIconOpaque	      on
+	      MaskIconRotate	      none
+	      MaskIconUnits	      autoscale
+	      MaskValueString	      "AM"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [17, 1, 0, 0, 0]
+	      Position		      [415, 48, 420, 402]
+	      BackgroundColor	      black
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Inputs		      "[1 1 1 1 1 1 1 3 1 1 1 1 1 1 1 1 1]"
+	    }
+	    Block {
+	      BlockType		      Product
+	      Name		      "Product"
+	      Ports		      [2, 1, 0, 0, 0]
+	      Position		      [220, 330, 235, 350]
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Inputs		      "2"
+	    }
+	    Block {
+	      BlockType		      Product
+	      Name		      "Product1"
+	      Ports		      [2, 1, 0, 0, 0]
+	      Position		      [220, 355, 235, 375]
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Inputs		      "2"
+	    }
+	    Block {
+	      BlockType		      Product
+	      Name		      "Product2"
+	      Ports		      [2, 1, 0, 0, 0]
+	      Position		      [220, 380, 235, 400]
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Inputs		      "2"
+	    }
+	    Block {
+	      BlockType		      Product
+	      Name		      "Product3"
+	      Ports		      [2, 1, 0, 0, 0]
+	      Position		      [290, 405, 305, 425]
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Inputs		      "2"
+	    }
+	    Block {
+	      BlockType		      Terminator
+	      Name		      "Terminator"
+	      Position		      [90, 83, 105, 97]
+	      ShowName		      off
+	    }
+	    Block {
+	      BlockType		      Terminator
+	      Name		      "Terminator1"
+	      Position		      [90, 128, 105, 142]
+	      ShowName		      off
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "const"
+	      Position		      [350, 45, 370, 65]
+	      FontName		      "Arial"
+	      Value		      "1"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "const1"
+	      Position		      [350, 420, 370, 440]
+	      FontName		      "Arial"
+	      Value		      "0"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Caero"
+	      Position		      [565, 215, 585, 235]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      Port		      "1"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      4
+	      DstBlock		      "Terminator1"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      1
+	      DstBlock		      "Terminator"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "const1"
+	      SrcPort		      1
+	      Points		      [15, 0; 0, -45]
+	      DstBlock		      "Mux"
+	      DstPort		      17
+	    }
+	    Line {
+	      SrcBlock		      "const"
+	      SrcPort		      1
+	      Points		      [15, 0; 0, 10]
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "ydl"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      8
+	    }
+	    Line {
+	      SrcBlock		      "Product3"
+	      SrcPort		      1
+	      Points		      [70, 0; 0, -50]
+	      DstBlock		      "Mux"
+	      DstPort		      16
+	    }
+	    Line {
+	      SrcBlock		      "Product2"
+	      SrcPort		      1
+	      Points		      [130, 0; 0, -45]
+	      DstBlock		      "Mux"
+	      DstPort		      15
+	    }
+	    Line {
+	      SrcBlock		      "Product1"
+	      SrcPort		      1
+	      Points		      [120, 0; 0, -40]
+	      DstBlock		      "Mux"
+	      DstPort		      14
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "Demux1"
+	      SrcPort		      1
+	      Points		      [195, 0]
+	      Branch {
+		Points			[35, 0; 0, -45]
+		DstBlock		"Mux"
+		DstPort			9
+	      }
+	      Branch {
+		DstBlock		"Product3"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Fcn2"
+	      SrcPort		      1
+	      Points		      [10, 0]
+	      Branch {
+		DstBlock		"Mux"
+		DstPort			6
+	      }
+	      Branch {
+		Points			[0, 255]
+		DstBlock		"Product3"
+		DstPort			2
+	      }
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "Demux1"
+	      SrcPort		      4
+	      Points		      [125, 0]
+	      Branch {
+		Points			[90, 0; 0, -70]
+		DstBlock		"Mux"
+		DstPort			10
+	      }
+	      Branch {
+		DstBlock		"Product"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      2
+	      Points		      [70, 0]
+	      Branch {
+		Labels			[2, 0]
+		Points			[0, -20]
+		DstBlock		"Mux"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[20, 0]
+		Branch {
+		  DstBlock		  "Fcn"
+		  DstPort		  1
+		}
+		Branch {
+		  Points		  [0, 20]
+		  DstBlock		  "Fcn1"
+		  DstPort		  1
+		}
+	      }
+	      Branch {
+		Labels			[1, 0]
+		Points			[0, 240]
+		Branch {
+		  DstBlock		  "Product"
+		  DstPort		  2
+		}
+		Branch {
+		  Points		  [0, 25]
+		  Branch {
+		    DstBlock		    "Product1"
+		    DstPort		    2
+		  }
+		  Branch {
+		    Points		    [0, 25]
+		    DstBlock		    "Product2"
+		    DstPort		    2
+		  }
+		}
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Demux"
+	      SrcPort		      3
+	      Points		      [80, 0; 0, 25]
+	      Branch {
+		DstBlock		"Mux"
+		DstPort			5
+	      }
+	      Branch {
+		Points			[0, 20]
+		Branch {
+		  DstBlock		  "Fcn2"
+		  DstPort		  1
+		}
+		Branch {
+		  Points		  [0, 20]
+		  DstBlock		  "Fcn3"
+		  DstPort		  1
+		}
+	      }
+	    }
+	    Line {
+	      Labels		      [0, 0]
+	      SrcBlock		      "Demux1"
+	      SrcPort		      2
+	      Points		      [115, 0]
+	      Branch {
+		Points			[135, 0; 0, -20]
+		DstBlock		"Mux"
+		DstPort			11
+	      }
+	      Branch {
+		Points			[0, 100]
+		DstBlock		"Product2"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Demux1"
+	      SrcPort		      3
+	      Points		      [105, 0]
+	      Branch {
+		Points			[155, 0; 0, -15]
+		DstBlock		"Mux"
+		DstPort			12
+	      }
+	      Branch {
+		Points			[0, 60]
+		DstBlock		"Product1"
+		DstPort			1
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "Product"
+	      SrcPort		      1
+	      Points		      [110, 0; 0, -35]
+	      DstBlock		      "Mux"
+	      DstPort		      13
+	    }
+	    Line {
+	      SrcBlock		      "Fcn3"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      7
+	    }
+	    Line {
+	      SrcBlock		      "uaero"
+	      SrcPort		      1
+	      DstBlock		      "Demux1"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Fcn1"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      4
+	    }
+	    Line {
+	      SrcBlock		      "Fcn"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "x"
+	      SrcPort		      1
+	      DstBlock		      "Demux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Matrix Gain"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Matrix Gain"
+	      SrcPort		      1
+	      DstBlock		      "Caero"
+	      DstPort		      1
+	    }
+	    Annotation {
+	      Position		      [378, 467]
+	      VerticalAlignment	      top
+	      ForegroundColor	      red
+	      FontName		      "Arial"
+	      Text		      "ytmp = [1  alpha  alpha^2  alpha^3  "
+				      "beta  beta^2  beta^3  pb/2V  qc/V  "
+				      "rb/2V  deltae              \ndeltaf  "
+				      "deltaa  deltar  alpha*deltaf  alpha*delt"
+				      "ar  alpha*deltaa  deltae*beta^2  0 ]'"
+	    }
+	    Annotation {
+	      Position		      [92, 192]
+	      VerticalAlignment	      top
+	      FontName		      "Arial"
+	      Text		      "[pb/2V qc/V rb/2V]'"
+	    }
+	    Annotation {
+	      Position		      [125, 107]
+	      VerticalAlignment	      top
+	      FontName		      "Arial"
+	      Text		      "beta"
+	    }
+	    Annotation {
+	      Position		      [104, 257]
+	      VerticalAlignment	      top
+	      FontName		      "Arial"
+	      Text		      "deltae "
+	    }
+	    Annotation {
+	      Position		      [104, 272]
+	      VerticalAlignment	      top
+	      FontName		      "Arial"
+	      Text		      "deltaa "
+	    }
+	    Annotation {
+	      Position		      [104, 287]
+	      VerticalAlignment	      top
+	      FontName		      "Arial"
+	      Text		      "deltar"
+	    }
+	    Annotation {
+	      Position		      [104, 302]
+	      VerticalAlignment	      top
+	      FontName		      "Arial"
+	      Text		      "deltaf"
+	    }
+	    Annotation {
+	      Position		      [128, 92]
+	      VerticalAlignment	      top
+	      FontName		      "Arial"
+	      Text		      "alpha"
+	    }
+	    Annotation {
+	      Position		      [448, 212]
+	      VerticalAlignment	      top
+	      FontName		      "Arial"
+	      Text		      "ytmp"
+	    }
+	    Annotation {
+	      Position		      [515, 267]
+	      VerticalAlignment	      top
+	      ForegroundColor	      red
+	      FontName		      "Arial"
+	      Text		      "Here: Caero=AM*ytmp"
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "dl"
+	  Ports			  [1, 1, 0, 0, 0]
+	  Position		  [75, 59, 135, 91]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  ShowPortLabels	  off
+	  MaskType		  "Dimless"
+	  MaskDescription	  "Dimensionless rotational velocities."
+	  MaskHelp		  "eval('fdchelp dimless')"
+	  MaskPromptString	  "Mean aerodynamic chord [m]:|Wing span [m]:"
+	  MaskStyleString	  "edit,edit"
+	  MaskVariables		  "cbar=@1;b=@2;"
+	  MaskDisplay		  "disp('Dimless')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  MaskValueString	  "GM1(1)|GM1(2)"
+	  System {
+	    Name		    "dl"
+	    Location		    [4, 42, 330, 230]
+	    Open		    off
+	    ScreenColor		    white
+	    Block {
+	      BlockType		      Inport
+	      Name		      "x"
+	      Position		      [15, 100, 35, 120]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      Port		      "1"
+	      PortWidth		      "-1"
+	      SampleTime	      "-1"
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "0"
+	      Ports		      [0, 0, 0, 0, 0]
+	      Position		      [10, 10, 165, 40]
+	      ForegroundColor	      blue
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      ShowName		      off
+	      OpenFcn		      "fdchelp dimless"
+	      ShowPortLabels	      off
+	      MaskDisplay	      "disp('DIMLESS\\nM.O. Rauw, October "
+				      "1997')"
+	      MaskIconFrame	      on
+	      MaskIconOpaque	      on
+	      MaskIconRotate	      none
+	      MaskIconUnits	      autoscale
+	      System {
+		Name			"0"
+		Location		[99, 72, 274, 227]
+		Open			off
+		ScreenColor		white
+	      }
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [3, 1, 0, 0, 0]
+	      Position		      [250, 50, 255, 170]
+	      BackgroundColor	      black
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Inputs		      "3"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "pb/2V"
+	      Position		      [90, 62, 210, 78]
+	      FontName		      "Arial"
+	      Expr		      "0.5 * u[4] * b / u[1]"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "qc/V"
+	      Position		      [90, 101, 210, 119]
+	      FontName		      "Arial"
+	      Expr		      "u[5] * cbar / u[1]"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "rb/2V"
+	      Position		      [90, 141, 210, 159]
+	      FontName		      "Arial"
+	      Expr		      "0.5 * u[6] * b / u[1]"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "ydl"
+	      Position		      [290, 100, 310, 120]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      Port		      "1"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "pb/2V"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "qc/V"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "rb/2V"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "ydl"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "x"
+	      SrcPort		      1
+	      Points		      [20, 0]
+	      Branch {
+		DstBlock		"qc/V"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, 40]
+		DstBlock		"rb/2V"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, -40]
+		DstBlock		"pb/2V"
+		DstPort			1
+	      }
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "fmdims"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [285, 154, 345, 181]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  ShowPortLabels	  off
+	  MaskType		  "FMdims"
+	  MaskDescription	  "Calculate forces and moments from\ndimension"
+				  "less coefficients."
+	  MaskHelp		  "eval('fdchelp fmdims')"
+	  MaskPromptString	  "Mean aerodynamic chord [m]:|Wing span "
+				  "[m]:|Wing surface [m^2]:"
+	  MaskStyleString	  "edit,edit,edit"
+	  MaskVariables		  "cbar=@1;b=@2;S=@3;"
+	  MaskDisplay		  "disp('FMdims')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  MaskValueString	  "GM1(1)|GM1(2)|GM1(3)"
+	  System {
+	    Name		    "fmdims"
+	    Location		    [4, 42, 544, 294]
+	    Open		    off
+	    ScreenColor		    white
+	    Block {
+	      BlockType		      Inport
+	      Name		      "yad1"
+	      Position		      [25, 100, 45, 120]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      Port		      "1"
+	      PortWidth		      "-1"
+	      SampleTime	      "-1"
+	    }
+	    Block {
+	      BlockType		      Inport
+	      Name		      "Force /\nmoment\ncoefficients"
+	      Position		      [25, 140, 45, 160]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      Port		      "2"
+	      PortWidth		      "-1"
+	      SampleTime	      "-1"
+	    }
+	    Block {
+	      BlockType		      SubSystem
+	      Name		      "0"
+	      Ports		      [0, 0, 0, 0, 0]
+	      Position		      [5, 5, 155, 35]
+	      ForegroundColor	      blue
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      ShowName		      off
+	      OpenFcn		      "fdchelp fmdims"
+	      ShowPortLabels	      off
+	      MaskDisplay	      "disp('FMDIMS\\nM.O. Rauw, October 1997')"
+	      MaskIconFrame	      on
+	      MaskIconOpaque	      on
+	      MaskIconRotate	      none
+	      MaskIconUnits	      autoscale
+	      System {
+		Name			"0"
+		Location		[99, 72, 274, 227]
+		Open			off
+		ScreenColor		white
+	      }
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [2, 1, 0, 0, 0]
+	      Position		      [150, 100, 155, 135]
+	      BackgroundColor	      black
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Inputs		      "[3 6]"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux1"
+	      Ports		      [6, 1, 0, 0, 0]
+	      Position		      [440, 62, 445, 178]
+	      BackgroundColor	      black
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Inputs		      "6"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "S"
+	      Position		      [75, 136, 110, 164]
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Gain		      "S"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "b"
+	      Position		      [335, 123, 375, 157]
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Gain		      "b"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "b "
+	      Position		      [335, 203, 375, 237]
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Gain		      "b"
+	    }
+	    Block {
+	      BlockType		      Gain
+	      Name		      "cbar"
+	      Position		      [335, 160, 380, 200]
+	      FontName		      "Arial"
+	      ShowName		      off
+	      Gain		      "cbar"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "qdyn * S * CX"
+	      Position		      [220, 20, 310, 40]
+	      FontName		      "Arial"
+	      Expr		      "u[4]*u[3]"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "qdyn * S * CY"
+	      Position		      [220, 55, 310, 75]
+	      FontName		      "Arial"
+	      Expr		      "u[5]*u[3]"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "qdyn * S * CZ"
+	      Position		      [220, 90, 310, 110]
+	      FontName		      "Arial"
+	      Expr		      "u[6]*u[3]"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "qdyn * S * Cl"
+	      Position		      [220, 130, 310, 150]
+	      FontName		      "Arial"
+	      Expr		      "u[7]*u[3]"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "qdyn * S * Cm"
+	      Position		      [220, 170, 310, 190]
+	      FontName		      "Arial"
+	      Expr		      "u[8]*u[3]"
+	    }
+	    Block {
+	      BlockType		      Fcn
+	      Name		      "qdyn * S * Cn"
+	      Position		      [220, 210, 310, 230]
+	      FontName		      "Arial"
+	      Expr		      "u[9]*u[3]"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Forces and\nmoments"
+	      Position		      [495, 110, 515, 130]
+	      DropShadow	      on
+	      FontName		      "Arial"
+	      Port		      "1"
+	      OutputWhenDisabled      held
+	      InitialOutput	      "0"
+	    }
+	    Line {
+	      SrcBlock		      "Mux1"
+	      SrcPort		      1
+	      DstBlock		      "Forces and\nmoments"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "b "
+	      SrcPort		      1
+	      Points		      [35, 0; 0, -50]
+	      DstBlock		      "Mux1"
+	      DstPort		      6
+	    }
+	    Line {
+	      SrcBlock		      "cbar"
+	      SrcPort		      1
+	      Points		      [20, 0; 0, -30]
+	      DstBlock		      "Mux1"
+	      DstPort		      5
+	    }
+	    Line {
+	      SrcBlock		      "Force /\nmoment\ncoefficients"
+	      SrcPort		      1
+	      DstBlock		      "S"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      Points		      [35, 0]
+	      Branch {
+		Points			[0, -20]
+		Branch {
+		  DstBlock		  "qdyn * S * CZ"
+		  DstPort		  1
+		}
+		Branch {
+		  Points		  [0, -35]
+		  Branch {
+		    Points		    [0, -35]
+		    DstBlock		    "qdyn * S * CX"
+		    DstPort		    1
+		  }
+		  Branch {
+		    DstBlock		    "qdyn * S * CY"
+		    DstPort		    1
+		  }
+		}
+	      }
+	      Branch {
+		Points			[0, 20]
+		Branch {
+		  DstBlock		  "qdyn * S * Cl"
+		  DstPort		  1
+		}
+		Branch {
+		  Points		  [0, 40]
+		  Branch {
+		    DstBlock		    "qdyn * S * Cm"
+		    DstPort		    1
+		  }
+		  Branch {
+		    Points		    [0, 40]
+		    DstBlock		    "qdyn * S * Cn"
+		    DstPort		    1
+		  }
+		}
+	      }
+	    }
+	    Line {
+	      SrcBlock		      "qdyn * S * Cl"
+	      SrcPort		      1
+	      DstBlock		      "b"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "qdyn * S * Cm"
+	      SrcPort		      1
+	      DstBlock		      "cbar"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "qdyn * S * Cn"
+	      SrcPort		      1
+	      DstBlock		      "b "
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "yad1"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "qdyn * S * CX"
+	      SrcPort		      1
+	      Points		      [100, 0; 0, 40]
+	      DstBlock		      "Mux1"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "qdyn * S * CY"
+	      SrcPort		      1
+	      Points		      [90, 0; 0, 25]
+	      DstBlock		      "Mux1"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "S"
+	      SrcPort		      1
+	      Points		      [15, 0; 0, -25]
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "qdyn * S * CZ"
+	      SrcPort		      1
+	      Points		      [75, 0; 0, 10]
+	      DstBlock		      "Mux1"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "b"
+	      SrcPort		      1
+	      Points		      [10, 0; 0, -10]
+	      DstBlock		      "Mux1"
+	      DstPort		      4
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "ydl"
+	  Position		  [365, 65, 385, 85]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Caero"
+	  Position		  [365, 110, 385, 130]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "2"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "FMaero"
+	  Position		  [365, 160, 385, 180]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "3"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "aero"
+	  SrcPort		  1
+	  Points		  [15, 0]
+	  Branch {
+	    DstBlock		    "Caero"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 55]
+	    DstBlock		    "fmdims"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  SrcBlock		  "dl"
+	  SrcPort		  1
+	  Points		  [15, 0]
+	  Branch {
+	    DstBlock		    "ydl"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 60]
+	    DstBlock		    "aero"
+	    DstPort		    3
+	  }
+	}
+	Line {
+	  SrcBlock		  "x"
+	  SrcPort		  1
+	  Points		  [10, 0]
+	  Branch {
+	    DstBlock		    "dl"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 30]
+	    DstBlock		    "aero"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "uaero"
+	  SrcPort		  1
+	  DstBlock		  "aero"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "yad1"
+	  SrcPort		  1
+	  DstBlock		  "fmdims"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "fmdims"
+	  SrcPort		  1
+	  DstBlock		  "FMaero"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "aero"
+      Ports		      [3, 1, 0, 0, 0]
+      Position		      [30, 92, 90, 138]
+      FontName		      "Arial"
+      ShowName		      off
+      ShowPortLabels	      off
+      MaskType		      "Aeromod"
+      MaskDescription	      "Aerodynamic model of the DHC-2 'Beaver'."
+      MaskHelp		      "eval('fdchelp aeromod')"
+      MaskDisplay	      "disp('Aeromod\\n(Beaver)')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      System {
+	Name			"aero"
+	Location		[4, 42, 620, 554]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  Inport
+	  Name			  "x"
+	  Position		  [15, 105, 35, 125]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "uaero"
+	  Position		  [15, 285, 35, 305]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "2"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "ydl"
+	  Position		  [15, 195, 35, 215]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "3"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "0"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [15, 15, 160, 45]
+	  ForegroundColor	  blue
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  ShowName		  off
+	  OpenFcn		  "fdchelp aeromod"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('AEROMOD\\nM.O. Rauw, October 1997')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "0"
+	    Location		    [99, 72, 274, 227]
+	    Open		    off
+	    ScreenColor		    white
+	  }
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux"
+	  Ports			  [1, 4, 0, 0, 0]
+	  Position		  [70, 77, 75, 148]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Outputs		  "[1 1 1 9]"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux1"
+	  Ports			  [1, 4, 0, 0, 0]
+	  Position		  [70, 263, 75, 322]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Outputs		  "4"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "Fcn"
+	  Position		  [210, 95, 250, 115]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Expr			  "u[1]^2"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "Fcn1"
+	  Position		  [210, 115, 250, 135]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Expr			  "u[1]^3"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "Fcn2"
+	  Position		  [210, 155, 250, 175]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Expr			  "u[1]^2"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "Fcn3"
+	  Position		  [210, 175, 250, 195]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Expr			  "u[1]^3"
+	}
+	Block {
+	  BlockType		  StateSpace
+	  Name			  "Matrix Gain"
+	  Position		  [480, 210, 540, 240]
+	  FontName		  "Arial"
+	  A			  "A"
+	  B			  "B"
+	  C			  "C"
+	  D			  "D"
+	  X0			  "0"
+	  MaskType		  "Matrix Gain"
+	  MaskDescription	  "Matrix Gain"
+	  MaskHelp		  "This block implements an matrix gain.\\nThe "
+				  "matrix dimensions must be in accordance\\nwi"
+				  "th the dimension of the inputvector."
+	  MaskPromptString	  "Gain matrix:"
+	  MaskStyleString	  "edit"
+	  MaskInitialization	  "A = []; B = []; C = []; D = @1;"
+	  MaskDisplay		  "disp('y = A*u')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  MaskValueString	  "AM"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  Ports			  [17, 1, 0, 0, 0]
+	  Position		  [415, 48, 420, 402]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "[1 1 1 1 1 1 1 3 1 1 1 1 1 1 1 1 1]"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "Product"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [220, 330, 235, 350]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "Product1"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [220, 355, 235, 375]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "Product2"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [220, 380, 235, 400]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "Product3"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [290, 405, 305, 425]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "2"
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator"
+	  Position		  [90, 83, 105, 97]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Terminator
+	  Name			  "Terminator1"
+	  Position		  [90, 128, 105, 142]
+	  ShowName		  off
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "const"
+	  Position		  [350, 45, 370, 65]
+	  FontName		  "Arial"
+	  Value			  "1"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "const1"
+	  Position		  [350, 420, 370, 440]
+	  FontName		  "Arial"
+	  Value			  "0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Caero"
+	  Position		  [565, 215, 585, 235]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  4
+	  DstBlock		  "Terminator1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  1
+	  DstBlock		  "Terminator"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "const1"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, -45]
+	  DstBlock		  "Mux"
+	  DstPort		  17
+	}
+	Line {
+	  SrcBlock		  "const"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, 10]
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  Labels		  [0, 0]
+	  SrcBlock		  "ydl"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  8
+	}
+	Line {
+	  SrcBlock		  "Product3"
+	  SrcPort		  1
+	  Points		  [70, 0; 0, -50]
+	  DstBlock		  "Mux"
+	  DstPort		  16
+	}
+	Line {
+	  SrcBlock		  "Product2"
+	  SrcPort		  1
+	  Points		  [130, 0; 0, -45]
+	  DstBlock		  "Mux"
+	  DstPort		  15
+	}
+	Line {
+	  SrcBlock		  "Product1"
+	  SrcPort		  1
+	  Points		  [120, 0; 0, -40]
+	  DstBlock		  "Mux"
+	  DstPort		  14
+	}
+	Line {
+	  Labels		  [0, 0]
+	  SrcBlock		  "Demux1"
+	  SrcPort		  1
+	  Points		  [195, 0]
+	  Branch {
+	    Points		    [35, 0; 0, -45]
+	    DstBlock		    "Mux"
+	    DstPort		    9
+	  }
+	  Branch {
+	    DstBlock		    "Product3"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Fcn2"
+	  SrcPort		  1
+	  Points		  [10, 0]
+	  Branch {
+	    DstBlock		    "Mux"
+	    DstPort		    6
+	  }
+	  Branch {
+	    Points		    [0, 255]
+	    DstBlock		    "Product3"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  Labels		  [0, 0]
+	  SrcBlock		  "Demux1"
+	  SrcPort		  4
+	  Points		  [125, 0]
+	  Branch {
+	    Points		    [90, 0; 0, -70]
+	    DstBlock		    "Mux"
+	    DstPort		    10
+	  }
+	  Branch {
+	    DstBlock		    "Product"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  2
+	  Points		  [70, 0]
+	  Branch {
+	    Labels		    [2, 0]
+	    Points		    [0, -20]
+	    DstBlock		    "Mux"
+	    DstPort		    2
+	  }
+	  Branch {
+	    Points		    [20, 0]
+	    Branch {
+	      DstBlock		      "Fcn"
+	      DstPort		      1
+	    }
+	    Branch {
+	      Points		      [0, 20]
+	      DstBlock		      "Fcn1"
+	      DstPort		      1
+	    }
+	  }
+	  Branch {
+	    Labels		    [1, 0]
+	    Points		    [0, 240]
+	    Branch {
+	      DstBlock		      "Product"
+	      DstPort		      2
+	    }
+	    Branch {
+	      Points		      [0, 25]
+	      Branch {
+		DstBlock		"Product1"
+		DstPort			2
+	      }
+	      Branch {
+		Points			[0, 25]
+		DstBlock		"Product2"
+		DstPort			2
+	      }
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  3
+	  Points		  [80, 0; 0, 25]
+	  Branch {
+	    DstBlock		    "Mux"
+	    DstPort		    5
+	  }
+	  Branch {
+	    Points		    [0, 20]
+	    Branch {
+	      DstBlock		      "Fcn2"
+	      DstPort		      1
+	    }
+	    Branch {
+	      Points		      [0, 20]
+	      DstBlock		      "Fcn3"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Line {
+	  Labels		  [0, 0]
+	  SrcBlock		  "Demux1"
+	  SrcPort		  2
+	  Points		  [115, 0]
+	  Branch {
+	    Points		    [135, 0; 0, -20]
+	    DstBlock		    "Mux"
+	    DstPort		    11
+	  }
+	  Branch {
+	    Points		    [0, 100]
+	    DstBlock		    "Product2"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Demux1"
+	  SrcPort		  3
+	  Points		  [105, 0]
+	  Branch {
+	    Points		    [155, 0; 0, -15]
+	    DstBlock		    "Mux"
+	    DstPort		    12
+	  }
+	  Branch {
+	    Points		    [0, 60]
+	    DstBlock		    "Product1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Product"
+	  SrcPort		  1
+	  Points		  [110, 0; 0, -35]
+	  DstBlock		  "Mux"
+	  DstPort		  13
+	}
+	Line {
+	  SrcBlock		  "Fcn3"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  7
+	}
+	Line {
+	  SrcBlock		  "uaero"
+	  SrcPort		  1
+	  DstBlock		  "Demux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Fcn1"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Fcn"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "x"
+	  SrcPort		  1
+	  DstBlock		  "Demux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  DstBlock		  "Matrix Gain"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Matrix Gain"
+	  SrcPort		  1
+	  DstBlock		  "Caero"
+	  DstPort		  1
+	}
+	Annotation {
+	  Position		  [378, 467]
+	  VerticalAlignment	  top
+	  ForegroundColor	  red
+	  FontName		  "Arial"
+	  Text			  "ytmp = [1  alpha  alpha^2  alpha^3  beta  "
+				  "beta^2  beta^3  pb/2V  qc/V  rb/2V  deltae  "
+				  "            \ndeltaf  deltaa  deltar  "
+				  "alpha*deltaf  alpha*deltar  alpha*deltaa  "
+				  "deltae*beta^2  0 ]'"
+	}
+	Annotation {
+	  Position		  [92, 192]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  Text			  "[pb/2V qc/V rb/2V]'"
+	}
+	Annotation {
+	  Position		  [125, 107]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  Text			  "beta"
+	}
+	Annotation {
+	  Position		  [104, 257]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  Text			  "deltae "
+	}
+	Annotation {
+	  Position		  [104, 272]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  Text			  "deltaa "
+	}
+	Annotation {
+	  Position		  [104, 287]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  Text			  "deltar"
+	}
+	Annotation {
+	  Position		  [104, 302]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  Text			  "deltaf"
+	}
+	Annotation {
+	  Position		  [128, 92]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  Text			  "alpha"
+	}
+	Annotation {
+	  Position		  [448, 212]
+	  VerticalAlignment	  top
+	  FontName		  "Arial"
+	  Text			  "ytmp"
+	}
+	Annotation {
+	  Position		  [515, 267]
+	  VerticalAlignment	  top
+	  ForegroundColor	  red
+	  FontName		  "Arial"
+	  Text			  "Here: Caero=AM*ytmp"
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "dl"
+      Ports		      [1, 1, 0, 0, 0]
+      Position		      [30, 39, 90, 71]
+      FontName		      "Arial"
+      ShowName		      off
+      ShowPortLabels	      off
+      MaskType		      "Dimless"
+      MaskDescription	      "Dimensionless rotational velocities."
+      MaskHelp		      "eval('fdchelp dimless')"
+      MaskPromptString	      "Mean aerodynamic chord [m]:|Wing span [m]:"
+      MaskStyleString	      "edit,edit"
+      MaskVariables	      "cbar=@1;b=@2;"
+      MaskDisplay	      "disp('Dimless')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      MaskValueString	      "GM1(1)|GM1(2)"
+      System {
+	Name			"dl"
+	Location		[4, 42, 330, 230]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  Inport
+	  Name			  "x"
+	  Position		  [15, 100, 35, 120]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "0"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [10, 10, 165, 40]
+	  ForegroundColor	  blue
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  ShowName		  off
+	  OpenFcn		  "fdchelp dimless"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('DIMLESS\\nM.O. Rauw, October 1997')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "0"
+	    Location		    [99, 72, 274, 227]
+	    Open		    off
+	    ScreenColor		    white
+	  }
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  Ports			  [3, 1, 0, 0, 0]
+	  Position		  [250, 50, 255, 170]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "3"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "pb/2V"
+	  Position		  [90, 62, 210, 78]
+	  FontName		  "Arial"
+	  Expr			  "0.5 * u[4] * b / u[1]"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "qc/V"
+	  Position		  [90, 101, 210, 119]
+	  FontName		  "Arial"
+	  Expr			  "u[5] * cbar / u[1]"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "rb/2V"
+	  Position		  [90, 141, 210, 159]
+	  FontName		  "Arial"
+	  Expr			  "0.5 * u[6] * b / u[1]"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "ydl"
+	  Position		  [290, 100, 310, 120]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "pb/2V"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "qc/V"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "rb/2V"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  DstBlock		  "ydl"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "x"
+	  SrcPort		  1
+	  Points		  [20, 0]
+	  Branch {
+	    DstBlock		    "qc/V"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 40]
+	    DstBlock		    "rb/2V"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -40]
+	    DstBlock		    "pb/2V"
+	    DstPort		    1
+	  }
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "fmdims"
+      Ports		      [2, 1, 0, 0, 0]
+      Position		      [30, 164, 90, 191]
+      FontName		      "Arial"
+      ShowName		      off
+      ShowPortLabels	      off
+      MaskType		      "FMdims"
+      MaskDescription	      "Calculate forces and moments from\ndimensionless"
+			      " coefficients."
+      MaskHelp		      "eval('fdchelp fmdims')"
+      MaskPromptString	      "Mean aerodynamic chord [m]:|Wing span [m]:|Wing "
+			      "surface [m^2]:"
+      MaskStyleString	      "edit,edit,edit"
+      MaskVariables	      "cbar=@1;b=@2;S=@3;"
+      MaskDisplay	      "disp('FMdims')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      none
+      MaskIconUnits	      autoscale
+      MaskValueString	      "GM1(1)|GM1(2)|GM1(3)"
+      System {
+	Name			"fmdims"
+	Location		[4, 42, 544, 294]
+	Open			off
+	ScreenColor		white
+	Block {
+	  BlockType		  Inport
+	  Name			  "yad1"
+	  Position		  [25, 100, 45, 120]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "Force /\nmoment\ncoefficients"
+	  Position		  [25, 140, 45, 160]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "2"
+	  PortWidth		  "-1"
+	  SampleTime		  "-1"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "0"
+	  Ports			  [0, 0, 0, 0, 0]
+	  Position		  [5, 5, 155, 35]
+	  ForegroundColor	  blue
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  ShowName		  off
+	  OpenFcn		  "fdchelp fmdims"
+	  ShowPortLabels	  off
+	  MaskDisplay		  "disp('FMDIMS\\nM.O. Rauw, October 1997')"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  none
+	  MaskIconUnits		  autoscale
+	  System {
+	    Name		    "0"
+	    Location		    [99, 72, 274, 227]
+	    Open		    off
+	    ScreenColor		    white
+	  }
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  Ports			  [2, 1, 0, 0, 0]
+	  Position		  [150, 100, 155, 135]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "[3 6]"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux1"
+	  Ports			  [6, 1, 0, 0, 0]
+	  Position		  [440, 62, 445, 178]
+	  BackgroundColor	  black
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Inputs		  "6"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "S"
+	  Position		  [75, 136, 110, 164]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Gain			  "S"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "b"
+	  Position		  [335, 123, 375, 157]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Gain			  "b"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "b "
+	  Position		  [335, 203, 375, 237]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Gain			  "b"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "cbar"
+	  Position		  [335, 160, 380, 200]
+	  FontName		  "Arial"
+	  ShowName		  off
+	  Gain			  "cbar"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "qdyn * S * CX"
+	  Position		  [220, 20, 310, 40]
+	  FontName		  "Arial"
+	  Expr			  "u[4]*u[3]"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "qdyn * S * CY"
+	  Position		  [220, 55, 310, 75]
+	  FontName		  "Arial"
+	  Expr			  "u[5]*u[3]"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "qdyn * S * CZ"
+	  Position		  [220, 90, 310, 110]
+	  FontName		  "Arial"
+	  Expr			  "u[6]*u[3]"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "qdyn * S * Cl"
+	  Position		  [220, 130, 310, 150]
+	  FontName		  "Arial"
+	  Expr			  "u[7]*u[3]"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "qdyn * S * Cm"
+	  Position		  [220, 170, 310, 190]
+	  FontName		  "Arial"
+	  Expr			  "u[8]*u[3]"
+	}
+	Block {
+	  BlockType		  Fcn
+	  Name			  "qdyn * S * Cn"
+	  Position		  [220, 210, 310, 230]
+	  FontName		  "Arial"
+	  Expr			  "u[9]*u[3]"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Forces and\nmoments"
+	  Position		  [495, 110, 515, 130]
+	  DropShadow		  on
+	  FontName		  "Arial"
+	  Port			  "1"
+	  OutputWhenDisabled	  held
+	  InitialOutput		  "0"
+	}
+	Line {
+	  SrcBlock		  "Mux1"
+	  SrcPort		  1
+	  DstBlock		  "Forces and\nmoments"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "b "
+	  SrcPort		  1
+	  Points		  [35, 0; 0, -50]
+	  DstBlock		  "Mux1"
+	  DstPort		  6
+	}
+	Line {
+	  SrcBlock		  "cbar"
+	  SrcPort		  1
+	  Points		  [20, 0; 0, -30]
+	  DstBlock		  "Mux1"
+	  DstPort		  5
+	}
+	Line {
+	  SrcBlock		  "Force /\nmoment\ncoefficients"
+	  SrcPort		  1
+	  DstBlock		  "S"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  Points		  [35, 0]
+	  Branch {
+	    Points		    [0, -20]
+	    Branch {
+	      DstBlock		      "qdyn * S * CZ"
+	      DstPort		      1
+	    }
+	    Branch {
+	      Points		      [0, -35]
+	      Branch {
+		Points			[0, -35]
+		DstBlock		"qdyn * S * CX"
+		DstPort			1
+	      }
+	      Branch {
+		DstBlock		"qdyn * S * CY"
+		DstPort			1
+	      }
+	    }
+	  }
+	  Branch {
+	    Points		    [0, 20]
+	    Branch {
+	      DstBlock		      "qdyn * S * Cl"
+	      DstPort		      1
+	    }
+	    Branch {
+	      Points		      [0, 40]
+	      Branch {
+		DstBlock		"qdyn * S * Cm"
+		DstPort			1
+	      }
+	      Branch {
+		Points			[0, 40]
+		DstBlock		"qdyn * S * Cn"
+		DstPort			1
+	      }
+	    }
+	  }
+	}
+	Line {
+	  SrcBlock		  "qdyn * S * Cl"
+	  SrcPort		  1
+	  DstBlock		  "b"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "qdyn * S * Cm"
+	  SrcPort		  1
+	  DstBlock		  "cbar"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "qdyn * S * Cn"
+	  SrcPort		  1
+	  DstBlock		  "b "
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "yad1"
+	  SrcPort		  1
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "qdyn * S * CX"
+	  SrcPort		  1
+	  Points		  [100, 0; 0, 40]
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "qdyn * S * CY"
+	  SrcPort		  1
+	  Points		  [90, 0; 0, 25]
+	  DstBlock		  "Mux1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "S"
+	  SrcPort		  1
+	  Points		  [15, 0; 0, -25]
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "qdyn * S * CZ"
+	  SrcPort		  1
+	  Points		  [75, 0; 0, 10]
+	  DstBlock		  "Mux1"
+	  DstPort		  3
+	}
+	Line {
+	  SrcBlock		  "b"
+	  SrcPort		  1
+	  Points		  [10, 0; 0, -10]
+	  DstBlock		  "Mux1"
+	  DstPort		  4
+	}
+      }
+    }
+    Annotation {
+      Position		      [174, 162]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      Text		      "<--- block to obtain the actual\nforces and "
+			      "moments, also used\nin engine group"
+    }
+    Annotation {
+      Position		      [189, 102]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      Text		      "<--- aerodynamic forces and moments\nmodel "
+			      "of the 'Beaver' (gives force\nand moment "
+			      "coefficients)"
+    }
+    Annotation {
+      Position		      [179, 42]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      Text		      "<--- block which makes rotational\nspeeds "
+			      "p,q,r dimensionless"
+    }
+    Annotation {
+      Position		      [147, 217]
+      VerticalAlignment	      top
+      ForegroundColor	      red
+      FontName		      "Arial"
+      FontSize		      11
+      Text		      "All three blocks are necessary to solve the "
+			      "aircraft\nequations of motion for the 'Beaver'. "
+			      "The aerodynamic\nmodel itself is aircraft-depend"
+			      "ent (of course)."
+    }
+    Annotation {
+      Position		      [429, 42]
+      VerticalAlignment	      top
+      ForegroundColor	      red
+      FontName		      "Arial"
+      FontSize		      11
+      Text		      "In the system BEAVER, these blocks have been\ngr"
+			      "ouped in the subsystem 'Aerodynamics Group'.\nCl"
+			      "ick help buttons and subsystem-title blocks\nfor"
+			      " more info about inputs, outputs, etc."
+    }
+    Annotation {
+      Position		      [439, 152]
+      VerticalAlignment	      top
+      FontName		      "Arial"
+      Text		      "Aerodynamics\nGroup (Beaver)"
+    }
+    Annotation {
+      Position		      [158, 7]
+      VerticalAlignment	      top
+      ForegroundColor	      blue
+      FontName		      "Times New Roman"
+      FontSize		      14
+      FontWeight	      bold
+      Text		      "FDC Toolbox - Aerodynamics library (Beaver)"
+    }
+  }
+}

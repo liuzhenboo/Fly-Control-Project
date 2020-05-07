@@ -1,0 +1,76 @@
+-----------------------------------------------------------------
+XYHDOT is a masked Simulink subsystem which is contained in the
+sub-subsystem '12 ODEs' of the subsystem 'Aircraft Equations of
+Motion (Beaver)', within the S-function BEAVER. It computes time-
+derivatives of the coordinates xe and ye and the altitude H (last
+three state variables of the nonlinear aircraft model).
+
+Inputvector: uxyh (the inputvariables which are not used in
+XYHDOT are displayed between accolades).
+===========================================================
+  uxyh = [x' Ftot' Mtot' yhlp'], and [u+uw  v+vw  w+ww]'.
+
+  x    = [V alpha beta p q r psi theta phi xe ye H]'     (states)
+
+  Ftot = [Fx Fy Fz]'           (total forces along the body-axes,
+                                    computed in the block FMSORT)
+
+  Mtot = [L M N]'             (total moments along the body-axes,
+                                    computed in the block FMSORT)
+
+  yhlp = [cos(alpha) sin(alpha) cos(beta) sin(beta) ...
+          ... tan(beta) sin(psi) cos(psi) sin(theta) ...
+          ... cos(theta) sin(phi) cos(phi)]'
+            (frequently used sines & cosines, computed in HLPFCN)
+
+  [u+uw  v+vw  w+ww]' = [u v w]' + [uw vw ww]' = ybvel+uwind(1:3);
+  ybvel is computed in the masked subsystem block UVW, uwind is
+  an external inputvector with atmospheric disturbances.
+
+furthermore:
+
+ {V    : airspeed [m/s]                                         }
+ {alpha: angle of attack [rad]                                  }
+ {beta : sideslip angle [rad]                                   }
+ {p    : roll rate [rad/s]                                      }
+ {q    : pitch rate [rad/s]                                     }
+ {r    : yaw rate [rad/s]                                       }
+  psi  : yaw angle [rad]
+  theta: pitch angle [rad]
+  phi  : roll angle [rad]
+ {xe   : x-coordinate in Earth-fixed reference frame [m]        }
+ {ye   : y-coordinate ''     ''          ''      ''  [m]        }
+ {H    : altitude above sea-level [m]                           }
+
+ {Fx, Fy, Fz: total forces along the aircraft's body-axes [N]   }
+ {L, M, N   : total moments along the aircraft's body-axes [Nm] }
+
+  u    : component of the airspeed V along the XB-axis [m/s]
+  v    : component of the airspeed V along the YB-axis [m/s]
+  w    : component of the airspeed V along the ZB-axis [m/s]
+  uw   : component of wind + turbulence along XB-axis [m/s]
+  vw   : component of wind + turbulence along YB-axis [m/s]
+  ww   : component of wind + turbulence along ZB-axis [m/s]
+
+Outputvector: yxyh.
+===================
+   yxyh = [xdot ydot Hdot]'
+
+where:
+
+   xdot = d(xe)/dt [m/s]
+   ydot = d(ye)/dt [m/s]
+   Hdot = dH/dt [m/s]
+
+More info.
+==========
+See VABDOT.HLP, PQRDOT.HLP, EULERDOT.HLP, and 12ODES.HLP for more
+details about the time-derivatives of the other state variables.
+The block XYHDOT uses outputs from UVW, FMSORT, and HLPFCN as in-
+put variables; see UVW.HLP, FMSORT.HLP, and HLPFCN.HLP for more
+info.
+
+See also EQMOTION.HLP.
+
+-----------------------------------------------
+The FDC toolbox, Copyright Marc Rauw 1994-2002.
