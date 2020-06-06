@@ -1,0 +1,5 @@
+note:本程序基于64位MATLAB2016a编写，请尽量使用64位相同版本运行。
+1、运行main.m即可验证非线性模型并绘图，运行时请选择默认配平点。
+2、Aircraft.mdl是非线性飞机模型
+3、剖面飞行验证有线性模型linemodel和非线性模型nonlinmodel。
+4、nlplant.c为气动力和力矩计算模块
